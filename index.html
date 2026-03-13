@@ -1389,7 +1389,7 @@
   <div class="faq-grid">
 
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Do I need trading experience to use Kuro-Flow?<span class="faq-icon">+</span></button>
-      <div class="faq-a">No. Kuro-Flow runs fully autonomously on your MT5 terminal — it opens, manages and closes trades on its own. You do not need to analyse the market or make any trading decisions. The only setup required is attaching the EA to a USDJPY M5 chart and entering your license key. A step-by-step installation guide is included with every subscription.</div></div>
+      <div class="faq-a">Kuro-Flow runs fully autonomously — it opens, manages and closes trades without any intervention. You do not need to analyse charts or make trading decisions. However, <strong>a basic understanding of MT5 and your broker or prop firm's rules is recommended</strong> before going live, especially on a funded challenge.</div></div>
 
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I use it on a prop firm challenge?<span class="faq-icon">+</span></button>
       <div class="faq-a">Yes. Kuro-Flow has been personally verified on <strong>The5ers, GoatFunded and ACGMarkets</strong>. For other prop firms, the EA's session and range filters can be adjusted to comply with specific drawdown or news trading rules. We recommend testing compatibility on a trial account before running a paid challenge.</div></div>
@@ -1401,25 +1401,31 @@
       <div class="faq-a">Any broker offering <strong>MT5, USDJPY with spreads below 2 pips, and automated trading allowed</strong>. We personally recommend The5ers, GoatFunded and ACGMarkets. Avoid brokers with minimum holding times, no-EA policies or excessive slippage on USDJPY.</div></div>
 
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I use it on multiple accounts?<span class="faq-icon">+</span></button>
-      <div class="faq-a">Each license is tied to <strong>one MT5 account number</strong>. If you need to run it on a second account, a separate subscription is required. To migrate to a new account, contact us at licencias<span>&#64;</span>kuro-flow.com.</div></div>
+      <div class="faq-a">Each license is tied to <strong>one MT5 account number</strong>. If you need to run it on a second account, a separate subscription is required. To migrate to a different account, contact us at licencias<span>&#64;</span>kuro-flow.com — we will expire the old key and issue a new one for your new account number.</div></div>
 
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Do I need to leave MT5 open 24/5?<span class="faq-icon">+</span></button>
-      <div class="faq-a">Yes — the EA requires MT5 to be running and connected during market hours. If your computer is not always on, we recommend using a <strong>VPS (Virtual Private Server)</strong>. Many prop firms include a free VPS, and services like Vultr or Contabo offer options from $5/month.</div></div>
+      <div class="faq-a">No — MT5 only needs to be running during the <strong>EA's active session windows</strong>. Kuro-Flow operates within two defined daily time ranges. Outside those windows, the EA does not trade and your terminal does not need to be connected. A VPS is still recommended for reliability during those windows.</div></div>
 
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I run it on a VPS?<span class="faq-icon">+</span></button>
-      <div class="faq-a">Yes, and it is strongly recommended. A VPS ensures the EA runs uninterrupted 24/5. Install MT5 on the VPS, copy the EA file, attach it to the chart and enter your license key — the setup is identical to a local machine.</div></div>
+      <div class="faq-a">Yes, and it is strongly recommended. A VPS ensures MT5 is running and connected during the EA's active windows without depending on your personal computer. Install MT5 on the VPS, copy the EA file, attach it to the chart and enter your license key — the setup is identical to a local machine.</div></div>
 
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What timeframe does the EA use?<span class="faq-icon">+</span></button>
-      <div class="faq-a">Kuro-Flow is coded exclusively for the <strong>M5 (5-minute) chart on USDJPY</strong>. Attaching it to any other timeframe or pair will not produce the expected results.</div></div>
+      <div class="faq-a">The included optimized set file is configured for the <strong>M5 (5-minute) chart on USDJPY</strong>. That said, you are free to run your own backtests and experiment with different timeframes or parameters — the EA supports it. Just note that the verified results and certificates correspond to the M5 configuration.</div></div>
 
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What happens during high-impact news events?<span class="faq-icon">+</span></button>
-      <div class="faq-a">Kuro-Flow does not have a built-in automatic news filter. However, the session time inputs can be manually adjusted to avoid windows around high-impact USD/JPY events such as NFP or BOJ decisions — the recommended approach for prop firm accounts with strict news rules.</div></div>
+      <div class="faq-a">Kuro-Flow does not have a built-in automatic news filter. However, the session time inputs can be manually adjusted to avoid windows around high-impact USD/JPY events such as NFP or BOJ decisions — the recommended approach for prop firm accounts with strict news trading rules.</div></div>
 
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How many trades does it open per day?<span class="faq-icon">+</span></button>
       <div class="faq-a">The system is designed around <strong>1 high-quality trade per day</strong>. Each trade must meet all session, range and direction filters before the EA enters. Some days there will be no trades if conditions are not met — quality over quantity.</div></div>
 
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Is there a free trial?<span class="faq-icon">+</span></button>
-      <div class="faq-a">Yes — we offer a <strong>7-day free trial</strong>. Full access, no credit card required. Contact us at licencias<span>&#64;</span>kuro-flow.com to request your trial key.</div></div>
+      <div class="faq-a" id="faq-trial-answer">Yes — we offer a <strong>7-day free trial</strong>. Enter your email below and your trial license key will be sent to you automatically. No credit card required.
+        <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap" id="trial-form">
+          <input type="email" id="trial-email" placeholder="your@email.com" style="flex:1;min-width:200px;padding:10px 16px;background:#0a0a0c;border:1px solid rgba(201,168,76,0.3);color:var(--paper);font-family:'DM Mono',monospace;font-size:0.78rem;outline:none;">
+          <button onclick="requestTrial()" style="padding:10px 24px;background:var(--gold);color:var(--ink);border:none;cursor:pointer;font-family:'DM Mono',monospace;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Get Trial Key →</button>
+        </div>
+        <div id="trial-msg" style="margin-top:10px;font-size:0.78rem;display:none"></div>
+      </div></div>
 
   </div>
 </section>
@@ -1506,6 +1512,45 @@
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeLightbox();
   });
+
+  async function requestTrial() {
+    var email = document.getElementById('trial-email').value.trim();
+    var msg = document.getElementById('trial-msg');
+    var btn = document.querySelector('#trial-form button');
+    if (!email || !email.includes('@')) {
+      msg.style.display = 'block';
+      msg.style.color = '#ed6e6e';
+      msg.textContent = 'Please enter a valid email address.';
+      return;
+    }
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    try {
+      var res = await fetch('https://kuroflow-license-server.onrender.com/trial', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, ip: '' })
+      });
+      var data = await res.json();
+      msg.style.display = 'block';
+      if (data.clave || data.key || res.ok) {
+        document.getElementById('trial-form').style.display = 'none';
+        msg.style.color = '#6edd9e';
+        msg.textContent = '✓ Trial key sent to ' + email + '. Check your inbox (and spam folder).';
+      } else {
+        msg.style.color = '#ed6e6e';
+        msg.textContent = data.error || 'Something went wrong. Please try again.';
+        btn.textContent = 'Get Trial Key →';
+        btn.disabled = false;
+      }
+    } catch(e) {
+      msg.style.display = 'block';
+      msg.style.color = '#ed6e6e';
+      msg.textContent = 'Connection error. Please try again in a moment.';
+      btn.textContent = 'Get Trial Key →';
+      btn.disabled = false;
+    }
+  }
 </script>
 </body>
 </html>
