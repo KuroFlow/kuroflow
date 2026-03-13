@@ -169,8 +169,9 @@ nav {
       <div class="dash-title">Markets are <span id="market-status-text" style="color:var(--gold)">loading...</span></div>
     </div>
     <div class="dash-time">
-      <div id="utc-clock" style="font-size:1.2rem;font-weight:700;margin-bottom:4px;color:var(--paper)">--:--:--</div>
-      <div>UTC · <span id="date-display">—</span></div>
+      <div id="utc-clock" style="font-size:1.2rem;font-weight:700;margin-bottom:2px;color:var(--paper)">--:--:--</div>
+      <div style="margin-bottom:4px">UTC · <span id="date-display">—</span></div>
+      <div id="local-clock" style="font-size:0.82rem;color:rgba(245,243,238,0.35)">--:--:-- local</div>
     </div>
   </div>
 
@@ -261,12 +262,15 @@ nav {
     <!-- WEEKLY ANALYSIS -->
     <div class="dash-card span3">
       <div class="card-tag">Weekly Market Analysis</div>
-      <div class="analysis-meta">
-        <div class="analysis-week" id="analysis-week">—</div>
-        <div class="analysis-ai-tag">⬡ AI-generated · Updated weekly</div>
-      </div>
-      <div class="analysis-body" id="analysis-body">
-        <div class="loading-row"><div class="spinner"></div> Generating weekly analysis...</div>
+      <div style="display:flex;align-items:center;gap:20px;padding:24px;border:1px solid rgba(201,168,76,0.15);background:rgba(201,168,76,0.03)">
+        <div style="font-size:1.6rem;flex-shrink:0">⬡</div>
+        <div>
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:6px">AI-powered weekly briefing — coming soon</div>
+          <div style="font-family:'DM Mono',monospace;font-size:0.72rem;color:rgba(245,243,238,0.35);line-height:1.7">
+            Every week, an automated analysis of USDJPY macro context, key levels and algorithm conditions will appear here.<br>
+            In the meantime, follow high-impact events via the calendar above and <a href="https://www.forexfactory.com/calendar" target="_blank" style="color:var(--gold);text-decoration:none">Forex Factory</a>.
+          </div>
+        </div>
       </div>
     </div>
 
@@ -336,6 +340,7 @@ function updateClock() {
   const utc = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
   document.getElementById('utc-clock').textContent = utc.toTimeString().slice(0,8);
   document.getElementById('date-display').textContent = utc.toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short', year:'numeric' });
+  document.getElementById('local-clock').textContent = now.toTimeString().slice(0,8) + ' local';
 }
 setInterval(updateClock, 1000); updateClock();
 
