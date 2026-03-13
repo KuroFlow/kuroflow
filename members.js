@@ -58,6 +58,8 @@ function updateClock() {
   const utc = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
   document.getElementById('utc-clock').textContent = utc.toTimeString().slice(0,8);
   document.getElementById('date-display').textContent = utc.toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short', year:'numeric' });
+  const localEl = document.getElementById('local-clock');
+  if (localEl) localEl.textContent = now.toTimeString().slice(0,8) + ' local';
 }
 setInterval(updateClock, 1000); updateClock();
 
