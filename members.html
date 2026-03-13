@@ -145,7 +145,7 @@ nav {
     <div class="login-sub">Members Area · Restricted Access</div>
     <label class="login-label">Your license key</label>
     <input class="login-input" id="login-key" type="text" placeholder="KF-M-XXXX-XXXX" maxlength="24">
-    <button class="btn-login" id="login-btn" onclick="doLogin()">Access Members Area →</button>
+    <button class="btn-login" id="login-btn">Access Members Area →</button>
     <div class="login-error" id="login-error"></div>
     <p class="login-disclaimer">Exclusive to active Kuro-Flow subscribers.<br>Your key was sent to your email after purchase.</p>
   </div>
@@ -335,6 +335,7 @@ function showDashboard(key) {
 function doLogout() { sessionStorage.clear(); location.reload(); }
 
 document.getElementById('login-key').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+document.getElementById('login-btn').addEventListener('click', doLogin);
 const savedKey = sessionStorage.getItem('kf_key');
 if (savedKey) showDashboard(savedKey);
 
