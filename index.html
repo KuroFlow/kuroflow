@@ -729,6 +729,41 @@
     footer { padding: 32px 24px; }
     .footer-inner { flex-direction: column; }
   }
+
+  /* ─── FAQ ──────────────────────────────── */
+  #faq { padding: 100px 48px; border-top: 1px solid var(--border); background: var(--ink); }
+  .faq-header { text-align: center; margin-bottom: 60px; }
+  .faq-grid { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 2px; }
+  .faq-item { border: 1px solid var(--border); overflow: hidden; background: #0f0f12; }
+  .faq-q {
+    width: 100%; text-align: left; padding: 22px 28px;
+    background: transparent; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700;
+    color: var(--paper); transition: background 0.2s;
+  }
+  .faq-q:hover { background: rgba(255,255,255,0.04); }
+  .faq-q.open { background: rgba(201,168,76,0.06); }
+  .faq-icon {
+    width: 22px; height: 22px; border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 0.85rem; color: var(--gold); transition: transform 0.3s;
+  }
+  .faq-q.open .faq-icon { transform: rotate(45deg); }
+  .faq-a {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+    padding: 0 28px;
+    font-size: 0.88rem; color: rgba(245,243,238,0.55); line-height: 1.8;
+    border-top: 0px solid var(--border);
+  }
+  .faq-a.open {
+    max-height: 300px;
+    padding: 18px 28px 24px;
+    border-top: 1px solid var(--border);
+  }
+  .faq-a strong { color: var(--paper); font-weight: 500; }
+  .faq-a a { color: var(--gold); text-decoration: none; }
 </style>
 </head>
 <body>
@@ -743,9 +778,10 @@
     <li><a href="#anti-hype">Methodology</a></li>
     <li><a href="#member">Members</a></li>
     <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#faq">FAQ</a></li>
     <li><a href="members.html" target="_blank" style="color:var(--gold)">Members →</a></li>
   </ul>
-  <a href="https://kuroflow.gumroad.com/l/ngqzzi" target="_blank" class="nav-cta">Ver Planes →</a>
+  <a href="https://kuroflow.gumroad.com/l/ngqzzi" target="_blank" class="nav-cta">View Plans →</a>
 </nav>
 
 
@@ -871,7 +907,7 @@
       <div class="myfxbook-frame">
         <div class="myfxbook-label">
           <span>Backtest · USDJPY M5 · 2020–2026</span>
-          <span class="verified-badge">99% Historia</span>
+          <span class="verified-badge">99% History</span>
         </div>
 
         <div class="myfxbook-stats">
@@ -1362,6 +1398,128 @@
 </section>
 
 
+
+<!-- ─── FAQ ────────────────────────────────── -->
+<section id="faq">
+  <div class="faq-header">
+    <div class="section-tag">// FAQ</div>
+    <h2 class="section-h2">Common questions</h2>
+  </div>
+  <div class="faq-grid">
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Do I need trading experience to use Kuro-Flow?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        No. Kuro-Flow runs fully autonomously on your MT5 terminal — it opens, manages and closes trades on its own. You do not need to analyse the market or make any trading decisions. The only setup required is attaching the EA to a USDJPY M5 chart and entering your license key. A step-by-step installation guide is included with every subscription.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Can I use it on a prop firm challenge?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        Yes. Kuro-Flow has been personally verified on <strong>The5ers, GoatFunded and ACGMarkets</strong>. For other prop firms, the EA's session and range filters can be adjusted to comply with specific drawdown or news trading rules. We recommend testing compatibility on a trial account or demo before running a paid challenge.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        What is the minimum recommended balance?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        We recommend a minimum of <strong>$10,000</strong> (or equivalent prop firm capital). At 0.5% risk per trade, this allows the EA to size positions correctly without over-leveraging. The EA will run on smaller accounts but results will deviate from the backtest parameters.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        What broker do I need?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        Any broker that offers <strong>MT5, USDJPY with spreads below 2 pips, and allows automated trading</strong>. We personally recommend The5ers, GoatFunded and ACGMarkets based on our own funded account experience. Avoid brokers with minimum holding times, no-EA policies or excessive slippage on USDJPY.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Can I use it on multiple accounts?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        Each license is tied to <strong>one MT5 account number</strong>. If you need to run it on a second account, a separate subscription is required. If you need to migrate to a new account, contact us at <strong>licencias<span>&#64;</span>kuro-flow.com</strong>.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Do I need to leave MT5 open 24/5?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        Yes — the EA requires MT5 to be running and connected to your broker during market hours. If your computer is not always on, we recommend using a <strong>VPS (Virtual Private Server)</strong>. Many prop firms include a free VPS, and services like Vultr or Contabo offer affordable options from $5/month.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Can I run it on a VPS?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        Yes, and it is strongly recommended. A VPS ensures the EA runs uninterrupted 24/5 regardless of your internet connection or computer status. Install MT5 on the VPS, copy the EA file, attach it to the chart and enter your license key — the setup process is identical to a local machine.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        What timeframe does the EA use?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        Kuro-Flow is coded exclusively for the <strong>M5 (5-minute) chart on USDJPY</strong>. Attaching it to any other timeframe or pair will not produce the expected results and is not supported.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        What happens during high-impact news events?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        Kuro-Flow does not have a built-in automatic news filter. However, the EA's session time inputs can be manually adjusted to avoid trading windows around high-impact USD and JPY events such as NFP or BOJ decisions. This is the recommended approach for prop firm accounts with strict news trading rules.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        How many trades does it open per day?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        The system is designed around <strong>1 high-quality trade per day</strong>. Quality over quantity — each trade must meet all session, range and direction filters before the EA enters. Some days there will be no trades if conditions are not met.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Is there a free trial?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        Yes — we offer a <strong>7-day free trial</strong>. The trial license activates automatically and gives you full access to run the EA on your MT5 account. No credit card required to start. <a href="/cdn-cgi/l/email-protection#cba7a2a8aea5a8a2aab8ede8fdfff0a0beb9a4e6ada7a4bce5a8a4a6">Contact us</a> to request your trial key.
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ─── FOOTER ─────────────────────────────── -->
 <footer>
   <div class="footer-inner">
@@ -1379,7 +1537,7 @@
 </footer>
 
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -1425,6 +1583,11 @@
     document.body.style.overflow = '';
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-</script>
-</body>
-</html>
+
+  // FAQ accordion
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+    document.querySelectorAll('.faq-q.open').forEach(function(b) {
+      b.classList.remove('open');
+      b.nextElementSibling.
