@@ -158,6 +158,20 @@
   .btn-primary:hover {
     background: transparent; color: var(--ink);
   }
+
+  .btn-primary-light {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem; letter-spacing: 0.05em;
+    padding: 16px 36px;
+    background: var(--paper); color: var(--ink);
+    border: 2px solid var(--paper);
+    cursor: pointer; text-decoration: none;
+    transition: all 0.25s;
+    display: inline-block;
+  }
+  .btn-primary-light:hover {
+    background: transparent; color: var(--paper); border-color: var(--paper);
+  }
   .btn-ghost {
     font-family: 'DM Mono', monospace;
     font-size: 0.82rem; letter-spacing: 0.05em;
@@ -1035,7 +1049,7 @@
       <h2 class="ah-h2">
         A 3.31% drawdown<br>
         is not a weakness.<br>
-        Es la <span style="text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:4px">ventaja.</span>
+        It is the <span style="text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:4px">edge.</span>
       </h2>
       <p class="ah-sub">
         The market does not reward blind boldness. It rewards structural consistency.
@@ -1174,7 +1188,7 @@
     </div>
 
     <div style="text-align:center;margin-top:48px" class="fade-up">
-      <a href="https://kuroflow.gumroad.com/l/ngqzzi" target="_blank" class="btn-primary" style="display:inline-block">
+      <a href="https://kuroflow.gumroad.com/l/ngqzzi" target="_blank" class="btn-primary-light" style="display:inline-block">
         Unlock Full Access →
       </a>
     </div>
@@ -1208,28 +1222,28 @@
       <div style="transform:rotate(-2deg);transition:transform 0.35s ease,box-shadow 0.35s ease;cursor:pointer"
            onmouseover="this.style.transform='rotate(0deg) translateY(-8px) scale(1.03)';this.style.boxShadow='0 24px 60px rgba(201,168,76,0.25)'"
            onmouseout="this.style.transform='rotate(-2deg)';this.style.boxShadow='none'">
-        <img src="cert-funded.png" alt="Funded Certificate The5ers" style="width:100%;display:block;border:1px solid #2a2a2e;border-radius:4px">
+        <img src="cert-funded.png" onclick="openLightbox('cert-funded.png')" style="cursor:zoom-in" alt="Funded Certificate The5ers" style="width:100%;display:block;border:1px solid #2a2a2e;border-radius:4px">
         <div style="padding:10px 0 0;font-family:'DM Mono',monospace;font-size:0.62rem;color:rgba(245,243,238,0.4);letter-spacing:0.1em;text-transform:uppercase">Funded Certificate · Jul 2025</div>
       </div>
 
       <div style="transform:rotate(1.5deg);transition:transform 0.35s ease,box-shadow 0.35s ease;cursor:pointer"
            onmouseover="this.style.transform='rotate(0deg) translateY(-8px) scale(1.03)';this.style.boxShadow='0 24px 60px rgba(201,168,76,0.25)'"
            onmouseout="this.style.transform='rotate(1.5deg)';this.style.boxShadow='none'">
-        <img src="cert-payout1.png" alt="Payout $4,986 The5ers" style="width:100%;display:block;border:1px solid #2a2a2e;border-radius:4px">
+        <img src="cert-payout1.png" onclick="openLightbox('cert-payout1.png')" style="cursor:zoom-in" alt="Payout $4,986 The5ers" style="width:100%;display:block;border:1px solid #2a2a2e;border-radius:4px">
         <div style="padding:10px 0 0;font-family:'DM Mono',monospace;font-size:0.62rem;color:rgba(245,243,238,0.4);letter-spacing:0.1em;text-transform:uppercase">Payout $4,986 · Jul 2025</div>
       </div>
 
       <div style="transform:rotate(-1deg);transition:transform 0.35s ease,box-shadow 0.35s ease;cursor:pointer"
            onmouseover="this.style.transform='rotate(0deg) translateY(-8px) scale(1.03)';this.style.boxShadow='0 24px 60px rgba(201,168,76,0.25)'"
            onmouseout="this.style.transform='rotate(-1deg)';this.style.boxShadow='none'">
-        <img src="cert-payout2.png" alt="Payout $2,080 The5ers" style="width:100%;display:block;border:1px solid #2a2a2e;border-radius:4px">
+        <img src="cert-payout2.png" onclick="openLightbox('cert-payout2.png')" style="cursor:zoom-in" alt="Payout $2,080 The5ers" style="width:100%;display:block;border:1px solid #2a2a2e;border-radius:4px">
         <div style="padding:10px 0 0;font-family:'DM Mono',monospace;font-size:0.62rem;color:rgba(245,243,238,0.4);letter-spacing:0.1em;text-transform:uppercase">Payout $2,080 · Aug 2025</div>
       </div>
 
       <div style="transform:rotate(2deg);transition:transform 0.35s ease,box-shadow 0.35s ease;cursor:pointer"
            onmouseover="this.style.transform='rotate(0deg) translateY(-8px) scale(1.03)';this.style.boxShadow='0 24px 60px rgba(201,168,76,0.25)'"
            onmouseout="this.style.transform='rotate(2deg)';this.style.boxShadow='none'">
-        <img src="cert-total.png" alt="Total Payouts $7,066 The5ers" style="width:100%;display:block;border:1px solid #2a2a2e;border-radius:4px">
+        <img src="cert-total.png" onclick="openLightbox('cert-total.png')" style="cursor:zoom-in" alt="Total Payouts $7,066 The5ers" style="width:100%;display:block;border:1px solid #2a2a2e;border-radius:4px">
         <div style="padding:10px 0 0;font-family:'DM Mono',monospace;font-size:0.62rem;color:rgba(245,243,238,0.4);letter-spacing:0.1em;text-transform:uppercase">Total Payouts · $7,066</div>
       </div>
 
@@ -1409,6 +1423,14 @@
 
   </div>
 </section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.92);backdrop-filter:blur(8px);align-items:center;justify-content:center;cursor:pointer">
+  <div style="position:relative;max-width:90vw;max-height:90vh">
+    <img id="lightbox-img" src="" alt="" style="max-width:90vw;max-height:85vh;object-fit:contain;border:1px solid rgba(201,168,76,0.3);box-shadow:0 40px 100px rgba(0,0,0,0.8)">
+    <div style="position:absolute;top:-16px;right:-16px;width:32px;height:32px;background:#1e1e22;border:1px solid rgba(201,168,76,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(245,243,238,0.6)">✕</div>
+  </div>
+</div>
 <footer>
   <div class="footer-inner">
     <div>
@@ -1470,6 +1492,20 @@
       answer.classList.add('open');
     }
   }
+
+  function openLightbox(src) {
+    var lb = document.getElementById('lightbox');
+    document.getElementById('lightbox-img').src = src;
+    lb.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
 </script>
 </body>
 </html>
