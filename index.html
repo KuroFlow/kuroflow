@@ -145,8 +145,22 @@
     display: inline-block;
   }
   .btn-primary:hover {
-    background: transparent; color: var(--paper);
-}
+    background: transparent; color: var(--ink);
+  }
+  .btn-primary-light {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem; letter-spacing: 0.05em;
+    padding: 16px 36px;
+    background: var(--gold); color: var(--ink);
+    border: 2px solid var(--gold);
+    cursor: pointer; text-decoration: none;
+    transition: all 0.25s;
+    display: inline-block;
+    font-weight: 700;
+  }
+  .btn-primary-light:hover {
+    background: transparent; color: var(--gold);
+  }
   .btn-ghost {
     font-family: 'DM Mono', monospace;
     font-size: 0.82rem; letter-spacing: 0.05em;
@@ -729,8 +743,9 @@
     <li><a href="#anti-hype">Methodology</a></li>
     <li><a href="#member">Members</a></li>
     <li><a href="#pricing">Pricing</a></li>
+    <li><a href="members.html" style="color:var(--gold)">Members →</a></li>
   </ul>
-  <a href="https://kuroflow.gumroad.com/l/ngqzzi" target="_blank" class="nav-cta">View Plans →</a>
+  <a href="https://kuroflow.gumroad.com/l/ngqzzi" target="_blank" class="nav-cta">Ver Planes →</a>
 </nav>
 
 
@@ -773,7 +788,7 @@
         <div class="terminal-dots">
           <span></span><span></span><span></span>
         </div>
-        <span class="terminal-title">KURO-FLOW // REAL BACKTEST BASED</span>
+        <span class="terminal-title">KURO-FLOW // LIVE MONITOR</span>
         <span style="font-family:'DM Mono',monospace;font-size:0.65rem;color:rgba(255,255,255,0.2)">UTC+0</span>
       </div>
       <div class="terminal-body">
@@ -856,7 +871,7 @@
       <div class="myfxbook-frame">
         <div class="myfxbook-label">
           <span>Backtest · USDJPY M5 · 2020–2026</span>
-          <span class="verified-badge">99% Historical</span>
+          <span class="verified-badge">99% Historia</span>
         </div>
 
         <div class="myfxbook-stats">
@@ -1127,8 +1142,12 @@
     </div>
 
     <div style="text-align:center;margin-top:48px" class="fade-up">
-      <a href="https://kuroflow.gumroad.com/l/ngqzzi" target="_blank" class="btn-primary" style="display:inline-block">
+      <a href="https://kuroflow.gumroad.com/l/ngqzzi" target="_blank" class="btn-primary-light" style="display:inline-block">
         Unlock Full Access →
+      </a>
+      <a href="members.html" style="display:block;margin-top:16px;font-family:'DM Mono',monospace;font-size:0.72rem;color:rgba(245,243,238,0.3);letter-spacing:0.06em;text-decoration:none;transition:color 0.2s"
+         onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(245,243,238,0.3)'">
+        Already a member? Access your dashboard →
       </a>
     </div>
   </div>
@@ -1230,7 +1249,7 @@
     <div style="position:absolute;top:-16px;right:-16px;width:32px;height:32px;background:#1e1e22;border:1px solid rgba(201,168,76,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(245,243,238,0.6)">✕</div>
   </div>
 </div>
-<!--   Mensual vs Anual
+     Mensual vs Anual
 ═══════════════════════════════════════════ -->
 <section id="pricing">
   <div class="pricing-header fade-up">
@@ -1309,7 +1328,7 @@
         </li>
         <li class="pf-item" style="color:var(--paper)">
           <span class="pf-check gold">✓</span>
-          <span>Priority access to new versions</span>
+          <span>Access prioritario a nuevas versiones</span>
         </li>
         <li class="pf-item" style="color:var(--paper)">
           <span class="pf-check gold">✓</span>
@@ -1332,6 +1351,13 @@
   <div class="price-note fade-up">
     Payment securely processed via Gumroad · License automatically activated by email<br>
     <span style="opacity:0.5">If you seek absolute certainty, review the audited track record before purchasing.</span>
+  </div>
+
+  <div style="text-align:center;margin-top:24px;padding-bottom:20px">
+    <a href="members.html" style="font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--ash);letter-spacing:0.06em;text-decoration:none;transition:color 0.2s"
+       onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--ash)'">
+      Already a member? Access your dashboard →
+    </a>
   </div>
 </section>
 
