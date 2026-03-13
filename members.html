@@ -256,7 +256,7 @@ nav {
           <span class="ql-icon">📅</span>
           <div><div class="ql-title">Full Calendar</div><div class="ql-sub">Forex Factory</div></div>
         </a>
-        <a href="#" class="quick-link" onclick="window.location.href='mai'+'lto:sup'+'port@kuro-flow.com';return false;">
+        <a href="#" class="quick-link" id="support-link">
           <span class="ql-icon">✉</span>
           <div><div class="ql-title">Support</div><div class="ql-sub">support&#64;kuro-flow.com</div></div>
         </a>
@@ -336,6 +336,14 @@ function doLogout() { sessionStorage.clear(); location.reload(); }
 
 document.getElementById('login-key').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 document.getElementById('login-btn').addEventListener('click', doLogin);
+  var supportLink = document.getElementById('support-link');
+  if (supportLink) {
+    supportLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      var u = 'support'; var d = 'kuro-flow.com';
+      window.location.href = 'mailto:' + u + '@' + d;
+    });
+  }
 const savedKey = sessionStorage.getItem('kf_key');
 if (savedKey) showDashboard(savedKey);
 
