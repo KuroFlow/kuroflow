@@ -473,7 +473,8 @@ function doLogin() {
   fetch(`${LICENSE_SERVER}/validar`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ clave: key, cuenta_mt5: 'MEMBERS_PORTAL', version: '1.0' })
+    body: JSON.stringify({ clave: key, cuenta_mt5: 'MEMBERS_PORTAL', version: '1.0' }),
+    signal: AbortSignal.timeout(12000)
   })
   .then(r => r.json())
   .then(d => {
@@ -486,8 +487,11 @@ function doLogin() {
       btn.textContent = 'Access Members Area →'; btn.disabled = false;
     }
   })
-  .catch(() => {
-    showError('Connection error. Please try again.');
+  .catch(err => {
+    const msg = err.name === 'TimeoutError'
+      ? 'Server is waking up, please try again in 30 seconds.'
+      : 'Connection error. Please try again.';
+    showError(msg);
     btn.textContent = 'Access Members Area →'; btn.disabled = false;
   });
 }
