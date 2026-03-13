@@ -209,7 +209,7 @@ nav {
         <div class="step-body">Go to <strong>gumroad.com/library</strong> and log in with the email you used to purchase. Find the Kuro-Flow product and click <strong>View content</strong>.</div>
         <div class="callout tip">
           <div class="callout-icon">💡</div>
-          <div class="callout-text">Can't find the email? Check your spam folder. The email comes from <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b4d8ddd7d1dad7ddd5c7f4dfc1c6db99d2d8dbc39ad7dbd9">[email&#160;protected]</a></strong> and contains your license key starting with <strong>KF-</strong></div>
+          <div class="callout-text">Can't find the email? Check your spam folder. The email comes from <strong><span class="kf-email"></span></strong> and contains your license key starting with <strong>KF-</strong></div>
         </div>
       </div>
     </div>
@@ -641,7 +641,7 @@ nav {
     <div class="success-banner" id="success-banner" style="display:none">
       <div class="success-icon">✓</div>
       <div class="success-title">You are ready to go live.</div>
-      <div class="success-sub">Kuro-Flow is now running autonomously on your account.<br>Monitor the members dashboard for market context and weekly analysis.<br><br>Questions? Email us at <a href="/cdn-cgi/l/email-protection#2945404a4c474a40485a69425c5b46044f45465e074a4644" style="color:var(--gold)"><span class="__cf_email__" data-cfemail="5d31343e38333e343c2e1d36282f32703b31322a733e3230">[email&#160;protected]</span></a></div>
+      <div class="success-sub">Kuro-Flow is now running autonomously on your account.<br>Monitor the members dashboard for market context and weekly analysis.<br><br>Questions? Email us at <span class="kf-email"></span></div>
     </div>
   </div>
 
@@ -676,6 +676,16 @@ function checkAllDone() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Build email at runtime to prevent Cloudflare obfuscation
+  const kfUser = 'licencias';
+  const kfDomain = 'kuro-flow.com';
+  const kfEmail = kfUser + '@' + kfDomain;
+  document.querySelectorAll('.kf-email').forEach(function(el) {
+    el.innerHTML = '<a href="mailto:' + kfEmail + '" style="color:var(--gold)">' + kfEmail + '</a>';
+  });
+  document.querySelectorAll('a.email-support').forEach(function(el) {
+    el.href = 'mailto:' + kfEmail;
+  });
   document.querySelectorAll('.check-item').forEach(function(item) {
     item.addEventListener('click', function() { toggleCheck(this); });
   });
