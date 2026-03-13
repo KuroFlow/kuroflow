@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kuro-Flow — USDJPY Algorithmic Trading System</title>
+<title>Kuro-Flow — USDJPY Algorithmic Trading</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -59,6 +59,17 @@
     transition: color 0.2s;
   }
   .nav-links a:hover { color: var(--ink); }
+  .nav-members-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.08em;
+    padding: 9px 20px;
+    background: transparent; color: var(--gold);
+    border: 1px solid var(--gold);
+    text-decoration: none;
+    transition: all 0.2s;
+    margin-right: 8px;
+  }
+  .nav-members-btn:hover { background: var(--gold); color: var(--ink); }
   .nav-cta {
     font-family: 'DM Mono', monospace;
     font-size: 0.78rem; letter-spacing: 0.04em;
@@ -146,20 +157,6 @@
   }
   .btn-primary:hover {
     background: transparent; color: var(--ink);
-  }
-  .btn-primary-light {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.85rem; letter-spacing: 0.05em;
-    padding: 16px 36px;
-    background: var(--gold); color: var(--ink);
-    border: 2px solid var(--gold);
-    cursor: pointer; text-decoration: none;
-    transition: all 0.25s;
-    display: inline-block;
-    font-weight: 700;
-  }
-  .btn-primary-light:hover {
-    background: transparent; color: var(--gold);
   }
   .btn-ghost {
     font-family: 'DM Mono', monospace;
@@ -734,7 +731,7 @@
   #faq { padding: 100px 48px; border-top: 1px solid var(--border); background: var(--ink); }
   .faq-header { text-align: center; margin-bottom: 60px; }
   .faq-grid { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 2px; }
-  .faq-item { border: 1px solid var(--border); overflow: hidden; background: #0f0f12; }
+  .faq-item { border: 1px solid rgba(255,255,255,0.07); overflow: hidden; background: #0f0f12; }
   .faq-q {
     width: 100%; text-align: left; padding: 22px 28px;
     background: transparent; border: none; cursor: pointer;
@@ -754,13 +751,13 @@
     max-height: 0; overflow: hidden;
     transition: max-height 0.35s ease, padding 0.35s ease;
     padding: 0 28px;
-    font-size: 0.88rem; color: rgba(245,243,238,0.55); line-height: 1.8;
-    border-top: 0px solid var(--border);
+    font-size: 0.88rem; color: rgba(245,243,238,0.6); line-height: 1.8;
+    border-top: 0px solid rgba(255,255,255,0.07);
   }
   .faq-a.open {
     max-height: 300px;
     padding: 18px 28px 24px;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid rgba(255,255,255,0.07);
   }
   .faq-a strong { color: var(--paper); font-weight: 500; }
   .faq-a a { color: var(--gold); text-decoration: none; }
@@ -778,16 +775,15 @@
     <li><a href="#anti-hype">Methodology</a></li>
     <li><a href="#member">Members</a></li>
     <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#faq">FAQ</a></li>
-    <li><a href="members.html" target="_blank" style="color:var(--gold)">Members →</a></li>
   </ul>
+  <a href="members.html" target="_blank" class="nav-members-btn">Members Area</a>
   <a href="https://kuroflow.gumroad.com/l/ngqzzi" target="_blank" class="nav-cta">View Plans →</a>
 </nav>
 
 
 <!-- ══════════════════════════════════════════
-     SECCIÓN 1: HERO
-     Headline: Ataca el dolor. Propone la solución.
+     SECTION 1: HERO
+     Headline: Pain point. Solution.
 ═══════════════════════════════════════════ -->
 <section id="hero">
   <div class="hero-bg"></div>
@@ -797,8 +793,8 @@
     <div class="hero-tag">USDJPY · Algorithmic Trading · Live Since 2025</div>
 
     <h1>
-      You have lost enough money<br>
-      trusting your <span class="pain">gut feeling.</span><br>
+      You've lost enough money<br>
+      trusting your <span class="pain">gut.</span><br>
       Time to trade with<br>
       <span class="solution">real structure.</span>
     </h1>
@@ -811,7 +807,7 @@
 
     <div class="hero-actions">
       <a href="#proof" class="btn-primary">View Verified Track Record</a>
-      <a href="#pricing" class="btn-ghost">Pricing</a>
+      <a href="#pricing" class="btn-ghost">Plans & Access</a>
     </div>
     <p class="hero-disclaimer">
       ⚠ Trading involves risk. Past performance does not guarantee future results.
@@ -831,7 +827,7 @@
 
         <div class="kpi-grid">
           <div class="kpi-box positive">
-            <div class="kpi-label">Net Profit</div>
+            <div class="kpi-label">Total Return</div>
             <div class="kpi-value green">+154%</div>
           </div>
           <div class="kpi-box positive">
@@ -892,14 +888,14 @@
     <div>
       <div class="section-tag">Historical Backtest · 6.1 Years</div>
       <h2 class="proof-h2">
-        We do not ask you<br>to trust us.<br>
-        We ask you to<br><span style="color:var(--gold)"<>verify.</span>
+        We don't ask you<br>to trust us.<br>
+        We ask you to<br><span style="color:var(--gold)">verify.</span>
       </h2>
       <p class="proof-sub">
-        These figures come from a historical backtest on real USDJPY M5 data
+        This data comes from a historical backtest on real USDJPY M5 data
         from 2020 to 2026, with 99% history quality.
-        The live track record is ongoing — it will be published once it has
-        enough audited history on Myfxbook.
+        The live track record is in progress — it will be published once there is
+        sufficient audited history on Myfxbook.
       </p>
     </div>
 
@@ -938,7 +934,7 @@
         </div>
 
         <div style="font-family:'DM Mono',monospace;font-size:0.62rem;color:rgba(245,243,238,0.3);padding:12px 16px;border-top:1px solid #1e1e22;line-height:1.6">
-          ⚠ Historical backtest data. 99% quality. Not real account results.
+          ⚠ Historical backtest data. 99% quality. Not live account results.
           Past performance does not guarantee future results.
         </div>
       </div>
@@ -948,19 +944,19 @@
   <div class="proof-metrics fade-up">
     <div class="pm-item">
       <div class="pm-num" style="color:var(--gold)">6.1</div>
-      <div class="pm-label">Years of historical data analyzed</div>
+      <div class="pm-label">Years of historical data analysed</div>
     </div>
     <div class="pm-item">
       <div class="pm-num" style="color:#6edd9e">981</div>
-      <div class="pm-label">Trades in the analyzed period</div>
+      <div class="pm-label">Trades in the analysed period</div>
     </div>
     <div class="pm-item">
       <div class="pm-num" style="color:rgba(245,243,238,0.8)">0</div>
-      <div class="pm-label">Stop-outs or margin calls in backtest</div>
+      <div class="pm-label">Stop-outs or margin calls in the backtest</div>
     </div>
     <div class="pm-item">
       <div class="pm-num" style="color:rgba(245,243,238,0.8)">1</div>
-      <div class="pm-label">Pair traded. Full specialization: USDJPY</div>
+      <div class="pm-label">Pair traded. Full specialisation: USDJPY</div>
     </div>
   </div>
 </section>
@@ -968,7 +964,7 @@
 
 <!-- ══════════════════════════════════════════
      SECCIÓN 3: ANTI-HYPE
-     Why a 3.31% DD beats "100% monthly"
+     Por qué un 3.31% DD es mejor que "100% mensual"
 ═══════════════════════════════════════════ -->
 <section id="anti-hype">
   <div class="anti-hype-inner">
@@ -985,19 +981,19 @@
           <div class="ch-right">
             <div class="compare-label good">Kuro-Flow Real</div>
             <div class="compare-pct good">+154%</div>
-            <div class="compare-desc">backtest 6 years · 99% quality</div>
+            <div class="compare-desc">6-year backtest · 99% quality</div>
           </div>
         </div>
         <div class="compare-body">
           <div class="compare-row">
-            <span class="cr-label">Max Drawdown</span>
+            <span class="cr-label">Max drawdown</span>
             <div style="display:flex;gap:20px">
               <span class="cr-val bad">&gt;60%</span>
               <span class="cr-val good">3.31%</span>
             </div>
           </div>
           <div class="compare-row">
-            <span class="cr-label">Track Record verificable</span>
+            <span class="cr-label">Verifiable track record</span>
             <div style="display:flex;gap:20px">
               <span class="cr-val bad">No</span>
               <span class="cr-val good">Backtest 99%</span>
@@ -1013,7 +1009,7 @@
           <div class="compare-row">
             <span class="cr-label">Profit Factor</span>
             <div style="display:flex;gap:20px">
-              <span class="cr-val bad">Sin datos</span>
+              <span class="cr-val bad">No data</span>
               <span class="cr-val good">1.79</span>
             </div>
           </div>
@@ -1029,7 +1025,7 @@
       </div>
 
       <p style="font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--ash);margin-top:12px;line-height:1.5;opacity:0.7">
-        An EA promising 100% monthly requires a drawdown of &gt;50% to generate it.<br>
+        An EA promising 100% monthly requires >50% drawdown to generate it.<br>
         That means every month there is a real chance of losing everything.
       </p>
     </div>
@@ -1039,11 +1035,11 @@
       <h2 class="ah-h2">
         A 3.31% drawdown<br>
         is not a weakness.<br>
-        It is the <span style="text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:4px">edge.</span>
+        Es la <span style="text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:4px">ventaja.</span>
       </h2>
       <p class="ah-sub">
         The market does not reward blind boldness. It rewards structural consistency.
-        Kuro-Flow is designed to survive first, and grow after.
+        Kuro-Flow is designed to survive first, and grow second.
       </p>
       <ul class="ah-points">
         <li class="ah-point">
@@ -1056,7 +1052,7 @@
         <li class="ah-point">
           <div class="ah-icon">02</div>
           <div>
-            <div class="ah-point-title">USDJPY specialization: one pair, one structure</div>
+            <div class="ah-point-title">USDJPY specialisation: one pair, one structure</div>
             <div class="ah-point-desc">Most EAs diversify to hide a low win rate. Kuro-Flow masters one market in depth.</div>
           </div>
         </li>
@@ -1064,13 +1060,13 @@
           <div class="ah-icon">03</div>
           <div>
             <div class="ah-point-title">No Grid, no Martingale, no magic</div>
-            <div class="ah-point-desc">These strategies work… until they do not. Kuro-Flow uses structural price logic with a real stop loss on every trade.</div>
+            <div class="ah-point-desc">These strategies work… until they don't. Kuro-Flow uses structural price logic with a real stop loss on every trade.</div>
           </div>
         </li>
         <li class="ah-point">
           <div class="ah-icon">04</div>
           <div>
-            <div class="ah-point-title">A 1.79 profit factor matters more than win rate</div>
+            <div class="ah-point-title">A profit factor of 1.79 matters more than win rate</div>
             <div class="ah-point-desc">Winning 68% of trades with asymmetric exits produces a stable equity curve. Not spectacular. Sustainable.</div>
           </div>
         </li>
@@ -1091,7 +1087,7 @@
       <div class="section-tag" style="color:var(--gold);justify-content:center">Members Area · Restricted Access</div>
       <h2 class="member-h2">
         This is what<br>
-        the <span style="color:var(--gold)">active members</span> see
+        <span style="color:var(--gold)">active members</span> see
       </h2>
       <p class="member-sub">An environment designed to trade with context, not noise.</p>
     </div>
@@ -1100,11 +1096,11 @@
       <!-- CARD 1: Señales en tiempo real (parcialmente visible) -->
       <div class="member-card">
         <div class="member-card-tag">Real-Time Signals</div>
-        <h3>Dashboard de Active Signals</h3>
-        <p>Receive every algorithm entry and exit with market context, trade rationale and internal confidence level.</p>
+        <h3>Active Signals Dashboard</h3>
+        <p>Get every algorithm entry and exit with market context, trade rationale and internal confidence level.</p>
         <div class="signal-preview">
           <div class="signal-row">
-            <span>Par</span><span>Dirección</span><span>Entry</span><span>SL</span><span>TP</span>
+            <span>Par</span><span>Direction</span><span>Entry</span><span>SL</span><span>TP</span>
           </div>
           <div class="signal-row">
             <span>USDJPY</span>
@@ -1130,7 +1126,7 @@
         <div class="lock-overlay">
           <div style="text-align:center">
             <div class="lock-icon">🔒</div>
-            <div style="font-family:'DM Mono',monospace;font-size:0.65rem;color:rgba(245,243,238,0.3);margin-top:8px;letter-spacing:0.08em">MEMBERS ONLY</div>
+            <div style="font-family:'DM Mono',monospace;font-size:0.65rem;color:rgba(245,243,238,0.3);margin-top:8px;letter-spacing:0.08em">MEMBERS ACCESS</div>
           </div>
         </div>
       </div>
@@ -1139,11 +1135,11 @@
       <div class="member-card" style="position:relative">
         <div class="member-card-tag">Internal Metrics</div>
         <h3>Advanced Stats</h3>
-        <p class="card-data">Sharpe ratio, session analysis, behavior on news days and winning trade distribution.</p>
+        <p class="card-data">Sharpe ratio, session analysis, behaviour on news days and distribution of winning trades.</p>
         <div class="lock-overlay">
           <div style="text-align:center">
             <div class="lock-icon">🔒</div>
-            <div style="font-family:'DM Mono',monospace;font-size:0.65rem;color:rgba(245,243,238,0.3);margin-top:8px;letter-spacing:0.08em">MEMBERS ONLY</div>
+            <div style="font-family:'DM Mono',monospace;font-size:0.65rem;color:rgba(245,243,238,0.3);margin-top:8px;letter-spacing:0.08em">MEMBERS ACCESS</div>
           </div>
         </div>
       </div>
@@ -1154,11 +1150,11 @@
       <div class="member-card" style="position:relative">
         <div class="member-card-tag">Setup & Configuration</div>
         <h3>Step-by-Step Installation Guide</h3>
-        <p>Complete technical documentation to install Kuro-Flow on MT5. Recommended brokers, parameter setup and pre-trade checklist.</p>
+        <p>Complete technical documentation to install Kuro-Flow on MT5. Recommended brokers, parameter configuration and pre-trade checklist.</p>
         <div class="lock-overlay">
           <div style="text-align:center">
             <div class="lock-icon">🔒</div>
-            <div style="font-family:'DM Mono',monospace;font-size:0.65rem;color:rgba(245,243,238,0.3);margin-top:8px;letter-spacing:0.08em">MEMBERS ONLY</div>
+            <div style="font-family:'DM Mono',monospace;font-size:0.65rem;color:rgba(245,243,238,0.3);margin-top:8px;letter-spacing:0.08em">MEMBERS ACCESS</div>
           </div>
         </div>
       </div>
@@ -1171,19 +1167,15 @@
         <div class="lock-overlay">
           <div style="text-align:center">
             <div class="lock-icon">🔒</div>
-            <div style="font-family:'DM Mono',monospace;font-size:0.65rem;color:rgba(245,243,238,0.3);margin-top:8px;letter-spacing:0.08em">MEMBERS ONLY</div>
+            <div style="font-family:'DM Mono',monospace;font-size:0.65rem;color:rgba(245,243,238,0.3);margin-top:8px;letter-spacing:0.08em">MEMBERS ACCESS</div>
           </div>
         </div>
       </div>
     </div>
 
     <div style="text-align:center;margin-top:48px" class="fade-up">
-      <a href="https://kuroflow.gumroad.com/l/ngqzzi" target="_blank" class="btn-primary-light" style="display:inline-block">
+      <a href="https://kuroflow.gumroad.com/l/ngqzzi" target="_blank" class="btn-primary" style="display:inline-block">
         Unlock Full Access →
-      </a>
-      <a href="members.html" target="_blank" style="display:block;margin-top:16px;font-family:'DM Mono',monospace;font-size:0.72rem;color:rgba(245,243,238,0.3);letter-spacing:0.06em;text-decoration:none;transition:color 0.2s"
-         onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(245,243,238,0.3)'">
-        Already a member? Access your dashboard →
       </a>
     </div>
   </div>
@@ -1206,15 +1198,14 @@
         <span style="color:var(--gold)">$7,066 withdrawn.</span>
       </h2>
       <p style="color:rgba(245,243,238,0.45);font-size:0.9rem;margin-top:14px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.7">
-        Real capital managed under prop firm rules. Two verified payouts and public official certificates.
+        Real capital managed under prop firm rules. Two verified payouts with official public certificates.
       </p>
     </div>
 
-    <!-- Galería certificados -->
+    <!-- Certificate gallery -->
     <div class="fade-up" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:56px">
 
       <div style="transform:rotate(-2deg);transition:transform 0.35s ease,box-shadow 0.35s ease;cursor:pointer"
-           onclick="openLightbox('cert-funded.png','Funded Certificate · Jul 2025')"
            onmouseover="this.style.transform='rotate(0deg) translateY(-8px) scale(1.03)';this.style.boxShadow='0 24px 60px rgba(201,168,76,0.25)'"
            onmouseout="this.style.transform='rotate(-2deg)';this.style.boxShadow='none'">
         <img src="cert-funded.png" alt="Funded Certificate The5ers" style="width:100%;display:block;border:1px solid #2a2a2e;border-radius:4px">
@@ -1222,7 +1213,6 @@
       </div>
 
       <div style="transform:rotate(1.5deg);transition:transform 0.35s ease,box-shadow 0.35s ease;cursor:pointer"
-           onclick="openLightbox('cert-payout1.png','Payout $4,986 · Jul 2025')"
            onmouseover="this.style.transform='rotate(0deg) translateY(-8px) scale(1.03)';this.style.boxShadow='0 24px 60px rgba(201,168,76,0.25)'"
            onmouseout="this.style.transform='rotate(1.5deg)';this.style.boxShadow='none'">
         <img src="cert-payout1.png" alt="Payout $4,986 The5ers" style="width:100%;display:block;border:1px solid #2a2a2e;border-radius:4px">
@@ -1230,15 +1220,13 @@
       </div>
 
       <div style="transform:rotate(-1deg);transition:transform 0.35s ease,box-shadow 0.35s ease;cursor:pointer"
-           onclick="openLightbox('cert-payout2.png','Payout $2,080 · Ago 2025')"
            onmouseover="this.style.transform='rotate(0deg) translateY(-8px) scale(1.03)';this.style.boxShadow='0 24px 60px rgba(201,168,76,0.25)'"
            onmouseout="this.style.transform='rotate(-1deg)';this.style.boxShadow='none'">
         <img src="cert-payout2.png" alt="Payout $2,080 The5ers" style="width:100%;display:block;border:1px solid #2a2a2e;border-radius:4px">
-        <div style="padding:10px 0 0;font-family:'DM Mono',monospace;font-size:0.62rem;color:rgba(245,243,238,0.4);letter-spacing:0.1em;text-transform:uppercase">Payout $2,080 · Ago 2025</div>
+        <div style="padding:10px 0 0;font-family:'DM Mono',monospace;font-size:0.62rem;color:rgba(245,243,238,0.4);letter-spacing:0.1em;text-transform:uppercase">Payout $2,080 · Aug 2025</div>
       </div>
 
       <div style="transform:rotate(2deg);transition:transform 0.35s ease,box-shadow 0.35s ease;cursor:pointer"
-           onclick="openLightbox('cert-total.png','Total Payouts · $7,066')"
            onmouseover="this.style.transform='rotate(0deg) translateY(-8px) scale(1.03)';this.style.boxShadow='0 24px 60px rgba(201,168,76,0.25)'"
            onmouseout="this.style.transform='rotate(2deg)';this.style.boxShadow='none'">
         <img src="cert-total.png" alt="Total Payouts $7,066 The5ers" style="width:100%;display:block;border:1px solid #2a2a2e;border-radius:4px">
@@ -1259,7 +1247,7 @@
       </div>
       <div style="text-align:center">
         <div style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:rgba(245,243,238,0.9)">2</div>
-        <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;color:rgba(245,243,238,0.35);text-transform:uppercase;margin-top:4px">Completed Payouts</div>
+        <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;color:rgba(245,243,238,0.35);text-transform:uppercase;margin-top:4px">Payouts Completed</div>
       </div>
       <div style="text-align:center">
         <div style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:rgba(245,243,238,0.9)">0</div>
@@ -1267,29 +1255,13 @@
       </div>
     </div>
 
-    <!-- Nota de transparencia -->
-    <div class="fade-up" style="margin-top:40px;text-align:center">
-      <p style="font-family:'DM Mono',monospace;font-size:0.72rem;color:rgba(245,243,238,0.3);line-height:1.8;max-width:600px;margin:0 auto;letter-spacing:0.02em">
-        Active track record since 2025. Like any algorithmic system, it goes through periods of controlled drawdown within established risk parameters. The certificates above are real and verifiable. The live track record will be published once it accumulates sufficient statistical sample.
-      </p>
-    </div>
-
   </div>
 </section>
 
-<!-- LIGHTBOX -->
-<div id="lightbox" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.92);backdrop-filter:blur(8px);align-items:center;justify-content:center;cursor:pointer">
-  <div style="position:relative;max-width:90vw;max-height:90vh">
-    <img id="lightbox-img" src="" alt="" style="max-width:90vw;max-height:85vh;object-fit:contain;border:1px solid rgba(201,168,76,0.3);box-shadow:0 40px 100px rgba(0,0,0,0.8)">
-    <div id="lightbox-caption" style="text-align:center;font-family:'DM Mono',monospace;font-size:0.7rem;color:rgba(245,243,238,0.4);letter-spacing:0.15em;text-transform:uppercase;margin-top:14px"></div>
-    <div style="position:absolute;top:-16px;right:-16px;width:32px;height:32px;background:#1e1e22;border:1px solid rgba(201,168,76,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(245,243,238,0.6)">✕</div>
-  </div>
-</div>
-     Mensual vs Anual
-═══════════════════════════════════════════ -->
+
 <section id="pricing">
   <div class="pricing-header fade-up">
-    <div class="section-tag" style="justify-content:center;color:var(--ash)">Access a Kuro-Flow</div>
+    <div class="section-tag" style="justify-content:center;color:var(--ash)">Access Kuro-Flow</div>
     <h2 class="pricing-h2">
       Transparent on price,<br>
       as in the <span style="color:var(--gold)">track record.</span>
@@ -1301,7 +1273,7 @@
 
     <!-- PLAN: MENSUAL -->
     <div class="price-card">
-      <div class="price-tier">Monthly Subscription</div>
+      <div class="price-tier">Monthly</div>
       <div class="price-amount">
         <span class="price-currency">€</span>
         <span class="price-number">97</span>
@@ -1343,14 +1315,14 @@
     <!-- PLAN: ANUAL (FEATURED) -->
     <div class="price-card featured">
       <div class="price-badge">Save 50%</div>
-      <div class="price-tier">Annual Subscription</div>
+      <div class="price-tier">Annual</div>
       <div class="price-amount">
         <span class="price-currency" style="color:rgba(245,243,238,0.4)">€</span>
         <span class="price-number" style="color:var(--paper)">582</span>
       </div>
-      <div class="price-period">per year · equals €48.50/month</div>
+      <div class="price-period">per year · equivalent to €48.50/month</div>
       <p class="price-desc">
-        Same full access at half the price. For traders committed to
+        The same full access at half the price. For traders committed to
         trading with discipline and a long-term horizon.
       </p>
       <ul class="price-features">
@@ -1360,7 +1332,7 @@
         </li>
         <li class="pf-item" style="color:var(--paper)">
           <span class="pf-check gold">✓</span>
-          <span>Save €582 vs monthly billing</span>
+          <span>€582 saving vs monthly payments</span>
         </li>
         <li class="pf-item" style="color:var(--paper)">
           <span class="pf-check gold">✓</span>
@@ -1379,148 +1351,64 @@
           <span>Version updates included</span>
         </li>
       </ul>
-      <a href="https://kuroflow.gumroad.com/l/rumdt" target="_blank" class="btn-pricing-primary">Subscribe Annual →</a>
+      <a href="https://kuroflow.gumroad.com/l/rumdt__" target="_blank" class="btn-pricing-primary">Subscribe Annual →</a>
     </div>
 
   </div>
 
   <div class="price-note fade-up">
-    Payment securely processed via Gumroad · License automatically activated by email<br>
-    <span style="opacity:0.5">If you seek absolute certainty, review the audited track record before purchasing.</span>
-  </div>
-
-  <div style="text-align:center;margin-top:24px;padding-bottom:20px">
-    <a href="members.html" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--ash);letter-spacing:0.06em;text-decoration:none;transition:color 0.2s"
-       onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--ash)'">
-      Already a member? Access your dashboard →
-    </a>
+    Payment securely processed via Gumroad · License automatically activated by email</p>
+    <p style="text-align:center;margin-top:20px;font-family:'DM Mono',monospace;font-size:0.75rem;color:rgba(10,10,12,0.4)">Already a member? <a href="members.html" target="_blank" style="color:var(--gold);text-decoration:none">Access your dashboard →</a><br>
+    <span style="opacity:0.5">If you want absolute certainty, review the audited track record before buying.</span>
   </div>
 </section>
 
 
+<!-- ─── FOOTER ─────────────────────────────── -->
 
 <!-- ─── FAQ ────────────────────────────────── -->
 <section id="faq">
   <div class="faq-header">
-    <div class="section-tag">// FAQ</div>
-    <h2 class="section-h2">Common questions</h2>
+    <div class="section-tag" style="justify-content:center">// FAQ</div>
+    <h2 class="section-h2" style="color:var(--paper)">Common questions</h2>
   </div>
   <div class="faq-grid">
 
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        Do I need trading experience to use Kuro-Flow?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">
-        No. Kuro-Flow runs fully autonomously on your MT5 terminal — it opens, manages and closes trades on its own. You do not need to analyse the market or make any trading decisions. The only setup required is attaching the EA to a USDJPY M5 chart and entering your license key. A step-by-step installation guide is included with every subscription.
-      </div>
-    </div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Do I need trading experience to use Kuro-Flow?<span class="faq-icon">+</span></button>
+      <div class="faq-a">No. Kuro-Flow runs fully autonomously on your MT5 terminal — it opens, manages and closes trades on its own. You do not need to analyse the market or make any trading decisions. The only setup required is attaching the EA to a USDJPY M5 chart and entering your license key. A step-by-step installation guide is included with every subscription.</div></div>
 
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        Can I use it on a prop firm challenge?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">
-        Yes. Kuro-Flow has been personally verified on <strong>The5ers, GoatFunded and ACGMarkets</strong>. For other prop firms, the EA's session and range filters can be adjusted to comply with specific drawdown or news trading rules. We recommend testing compatibility on a trial account or demo before running a paid challenge.
-      </div>
-    </div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I use it on a prop firm challenge?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Yes. Kuro-Flow has been personally verified on <strong>The5ers, GoatFunded and ACGMarkets</strong>. For other prop firms, the EA's session and range filters can be adjusted to comply with specific drawdown or news trading rules. We recommend testing compatibility on a trial account before running a paid challenge.</div></div>
 
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        What is the minimum recommended balance?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">
-        We recommend a minimum of <strong>$10,000</strong> (or equivalent prop firm capital). At 0.5% risk per trade, this allows the EA to size positions correctly without over-leveraging. The EA will run on smaller accounts but results will deviate from the backtest parameters.
-      </div>
-    </div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What is the minimum recommended balance?<span class="faq-icon">+</span></button>
+      <div class="faq-a">We recommend a minimum of <strong>$10,000</strong> (or equivalent prop firm capital). At 0.5% risk per trade, this allows the EA to size positions correctly without over-leveraging. The EA will run on smaller accounts but results may deviate from the backtest parameters.</div></div>
 
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        What broker do I need?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">
-        Any broker that offers <strong>MT5, USDJPY with spreads below 2 pips, and allows automated trading</strong>. We personally recommend The5ers, GoatFunded and ACGMarkets based on our own funded account experience. Avoid brokers with minimum holding times, no-EA policies or excessive slippage on USDJPY.
-      </div>
-    </div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What broker do I need?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Any broker offering <strong>MT5, USDJPY with spreads below 2 pips, and automated trading allowed</strong>. We personally recommend The5ers, GoatFunded and ACGMarkets. Avoid brokers with minimum holding times, no-EA policies or excessive slippage on USDJPY.</div></div>
 
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        Can I use it on multiple accounts?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">
-        Each license is tied to <strong>one MT5 account number</strong>. If you need to run it on a second account, a separate subscription is required. If you need to migrate to a new account, contact us at <strong>licencias<span>&#64;</span>kuro-flow.com</strong>.
-      </div>
-    </div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I use it on multiple accounts?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Each license is tied to <strong>one MT5 account number</strong>. If you need to run it on a second account, a separate subscription is required. To migrate to a new account, contact us at licencias<span>&#64;</span>kuro-flow.com.</div></div>
 
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        Do I need to leave MT5 open 24/5?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">
-        Yes — the EA requires MT5 to be running and connected to your broker during market hours. If your computer is not always on, we recommend using a <strong>VPS (Virtual Private Server)</strong>. Many prop firms include a free VPS, and services like Vultr or Contabo offer affordable options from $5/month.
-      </div>
-    </div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Do I need to leave MT5 open 24/5?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Yes — the EA requires MT5 to be running and connected during market hours. If your computer is not always on, we recommend using a <strong>VPS (Virtual Private Server)</strong>. Many prop firms include a free VPS, and services like Vultr or Contabo offer options from $5/month.</div></div>
 
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        Can I run it on a VPS?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">
-        Yes, and it is strongly recommended. A VPS ensures the EA runs uninterrupted 24/5 regardless of your internet connection or computer status. Install MT5 on the VPS, copy the EA file, attach it to the chart and enter your license key — the setup process is identical to a local machine.
-      </div>
-    </div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I run it on a VPS?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Yes, and it is strongly recommended. A VPS ensures the EA runs uninterrupted 24/5. Install MT5 on the VPS, copy the EA file, attach it to the chart and enter your license key — the setup is identical to a local machine.</div></div>
 
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        What timeframe does the EA use?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">
-        Kuro-Flow is coded exclusively for the <strong>M5 (5-minute) chart on USDJPY</strong>. Attaching it to any other timeframe or pair will not produce the expected results and is not supported.
-      </div>
-    </div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What timeframe does the EA use?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Kuro-Flow is coded exclusively for the <strong>M5 (5-minute) chart on USDJPY</strong>. Attaching it to any other timeframe or pair will not produce the expected results.</div></div>
 
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        What happens during high-impact news events?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">
-        Kuro-Flow does not have a built-in automatic news filter. However, the EA's session time inputs can be manually adjusted to avoid trading windows around high-impact USD and JPY events such as NFP or BOJ decisions. This is the recommended approach for prop firm accounts with strict news trading rules.
-      </div>
-    </div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What happens during high-impact news events?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Kuro-Flow does not have a built-in automatic news filter. However, the session time inputs can be manually adjusted to avoid windows around high-impact USD/JPY events such as NFP or BOJ decisions — the recommended approach for prop firm accounts with strict news rules.</div></div>
 
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        How many trades does it open per day?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">
-        The system is designed around <strong>1 high-quality trade per day</strong>. Quality over quantity — each trade must meet all session, range and direction filters before the EA enters. Some days there will be no trades if conditions are not met.
-      </div>
-    </div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How many trades does it open per day?<span class="faq-icon">+</span></button>
+      <div class="faq-a">The system is designed around <strong>1 high-quality trade per day</strong>. Each trade must meet all session, range and direction filters before the EA enters. Some days there will be no trades if conditions are not met — quality over quantity.</div></div>
 
-    <div class="faq-item">
-      <button class="faq-q" onclick="toggleFaq(this)">
-        Is there a free trial?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-a">
-        Yes — we offer a <strong>7-day free trial</strong>. The trial license activates automatically and gives you full access to run the EA on your MT5 account. No credit card required to start. <a href="/cdn-cgi/l/email-protection#cba7a2a8aea5a8a2aab8ede8fdfff0a0beb9a4e6ada7a4bce5a8a4a6">Contact us</a> to request your trial key.
-      </div>
-    </div>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Is there a free trial?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Yes — we offer a <strong>7-day free trial</strong>. Full access, no credit card required. Contact us at licencias<span>&#64;</span>kuro-flow.com to request your trial key.</div></div>
 
   </div>
 </section>
-
-<!-- ─── FOOTER ─────────────────────────────── -->
 <footer>
   <div class="footer-inner">
     <div>
@@ -1531,13 +1419,13 @@
       <div class="footer-tagline">USDJPY ALGORITHMIC TRADING SYSTEM</div>
     </div>
     <p class="disclaimer">
-      <strong>Risk Warning:</strong> Forex trading carries a high level of risk and may not be suitable for all investors. Past performance does not guarantee future results. Kuro-Flow is an algorithmic tool, not a regulated financial advisory service. Only trade with capital you can afford to lose. Performance data shown is real and verifiable, but does not constitute a promise of future profitability.
+      <strong>Risk Warning:</strong> Forex trading carries a high level of risk and may not be suitable for all investors. Past performance does not guarantee future results. Kuro-Flow is an algorithmic tool, not a regulated financial advisory service. Only trade with capital you can afford to lose. Performance data shown is real and verifiable, but does not constitute a promise of future returns.
     </p>
   </div>
 </footer>
 
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -1570,24 +1458,18 @@
     setTimeout(() => el.classList.add('visible'), 200 + i * 200);
   });
 
-  // Lightbox
-  function openLightbox(src, caption) {
-    const lb = document.getElementById('lightbox');
-    document.getElementById('lightbox-img').src = src;
-    document.getElementById('lightbox-caption').textContent = caption;
-    lb.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-  }
-  function closeLightbox() {
-    document.getElementById('lightbox').style.display = 'none';
-    document.body.style.overflow = '';
-  }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-
-  // FAQ accordion
   function toggleFaq(btn) {
-    const answer = btn.nextElementSibling;
-    const isOpen = btn.classList.contains('open');
+    var answer = btn.nextElementSibling;
+    var isOpen = btn.classList.contains('open');
     document.querySelectorAll('.faq-q.open').forEach(function(b) {
       b.classList.remove('open');
-      b.nextElementSibling.
+      b.nextElementSibling.classList.remove('open');
+    });
+    if (!isOpen) {
+      btn.classList.add('open');
+      answer.classList.add('open');
+    }
+  }
+</script>
+</body>
+</html>
