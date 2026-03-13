@@ -256,9 +256,9 @@ nav {
           <span class="ql-icon">📅</span>
           <div><div class="ql-title">Full Calendar</div><div class="ql-sub">Forex Factory</div></div>
         </a>
-        <a href="mailto:licencias@kuro-flow.com" class="quick-link">
+        <a href="#" class="quick-link" onclick="window.location.href='mai'+'lto:sup'+'port@kuro-flow.com';return false;">
           <span class="ql-icon">✉</span>
-          <div><div class="ql-title">Support</div><div class="ql-sub">Direct email</div></div>
+          <div><div class="ql-title">Support</div><div class="ql-sub">support&#64;kuro-flow.com</div></div>
         </a>
       </div>
     </div>
@@ -285,7 +285,7 @@ nav {
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const LICENSE_SERVER = 'https://kuroflow-license-server.onrender.com';
 
 // ── AUTH ──
@@ -445,15 +445,4 @@ function getWeekNumber(d) {
   const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
   date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));
   const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
-  return Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
-}
-
-function loadAll() {
-  renderSessions();
-  fetchPrice();
-  fetchCalendar();
-  fetchAnalysis();
-}
-</script>
-</body>
-</html>
+  return Math.ceil((((date - yearSt
