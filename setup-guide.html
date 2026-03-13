@@ -209,7 +209,7 @@ nav {
         <div class="step-body">Go to <strong>gumroad.com/library</strong> and log in with the email you used to purchase. Find the Kuro-Flow product and click <strong>View content</strong>.</div>
         <div class="callout tip">
           <div class="callout-icon">💡</div>
-          <div class="callout-text">Can't find the email? Check your spam folder. The email comes from <strong><span class="kf-email"></span></strong> and contains your license key starting with <strong>KF-</strong></div>
+          <div class="callout-text">Can't find the email? Check your spam folder. The email comes from <strong>licencias<span>&#64;</span>kuro-flow.com</strong> and contains your license key starting with <strong>KF-</strong></div>
         </div>
       </div>
     </div>
@@ -445,8 +445,8 @@ nav {
         <tr>
           <td><span class="param-name">InpMagic</span></td>
           <td><span class="param-val">2002</span></td>
-          <td class="param-desc">Unique ID for trades opened by this EA. Change only if running multiple EAs on the same account.</td>
-          <td><span class="param-touch no">Optional</span></td>
+          <td class="param-desc">Unique ID for trades opened by this EA. <strong style="color:var(--paper)">Always change this to a personal unique number</strong> (e.g. your birth year + a digit). If two clients use the same magic number on the same broker, trade management can conflict.</td>
+          <td><span class="param-touch yes">Change it</span></td>
         </tr>
         <tr>
           <td><span class="param-name">InpMaxDailyLossPct</span></td>
@@ -641,13 +641,66 @@ nav {
     <div class="success-banner" id="success-banner" style="display:none">
       <div class="success-icon">✓</div>
       <div class="success-title">You are ready to go live.</div>
-      <div class="success-sub">Kuro-Flow is now running autonomously on your account.<br>Monitor the members dashboard for market context and weekly analysis.<br><br>Questions? Email us at <span class="kf-email"></span></div>
+      <div class="success-sub">Kuro-Flow is now running autonomously on your account.<br>Monitor the members dashboard for market context and weekly analysis.<br><br>Questions? Email us at licencias<span>&#64;</span>kuro-flow.com</div>
     </div>
   </div>
 
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Copy to clipboard
+function copyPath(btn, text) {
+  navigator.clipboard.writeText(text).then(function() {
+    btn.textContent = '✓ Copied';
+    btn.classList.add('copied');
+    setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// Progress nav highlight on scroll
+var sections = document.querySelectorAll('.guide-section');
+var navItems = document.querySelectorAll('.pn-item');
+window.addEventListener('scroll', function() {
+  var current = '';
+  sections.forEach(function(s) { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+  navItems.forEach(function(n) {
+    n.classList.remove('active');
+    if (n.getAttribute('href') === '#' + current) n.classList.add('active');
+  });
+});
+
+// Pre-fill license key from session
+var savedKey = sessionStorage.getItem('kf_key');
+if (savedKey) {
+  var keyDisplay = document.getElementById('key-display');
+  if (keyDisplay) keyDisplay.textContent = savedKey;
+}
+
+// Checklist — wait for full page load
+window.addEventListener('load', function() {
+  var checkItems = document.querySelectorAll('.check-item');
+  checkItems.forEach(function(item) {
+    item.style.cursor = 'pointer';
+    item.addEventListener('click', function() {
+      this.classList.toggle('done');
+      var box = this.querySelector('.check-box');
+      if (box) box.textContent = this.classList.contains('done') ? '✓' : '';
+      // Check if all done
+      var total = document.querySelectorAll('.check-item').length;
+      var done = document.querySelectorAll('.check-item.done').length;
+      var banner = document.getElementById('success-banner');
+      if (banner) {
+        if (total === done) {
+          banner.style.display = 'block';
+          banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          banner.style.display = 'none';
+        }
+      }
+    });
+  });
+});
+</script><script>
 // Copy to clipboard
 function copyPath(btn, text) {
   navigator.clipboard.writeText(text).then(() => {
@@ -676,13 +729,6 @@ function checkAllDone() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Build email at runtime to prevent Cloudflare obfuscation
-  const kfUser = 'licencias';
-  const kfDomain = 'kuro-flow.com';
-  const kfEmail = kfUser + '@' + kfDomain;
-  document.querySelectorAll('.kf-email').forEach(function(el) {
-    el.innerHTML = '<a href="mailto:' + kfEmail + '" style="color:var(--gold)">' + kfEmail + '</a>';
-  });
   document.querySelectorAll('a.email-support').forEach(function(el) {
     el.href = 'mailto:' + kfEmail;
   });
