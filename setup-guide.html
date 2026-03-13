@@ -209,7 +209,7 @@ nav {
         <div class="step-body">Go to <strong>gumroad.com/library</strong> and log in with the email you used to purchase. Find the Kuro-Flow product and click <strong>View content</strong>.</div>
         <div class="callout tip">
           <div class="callout-icon">💡</div>
-          <div class="callout-text">Can't find the email? Check your spam folder. The email comes from <strong>licencias@kuro-flow.com</strong> and contains your license key starting with <strong>KF-</strong></div>
+          <div class="callout-text">Can't find the email? Check your spam folder. The email comes from <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b4d8ddd7d1dad7ddd5c7f4dfc1c6db99d2d8dbc39ad7dbd9">[email&#160;protected]</a></strong> and contains your license key starting with <strong>KF-</strong></div>
         </div>
       </div>
     </div>
@@ -358,11 +358,57 @@ nav {
     <div class="step">
       <div class="step-num">4</div>
       <div class="step-content">
-        <div class="step-title">Allow live trading & click OK</div>
-        <div class="step-body">In the dialog, make sure <strong>"Allow live trading"</strong> is checked in the Common tab, then click <strong>OK</strong>. The EA will appear as a small label in the top-right corner of your chart.</div>
+        <div class="step-title">Enable Algorithmic Trading in MT5 globally</div>
+        <div class="step-body">Go to <strong>Tools → Options → Expert Advisors</strong> tab and make sure these three options are checked:</div>
+        <div class="mock-window" style="margin-top:14px">
+          <div class="mock-bar">
+            <div class="mock-dot" style="background:#ff5f56"></div>
+            <div class="mock-dot" style="background:#ffbd2e"></div>
+            <div class="mock-dot" style="background:#27c93f"></div>
+            <div class="mock-title">Tools → Options → Expert Advisors</div>
+          </div>
+          <div class="mock-body" style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:16px;height:16px;background:var(--safe);border-radius:2px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:#0a0a0c">✓</div>
+              <span style="color:#f5f3ee;font-size:0.8rem">Allow algorithmic trading <span style="color:rgba(255,255,255,0.4);font-size:0.72rem">(Permitir comercio algorítmico)</span></span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:16px;height:16px;background:var(--safe);border-radius:2px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:#0a0a0c">✓</div>
+              <span style="color:#f5f3ee;font-size:0.8rem">Allow DLL imports <span style="color:rgba(255,255,255,0.4);font-size:0.72rem">(Permitir importación de DLL)</span></span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:16px;height:16px;background:var(--safe);border-radius:2px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:#0a0a0c">✓</div>
+              <span style="color:#f5f3ee;font-size:0.8rem">Allow WebRequest for listed URL: <code style="color:var(--gold);font-size:0.75rem">https://kuroflow-license-server.onrender.com</code></span>
+            </div>
+          </div>
+        </div>
+        <div class="callout warning" style="margin-top:12px">
+          <div class="callout-icon">⚠</div>
+          <div class="callout-text"><strong>WebRequest is critical.</strong> Without it, the EA cannot reach the license server and will not start. Add the exact URL shown above to the allowed list.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <div class="step-title">Enable AutoTrading in the toolbar</div>
+        <div class="step-body">Check that the <strong>AutoTrading button</strong> in the MT5 top toolbar shows a green play icon <span style="color:var(--safe)">▶ Trading algorítmico</span>. If it is grey or shows a pause icon, click it once to enable it.</div>
+        <div class="callout tip" style="margin-top:12px">
+          <div class="callout-icon">💡</div>
+          <div class="callout-text">Every time you restart MT5, verify the AutoTrading button is green before the market opens.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">6</div>
+      <div class="step-content">
+        <div class="step-title">Allow live trading in the EA dialog & click OK</div>
+        <div class="step-body">In the EA configuration dialog, go to the <strong>Common</strong> tab and check <strong>"Allow live trading"</strong>, then click <strong>OK</strong>. The EA will appear as a small label in the top-right corner of your chart.</div>
         <div class="callout success">
           <div class="callout-icon">✓</div>
-          <div class="callout-text">If the EA shows <strong>"License valid"</strong> in the chart comment, you are set up correctly. The algorithm will now monitor the market autonomously.</div>
+          <div class="callout-text">If the EA shows <strong>"License valid"</strong> in the chart comment, you are fully set up. The algorithm will now monitor the market autonomously.</div>
         </div>
       </div>
     </div>
@@ -564,11 +610,23 @@ nav {
       </div>
       <div class="check-item" onclick="toggleCheck(this)">
         <div class="check-box"></div>
-        <div class="check-label"><strong>AutoTrading is enabled (green button in MT5 toolbar)</strong><span>EA cannot trade without this</span></div>
+        <div class="check-label"><strong>Tools → Options → Expert Advisors: "Allow algorithmic trading" checked</strong><span>Global MT5 setting — required</span></div>
       </div>
       <div class="check-item" onclick="toggleCheck(this)">
         <div class="check-box"></div>
-        <div class="check-label"><strong>"Allow live trading" is checked in EA properties</strong><span>Common tab → Allow live trading = true</span></div>
+        <div class="check-label"><strong>Tools → Options → Expert Advisors: "Allow DLL imports" checked</strong><span>Required for EA to function</span></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-label"><strong>WebRequest URL added: https://kuroflow-license-server.onrender.com</strong><span>Required to validate your license key</span></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-label"><strong>AutoTrading button is green in MT5 toolbar</strong><span>▶ Trading algorítmico — EA cannot trade without this</span></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-label"><strong>"Allow live trading" is checked in EA dialog (Common tab)</strong><span>Must be enabled when attaching the EA to the chart</span></div>
       </div>
       <div class="check-item" onclick="toggleCheck(this)">
         <div class="check-box"></div>
@@ -583,13 +641,13 @@ nav {
     <div class="success-banner" id="success-banner" style="display:none">
       <div class="success-icon">✓</div>
       <div class="success-title">You are ready to go live.</div>
-      <div class="success-sub">Kuro-Flow is now running autonomously on your account.<br>Monitor the members dashboard for market context and weekly analysis.<br><br>Questions? Email us at <a href="mailto:licencias@kuro-flow.com" style="color:var(--gold)">licencias@kuro-flow.com</a></div>
+      <div class="success-sub">Kuro-Flow is now running autonomously on your account.<br>Monitor the members dashboard for market context and weekly analysis.<br><br>Questions? Email us at <a href="/cdn-cgi/l/email-protection#2945404a4c474a40485a69425c5b46044f45465e074a4644" style="color:var(--gold)"><span class="__cf_email__" data-cfemail="5d31343e38333e343c2e1d36282f32703b31322a733e3230">[email&#160;protected]</span></a></div>
     </div>
   </div>
 
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Copy to clipboard
 function copyPath(btn, text) {
   navigator.clipboard.writeText(text).then(() => {
@@ -622,16 +680,4 @@ const sections = document.querySelectorAll('.guide-section');
 const navItems = document.querySelectorAll('.pn-item');
 window.addEventListener('scroll', () => {
   let current = '';
-  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
-  navItems.forEach(n => {
-    n.classList.remove('active');
-    if (n.getAttribute('href') === '#' + current) n.classList.add('active');
-  });
-});
-
-// Pre-fill license key from session if logged in
-const savedKey = sessionStorage.getItem('kf_key');
-if (savedKey) document.getElementById('key-display').textContent = savedKey;
-</script>
-</body>
-</html>
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop -
