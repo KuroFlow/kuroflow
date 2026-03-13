@@ -244,6 +244,10 @@ nav {
           <span class="ql-icon">⬇</span>
           <div><div class="ql-title">Download EA</div><div class="ql-sub">Latest .ex5 file</div></div>
         </a>
+        <a href="setup-guide.html" target="_blank" class="quick-link">
+          <span class="ql-icon">📖</span>
+          <div><div class="ql-title">Setup Guide</div><div class="ql-sub">Step-by-step tutorial</div></div>
+        </a>
         <a href="https://www.myfxbook.com" target="_blank" class="quick-link">
           <span class="ql-icon">📊</span>
           <div><div class="ql-title">Myfxbook</div><div class="ql-sub">Track your account</div></div>
@@ -252,7 +256,7 @@ nav {
           <span class="ql-icon">📅</span>
           <div><div class="ql-title">Full Calendar</div><div class="ql-sub">Forex Factory</div></div>
         </a>
-        <a href="mailto:licencias@kuro-flow.com" class="quick-link">
+        <a href="/cdn-cgi/l/email-protection#620e0b01070c010b0311220917100d4f040e0d154c010d0f" class="quick-link">
           <span class="ql-icon">✉</span>
           <div><div class="ql-title">Support</div><div class="ql-sub">Direct email</div></div>
         </a>
@@ -281,7 +285,7 @@ nav {
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const LICENSE_SERVER = 'https://kuroflow-license-server.onrender.com';
 
 // ── AUTH ──
@@ -440,15 +444,4 @@ function getWeekNumber(d) {
   const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
   date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));
   const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
-  return Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
-}
-
-function loadAll() {
-  renderSessions();
-  fetchPrice();
-  fetchCalendar();
-  fetchAnalysis();
-}
-</script>
-</body>
-</html>
+  return Math.ceil((((date - yearSt
