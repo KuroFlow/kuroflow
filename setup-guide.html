@@ -592,47 +592,47 @@ nav {
     </div>
 
     <div class="checklist" id="checklist">
-      <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-item">
         <div class="check-box"></div>
         <div class="check-label"><strong>KuroFlow_License.ex5 is in MQL5/Experts folder</strong><span>File is visible in the Navigator panel after refresh</span></div>
       </div>
-      <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-item">
         <div class="check-box"></div>
         <div class="check-label"><strong>EA is attached to a USDJPY M5 chart</strong><span>Correct pair and timeframe confirmed</span></div>
       </div>
-      <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-item">
         <div class="check-box"></div>
         <div class="check-label"><strong>License key entered correctly</strong><span>EA shows "License valid" in chart comment</span></div>
       </div>
-      <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-item">
         <div class="check-box"></div>
         <div class="check-label"><strong>Optimized .set file loaded</strong><span>All parameters match the recommended configuration</span></div>
       </div>
-      <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-item">
         <div class="check-box"></div>
         <div class="check-label"><strong>Tools → Options → Expert Advisors: "Allow algorithmic trading" checked</strong><span>Global MT5 setting — required</span></div>
       </div>
-      <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-item">
         <div class="check-box"></div>
         <div class="check-label"><strong>Tools → Options → Expert Advisors: "Allow DLL imports" checked</strong><span>Required for EA to function</span></div>
       </div>
-      <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-item">
         <div class="check-box"></div>
         <div class="check-label"><strong>WebRequest URL added: https://kuroflow-license-server.onrender.com</strong><span>Required to validate your license key</span></div>
       </div>
-      <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-item">
         <div class="check-box"></div>
         <div class="check-label"><strong>AutoTrading button is green in MT5 toolbar</strong><span>▶ AutoTrading must be active — EA cannot trade without this</span></div>
       </div>
-      <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-item">
         <div class="check-box"></div>
         <div class="check-label"><strong>"Allow live trading" is checked in EA dialog (Common tab)</strong><span>Must be enabled when attaching the EA to the chart</span></div>
       </div>
-      <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-item">
         <div class="check-box"></div>
         <div class="check-label"><strong>InpRiskValue set to 0.5% (or your chosen value)</strong><span>Do not exceed 1% without understanding the implications</span></div>
       </div>
-      <div class="check-item" onclick="toggleCheck(this)">
+      <div class="check-item">
         <div class="check-box"></div>
         <div class="check-label"><strong>MT5 terminal will remain running 24/5</strong><span>The EA needs MT5 open and connected to trade. Consider a VPS if your computer is not always on.</span></div>
       </div>
@@ -657,7 +657,7 @@ function copyPath(btn, text) {
   });
 }
 
-// Checklist toggle
+// Checklist toggle — event delegation to avoid Cloudflare inline issues
 function toggleCheck(item) {
   item.classList.toggle('done');
   item.querySelector('.check-box').textContent = item.classList.contains('done') ? '✓' : '';
@@ -675,9 +675,15 @@ function checkAllDone() {
   }
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.check-item').forEach(function(item) {
+    item.addEventListener('click', function() { toggleCheck(this); });
+  });
+});
+
 // Progress nav highlight on scroll
 const sections = document.querySelectorAll('.guide-section');
 const navItems = document.querySelectorAll('.pn-item');
 window.addEventListener('scroll', () => {
   let current = '';
-  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop -
