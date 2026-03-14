@@ -1,257 +1,306 @@
-const LICENSE_SERVER = 'https://kuroflow-license-server.onrender.com';
-
-// ── AUTH ──
-function doLogin() {
-  const key = document.getElementById('login-key').value.trim().toUpperCase();
-  if (!key.startsWith('KF-')) { showError('Key must start with KF-'); return; }
-  const btn = document.getElementById('login-btn');
-  btn.textContent = 'Validating...'; btn.disabled = true;
-
-  fetch(`${LICENSE_SERVER}/validar`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ clave: key, cuenta_mt5: 'MEMBERS_PORTAL' }),
-    signal: AbortSignal.timeout(15000)
-  })
-  .then(r => r.json())
-  .then(d => {
-    if (d.valido) {
-      sessionStorage.setItem('kf_key', key);
-      showDashboard(key);
-    } else {
-      showError(d.mensaje || 'Invalid or expired license key.');
-      btn.textContent = 'Access Members Area →'; btn.disabled = false;
-    }
-  })
-  .catch(err => {
-    showError(err.name === 'TimeoutError'
-      ? 'Server is waking up — please try again in 30 seconds.'
-      : 'Connection error. Please try again.');
-    btn.textContent = 'Access Members Area →'; btn.disabled = false;
-  });
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuro-Flow — Members</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0a0a0c; --paper: #f5f3ee; --gold: #c9a84c; --gold-pale: #f0e6c8;
+  --ash: #6b6860; --safe: #4c9c6b; --safe-pale: #6edd9e;
+  --danger: #c94c4c; --border: rgba(255,255,255,0.07); --card: rgba(255,255,255,0.03);
 }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--ink); color: var(--paper); min-height: 100vh; }
 
-function showError(msg) {
-  const el = document.getElementById('login-error');
-  el.textContent = msg; el.style.display = 'block';
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 48px; background: rgba(10,10,12,0.95);
+  backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
 }
+.logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; color: var(--paper); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.nav-badge { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--safe-pale); background: rgba(76,156,107,0.12); border: 1px solid rgba(110,221,158,0.2); padding: 4px 12px; text-transform: uppercase; }
+.nav-key { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: rgba(245,243,238,0.25); }
+.btn-logout { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: rgba(245,243,238,0.3); background: none; border: 1px solid rgba(255,255,255,0.1); padding: 7px 16px; cursor: pointer; transition: all 0.2s; }
+.btn-logout:hover { border-color: var(--danger); color: var(--danger); }
 
-function showDashboard(key) {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('main-nav').style.display = 'flex';
-  document.getElementById('dashboard').style.display = 'block';
-  document.getElementById('nav-key-display').textContent = key;
-  loadAll();
+/* LOGIN */
+#login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 80px 24px; background: radial-gradient(ellipse 60% 60% at 50% 40%, rgba(201,168,76,0.06) 0%, transparent 70%), var(--ink); }
+.login-box { width: 100%; max-width: 440px; border: 1px solid rgba(201,168,76,0.2); background: rgba(255,255,255,0.02); padding: 48px; }
+.login-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.6rem; color: var(--paper); letter-spacing: -0.02em; margin-bottom: 4px; }
+.login-logo span { color: var(--gold); }
+.login-sub { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; color: rgba(245,243,238,0.3); text-transform: uppercase; margin-bottom: 40px; }
+.login-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,243,238,0.4); margin-bottom: 10px; display: block; }
+.login-input { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); color: var(--paper); padding: 14px 18px; font-family: 'DM Mono', monospace; font-size: 0.9rem; letter-spacing: 0.08em; outline: none; transition: border-color 0.2s; text-transform: uppercase; }
+.login-input:focus { border-color: var(--gold); }
+.login-input::placeholder { color: rgba(245,243,238,0.2); text-transform: none; }
+.btn-login { width: 100%; margin-top: 16px; background: var(--gold); color: var(--ink); border: none; padding: 16px; font-family: 'DM Mono', monospace; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+.btn-login:hover { background: var(--gold-pale); }
+.login-error { margin-top: 14px; font-family: 'DM Mono', monospace; font-size: 0.72rem; color: #ed6e6e; text-align: center; display: none; }
+.login-disclaimer { margin-top: 28px; font-size: 0.72rem; color: rgba(245,243,238,0.2); text-align: center; line-height: 1.6; }
+
+/* DASHBOARD */
+#dashboard { display: none; padding-top: 80px; }
+
+.dash-header { padding: 40px 48px 32px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-end; justify-content: space-between; }
+.dash-greeting { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.dash-title { font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+.dash-time { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: rgba(245,243,238,0.3); text-align: right; }
+
+/* GRID */
+.dash-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); border-top: 1px solid var(--border); }
+.dash-card { background: var(--ink); padding: 32px; }
+.dash-card.span2 { grid-column: span 2; }
+.dash-card.span3 { grid-column: span 3; }
+
+.card-tag { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(245,243,238,0.3); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+.card-tag::before { content: ''; width: 20px; height: 1px; background: rgba(245,243,238,0.15); }
+
+/* LIVE PRICE */
+.price-big { font-family: 'Syne', sans-serif; font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+.price-meta { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pm-item { font-family: 'DM Mono', monospace; font-size: 0.7rem; }
+.pm-label { color: rgba(245,243,238,0.3); margin-bottom: 4px; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--safe-pale); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
+
+/* SESSIONS */
+.sessions { display: flex; flex-direction: column; gap: 8px; }
+.session-row { display: flex; align-items: center; justify-content: space-between; padding: 11px 14px; border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s; }
+.session-row.active { border-color: rgba(110,221,158,0.3); background: rgba(110,221,158,0.04); }
+.session-name { font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.06em; }
+.session-hours { font-family: 'DM Mono', monospace; font-size: 0.63rem; color: rgba(245,243,238,0.3); }
+.session-badge { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; }
+.session-badge.on { background: rgba(110,221,158,0.15); color: var(--safe-pale); }
+.session-badge.off { background: rgba(255,255,255,0.04); color: rgba(245,243,238,0.2); }
+
+/* EA STATUS */
+.ea-status-box { display: flex; align-items: center; gap: 16px; padding: 20px; border: 1px solid rgba(255,255,255,0.07); margin-bottom: 20px; }
+.ea-status-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+.ea-status-icon.ok { background: rgba(110,221,158,0.15); }
+.ea-status-title { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+.ea-status-sub { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: rgba(245,243,238,0.35); }
+.ea-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ea-info-item { padding: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); }
+.ea-info-label { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245,243,238,0.3); margin-bottom: 6px; }
+.ea-info-val { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--paper); }
+
+/* CALENDAR */
+.cal-events { display: flex; flex-direction: column; gap: 0; }
+.cal-event { display: grid; grid-template-columns: 70px 10px 1fr auto; align-items: center; gap: 14px; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.cal-event:last-child { border-bottom: none; }
+.cal-time { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: rgba(245,243,238,0.4); }
+.cal-dot { width: 7px; height: 7px; border-radius: 50%; }
+.cal-dot.high { background: #ed6e6e; }
+.cal-dot.medium { background: var(--gold); }
+.cal-name { font-size: 0.82rem; }
+.cal-country { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--gold); }
+.cal-empty { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: rgba(245,243,238,0.25); text-align: center; padding: 24px 0; }
+
+/* ANALYSIS */
+.analysis-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+.analysis-week { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--gold); text-transform: uppercase; }
+.analysis-ai-tag { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: rgba(245,243,238,0.25); }
+.analysis-body { font-size: 0.88rem; line-height: 1.85; color: rgba(245,243,238,0.75); }
+.analysis-body p { margin-bottom: 14px; }
+.analysis-body p:last-child { margin-bottom: 0; }
+.analysis-body strong { color: var(--paper); font-weight: 500; }
+
+/* QUICK LINKS */
+.links-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.quick-link { display: flex; align-items: center; gap: 12px; padding: 16px; border: 1px solid rgba(255,255,255,0.07); text-decoration: none; transition: all 0.2s; }
+.quick-link:hover { border-color: rgba(201,168,76,0.3); background: rgba(201,168,76,0.04); }
+.ql-icon { font-size: 1.2rem; flex-shrink: 0; }
+.ql-title { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--paper); letter-spacing: 0.04em; margin-bottom: 3px; }
+.ql-sub { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: rgba(245,243,238,0.3); }
+
+/* LOADING */
+.loading-row { display: flex; align-items: center; gap: 10px; font-family: 'DM Mono', monospace; font-size: 0.75rem; color: rgba(245,243,238,0.3); padding: 16px 0; }
+.spinner { width: 14px; height: 14px; border: 1px solid rgba(201,168,76,0.3); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; flex-shrink: 0; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* DISCLAIMER */
+.disclaimer-bar { padding: 20px 48px; border-top: 1px solid var(--border); font-family: 'DM Mono', monospace; font-size: 0.62rem; color: rgba(245,243,238,0.18); text-align: center; line-height: 1.8; }
+
+@media (max-width: 900px) {
+  .dash-grid { grid-template-columns: 1fr; }
+  .dash-card.span2, .dash-card.span3 { grid-column: span 1; }
+  nav, .dash-header { padding: 16px 24px; }
+  .dash-header { flex-direction: column; align-items: flex-start; gap: 12px; }
 }
+</style>
+</head>
+<body>
 
-function doLogout() { sessionStorage.clear(); location.reload(); }
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">KURO<span>FLOW</span></div>
+    <div class="login-sub">Members Area · Restricted Access</div>
+    <label class="login-label">Your license key</label>
+    <input class="login-input" id="login-key" type="text" placeholder="KF-M-XXXX-XXXX" maxlength="24">
+    <button class="btn-login" id="login-btn">Access Members Area →</button>
+    <div class="login-error" id="login-error"></div>
+    <p class="login-disclaimer">Exclusive to active Kuro-Flow subscribers.<br>Your key was sent to your email after purchase.</p>
+  </div>
+</div>
 
-document.getElementById('login-key').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
-const savedKey = sessionStorage.getItem('kf_key');
-if (savedKey) showDashboard(savedKey);
+<!-- NAV -->
+<nav id="main-nav" style="display:none">
+  <a href="/" class="logo"><span class="logo-dot"></span> KUROFLOW</a>
+  <div class="nav-right">
+    <span class="nav-badge">● Active Member</span>
+    <span class="nav-key" id="nav-key-display"></span>
+    <button class="btn-logout" onclick="doLogout()">Log out</button>
+  </div>
+</nav>
 
-// ── CLOCK ──
-function updateClock() {
-  const now = new Date();
-  const utc = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
-  document.getElementById('utc-clock').textContent = utc.toTimeString().slice(0,8);
-  document.getElementById('date-display').textContent = utc.toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short', year:'numeric' });
-  const localEl = document.getElementById('local-clock');
-  if (localEl) localEl.textContent = now.toTimeString().slice(0,8) + ' local';
-}
-setInterval(updateClock, 1000); updateClock();
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <div class="dash-header">
+    <div>
+      <div class="dash-greeting">// Members Dashboard</div>
+      <div class="dash-title">Markets are <span id="market-status-text" style="color:var(--gold)">loading...</span></div>
+    </div>
+    <div class="dash-time">
+      <div id="utc-clock" style="font-size:1.2rem;font-weight:700;margin-bottom:2px;color:var(--paper)">--:--:--</div>
+      <div style="margin-bottom:4px">UTC · <span id="date-display">—</span></div>
+      <div id="local-clock" style="font-size:0.82rem;color:rgba(245,243,238,0.35)">--:--:-- local</div>
+    </div>
+  </div>
 
-// ── SESSIONS ──
-const SESSIONS = [
-  { name: 'Sydney',   open: 21, close: 6  },
-  { name: 'Tokyo',    open: 0,  close: 9  },
-  { name: 'London',   open: 8,  close: 17 },
-  { name: 'New York', open: 13, close: 22 },
-];
-function renderSessions() {
-  const h = (() => { const n = new Date(); return n.getUTCHours() + n.getUTCMinutes()/60; })();
-  let anyActive = false;
-  document.getElementById('sessions-list').innerHTML = SESSIONS.map(s => {
-    const active = s.open > s.close ? (h >= s.open || h < s.close) : (h >= s.open && h < s.close);
-    if (active) anyActive = true;
-    return `<div class="session-row ${active?'active':''}">
-      <span class="session-name">${s.name}</span>
-      <span class="session-hours">${String(s.open).padStart(2,'0')}:00–${String(s.close).padStart(2,'0')}:00</span>
-      <span class="session-badge ${active?'on':'off'}">${active?'● Open':'Closed'}</span>
-    </div>`;
-  }).join('');
-  const st = document.getElementById('market-status-text');
-  st.textContent = anyActive ? 'open.' : 'closed.';
-  st.style.color = anyActive ? 'var(--safe-pale)' : 'rgba(245,243,238,0.4)';
-}
-setInterval(renderSessions, 60000);
+  <div class="dash-grid">
 
-// ── MARKET HOURS CHECK ──
-function isForexMarketOpen() {
-  const now = new Date();
-  const day = now.getUTCDay(); // 0=Sun, 1=Mon ... 6=Sat
-  const hour = now.getUTCHours() + now.getUTCMinutes() / 60;
-  // Market closed: Saturday all day + Sunday before 22:00 UTC (Sydney open)
-  if (day === 6) return false;
-  if (day === 0 && hour < 22) return false;
-  // Friday closes at 22:00 UTC
-  if (day === 5 && hour >= 22) return false;
-  return true;
-}
+    <!-- USDJPY LIVE -->
+    <div class="dash-card">
+      <div class="card-tag"><span class="live-dot"></span> USDJPY Live Rate</div>
+      <div class="price-big" id="usdjpy-price">—</div>
+      <div style="margin-top:8px;font-family:'DM Mono',monospace;font-size:0.72rem" id="usdjpy-change">
+        <span style="color:rgba(245,243,238,0.3)">Loading...</span>
+      </div>
+      <div class="price-meta">
+        <div class="pm-item"><div class="pm-label">Daily High</div><div id="usdjpy-high">—</div></div>
+        <div class="pm-item"><div class="pm-label">Daily Low</div><div id="usdjpy-low">—</div></div>
+        <div class="pm-item"><div class="pm-label">Updated</div><div id="usdjpy-updated">—</div></div>
+        <div class="pm-item"><div class="pm-label">Source</div><div style="color:rgba(245,243,238,0.4)">Frankfurter</div></div>
+      </div>
+    </div>
 
-// ── USDJPY PRICE ──
-let lastKnownPrice = null;
+    <!-- SESSIONS -->
+    <div class="dash-card">
+      <div class="card-tag">Trading Sessions · UTC</div>
+      <div class="sessions" id="sessions-list"></div>
+    </div>
 
-async function fetchPrice() {
-  const marketOpen = isForexMarketOpen();
+    <!-- EA INFO -->
+    <div class="dash-card">
+      <div class="card-tag">Your Kuro-Flow EA</div>
+      <div class="ea-status-box">
+        <div class="ea-status-icon ok">⚙</div>
+        <div>
+          <div class="ea-status-title">EA Active on your MT5</div>
+          <div class="ea-status-sub">Operates autonomously · No intervention needed</div>
+        </div>
+      </div>
+      <div class="ea-info-grid">
+        <div class="ea-info-item">
+          <div class="ea-info-label">Pair</div>
+          <div class="ea-info-val">USDJPY</div>
+        </div>
+        <div class="ea-info-item">
+          <div class="ea-info-label">Timeframe</div>
+          <div class="ea-info-val">M5</div>
+        </div>
+        <div class="ea-info-item">
+          <div class="ea-info-label">Risk / Trade</div>
+          <div class="ea-info-val">≤ 0.5%</div>
+        </div>
+        <div class="ea-info-item">
+          <div class="ea-info-label">Strategy</div>
+          <div class="ea-info-val">Structural</div>
+        </div>
+      </div>
+    </div>
 
-  // Always fetch to get latest/last known price
-  try {
-    const r = await fetch('https://api.frankfurter.app/latest?from=USD&to=JPY');
-    const d = await r.json();
-    const p = d.rates.JPY;
-    lastKnownPrice = p;
+    <!-- ECONOMIC CALENDAR -->
+    <div class="dash-card span2">
+      <div class="card-tag">Economic Calendar · USD &amp; JPY High Impact</div>
+      <div class="cal-events" id="calendar-list">
+        <div class="loading-row"><div class="spinner"></div> Loading events...</div>
+      </div>
+    </div>
 
-    document.getElementById('usdjpy-price').textContent = p.toFixed(3);
-    document.getElementById('usdjpy-high').textContent = (p * 1.003).toFixed(3);
-    document.getElementById('usdjpy-low').textContent  = (p * 0.997).toFixed(3);
+    <!-- QUICK LINKS -->
+    <div class="dash-card">
+      <div class="card-tag">Resources</div>
+      <div class="links-grid">
+        <a href="https://kuroflow.gumroad.com/library" target="_blank" class="quick-link">
+          <span class="ql-icon">⬇</span>
+          <div><div class="ql-title">Download EA</div><div class="ql-sub">Latest .ex5 file</div></div>
+        </a>
+        <a href="setup-guide.html" target="_blank" class="quick-link">
+          <span class="ql-icon">📖</span>
+          <div><div class="ql-title">Setup Guide</div><div class="ql-sub">Step-by-step tutorial</div></div>
+        </a>
+        <a href="https://www.myfxbook.com" target="_blank" class="quick-link">
+          <span class="ql-icon">📊</span>
+          <div><div class="ql-title">Myfxbook</div><div class="ql-sub">Track your account</div></div>
+        </a>
+        <a href="https://www.forexfactory.com/calendar" target="_blank" class="quick-link">
+          <span class="ql-icon">📅</span>
+          <div><div class="ql-title">Full Calendar</div><div class="ql-sub">Forex Factory</div></div>
+        </a>
+        <a href="#" class="quick-link" id="support-link">
+          <span class="ql-icon">✉</span>
+          <div><div class="ql-title">Support</div><div class="ql-sub">support&#64;kuro-flow.com</div></div>
+        </a>
+      </div>
+    </div>
 
-    if (marketOpen) {
-      document.getElementById('usdjpy-updated').textContent = new Date().toUTCString().slice(17,22) + ' UTC';
-      document.getElementById('usdjpy-change').innerHTML = '<span style="color:var(--safe-pale)">▲ Live rate</span>';
-    } else {
-      document.getElementById('usdjpy-updated').textContent = 'Last close';
-      document.getElementById('usdjpy-change').innerHTML = '<span style="color:rgba(245,243,238,0.35)">Market closed</span>';
-    }
-  } catch {
-    document.getElementById('usdjpy-price').textContent = lastKnownPrice ? lastKnownPrice.toFixed(3) : '—';
-    document.getElementById('usdjpy-change').innerHTML = '<span style="color:rgba(245,243,238,0.3)">—</span>';
-  }
-}
+    <!-- WEEKLY ANALYSIS — USDJPY -->
+    <div class="dash-card span3">
+      <div class="card-tag">USDJPY Weekly Briefing</div>
+      <div class="analysis-meta">
+        <div class="analysis-week" id="analysis-week">—</div>
+        <div class="analysis-ai-tag">⬡ AI-generated · Updated weekly</div>
+      </div>
+      <div style="font-family:'DM Mono',monospace;font-size:0.62rem;color:rgba(245,243,238,0.2);line-height:1.6;margin-bottom:16px;padding:10px 12px;border-left:2px solid rgba(201,168,76,0.15)">
+        ⚠ Supplementary market context only. Not a trade signal. Do not use to modify the EA or make trading decisions.
+      </div>
+      <div class="analysis-body" id="analysis-body-usdjpy">
+        <div class="loading-row"><div class="spinner"></div> Loading USDJPY briefing...</div>
+      </div>
+    </div>
 
-// Only poll when market is open, otherwise fetch once for last price
-function schedulePriceFetch() {
-  schedulePriceFetch();
-  if (isForexMarketOpen()) {
-    setTimeout(schedulePriceFetch, 30000);
-  } else {
-    setTimeout(schedulePriceFetch, 300000); // check every 5 min if market has reopened
-  }
-}
+    <!-- WEEKLY ANALYSIS — GLOBAL -->
+    <div class="dash-card span3">
+      <div class="card-tag">Global Market Sentiment</div>
+      <div class="analysis-meta">
+        <div class="analysis-week" id="analysis-week-global">—</div>
+        <div class="analysis-ai-tag">⬡ AI-generated · Updated weekly</div>
+      </div>
+      <div style="font-family:'DM Mono',monospace;font-size:0.62rem;color:rgba(245,243,238,0.2);line-height:1.6;margin-bottom:16px;padding:10px 12px;border-left:2px solid rgba(201,168,76,0.15)">
+        ⚠ Supplementary market context only. Not a trade signal. Do not use to modify the EA or make trading decisions.
+      </div>
+      <div class="analysis-body" id="analysis-body-global">
+        <div class="loading-row"><div class="spinner"></div> Loading global sentiment...</div>
+      </div>
+    </div>
 
-// ── CALENDAR ──
-async function fetchCalendar() {
-  const el = document.getElementById('calendar-list');
-  try {
-    const r = await fetch('https://nfs.faireconomy.media/ff_calendar_thisweek.json');
-    const events = await r.json();
-    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    const filtered = events.filter(e => ['USD','JPY'].includes(e.country) && e.impact === 'High').slice(0, 8);
-    if (!filtered.length) throw new Error('none');
-    el.innerHTML = filtered.map(e => {
-      const dt = new Date(e.date);
-      const dateStr = `${days[dt.getDay()]} ${dt.getDate()} ${months[dt.getMonth()]}`;
-      const timeStr = dt.toUTCString().slice(17,22);
-      return `<div class="cal-event">
-        <span class="cal-time">${timeStr}<br><span style="font-size:0.58rem;opacity:0.6">${dateStr}</span></span>
-        <span class="cal-dot high"></span>
-        <span class="cal-name">${e.title}</span>
-        <span class="cal-country">${e.country}</span>
-      </div>`;
-    }).join('');
-  } catch {
-    el.innerHTML = `<div class="cal-empty">No high-impact events found this week.<br><span style="font-size:0.6rem;opacity:0.6">Check <a href="https://www.forexfactory.com/calendar" target="_blank" style="color:var(--gold)">Forex Factory</a> for full calendar.</span></div>`;
-  }
-}
+  </div>
 
-// ── WEEKLY ANALYSIS (via server — two sections) ──
-async function fetchAnalysis() {
-  const bodyUsdjpy   = document.getElementById('analysis-body-usdjpy');
-  const bodyGlobal   = document.getElementById('analysis-body-global');
-  const weekEl       = document.getElementById('analysis-week');
-  const weekElGlobal = document.getElementById('analysis-week-global');
-  if (!bodyUsdjpy || !bodyGlobal) return;
-
-  const now = new Date();
-  const wn  = getWeekNumber(now);
-  const weekLabel = `Week ${wn} · ${now.getFullYear()}`;
-  if (weekEl)       weekEl.textContent       = weekLabel;
-  if (weekElGlobal) weekElGlobal.textContent = weekLabel;
-
-  const cacheKey = `kf_analysis2_${wn}_${now.getFullYear()}`;
-  const cached   = sessionStorage.getItem(cacheKey);
-  if (cached) {
-    try {
-      const d = JSON.parse(cached);
-      if (d.usdjpy) bodyUsdjpy.innerHTML = d.usdjpy;
-      if (d.global)  bodyGlobal.innerHTML  = d.global;
-      return;
-    } catch(e) {}
-  }
-
-  const errMsg = `<p style="color:rgba(245,243,238,0.3);font-family:'DM Mono',monospace;font-size:0.75rem">Analysis temporarily unavailable. Check back shortly.</p>`;
-
-  try {
-    const r = await fetch(`${LICENSE_SERVER}/analysis`, { signal: AbortSignal.timeout(90000) });
-    const d = await r.json();
-    if (d.usdjpy && d.global) {
-      bodyUsdjpy.innerHTML = d.usdjpy;
-      bodyGlobal.innerHTML  = d.global;
-      sessionStorage.setItem(cacheKey, JSON.stringify({ usdjpy: d.usdjpy, global: d.global }));
-    } else {
-      bodyUsdjpy.innerHTML = errMsg;
-      bodyGlobal.innerHTML  = errMsg;
-    }
-  } catch {
-    bodyUsdjpy.innerHTML = errMsg;
-    bodyGlobal.innerHTML  = errMsg;
-  }
-}
-
-function getWeekNumber(d) {
-  const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-  date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));
-  const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
-  return Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
-}
-
-function loadAll() {
-  renderSessions();
-  schedulePriceFetch();
-  fetchCalendar();
-  fetchAnalysis();
-}
-
-  // Login button
-  var loginBtn = document.getElementById('login-btn');
-  if (loginBtn) loginBtn.addEventListener('click', doLogin);
-
-  // Support email
-  var supportLink = document.getElementById('support-link');
-  if (supportLink) {
-    supportLink.addEventListener('click', function(e) {
-      e.preventDefault();
-      window.location.href = 'mailto:support@kuro-flow.com';
-    });
-  }
+  <div class="disclaimer-bar">
+    ⚠ This dashboard is for informational purposes only and does not constitute financial advice. Your EA operates autonomously on your own MT5 account. The weekly analysis is AI-generated based on publicly available market data — it is not a trade signal or recommendation.
+  </div>
+</div>
 
 
-// Attach event listeners directly
-document.addEventListener('DOMContentLoaded', function() {
-  var loginBtn = document.getElementById('login-btn');
-  if (loginBtn) loginBtn.addEventListener('click', doLogin);
-
-  var loginKey = document.getElementById('login-key');
-  if (loginKey) loginKey.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') doLogin();
-  });
-
-  var supportLink = document.getElementById('support-link');
-  if (supportLink) {
-    supportLink.addEventListener('click', function(e) {
-      e.preventDefault();
-      window.location.href = 'mailto:support@kuro-flow.com';
-    });
-  }
-});
+<script src="members.js"></script>
+</body>
+</html>
