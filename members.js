@@ -103,48 +103,52 @@ setInterval(renderSessions, 60000);
 
 // ── MARKET HOURS CHECK ──
 function isForexMarketOpen() {
-  const now = new Date();
-  const day = now.getUTCDay(); // 0=Sun, 1=Mon ... 6=Sat
+  const now  = new Date();
+  const day  = now.getUTCDay();
   const hour = now.getUTCHours() + now.getUTCMinutes() / 60;
-  // Market closed: Saturday all day + Sunday before 22:00 UTC (Sydney open)
   if (day === 6) return false;
   if (day === 0 && hour < 22) return false;
-  // Friday closes at 22:00 UTC
   if (day === 5 && hour >= 22) return false;
   return true;
 }
 
-// ── USDJPY PRICE ──
+// ── USDJPY PRICE — TwelveData ──
+const TWELVE_KEY = '386cf5ddc6874140b9b39636e2651be4';
 let lastKnownPrice = null;
 
 async function fetchPrice() {
   const marketOpen = isForexMarketOpen();
-
-  // Always fetch to get latest/last known price
   try {
-    const r = await fetch('https://api.frankfurter.app/latest?from=USD&to=JPY');
+    const r = await fetch(
+      `https://api.twelvedata.com/price?symbol=USD/JPY&apikey=${TWELVE_KEY}`
+    );
     const d = await r.json();
-    const p = d.rates.JPY;
+    if (!d.price) throw new Error('no price');
+    const p = parseFloat(d.price);
     lastKnownPrice = p;
 
     document.getElementById('usdjpy-price').textContent = p.toFixed(3);
-    document.getElementById('usdjpy-high').textContent = (p * 1.003).toFixed(3);
-    document.getElementById('usdjpy-low').textContent  = (p * 0.997).toFixed(3);
+    document.getElementById('usdjpy-high').textContent  = (p * 1.003).toFixed(3);
+    document.getElementById('usdjpy-low').textContent   = (p * 0.997).toFixed(3);
 
     if (marketOpen) {
       document.getElementById('usdjpy-updated').textContent = new Date().toUTCString().slice(17,22) + ' UTC';
-      document.getElementById('usdjpy-change').innerHTML = '<span style="color:var(--safe-pale)">▲ Live rate</span>';
+      document.getElementById('usdjpy-change').innerHTML =
+        '<span style="color:var(--safe-pale)">▲ ~15 min delay</span>';
     } else {
-      document.getElementById('usdjpy-updated').textContent = 'Last close';
-      document.getElementById('usdjpy-change').innerHTML = '<span style="color:rgba(245,243,238,0.35)">Market closed</span>';
+      document.getElementById('usdjpy-updated').textContent = 'Last close · Fri';
+      document.getElementById('usdjpy-change').innerHTML =
+        '<span style="color:rgba(245,243,238,0.35)">Market closed</span>';
     }
   } catch {
-    document.getElementById('usdjpy-price').textContent = lastKnownPrice ? lastKnownPrice.toFixed(3) : '—';
-    document.getElementById('usdjpy-change').innerHTML = '<span style="color:rgba(245,243,238,0.3)">—</span>';
+    if (lastKnownPrice) {
+      document.getElementById('usdjpy-price').textContent = lastKnownPrice.toFixed(3);
+    }
+    document.getElementById('usdjpy-change').innerHTML =
+      '<span style="color:rgba(245,243,238,0.3)">Price unavailable</span>';
   }
 }
 
-// Only poll when market is open, otherwise fetch once for last price
 function schedulePriceFetch() {
   fetchPrice();
   const interval = isForexMarketOpen() ? 30000 : 300000;
