@@ -70,6 +70,17 @@
     margin-right: 8px;
   }
   .nav-members-btn:hover { background: var(--gold); color: var(--ink); }
+  .lang-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.12em;
+    padding: 6px 12px;
+    background: transparent; color: rgba(245,243,238,0.35);
+    border: 1px solid rgba(245,243,238,0.12);
+    cursor: pointer; transition: all 0.2s;
+    margin-right: 12px;
+  }
+  .lang-btn:hover { color: var(--paper); border-color: rgba(245,243,238,0.3); }
+  .lang-btn.active { color: var(--paper); border-color: rgba(245,243,238,0.3); }
   .nav-cta {
     font-family: 'DM Mono', monospace;
     font-size: 0.78rem; letter-spacing: 0.04em;
@@ -801,30 +812,24 @@
   .faq-a a { color: var(--gold); text-decoration: none; }
 </style>
 
-<!-- Google Translate -->
+
 <script type="text/javascript">
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({
     pageLanguage: 'en',
     includedLanguages: 'es,en',
-    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
     autoDisplay: false
-  }, 'google_translate_element');
+  }, 'gt_hidden');
 }
 </script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <style>
-.goog-te-banner-frame { display: none !important; }
+#gt_hidden, .goog-te-banner-frame, .skiptranslate { display: none !important; }
 body { top: 0 !important; }
-#google_translate_element { display: inline-flex; align-items: center; }
-#google_translate_element .goog-te-gadget { font-family: 'DM Mono', monospace !important; font-size: 0.65rem !important; color: rgba(245,243,238,0.4) !important; }
-#google_translate_element .goog-te-gadget-simple { background: transparent !important; border: 1px solid rgba(245,243,238,0.15) !important; padding: 4px 10px !important; border-radius: 0 !important; }
-#google_translate_element .goog-te-gadget-simple span { color: rgba(245,243,238,0.5) !important; font-family: 'DM Mono', monospace !important; font-size: 0.65rem !important; letter-spacing: 0.08em !important; }
-#google_translate_element .goog-te-gadget-simple .goog-te-menu-value span { color: rgba(245,243,238,0.5) !important; }
-#google_translate_element img { display: none !important; }
 </style>
 </head>
 <body>
+<div id="gt_hidden" style="display:none"></div>
 
 <!-- NAV -->
 <nav>
@@ -837,7 +842,7 @@ body { top: 0 !important; }
     <li><a href="#member">Members</a></li>
     <li><a href="#pricing">Pricing</a></li>
   </ul>
-  <div id="google_translate_element"></div>
+  <button class="lang-btn" id="lang-toggle">ES</button>
   <a href="members.html" target="_blank" class="nav-members-btn">Members Area</a>
   <a href="https://kuroflow.gumroad.com" target="_blank" class="nav-cta">View Plans →</a>
 </nav>
@@ -1602,6 +1607,24 @@ body { top: 0 !important; }
       btn.disabled = false;
     }
   }
+
+  // Language toggle
+  var isES = false;
+  document.addEventListener('DOMContentLoaded', function() {
+    var btn = document.getElementById('lang-toggle');
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+      isES = !isES;
+      btn.textContent = isES ? 'EN' : 'ES';
+      btn.classList.toggle('active', isES);
+      // Trigger Google Translate
+      var select = document.querySelector('.goog-te-combo');
+      if (select) {
+        select.value = isES ? 'es' : 'en';
+        select.dispatchEvent(new Event('change'));
+      }
+    });
+  });
 </script>
 </body>
 </html>
