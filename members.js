@@ -156,30 +156,7 @@ function schedulePriceFetch() {
 }
 
 // ── CALENDAR ──
-async function fetchCalendar() {
-  const el = document.getElementById('calendar-list');
-  try {
-    const r = await fetch('https://nfs.faireconomy.media/ff_calendar_thisweek.json');
-    const events = await r.json();
-    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    const filtered = events.filter(e => ['USD','JPY'].includes(e.country) && e.impact === 'High').slice(0, 8);
-    if (!filtered.length) throw new Error('none');
-    el.innerHTML = filtered.map(e => {
-      const dt = new Date(e.date);
-      const dateStr = `${days[dt.getDay()]} ${dt.getDate()} ${months[dt.getMonth()]}`;
-      const timeStr = dt.toUTCString().slice(17,22);
-      return `<div class="cal-event">
-        <span class="cal-time">${timeStr}<br><span style="font-size:0.58rem;opacity:0.6">${dateStr}</span></span>
-        <span class="cal-dot high"></span>
-        <span class="cal-name">${e.title}</span>
-        <span class="cal-country">${e.country}</span>
-      </div>`;
-    }).join('');
-  } catch {
-    el.innerHTML = `<div class="cal-empty">No high-impact events found this week.<br><span style="font-size:0.6rem;opacity:0.6">Check <a href="https://www.forexfactory.com/calendar" target="_blank" style="color:var(--gold)">Forex Factory</a> for full calendar.</span></div>`;
-  }
-}
+// Economic calendar removed — see Forex Factory link in dashboard
 
 // ── WEEKLY ANALYSIS (via server — two sections) ──
 async function fetchAnalysis() {
@@ -235,7 +212,6 @@ function getWeekNumber(d) {
 function loadAll() {
   renderSessions();
   schedulePriceFetch();
-  fetchCalendar();
   fetchAnalysis();
 }
 
