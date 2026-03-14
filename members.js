@@ -129,27 +129,47 @@ async function fetchCalendar() {
   }
 }
 
-// ── WEEKLY ANALYSIS (via server) ──
+// ── WEEKLY ANALYSIS (via server — two sections) ──
 async function fetchAnalysis() {
-  const bodyEl = document.getElementById('analysis-body');
-  const weekEl = document.getElementById('analysis-week');
-  const now = new Date();
-  const wn = getWeekNumber(now);
-  weekEl.textContent = `Week ${wn} · ${now.getFullYear()}`;
+  const bodyUsdjpy   = document.getElementById('analysis-body-usdjpy');
+  const bodyGlobal   = document.getElementById('analysis-body-global');
+  const weekEl       = document.getElementById('analysis-week');
+  const weekElGlobal = document.getElementById('analysis-week-global');
+  if (!bodyUsdjpy || !bodyGlobal) return;
 
-  const cacheKey = `kf_analysis_${wn}_${now.getFullYear()}`;
-  const cached = sessionStorage.getItem(cacheKey);
-  if (cached) { bodyEl.innerHTML = cached; return; }
+  const now = new Date();
+  const wn  = getWeekNumber(now);
+  const weekLabel = `Week ${wn} · ${now.getFullYear()}`;
+  if (weekEl)       weekEl.textContent       = weekLabel;
+  if (weekElGlobal) weekElGlobal.textContent = weekLabel;
+
+  const cacheKey = `kf_analysis2_${wn}_${now.getFullYear()}`;
+  const cached   = sessionStorage.getItem(cacheKey);
+  if (cached) {
+    try {
+      const d = JSON.parse(cached);
+      if (d.usdjpy) bodyUsdjpy.innerHTML = d.usdjpy;
+      if (d.global)  bodyGlobal.innerHTML  = d.global;
+      return;
+    } catch(e) {}
+  }
+
+  const errMsg = `<p style="color:rgba(245,243,238,0.3);font-family:'DM Mono',monospace;font-size:0.75rem">Analysis temporarily unavailable. Check back shortly.</p>`;
 
   try {
-    const r = await fetch(`${LICENSE_SERVER}/analysis`, { signal: AbortSignal.timeout(35000) });
+    const r = await fetch(`${LICENSE_SERVER}/analysis`, { signal: AbortSignal.timeout(90000) });
     const d = await r.json();
-    if (d.html) {
-      bodyEl.innerHTML = d.html;
-      sessionStorage.setItem(cacheKey, d.html);
-    } else throw new Error('empty');
+    if (d.usdjpy && d.global) {
+      bodyUsdjpy.innerHTML = d.usdjpy;
+      bodyGlobal.innerHTML  = d.global;
+      sessionStorage.setItem(cacheKey, JSON.stringify({ usdjpy: d.usdjpy, global: d.global }));
+    } else {
+      bodyUsdjpy.innerHTML = errMsg;
+      bodyGlobal.innerHTML  = errMsg;
+    }
   } catch {
-    bodyEl.innerHTML = `<p style="color:rgba(245,243,238,0.3);font-family:'DM Mono',monospace;font-size:0.75rem">Analysis temporarily unavailable. Check back shortly.</p>`;
+    bodyUsdjpy.innerHTML = errMsg;
+    bodyGlobal.innerHTML  = errMsg;
   }
 }
 
