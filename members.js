@@ -69,39 +69,87 @@ const SESSIONS = [
   { name: 'New York', open: 13, close: 22 },
 ];
 function renderSessions() {
-  const h = (() => { const n = new Date(); return n.getUTCHours() + n.getUTCMinutes()/60; })();
+  const now = new Date();
+  const day  = now.getUTCDay();   // 0=Sun 6=Sat
+  const h    = now.getUTCHours() + now.getUTCMinutes() / 60;
+  const marketOpen = isForexMarketOpen();
+
   let anyActive = false;
   document.getElementById('sessions-list').innerHTML = SESSIONS.map(s => {
-    const active = s.open > s.close ? (h >= s.open || h < s.close) : (h >= s.open && h < s.close);
+    const active = marketOpen && (s.open > s.close
+      ? (h >= s.open || h < s.close)
+      : (h >= s.open && h < s.close));
     if (active) anyActive = true;
-    return `<div class="session-row ${active?'active':''}">
+    return `<div class="session-row ${active ? 'active' : ''}">
       <span class="session-name">${s.name}</span>
-      <span class="session-hours">${String(s.open).padStart(2,'0')}:00–${String(s.close).padStart(2,'0')}:00</span>
-      <span class="session-badge ${active?'on':'off'}">${active?'● Open':'Closed'}</span>
+      <span class="session-hours">${String(s.open).padStart(2,'0')}:00–${String(s.close).padStart(2,'0')}:00 UTC</span>
+      <span class="session-badge ${active ? 'on' : 'off'}">${active ? '● Open' : 'Closed'}</span>
     </div>`;
   }).join('');
+
   const st = document.getElementById('market-status-text');
-  st.textContent = anyActive ? 'open.' : 'closed.';
-  st.style.color = anyActive ? 'var(--safe-pale)' : 'rgba(245,243,238,0.4)';
+  if (!marketOpen) {
+    st.textContent = 'closed — weekend.';
+    st.style.color = 'rgba(245,243,238,0.3)';
+  } else if (anyActive) {
+    st.textContent = 'open.';
+    st.style.color = 'var(--safe-pale)';
+  } else {
+    st.textContent = 'closed.';
+    st.style.color = 'rgba(245,243,238,0.4)';
+  }
 }
 setInterval(renderSessions, 60000);
 
+// ── MARKET HOURS CHECK ──
+function isForexMarketOpen() {
+  const now = new Date();
+  const day = now.getUTCDay(); // 0=Sun, 1=Mon ... 6=Sat
+  const hour = now.getUTCHours() + now.getUTCMinutes() / 60;
+  // Market closed: Saturday all day + Sunday before 22:00 UTC (Sydney open)
+  if (day === 6) return false;
+  if (day === 0 && hour < 22) return false;
+  // Friday closes at 22:00 UTC
+  if (day === 5 && hour >= 22) return false;
+  return true;
+}
+
 // ── USDJPY PRICE ──
+let lastKnownPrice = null;
+
 async function fetchPrice() {
+  const marketOpen = isForexMarketOpen();
+
+  // Always fetch to get latest/last known price
   try {
     const r = await fetch('https://api.frankfurter.app/latest?from=USD&to=JPY');
     const d = await r.json();
     const p = d.rates.JPY;
+    lastKnownPrice = p;
+
     document.getElementById('usdjpy-price').textContent = p.toFixed(3);
     document.getElementById('usdjpy-high').textContent = (p * 1.003).toFixed(3);
     document.getElementById('usdjpy-low').textContent  = (p * 0.997).toFixed(3);
-    document.getElementById('usdjpy-updated').textContent = new Date().toUTCString().slice(17,22) + ' UTC';
-    document.getElementById('usdjpy-change').innerHTML = '<span style="color:var(--safe-pale)">▲ Live rate</span>';
+
+    if (marketOpen) {
+      document.getElementById('usdjpy-updated').textContent = new Date().toUTCString().slice(17,22) + ' UTC';
+      document.getElementById('usdjpy-change').innerHTML = '<span style="color:var(--safe-pale)">▲ Live rate</span>';
+    } else {
+      document.getElementById('usdjpy-updated').textContent = 'Last close';
+      document.getElementById('usdjpy-change').innerHTML = '<span style="color:rgba(245,243,238,0.35)">Market closed</span>';
+    }
   } catch {
-    document.getElementById('usdjpy-price').textContent = '—';
+    document.getElementById('usdjpy-price').textContent = lastKnownPrice ? lastKnownPrice.toFixed(3) : '—';
+    document.getElementById('usdjpy-change').innerHTML = '<span style="color:rgba(245,243,238,0.3)">—</span>';
   }
 }
-setInterval(fetchPrice, 30000);
+
+// Only poll when market is open, otherwise fetch once for last price
+function schedulePriceFetch() {
+  fetchPrice();
+  const interval = isForexMarketOpen() ? 30000 : 300000;
+  setTimeout(schedulePriceFetch, interval);
+}
 
 // ── CALENDAR ──
 async function fetchCalendar() {
@@ -182,7 +230,7 @@ function getWeekNumber(d) {
 
 function loadAll() {
   renderSessions();
-  fetchPrice();
+  schedulePriceFetch();
   fetchCalendar();
   fetchAnalysis();
 }
