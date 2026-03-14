@@ -1,5 +1,3 @@
-window.addEventListener('load', function() {
-
 const LICENSE_SERVER = 'https://kuroflow-license-server.onrender.com';
 
 // ── AUTH ──
@@ -174,6 +172,25 @@ function loadAll() {
   if (loginBtn) loginBtn.addEventListener('click', doLogin);
 
   // Support email
+  var supportLink = document.getElementById('support-link');
+  if (supportLink) {
+    supportLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.location.href = 'mailto:support@kuro-flow.com';
+    });
+  }
+
+
+// Attach event listeners directly
+document.addEventListener('DOMContentLoaded', function() {
+  var loginBtn = document.getElementById('login-btn');
+  if (loginBtn) loginBtn.addEventListener('click', doLogin);
+
+  var loginKey = document.getElementById('login-key');
+  if (loginKey) loginKey.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') doLogin();
+  });
+
   var supportLink = document.getElementById('support-link');
   if (supportLink) {
     supportLink.addEventListener('click', function(e) {
