@@ -726,6 +726,7 @@
   @media (max-width: 900px) {
     nav { padding: 16px 24px; }
     .nav-links { display: none; }
+    .nav-members-btn { display: none; }
     #hero { grid-template-columns: 1fr; padding: 100px 24px 60px; gap: 40px; }
     #proof { padding: 60px 24px; }
     .proof-header { grid-template-columns: 1fr; gap: 40px; }
@@ -737,8 +738,31 @@
     .member-bottom { grid-template-columns: 1fr; }
     #pricing { padding: 60px 24px; }
     .pricing-grid { grid-template-columns: 1fr; }
+    #faq { padding: 60px 24px; }
     footer { padding: 32px 24px; }
     .footer-inner { flex-direction: column; }
+
+    /* Buttons — mobile */
+    .btn-primary, .btn-primary-light, .btn-ghost {
+      width: 100%; text-align: center; padding: 14px 20px;
+      font-size: 0.78rem; display: block; box-sizing: border-box;
+    }
+    .btn-pricing-primary, .btn-pricing-secondary {
+      width: 100%; text-align: center; padding: 14px 20px;
+      font-size: 0.78rem; display: block; box-sizing: border-box;
+    }
+    .nav-cta { padding: 8px 14px; font-size: 0.7rem; }
+
+    /* Hero buttons side by side on mobile */
+    .hero-cta { flex-direction: column; gap: 12px; }
+
+    /* Pricing cards */
+    .pricing-card { padding: 32px 24px; }
+
+    /* FAQ */
+    .faq-q { padding: 16px 20px; font-size: 0.88rem; }
+    .faq-a { padding: 0 20px; }
+    .faq-a.open { padding: 14px 20px 20px; }
   }
 
   /* ─── FAQ ──────────────────────────────── */
@@ -1365,7 +1389,7 @@
           <span>Version updates included</span>
         </li>
       </ul>
-      <a href="https://kuroflow.gumroad.com/l/rumdt__" target="_blank" class="btn-pricing-primary">Subscribe Annual →</a>
+      <a href="https://kuroflow.gumroad.com/l/rumdt" target="_blank" class="btn-pricing-primary">Subscribe Annual →</a>
     </div>
 
   </div>
@@ -1401,7 +1425,7 @@
       <div class="faq-a">Any broker offering <strong>MT5, USDJPY with spreads below 2 pips, and automated trading allowed</strong>. We personally recommend The5ers, GoatFunded and ACGMarkets. Avoid brokers with minimum holding times, no-EA policies or excessive slippage on USDJPY.</div></div>
 
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I use it on multiple accounts?<span class="faq-icon">+</span></button>
-      <div class="faq-a">Each license is tied to <strong>one MT5 account number</strong>. If you need to run it on a second account, a separate subscription is required. To migrate to a different account, contact us at licencias<span>&#64;</span>kuro-flow.com — we will expire the old key and issue a new one for your new account number.</div></div>
+      <div class="faq-a">Each license is tied to <strong>one MT5 account number</strong>. If you need to run it on a second account, a separate subscription is required. To migrate to a different account, contact us at support<span>&#64;</span>kuro-flow.com — we will expire the old key and issue a new one for your new account number.</div></div>
 
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Do I need to leave MT5 open 24/5?<span class="faq-icon">+</span></button>
       <div class="faq-a">No — MT5 only needs to be running during the <strong>EA's active session windows</strong>. Kuro-Flow operates within two defined daily time ranges. Outside those windows, the EA does not trade and your terminal does not need to be connected. A VPS is still recommended for reliability during those windows.</div></div>
@@ -1418,7 +1442,10 @@
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How many trades does it open per day?<span class="faq-icon">+</span></button>
       <div class="faq-a">The system is designed around <strong>1 high-quality trade per day</strong>. Each trade must meet all session, range and direction filters before the EA enters. Some days there will be no trades if conditions are not met — quality over quantity.</div></div>
 
-    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Is there a free trial?<span class="faq-icon">+</span></button>
+    <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Is Kuro-Flow compatible with MT4?<span class="faq-icon">+</span></button>
+      <div class="faq-a">No — Kuro-Flow is currently built exclusively for <strong>MetaTrader 5 (MT5)</strong>. MT4 is not supported at this time. That said, an MT4 version and compatibility with other platforms is something we are actively considering for a future release. If MT4 support is important to you, feel free to let us know at support<span>&#64;</span>kuro-flow.com.</div></div>
+
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Is there a free trial?<span class="faq-icon">+</span></button>
       <div class="faq-a" id="faq-trial-answer">Yes — we offer a <strong>7-day free trial</strong>. Enter your email below and your trial license key will be sent to you automatically. No credit card required.
         <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap" id="trial-form">
           <input type="email" id="trial-email" placeholder="your@email.com" style="flex:1;min-width:200px;padding:10px 16px;background:#0a0a0c;border:1px solid rgba(201,168,76,0.3);color:var(--paper);font-family:'DM Mono',monospace;font-size:0.78rem;outline:none;">
