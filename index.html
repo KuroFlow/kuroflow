@@ -1715,11 +1715,13 @@ function closeLegal() {
   document.body.style.overflow = 'auto';
 }
 </script>
-<div id="notification-toast" style="display: none; position: fixed; bottom: 30px; left: 30px; z-index: 10000; background: #0a0a0c; border: 1px solid rgba(201,168,76,0.3); padding: 16px 20px; min-width: 280px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); font-family: 'DM Mono', monospace; align-items: center; gap: 15px; transition: all 0.5s ease;">
-    <div style="width: 8px; height: 8px; background: #c9a84c; border-radius: 50%; box-shadow: 0 0 10px #c9a84c;"></div>
-    <div style="flex: 1;">
-        <div id="toast-user" style="color: #f5f3ee; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">User from London</div>
-        <div id="toast-action" style="color: #6b6860; font-size: 10px; margin-top: 4px;">Just activated 7-Day Trial</div>
+<div id="notification-toast" style="display:none; opacity:0; align-items:center; background: white; padding: 10px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); position: fixed; bottom: 20px; left: 20px; z-index: 9999; transition: opacity 0.5s;">
+    
+    <img id="toast-flag" src="" width="30" style="margin-right: 12px; border-radius: 3px; display: none;">
+
+    <div style="display: flex; flex-direction: column;">
+        <strong id="toast-user" style="font-size: 14px; color: #333;"></strong>
+        <span id="toast-action" style="font-size: 12px; color: #666;"></span>
     </div>
 </div>
 
@@ -1744,11 +1746,25 @@ async function checkLiveActivity() {
 
 function showNotification(data) {
     const toast = document.getElementById('notification-toast');
-    document.getElementById('toast-user').innerText = data.user;
-    document.getElementById('toast-action').innerText = data.action;
-    
+    const userEl = document.getElementById('toast-user');
+    const actionEl = document.getElementById('toast-action');
+    const flagImg = document.getElementById('toast-flag'); // <-- Asegúrate de que este ID exista en tu HTML
+
+    // 1. Actualizamos los textos
+    userEl.innerText = data.user;
+    actionEl.innerText = data.action;
+
+    // 2. Lógica de la bandera
+    if (flagImg) {
+        // Si el país es "un" o no existe, ponemos una bandera por defecto (ej: us)
+        const country = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
+        flagImg.src = `https://flagcdn.com/w40/${country}.png`;
+        flagImg.style.display = 'block'; 
+    }
+
+    // 3. Mostrar el pop-up
     toast.style.display = 'flex';
-    toast.style.opacity = '1';
+    setTimeout(() => { toast.style.opacity = '1'; }, 10);
     
     // Se queda 12 segundos visible
     setTimeout(() => {
