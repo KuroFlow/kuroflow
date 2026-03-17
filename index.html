@@ -84,12 +84,13 @@
         if (Math.random() > 0.28) checkKuroFlowActivity();
     }, 17000);
 })();
-</script>
-
-<!-- Función requestTrial mejorada (también activa el toast) -->
+  
 <script>
 async function requestTrial() {
-    const email = document.getElementById('trial-email').value.trim();
+    const emailField = document.getElementById('trial-email');
+    if (!emailField) return;
+    
+    const email = emailField.value.trim();
     const msg = document.getElementById('trial-msg');
     const btn = document.getElementById('trial-btn');
 
@@ -109,45 +110,146 @@ async function requestTrial() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email })
         });
-        const data = await res.json();
 
         if (res.ok) {
             msg.style.display = 'block';
             msg.style.color = '#6edd9e';
-            msg.textContent = `✅ Trial key sent to ${email}! Check your inbox (and spam).`;
-
-            // Fuerza mostrar toast inmediatamente
-            setTimeout(() => {
-                const toast = document.getElementById('social-proof-toast');
-                document.getElementById('toast-user').textContent = email.split('@')[0].capitalize() || "Trader";
+            msg.textContent = '✅ Trial key sent! Check your inbox.';
+            
+            // Lógica del nombre para el Pop-up
+            const nameRaw = email.split('@')[0];
+            const nameClean = nameRaw.charAt(0).toUpperCase() + nameRaw.slice(1);
+            
+            const toast = document.getElementById('social-proof-toast');
+            if (toast) {
+                document.getElementById('toast-user').textContent = nameClean;
                 document.getElementById('toast-action').innerHTML = `requested a 7-day trial <span style="opacity:0.65">• just now</span>`;
-                document.getElementById('toast-flag').src = "https://flagcdn.com/w40/us.png";
                 document.getElementById('toast-flag').style.display = 'block';
                 toast.style.display = 'flex';
-                toast.style.opacity = '1';
-                setTimeout(() => { toast.style.opacity = '0'; setTimeout(()=>{toast.style.display='none';},600); }, 7000);
-            }, 600);
-
-            document.getElementById('trial-form').style.display = 'none';
-        } else {
-            throw new Error(data.error || "Try again");
+                setTimeout(() => { toast.style.opacity = '1'; }, 100);
+            }
         }
     } catch (e) {
         msg.style.display = 'block';
-        msg.style.color = '#ed6e6e';
-        msg.textContent = 'Connection error. Please try again.';
+        msg.textContent = 'Connection error. Try again.';
     } finally {
         btn.textContent = 'Get Trial Key →';
         btn.disabled = false;
     }
 }
+  
 </script>
 
-<!-- Resto de tus scripts (toggleFaq, lightbox, etc.) se mantienen igual -->
-<script>
-  // Tu código de scroll reveal, gauge, toggleFaq, openLightbox, closeLightbox, etc. queda igual
-  // Solo mantengo lo necesario y limpio
-</script>
+  <script>
+
+// 1. GAUGE ANIMATION (Indicador de Win-Rate/Performance)
+function updateGauge(value) {
+    const gaugeFill = document.querySelector('.gauge-fill');
+    if (!gaugeFill) return;
+    
+    const radius = 90;
+    const circumference = 2 * Math.PI * radius;
+    const offset = circumference - (value / 100) * circumference;
+    
+    gaugeFill.style.strokeDashoffset = offset;
+    
+    const countTarget = document.getElementById('gauge-value');
+    if (countTarget) {
+        let start = 0;
+        const duration = 2000;
+        const increment = value / (duration / 16);
+        
+        const timer = setInterval(() => {
+            start += increment;
+            if (start >= value) {
+                countTarget.textContent = value.toFixed(1) + '%';
+                clearInterval(timer);
+            } else {
+                countTarget.textContent = start.toFixed(1) + '%';
+            }
+        }, 16);
+    }
+}
+
+// 2. FAQ ACCORDION
+function toggleFaq(element) {
+    const allFaqs = document.querySelectorAll('.faq-item');
+    const content = element.nextElementSibling;
+    const icon = element.querySelector('.faq-icon');
+
+    allFaqs.forEach(item => {
+        const otherContent = item.querySelector('.faq-answer');
+        const otherIcon = item.querySelector('.faq-icon');
+        if (otherContent && otherContent !== content && otherContent.style.maxHeight) {
+            otherContent.style.maxHeight = null;
+            item.classList.remove('active');
+            if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+        }
+    });
+
+    if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+        element.parentElement.classList.remove('active');
+        if (icon) icon.style.transform = 'rotate(0deg)';
+    } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+        element.parentElement.classList.add('active');
+        if (icon) icon.style.transform = 'rotate(45deg)';
+    }
+}
+
+// 3. LIGHTBOX PARA PROOF
+function openLightbox(src) {
+    const lightbox = document.getElementById('proof-lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    if (!lightbox || !lightboxImg) return;
+
+    lightboxImg.src = src;
+    lightbox.style.display = 'flex';
+    setTimeout(() => { lightbox.style.opacity = '1'; }, 10);
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('proof-lightbox');
+    if (!lightbox) return;
+
+    lightbox.style.opacity = '0';
+    setTimeout(() => {
+        lightbox.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }, 300);
+}
+
+// 4. SCROLL REVEAL
+const revealOnScroll = () => {
+    const elements = document.querySelectorAll('.reveal');
+    const windowHeight = window.innerHeight;
+
+    elements.forEach(el => {
+        const elementTop = el.getBoundingClientRect().top;
+        if (elementTop < windowHeight - 150) {
+            el.classList.add('active');
+        }
+    });
+};
+
+// 5. NAVBAR STICKY
+window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (nav) {
+        window.scrollY > 50 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
+    }
+    revealOnScroll();
+});
+
+// INITIALIZATION
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => updateGauge(78.4), 1000);
+    revealOnScroll();
+    console.log("Kuro-Flow Engine: Fully Restored.");
+});
+</script>        
 
 </body>
 </html>
