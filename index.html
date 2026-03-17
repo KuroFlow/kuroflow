@@ -1724,51 +1724,50 @@ function closeLegal() {
 </div>
 
 <script>
+// Lista de actividades (Solo para demostración inicial, luego conectaremos tu base de datos)
 const activities = [
-    { user: "User from London", action: "Just activated 7-Day Trial" },
-    { user: "Trader in Tokyo", action: "Upgraded to Annual License" },
-    { user: "User from Frankfurt", action: "New MT5 License generated" },
-    { user: "Trader in New York", action: "Just activated 7-Day Trial" },
-    { user: "User from Singapore", action: "Successfully linked MT5 account" },
-    { user: "Trader in Madrid", action: "Annual License secured" },
-    { user: "User from Dubai", action: "Just activated 7-Day Trial" },
-    { user: "Trader in Sydney", action: "New Terminal setup complete" }
+    { user: "New Terminal Access", action: "7-Day Trial Key Generated" },
+    { user: "System Update", action: "USDJPY Algorithm v3.1 Live" },
+    { user: "License Validation", action: "Global Node Sync Complete" }
 ];
 
-function showNotification() {
+function showNotification(customData = null) {
     const toast = document.getElementById('notification-toast');
     const userEl = document.getElementById('toast-user');
     const actionEl = document.getElementById('toast-action');
     
-    // Elegir actividad aleatoria
-    const activity = activities[Math.floor(Math.random() * activities.length)];
+    // Si hay datos reales (de una compra o trial), los usa. Si no, usa datos de sistema.
+    const data = customData || activities[Math.floor(Math.random() * activities.length)];
     
-    userEl.innerText = activity.user;
-    actionEl.innerText = activity.action;
+    userEl.innerText = data.user;
+    actionEl.innerText = data.action;
     
-    // Mostrar
     toast.style.display = 'flex';
     toast.style.opacity = '0';
-    toast.style.transform = 'translateY(20px)';
+    toast.style.transform = 'translateX(-20px)';
     
     setTimeout(() => {
         toast.style.opacity = '1';
-        toast.style.transform = 'translateY(0)';
+        toast.style.transform = 'translateX(0)';
     }, 100);
 
-    // Ocultar después de 5 segundos
+    // DURACIÓN: Ahora se queda 10 segundos (10000ms)
     setTimeout(() => {
         toast.style.opacity = '0';
-        toast.style.transform = 'translateY(20px)';
+        toast.style.transform = 'translateX(-20px)';
         setTimeout(() => { toast.style.display = 'none'; }, 500);
-    }, 5000);
+    }, 10000); 
 }
 
-// Iniciar ciclo: primera notificación a los 10 segundos, luego cada 20-30 segundos
+// Para que sea REAL: Esta función la llamaremos desde tu proceso de "Request Trial"
+// Cuando el usuario haga click en el botón de Trial y el servidor responda OK, 
+// llamaremos a: showNotification({user: "Success", action: "Your key has been sent"});
+
+// Por ahora, solo lanzamos una de "Sistema Activo" al entrar para dar confianza
 setTimeout(() => {
-    showNotification();
-    setInterval(showNotification, 25000); 
-}, 10000);
+    showNotification({user: "System Status", action: "All MT5 Nodes Operational"});
+}, 4000);
 </script>    
+
 </body>    
 </html>
