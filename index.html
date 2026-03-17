@@ -1724,48 +1724,43 @@ function closeLegal() {
 </div>
 
 <script>
-// Esta función será alimentada por tu base de datos de Render
-async function fetchRealActivity() {
+// La URL de tu servicio en Render (Cámbiala por la tuya real)
+const BACKEND_URL = "https://kuroflow-license-server.onrender.com"; 
+
+async function checkLiveActivity() {
     try {
-        // Aquí es donde llamaremos a tu API en Render:
-        // const response = await fetch('https://tu-app.onrender.com/get_recent_activity');
-        // const data = await response.json();
-        // showNotification(data);
+        const response = await fetch(`${BACKEND_URL}/get-activity`);
+        const data = await response.json();
         
-        // Por ahora, para que la web no esté muerta, lanzamos el estado del sistema:
-        showNotification({user: "System Status", action: "All Nodes Operational // 2026 Edition"});
+        // Si el servidor devuelve una actividad real y no es la misma de antes
+        if (data && data.action && window.lastActivity !== data.timestamp) {
+            showNotification(data);
+            window.lastActivity = data.timestamp; // Usamos un timestamp para no repetir
+        }
     } catch (e) {
-        console.log("Sync error");
+        console.log("Esperando actividad real...");
     }
 }
 
 function showNotification(data) {
     const toast = document.getElementById('notification-toast');
-    const userEl = document.getElementById('toast-user');
-    const actionEl = document.getElementById('toast-action');
-    
-    userEl.innerText = data.user;
-    actionEl.innerText = data.action;
+    document.getElementById('toast-user').innerText = data.user;
+    document.getElementById('toast-action').innerText = data.action;
     
     toast.style.display = 'flex';
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateY(20px)';
+    toast.style.opacity = '1';
     
-    setTimeout(() => {
-        toast.style.opacity = '1';
-        toast.style.transform = 'translateY(0)';
-    }, 100);
-
-    // Se queda 12 segundos para que de tiempo a leerlo con calma
+    // Se queda 12 segundos visible
     setTimeout(() => {
         toast.style.opacity = '0';
-        toast.style.transform = 'translateY(20px)';
         setTimeout(() => { toast.style.display = 'none'; }, 500);
-    }, 12000); 
+    }, 12000);
 }
 
-// Lógica de inicio
-setTimeout(fetchRealActivity, 5000); // Primera notificación a los 5 segundos
+// Revisa cada 30 segundos
+setInterval(checkLiveActivity, 30000);
+// Primera revisión al cargar
+setTimeout(checkLiveActivity, 5000);
 </script>
 
 </body>    
