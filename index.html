@@ -1779,36 +1779,32 @@ function closeLegal() {
             const response = await fetch(API_URL);
             const data = await response.json();
 
-            // Verificamos que 'user' y 'action' existan y no sean 'expired'
-            if (data && data.user && data.status !== "expired") {
-                const toast = document.getElementById('social-proof-toast');
-                const userEl = document.getElementById('toast-user');
-                const actionEl = document.getElementById('toast-action');
-                const flagEl = document.getElementById('toast-flag');
-
-                // 1. INYECTAR CON FUERZA (Aseguramos que el HTML se escriba)
-                userEl.innerHTML = data.user;
-                actionEl.innerHTML = data.action;
-
-                // 2. MOSTRAR BANDERA
-                const countryCode = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
-                flagEl.src = `https://flagcdn.com/w40/${countryCode}.png`;
-                flagEl.style.display = 'block';
-
-                // 3. REFORZAR ESTILOS (Para que no salgan invisibles)
-                userEl.style.color = "#c9a84c";
-                userEl.style.fontWeight = "bold";
-                actionEl.style.color = "#ffffff";
-
-                // 4. MOSTRAR EL CUADRO
-                toast.style.display = 'flex';
-                
-                // Esperamos un instante para que el navegador "dibuje" el texto
-                setTimeout(() => { 
-                    toast.style.opacity = '1'; 
-                }, 150);
-
-                popupVisible = true;
+        if (data && data.user && data.status !== "expired") {
+            const toast = document.getElementById('social-proof-toast');
+            const userEl = document.getElementById('toast-user');
+            const actionEl = document.getElementById('toast-action');
+            const flagEl = document.getElementById('toast-flag');
+        
+            userEl.textContent = data.user;  // más seguro que innerHTML aquí
+            actionEl.innerHTML = `${data.action} <span style="opacity:0.7">• ${data.time_ago || 'recently'}</span>`;
+        
+            // resto del código igual (bandera, display, timeouts, etc.)
+            const countryCode = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
+            flagEl.src = `https://flagcdn.com/w40/${countryCode}.png`;
+            flagEl.style.display = 'block';
+        
+            toast.style.display = 'flex';
+            setTimeout(() => { toast.style.opacity = '1'; }, 150);
+            popupVisible = true;
+        
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                    popupVisible = false;
+                }, 500);
+            }, 8000);
+        }
 
                 // 5. OCULTAR TRAS 8 SEGUNDOS
                 setTimeout(() => {
