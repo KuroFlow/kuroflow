@@ -1744,117 +1744,57 @@ function closeLegal() {
 ">
     <img id="toast-flag" src="" width="24" style="border-radius:2px; display:none;">
     <div style="color: white; font-size: 13px; line-height: 1.4;">
-        <strong id="toast-user" style="color: #c9a84c; display: block;">Loading...</strong>
-        <span id="toast-action">Updating activity</span>
+        <strong id="toast-user" style="color: #c9a84c; display: block;"></strong>
+        <span id="toast-action"></span>
     </div>
 </div>
 
 <script>
-  
-async function forceKuroFlowPopup() {
-    const API_URL = "https://kuroflow-license-server.onrender.com/activity";
-    
-    // NOTA: He quitado el sessionStorage temporalmente para que PUEDAS PROBAR VARIAS VECES
-    // Una vez que funcione, lo volveremos a poner.
+(function() {
+    async function startKuroFlowPopup() {
+        const API_URL = "https://kuroflow-license-server.onrender.com/activity";
+        
+        try {
+            console.log("Intentando conectar con KuroFlow Server...");
+            const response = await fetch(API_URL);
+            const data = await response.json();
 
-    try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
+            if (data && data.user && data.user !== "") {
+                const toast = document.getElementById('social-proof-toast');
+                const userEl = document.getElementById('toast-user');
+                const actionEl = document.getElementById('toast-action');
+                const flagEl = document.getElementById('toast-flag');
 
-        console.log("Datos recibidos:", data); // Veremos esto en la consola (F12)
+                // Llenar datos
+                userEl.textContent = data.user;
+                actionEl.textContent = data.action;
+                
+                const country = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
+                flagEl.src = `https://flagcdn.com/w40/${country}.png`;
+                flagEl.style.display = 'block';
 
-        if (data && data.user) {
-            const toast = document.getElementById('social-proof-toast');
-            const userEl = document.getElementById('toast-user');
-            const actionEl = document.getElementById('toast-action');
-            const flagEl = document.getElementById('toast-flag');
+                // Mostrar
+                toast.style.display = 'flex';
+                setTimeout(() => { toast.style.opacity = '1'; }, 100);
 
-            // Llenamos la info ANTES de mostrar el cuadro
-            userEl.textContent = data.user;
-            actionEl.textContent = data.action;
-            
-            const country = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
-            flagEl.src = `https://flagcdn.com/w40/${country}.png`;
-            flagEl.style.display = 'block';
-
-            // Ahora que todo está lleno, mostramos el cuadro
-            toast.style.display = 'flex';
-            setTimeout(() => { 
-                toast.style.opacity = '1'; 
-            }, 100);
-
-            // Se oculta a los 10 segundos
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                setTimeout(() => { toast.style.display = 'none'; }, 500);
-            }, 10000);
+                // Ocultar
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => { toast.style.display = 'none'; }, 500);
+                }, 10000);
+            } else {
+                console.log("Servidor conectado, pero no hay actividad reciente.");
+            }
+        } catch (e) {
+            console.error("Error crítico en el script:", e);
         }
-    } catch (e) {
-        console.error("Error en el Pop-up:", e);
     }
-}
 
-// Ejecutar a los 3 segundos
-window.addEventListener('load', () => {
-    setTimeout(forceKuroFlowPopup, 3000);
-});    
-
-<script>
-async function startKuroFlowNotifications() {
-    // URL única y confirmada
-    const API_URL = "https://kuroflow-license-server.onrender.com/activity";
-    
-    // Si ya se mostró en esta sesión, no hacer nada
-    if (sessionStorage.getItem('kf_notification_done')) return;
-
-    try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
-
-        // Si el servidor responde con un usuario (ej: Camperodi11)
-        if (data && data.user && data.user !== "") {
-            const toast = document.getElementById('social-proof-toast');
-            const userEl = document.getElementById('toast-user');
-            const actionEl = document.getElementById('toast-action');
-            const flagEl = document.getElementById('toast-flag');
-
-            // 1. Inyectar los datos en el HTML
-            userEl.textContent = data.user;
-            actionEl.textContent = data.action;
-            
-            // 2. Configurar bandera (USA por defecto si no hay país)
-            const country = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
-            flagEl.src = `https://flagcdn.com/w40/${country}.png`;
-            flagEl.style.display = 'block';
-
-            // 3. Mostrar el pop-up
-            toast.style.display = 'flex';
-            
-            // 4. Animación de entrada (fade in)
-            setTimeout(() => { 
-                toast.style.opacity = '1'; 
-            }, 100);
-
-            // Guardar que ya se mostró para no molestar más
-            sessionStorage.setItem('kf_notification_done', 'true');
-
-            // 5. Ocultar automáticamente tras 8 segundos
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                setTimeout(() => { 
-                    toast.style.display = 'none'; 
-                }, 500);
-            }, 8000);
-        }
-    } catch (e) {
-        console.log("KuroFlow: Esperando nueva actividad del servidor...");
-    }
-}
-
-// Iniciar 4 segundos después de que la página cargue
-window.addEventListener('load', () => {
-    setTimeout(startKuroFlowNotifications, 4000);
-});
+    // Esperar a que la página cargue
+    window.addEventListener('load', () => {
+        setTimeout(startKuroFlowPopup, 3000);
+    });
+})();
 </script>
 
 </body>
