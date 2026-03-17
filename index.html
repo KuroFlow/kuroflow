@@ -1715,5 +1715,60 @@ function closeLegal() {
   document.body.style.overflow = 'auto';
 }
 </script>
-</body>
+<div id="notification-toast" style="display: none; position: fixed; bottom: 30px; left: 30px; z-index: 10000; background: #0a0a0c; border: 1px solid rgba(201,168,76,0.3); padding: 16px 20px; min-width: 280px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); font-family: 'DM Mono', monospace; align-items: center; gap: 15px; transition: all 0.5s ease;">
+    <div style="width: 8px; height: 8px; background: #c9a84c; border-radius: 50%; box-shadow: 0 0 10px #c9a84c;"></div>
+    <div style="flex: 1;">
+        <div id="toast-user" style="color: #f5f3ee; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">User from London</div>
+        <div id="toast-action" style="color: #6b6860; font-size: 10px; margin-top: 4px;">Just activated 7-Day Trial</div>
+    </div>
+</div>
+
+<script>
+const activities = [
+    { user: "User from London", action: "Just activated 7-Day Trial" },
+    { user: "Trader in Tokyo", action: "Upgraded to Annual License" },
+    { user: "User from Frankfurt", action: "New MT5 License generated" },
+    { user: "Trader in New York", action: "Just activated 7-Day Trial" },
+    { user: "User from Singapore", action: "Successfully linked MT5 account" },
+    { user: "Trader in Madrid", action: "Annual License secured" },
+    { user: "User from Dubai", action: "Just activated 7-Day Trial" },
+    { user: "Trader in Sydney", action: "New Terminal setup complete" }
+];
+
+function showNotification() {
+    const toast = document.getElementById('notification-toast');
+    const userEl = document.getElementById('toast-user');
+    const actionEl = document.getElementById('toast-action');
+    
+    // Elegir actividad aleatoria
+    const activity = activities[Math.floor(Math.random() * activities.length)];
+    
+    userEl.innerText = activity.user;
+    actionEl.innerText = activity.action;
+    
+    // Mostrar
+    toast.style.display = 'flex';
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(20px)';
+    
+    setTimeout(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateY(0)';
+    }, 100);
+
+    // Ocultar después de 5 segundos
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(20px)';
+        setTimeout(() => { toast.style.display = 'none'; }, 500);
+    }, 5000);
+}
+
+// Iniciar ciclo: primera notificación a los 10 segundos, luego cada 20-30 segundos
+setTimeout(() => {
+    showNotification();
+    setInterval(showNotification, 25000); 
+}, 10000);
+</script>    
+</body>    
 </html>
