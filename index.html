@@ -1751,49 +1751,64 @@ function closeLegal() {
 
 <script>
 (function() {
-    async function startKuroFlowPopup() {
+    let popupMostradoEnEstaSesion = false;
+
+    async function checkActivity() {
+        // Si ya lo mostramos una vez, dejamos de preguntar para no molestar
+        if (popupMostradoEnEstaSesion) return;
+
         const API_URL = "https://kuroflow-license-server.onrender.com/activity";
         
         try {
-            console.log("Intentando conectar con KuroFlow Server...");
+            console.log("KuroFlow: Escaneando actividad en tiempo real...");
             const response = await fetch(API_URL);
             const data = await response.json();
 
+            // Si hay un usuario real y no es el mensaje de "waiting"
             if (data && data.user && data.user !== "") {
                 const toast = document.getElementById('social-proof-toast');
-                const userEl = document.getElementById('toast-user');
-                const actionEl = document.getElementById('toast-action');
-                const flagEl = document.getElementById('toast-flag');
-
-                // Llenar datos
-                userEl.textContent = data.user;
-                actionEl.textContent = data.action;
+                
+                // Inyectamos los datos
+                document.getElementById('toast-user').textContent = data.user;
+                document.getElementById('toast-action').textContent = data.action;
                 
                 const country = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
+                const flagEl = document.getElementById('toast-flag');
                 flagEl.src = `https://flagcdn.com/w40/${country}.png`;
                 flagEl.style.display = 'block';
 
-                // Mostrar
+                // MOSTRAR POP-UP
                 toast.style.display = 'flex';
                 setTimeout(() => { toast.style.opacity = '1'; }, 100);
+                
+                // Marcar como mostrado para que el "bucle" se detenga
+                popupMostradoEnEstaSesion = true;
 
-                // Ocultar
+                // OCULTAR TRAS 10 SEGUNDOS
                 setTimeout(() => {
                     toast.style.opacity = '0';
                     setTimeout(() => { toast.style.display = 'none'; }, 500);
                 }, 10000);
-            } else {
-                console.log("Servidor conectado, pero no hay actividad reciente.");
             }
         } catch (e) {
-            console.error("Error crítico en el script:", e);
+            console.log("Buscando señal del servidor...");
         }
     }
 
-    // Esperar a que la página cargue
-    window.addEventListener('load', () => {
-        setTimeout(startKuroFlowPopup, 3000);
-    });
+    // --- LA MAGIA ESTÁ AQUÍ ---
+    // 1. Ejecutar por primera vez a los 4 segundos
+    setTimeout(checkActivity, 4000);
+
+    // 2. REPETIR la búsqueda cada 10 segundos automáticamente (sin F5)
+    // Esto se detendrá en cuanto popupMostradoEnEstaSesion sea true
+    const buscador = setInterval(() => {
+        if (popupMostradoEnEstaSesion) {
+            clearInterval(buscador); // Detiene el bucle si ya se mostró
+        } else {
+            checkActivity();
+        }
+    }, 10000); 
+
 })();
 </script>
 
