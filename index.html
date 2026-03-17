@@ -1753,97 +1753,53 @@ function closeLegal() {
 </div>
 
 <script>
-async function showSocialProof() {
-    // Configuración: Cambia esta URL si tu servidor cambia
+async function showKuroFlowActivity() {
     const BACKEND_URL = "https://kuroflow-license-server.onrender.com";
-
-    // REGLA DE ORO: Si ya lo vio en esta sesión, no mostrar más al refrescar
+    
+    // Evitar saturar al usuario: Solo mostrar una vez por sesión
     if (sessionStorage.getItem('toast_shown')) return;
 
     try {
-        // Llamamos al endpoint que configuramos hoy martes
-        const response = await fetch(`${BACKEND_URL}/last-event`);
+        const response = await fetch(`${BACKEND_URL}/get-activity`);
         const data = await response.json();
 
         if (data && data.user) {
-            // Actualizamos los datos del pop-up
-            document.getElementById('toast-user').textContent = data.user;
-            document.getElementById('toast-action').textContent = data.action;
-            
-            // Lógica de bandera: si falla la detección, ponemos 'us' por defecto
-            const country = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
-            document.getElementById('toast-flag').src = `https://flagcdn.com/w40/${country}.png`;
-
-            // Mostramos el pop-up con elegancia
             const toast = document.getElementById('social-proof-toast');
-            toast.style.display = 'flex';
-            toast.style.opacity = '1';
+            const userEl = document.getElementById('toast-user');
+            const actionEl = document.getElementById('toast-action');
+            const flagEl = document.getElementById('toast-flag');
 
-            // Guardamos que ya se mostró para que no sea molesto
+            // Inyectar datos
+            userEl.textContent = data.user;
+            actionEl.textContent = data.action;
+            
+            // Lógica de bandera (fallback a 'us' si falla)
+            const countryCode = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
+            flagEl.src = `https://flagcdn.com/w40/${countryCode}.png`;
+            flagEl.style.display = 'block';
+
+            // Animación de entrada
+            toast.style.display = 'flex';
+            setTimeout(() => { toast.style.opacity = '1'; }, 100);
+
             sessionStorage.setItem('toast_shown', 'true');
 
-            // Se oculta automáticamente tras 8 segundos
-            setTimeout(() => { 
+            // Autoocultar tras 8 segundos
+            setTimeout(() => {
                 toast.style.opacity = '0';
                 setTimeout(() => { toast.style.display = 'none'; }, 500);
             }, 8000);
         }
-    } catch (e) { 
-        console.log("Waiting for robotic activity..."); 
+    } catch (e) {
+        console.log("KUROFLOW: Aguardando nueva actividad robótica...");
     }
 }
 
-// Se activa 4 segundos después de que el usuario entre a la web
-setTimeout(showSocialProof, 4000);
+// Disparar la notificación a los 4 segundos de carga
+window.addEventListener('load', () => {
+    setTimeout(showKuroFlowActivity, 4000);
+});
 </script>
 
-<div id="kf-popup" style="
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background: #0f0f12;
-  border: 1px solid #c9a84c;
-  padding: 16px 20px;
-  color: white;
-  font-family: monospace;
-  display: none;
-  z-index: 9999;
-">
-  <div id="kf-title" style="color:#c9a84c;font-weight:bold;"></div>
-  <div id="kf-product"></div>
-  <img id="kf-flag" width="20" style="margin-top:8px;" />
-</div>
-
-<script>
-async function testPopup() {
-  try {
-    const res = await fetch("https://kuroflow-license-server.onrender.com/get-activity"); // 👈 CAMBIA ESTO 
-    const data = await res.json();
-
-    console.log("DATA:", data);
-
-    if (!data || !data.user) return;
-
-    document.getElementById("kf-title").innerText = data.user;
-    document.getElementById("kf-product").innerText = data.action;
-
-    if (data.country) {
-      document.getElementById("kf-flag").src =
-        "https://flagcdn.com/w40/" + data.country + ".png";
-    }
-
-    document.getElementById("kf-popup").style.display = "block";
-
-  } catch (e) {
-    console.error("POPUP ERROR:", e);
-  }
-}
-
-setTimeout(testPopup, 2000);
-
-console.log("DATA:", data);
-  
-</script>
-
-</body>    
+</body>
 </html>
