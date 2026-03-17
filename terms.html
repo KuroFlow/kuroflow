@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service — Kuro-Flow</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Syne:wght@800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #050505;
+            --paper: #f5f3ee;
+            --gold: #c9a84c;
+            --ash: #6b6860;
+        }
+        body {
+            background-color: var(--ink);
+            color: var(--paper);
+            font-family: 'DM Mono', monospace;
+            margin: 0;
+            padding: 80px 40px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        
+        .header-tag {
+            font-size: 10px;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin: 0 0 60px 0;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        .legal-section {
+            margin-bottom: 60px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 40px;
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 40px;
+        }
+
+        .section-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            color: #222;
+        }
+
+        .section-content h2 {
+            font-size: 1rem;
+            margin-top: 0;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-content p, .section-content li {
+            color: var(--ash);
+            font-size: 0.85rem;
+            max-width: 650px;
+            margin-bottom: 15px;
+        }
+
+        ul { padding-left: 18px; margin: 0; }
+
+        .back-link {
+            color: var(--ash);
+            text-decoration: none;
+            font-size: 11px;
+            margin-bottom: 40px;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .back-link:hover { color: var(--gold); }
+
+        .highlight-box {
+            background: rgba(201, 168, 76, 0.05);
+            border-left: 2px solid var(--gold);
+            padding: 20px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← RETURN TO TERMINAL</a>
+        <div class="header-tag">// SYSTEM PROTOCOL</div>
+        <h1>Terms of Service.</h1>
+
+        <div class="legal-section">
+            <div class="section-num">01</div>
+            <div class="section-content">
+                <h2>Nature of the Software</h2>
+                <p>Kuro-Flow is a specialized algorithmic execution tool designed for MetaTrader 5 (MT5). It is provided as a technological solution for trade automation and does not constitute financial, investment, or legal advice.</p>
+                <div class="highlight-box">
+                    <p style="color: var(--paper); margin-bottom: 0;"><strong>NOTICE:</strong> You are acquiring a license to use software, not a managed investment service.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="legal-section">
+            <div class="section-num">02</div>
+            <div class="section-content">
+                <h2>Execution & Risk</h2>
+                <p>By deploying Kuro-Flow, you acknowledge and accept the following structural risks:</p>
+                <ul>
+                    <li><strong>Market Volatility:</strong> Past performance backtested over 6 years does not guarantee future results in live market conditions.</li>
+                    <li><strong>Technical Failure:</strong> We are not responsible for losses caused by VPS downtime, internet latency, or broker-side execution errors (slippage/spread).</li>
+                    <li><strong>Algorithmic Logic:</strong> The user is responsible for the correct configuration of "lot size" and "risk percentage" parameters.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="legal-section">
+            <div class="section-num">03</div>
+            <div class="section-content">
+                <h2>Licensing & Distribution</h2>
+                <p>Licenses are strictly individual and bound to a specific MT5 account number. Any attempt to reverse-engineer, decompile, or illegally redistribute the .ex5 files will result in immediate license termination without refund.</p>
+            </div>
+        </div>
+
+        <div class="legal-section">
+            <div class="section-num">04</div>
+            <div class="section-content">
+                <h2>Refund Policy</h2>
+                <p>Due to the digital nature of the software and the availability of a 7-day free trial, all sales are final once the permanent license key has been generated and delivered.</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 100px; padding-bottom: 50px;">
+            <p style="font-size: 10px; color: #222;">SYSTEM_TIME: 2026_EDITION // KURO-FLOW_LEGAL_DEPT</p>
+        </div>
+    </div>
+</body>
+</html>
