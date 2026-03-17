@@ -1753,59 +1753,63 @@ function closeLegal() {
 
 <script>
 (function() {
-    let popupActivo = false;
+    let popupMostrado = false;
 
-    async function fetchKuroActivity() {
-        if (popupActivo) return;
+    async function checkActivity() {
+        if (popupMostrado) return;
+        const URL = "https://kuroflow-license-server.onrender.com/activity";
 
-        const API_URL = "https://kuroflow-license-server.onrender.com/activity";
-        
         try {
-            const response = await fetch(API_URL);
-            const data = await response.json();
+            const res = await fetch(URL);
+            const data = await res.json();
 
-            // Solo actuamos si hay datos y no han expirado (60s)
+            // Solo si hay datos frescos y un usuario real
             if (data && data.user && data.status !== "expired") {
                 const toast = document.getElementById('social-proof-toast');
                 const userEl = document.getElementById('toast-user');
                 const actionEl = document.getElementById('toast-action');
                 const flagEl = document.getElementById('toast-flag');
 
-                // 1. Inyectar contenido
-                userEl.innerText = data.user; // Usamos innerText para asegurar limpieza
-                actionEl.innerText = data.action;
+                // 1. INYECTAR DATOS (Usamos innerHTML para asegurar el renderizado)
+                userEl.innerHTML = data.user;
+                actionEl.innerHTML = data.action;
 
-                // 2. Configurar bandera
-                const code = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
-                flagEl.src = `https://flagcdn.com/w40/${code}.png`;
+                // 2. CONFIGURAR BANDERA
+                const pais = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
+                flagEl.src = `https://flagcdn.com/w40/${pais}.png`;
                 flagEl.style.display = 'block';
 
-                // 3. Mostrar físicamente el cuadro
+                // 3. FORZAR VISIBILIDAD DE TEXTO (Por si acaso tu CSS lo oculta)
+                userEl.style.color = "#c9a84c";
+                userEl.style.display = "block";
+                actionEl.style.color = "#ffffff";
+
+                // 4. MOSTRAR EL CUADRO
                 toast.style.display = 'flex';
                 
-                // Pequeño delay para que la transición de opacidad sea visible
+                // Pequeña pausa para asegurar que el navegador escribió el texto antes de subir la opacidad
                 setTimeout(() => { 
                     toast.style.opacity = '1'; 
-                }, 100);
+                }, 200);
 
-                popupActivo = true;
+                popupMostrado = true;
 
-                // 4. Auto-ocultar tras 8 segundos
+                // 5. AUTO-OCULTAR
                 setTimeout(() => {
                     toast.style.opacity = '0';
                     setTimeout(() => { 
                         toast.style.display = 'none'; 
-                        popupActivo = false; // Permitir que vuelva a salir si hay nueva actividad
+                        popupMostrado = false; 
                     }, 500);
                 }, 8000);
             }
         } catch (e) {
-            console.error("Error cargando actividad:", e);
+            console.log("Esperando actividad...");
         }
     }
 
-    // Escanear cada 5 segundos
-    setInterval(fetchKuroActivity, 5000);
+    // Escaneo rápido cada 5 segundos
+    setInterval(checkActivity, 5000);
 })();
 </script>
 
