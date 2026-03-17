@@ -1727,56 +1727,74 @@ function closeLegal() {
 
 <script>
 // La URL de tu servicio en Render (Cámbiala por la tuya real)
-const BACKEND_URL = "https://kuroflow-license-server.onrender.com"; 
+<script>
+// Configuración global
+<style>
+  #social-proof-toast {
+    position: fixed; bottom: 20px; left: 20px;
+    background: #16161a; border: 1px solid #c9a84c; /* Fondo grafito, borde dorado */
+    color: #f5f3ee; padding: 12px 18px; border-radius: 4px;
+    display: none; align-items: center; gap: 12px;
+    font-family: 'DM Mono', monospace; font-size: 0.8rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 9999;
+    transition: opacity 0.5s ease;
+  }
+  #toast-flag { width: 22px; height: auto; border-radius: 2px; border: 1px solid rgba(255,255,255,0.1); }
+  .toast-gold { color: #c9a84c; font-weight: bold; }
+</style>
 
-async function checkLiveActivity() {
+<div id="social-proof-toast">
+  <img id="toast-flag" src="" alt="flag">
+  <div>
+    <span id="toast-user" class="toast-gold">Someone</span> 
+    <span id="toast-action">just joined</span> 
+    <span class="toast-gold">KuroFlow</span>
+  </div>
+</div>
+
+<script>
+async function showSocialProof() {
+    // Configuración: Cambia esta URL si tu servidor cambia
+    const BACKEND_URL = "https://kuroflow-license-server.onrender.com";
+
+    // REGLA DE ORO: Si ya lo vio en esta sesión, no mostrar más al refrescar
+    if (sessionStorage.getItem('toast_shown')) return;
+
     try {
-        const response = await fetch(`${BACKEND_URL}/get-activity`);
+        // Llamamos al endpoint que configuramos hoy martes
+        const response = await fetch(`${BACKEND_URL}/last-event`);
         const data = await response.json();
-        
-        // Si el servidor devuelve una actividad real y no es la misma de antes
-        if (data && data.action && window.lastActivity !== data.timestamp) {
-            showNotification(data);
-            window.lastActivity = data.timestamp; // Usamos un timestamp para no repetir
+
+        if (data && data.user) {
+            // Actualizamos los datos del pop-up
+            document.getElementById('toast-user').textContent = data.user;
+            document.getElementById('toast-action').textContent = data.action;
+            
+            // Lógica de bandera: si falla la detección, ponemos 'us' por defecto
+            const country = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
+            document.getElementById('toast-flag').src = `https://flagcdn.com/w40/${country}.png`;
+
+            // Mostramos el pop-up con elegancia
+            const toast = document.getElementById('social-proof-toast');
+            toast.style.display = 'flex';
+            toast.style.opacity = '1';
+
+            // Guardamos que ya se mostró para que no sea molesto
+            sessionStorage.setItem('toast_shown', 'true');
+
+            // Se oculta automáticamente tras 8 segundos
+            setTimeout(() => { 
+                toast.style.opacity = '0';
+                setTimeout(() => { toast.style.display = 'none'; }, 500);
+            }, 8000);
         }
-    } catch (e) {
-        console.log("Esperando actividad real...");
+    } catch (e) { 
+        console.log("Waiting for robotic activity..."); 
     }
 }
 
-function showNotification(data) {
-    const toast = document.getElementById('notification-toast');
-    const userEl = document.getElementById('toast-user');
-    const actionEl = document.getElementById('toast-action');
-    const flagImg = document.getElementById('toast-flag'); // <-- Asegúrate de que este ID exista en tu HTML
-
-    // 1. Actualizamos los textos
-    userEl.innerText = data.user;
-    actionEl.innerText = data.action;
-
-    // 2. Lógica de la bandera
-    if (flagImg) {
-        // Si el país es "un" o no existe, ponemos una bandera por defecto (ej: us)
-        const country = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
-        flagImg.src = `https://flagcdn.com/w40/${country}.png`;
-        flagImg.style.display = 'block'; 
-    }
-
-    // 3. Mostrar el pop-up
-    toast.style.display = 'flex';
-    setTimeout(() => { toast.style.opacity = '1'; }, 10);
-    
-    // Se queda 12 segundos visible
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        setTimeout(() => { toast.style.display = 'none'; }, 500);
-    }, 12000);
-}
-
-// Revisa cada 30 segundos
-setInterval(checkLiveActivity, 30000);
-// Primera revisión al cargar
-setTimeout(checkLiveActivity, 5000);
+// Se activa 4 segundos después de que el usuario entre a la web
+setTimeout(showSocialProof, 4000);
 </script>
 
 </body>    
