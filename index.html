@@ -1724,50 +1724,49 @@ function closeLegal() {
 </div>
 
 <script>
-// Lista de actividades (Solo para demostración inicial, luego conectaremos tu base de datos)
-const activities = [
-    { user: "New Terminal Access", action: "7-Day Trial Key Generated" },
-    { user: "System Update", action: "USDJPY Algorithm v3.1 Live" },
-    { user: "License Validation", action: "Global Node Sync Complete" }
-];
+// Esta función será alimentada por tu base de datos de Render
+async function fetchRealActivity() {
+    try {
+        // Aquí es donde llamaremos a tu API en Render:
+        // const response = await fetch('https://tu-app.onrender.com/get_recent_activity');
+        // const data = await response.json();
+        // showNotification(data);
+        
+        // Por ahora, para que la web no esté muerta, lanzamos el estado del sistema:
+        showNotification({user: "System Status", action: "All Nodes Operational // 2026 Edition"});
+    } catch (e) {
+        console.log("Sync error");
+    }
+}
 
-function showNotification(customData = null) {
+function showNotification(data) {
     const toast = document.getElementById('notification-toast');
     const userEl = document.getElementById('toast-user');
     const actionEl = document.getElementById('toast-action');
-    
-    // Si hay datos reales (de una compra o trial), los usa. Si no, usa datos de sistema.
-    const data = customData || activities[Math.floor(Math.random() * activities.length)];
     
     userEl.innerText = data.user;
     actionEl.innerText = data.action;
     
     toast.style.display = 'flex';
     toast.style.opacity = '0';
-    toast.style.transform = 'translateX(-20px)';
+    toast.style.transform = 'translateY(20px)';
     
     setTimeout(() => {
         toast.style.opacity = '1';
-        toast.style.transform = 'translateX(0)';
+        toast.style.transform = 'translateY(0)';
     }, 100);
 
-    // DURACIÓN: Ahora se queda 10 segundos (10000ms)
+    // Se queda 12 segundos para que de tiempo a leerlo con calma
     setTimeout(() => {
         toast.style.opacity = '0';
-        toast.style.transform = 'translateX(-20px)';
+        toast.style.transform = 'translateY(20px)';
         setTimeout(() => { toast.style.display = 'none'; }, 500);
-    }, 10000); 
+    }, 12000); 
 }
 
-// Para que sea REAL: Esta función la llamaremos desde tu proceso de "Request Trial"
-// Cuando el usuario haga click en el botón de Trial y el servidor responda OK, 
-// llamaremos a: showNotification({user: "Success", action: "Your key has been sent"});
-
-// Por ahora, solo lanzamos una de "Sistema Activo" al entrar para dar confianza
-setTimeout(() => {
-    showNotification({user: "System Status", action: "All MT5 Nodes Operational"});
-}, 4000);
-</script>    
+// Lógica de inicio
+setTimeout(fetchRealActivity, 5000); // Primera notificación a los 5 segundos
+</script>
 
 </body>    
 </html>
