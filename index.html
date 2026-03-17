@@ -1753,63 +1753,64 @@ function closeLegal() {
 
 <script>
 (function() {
-    let popupMostrado = false;
+    let popupVisible = false;
 
-    async function checkActivity() {
-        if (popupMostrado) return;
-        const URL = "https://kuroflow-license-server.onrender.com/activity";
+    async function checkKuroFlowActivity() {
+        if (popupVisible) return;
+        
+        const API_URL = "https://kuroflow-license-server.onrender.com/activity";
 
         try {
-            const res = await fetch(URL);
-            const data = await res.json();
+            const response = await fetch(API_URL);
+            const data = await response.json();
 
-            // Solo si hay datos frescos y un usuario real
+            // Verificamos que 'user' y 'action' existan y no sean 'expired'
             if (data && data.user && data.status !== "expired") {
                 const toast = document.getElementById('social-proof-toast');
                 const userEl = document.getElementById('toast-user');
                 const actionEl = document.getElementById('toast-action');
                 const flagEl = document.getElementById('toast-flag');
 
-                // 1. INYECTAR DATOS (Usamos innerHTML para asegurar el renderizado)
+                // 1. INYECTAR CON FUERZA (Aseguramos que el HTML se escriba)
                 userEl.innerHTML = data.user;
                 actionEl.innerHTML = data.action;
 
-                // 2. CONFIGURAR BANDERA
-                const pais = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
-                flagEl.src = `https://flagcdn.com/w40/${pais}.png`;
+                // 2. MOSTRAR BANDERA
+                const countryCode = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
+                flagEl.src = `https://flagcdn.com/w40/${countryCode}.png`;
                 flagEl.style.display = 'block';
 
-                // 3. FORZAR VISIBILIDAD DE TEXTO (Por si acaso tu CSS lo oculta)
+                // 3. REFORZAR ESTILOS (Para que no salgan invisibles)
                 userEl.style.color = "#c9a84c";
-                userEl.style.display = "block";
+                userEl.style.fontWeight = "bold";
                 actionEl.style.color = "#ffffff";
 
                 // 4. MOSTRAR EL CUADRO
                 toast.style.display = 'flex';
                 
-                // Pequeña pausa para asegurar que el navegador escribió el texto antes de subir la opacidad
+                // Esperamos un instante para que el navegador "dibuje" el texto
                 setTimeout(() => { 
                     toast.style.opacity = '1'; 
-                }, 200);
+                }, 150);
 
-                popupMostrado = true;
+                popupVisible = true;
 
-                // 5. AUTO-OCULTAR
+                // 5. OCULTAR TRAS 8 SEGUNDOS
                 setTimeout(() => {
                     toast.style.opacity = '0';
                     setTimeout(() => { 
                         toast.style.display = 'none'; 
-                        popupMostrado = false; 
+                        popupVisible = false; 
                     }, 500);
                 }, 8000);
             }
         } catch (e) {
-            console.log("Esperando actividad...");
+            console.log("KuroFlow: Esperando señal...");
         }
     }
 
-    // Escaneo rápido cada 5 segundos
-    setInterval(checkActivity, 5000);
+    // Escanear cada 5 segundos
+    setInterval(checkKuroFlowActivity, 5000);
 })();
 </script>
 
