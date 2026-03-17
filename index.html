@@ -1726,28 +1726,43 @@ function closeLegal() {
 </div>
 
 <div id="social-proof-toast" style="
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    background: #0f0f12 !important; /* Fondo negro profundo */
-    border: 1px solid #c9a84c;      /* Borde dorado */
-    padding: 15px;
-    display: none;                  /* Se activa por JS */
-    align-items: center;
-    gap: 12px;
-    z-index: 999999;
-    font-family: 'Inter', sans-serif;
-    border-radius: 4px;
-    transition: opacity 0.5s ease;
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 20px !important;
+    background-color: #0f0f12 !important;
+    border: 1px solid #c9a84c !important;
+    padding: 15px !important;
+    display: none; 
+    align-items: center !important;
+    gap: 12px !important;
+    z-index: 9999999 !important;
+    font-family: 'Inter', sans-serif !important;
+    border-radius: 4px !important;
+    transition: opacity 0.5s ease !important;
     opacity: 0;
-    min-width: 280px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    min-width: 280px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8) !important;
 ">
-    <img id="toast-flag" src="" width="24" style="border-radius:2px; display:none; border: 1px solid #333;">
+    <img id="toast-flag" src="" width="24" style="border-radius:2px !important; display:none !important; border: 1px solid #333 !important;">
     
-    <div style="line-height: 1.4;">
-        <strong id="toast-user" style="color: #c9a84c !important; display: block; font-size: 14px; font-weight: 700;"></strong>
-        <span id="toast-action" style="color: #ffffff !important; font-size: 13px; font-weight: 400;"></span>
+    <div style="display: block !important; visibility: visible !important; opacity: 1 !important;">
+        <strong id="toast-user" style="
+            color: #c9a84c !important; 
+            display: block !important; 
+            font-size: 14px !important; 
+            font-weight: 800 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            text-transform: capitalize !important;
+        "></strong>
+        
+        <span id="toast-action" style="
+            color: #ffffff !important; 
+            font-size: 13px !important; 
+            font-weight: 400 !important;
+            display: block !important;
+            margin-top: 2px !important;
+        "></span>
     </div>
 </div>
 
