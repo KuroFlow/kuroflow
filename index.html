@@ -1817,7 +1817,7 @@ setTimeout(showSocialProof, 4000);
 <script>
 async function testPopup() {
   try {
-    const res = await fetch("/get-activity"); // 👈 CAMBIA ESTO
+    const res = await fetch("https://kuroflow-license-server.onrender.com/get-activity"); // 👈 CAMBIA ESTO 
     const data = await res.json();
 
     console.log("DATA:", data);
