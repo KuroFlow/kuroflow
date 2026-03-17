@@ -1754,61 +1754,54 @@ function closeLegal() {
     let popupMostradoEnEstaSesion = false;
 
     async function checkActivity() {
-        // Si ya lo mostramos una vez, dejamos de preguntar para no molestar
         if (popupMostradoEnEstaSesion) return;
 
         const API_URL = "https://kuroflow-license-server.onrender.com/activity";
         
         try {
-            console.log("KuroFlow: Escaneando actividad en tiempo real...");
             const response = await fetch(API_URL);
             const data = await response.json();
 
-            // Si hay un usuario real y no es el mensaje de "waiting"
-            if (data && data.user && data.user !== "") {
-                const toast = document.getElementById('social-proof-toast');
-                
-                // Inyectamos los datos
-                document.getElementById('toast-user').textContent = data.user;
-                document.getElementById('toast-action').textContent = data.action;
-                
-                const country = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
-                const flagEl = document.getElementById('toast-flag');
-                flagEl.src = `https://flagcdn.com/w40/${country}.png`;
-                flagEl.style.display = 'block';
+            if (data && data.user && data.timestamp) {
+                // --- VALIDACIÓN DE TIEMPO ---
+                const ahora = Math.floor(Date.now() / 1000); // Tiempo actual en segundos
+                const segundosDesdeElEvento = ahora - data.timestamp;
 
-                // MOSTRAR POP-UP
-                toast.style.display = 'flex';
-                setTimeout(() => { toast.style.opacity = '1'; }, 100);
-                
-                // Marcar como mostrado para que el "bucle" se detenga
-                popupMostradoEnEstaSesion = true;
+                // SOLO mostrar si el evento ocurrió hace menos de 60 segundos
+                if (segundosDesdeElEvento < 60) {
+                    const toast = document.getElementById('social-proof-toast');
+                    
+                    document.getElementById('toast-user').textContent = data.user;
+                    document.getElementById('toast-action').textContent = data.action;
+                    
+                    const country = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
+                    const flagEl = document.getElementById('toast-flag');
+                    flagEl.src = `https://flagcdn.com/w40/${country}.png`;
+                    flagEl.style.display = 'block';
 
-                // OCULTAR TRAS 10 SEGUNDOS
-                setTimeout(() => {
-                    toast.style.opacity = '0';
-                    setTimeout(() => { toast.style.display = 'none'; }, 500);
-                }, 10000);
+                    toast.style.display = 'flex';
+                    setTimeout(() => { toast.style.opacity = '1'; }, 100);
+                    
+                    popupMostradoEnEstaSesion = true;
+
+                    setTimeout(() => {
+                        toast.style.opacity = '0';
+                        setTimeout(() => { toast.style.display = 'none'; }, 500);
+                    }, 10000);
+                } else {
+                    console.log("Actividad encontrada pero es antigua. Ignorando...");
+                }
             }
         } catch (e) {
-            console.log("Buscando señal del servidor...");
+            console.log("Buscando señal...");
         }
     }
 
-    // --- LA MAGIA ESTÁ AQUÍ ---
-    // 1. Ejecutar por primera vez a los 4 segundos
-    setTimeout(checkActivity, 4000);
-
-    // 2. REPETIR la búsqueda cada 10 segundos automáticamente (sin F5)
-    // Esto se detendrá en cuanto popupMostradoEnEstaSesion sea true
-    const buscador = setInterval(() => {
-        if (popupMostradoEnEstaSesion) {
-            clearInterval(buscador); // Detiene el bucle si ya se mostró
-        } else {
-            checkActivity();
-        }
-    }, 10000); 
-
+    // Escanear cada 10 segundos para detectar solicitudes nuevas en "vivo"
+    setInterval(checkActivity, 10000);
+    
+    // También ejecutamos una vez al cargar por si acaba de comprar hace 5 segundos
+    setTimeout(checkActivity, 2000);
 })();
 </script>
 
