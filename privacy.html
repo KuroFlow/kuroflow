@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — Kuro-Flow</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Syne:wght@800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #050505;
+            --paper: #f5f3ee;
+            --gold: #c9a84c;
+            --ash: #6b6860;
+        }
+        body {
+            background-color: var(--ink);
+            color: var(--paper);
+            font-family: 'DM Mono', monospace;
+            margin: 0;
+            padding: 80px 40px;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        
+        .header-tag {
+            font-size: 10px;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin: 0 0 60px 0;
+            line-height: 1;
+        }
+
+        .legal-section {
+            margin-bottom: 80px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 40px;
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 40px;
+        }
+
+        .section-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            color: #1a1a1a; /* Estilo número grande de fondo */
+        }
+
+        .section-content h2 {
+            font-size: 1.2rem;
+            margin-top: 0;
+            color: var(--paper);
+        }
+
+        .section-content p {
+            color: var(--ash);
+            font-size: 0.9rem;
+            max-width: 600px;
+        }
+
+        .back-link {
+            color: var(--ash);
+            text-decoration: none;
+            font-size: 12px;
+            margin-bottom: 40px;
+            display: inline-block;
+        }
+        .back-link:hover { color: var(--gold); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← BACK TO TERMINAL</a>
+        <div class="header-tag">// LEGAL DOCUMENTATION</div>
+        <h1>Privacy Policy.</h1>
+
+        <div class="legal-section">
+            <div class="section-num">01</div>
+            <div class="section-content">
+                <h2>Data Collection</h2>
+                <p>We only collect the email address provided for license delivery. We do not store, track, or share personal trading data from your MT5 terminal.</p>
+            </div>
+        </div>
+
+        <div class="legal-section">
+            <div class="section-num">02</div>
+            <div class="section-content">
+                <h2>Financial Disclaimer</h2>
+                <p>Kuro-Flow is an algorithmic execution tool. Users are responsible for their own risk management and broker selection.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
