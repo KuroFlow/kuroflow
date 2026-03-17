@@ -1725,79 +1725,84 @@ function closeLegal() {
     </div>
 </div>
 
-<script>
-// La URL de tu servicio en Render (Cámbiala por la tuya real)
-<script>
-// Configuración global
-<style>
-  #social-proof-toast {
-    position: fixed; bottom: 20px; left: 20px;
-    background: #16161a; border: 1px solid #c9a84c; /* Fondo grafito, borde dorado */
-    color: #f5f3ee; padding: 12px 18px; border-radius: 4px;
-    display: none; align-items: center; gap: 12px;
-    font-family: 'DM Mono', monospace; font-size: 0.8rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 9999;
+<div id="social-proof-toast" style="
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: #0f0f12;
+    border: 1px solid #c9a84c;
+    padding: 15px;
+    display: none; 
+    align-items: center;
+    gap: 12px;
+    z-index: 99999;
+    font-family: 'Inter', sans-serif;
+    border-radius: 4px;
     transition: opacity 0.5s ease;
-  }
-  #toast-flag { width: 22px; height: auto; border-radius: 2px; border: 1px solid rgba(255,255,255,0.1); }
-  .toast-gold { color: #c9a84c; font-weight: bold; }
-</style>
-
-<div id="social-proof-toast">
-  <img id="toast-flag" src="" alt="flag">
-  <div>
-    <span id="toast-user" class="toast-gold">Someone</span> 
-    <span id="toast-action">just joined</span> 
-    <span class="toast-gold">KuroFlow</span>
-  </div>
+    opacity: 0;
+">
+    <img id="toast-flag" src="" width="24" style="border-radius:2px; display:none;">
+    <div style="color: white; font-size: 13px; line-height: 1.4;">
+        <strong id="toast-user" style="color: #c9a84c; display: block;"></strong>
+        <span id="toast-action"></span>
+    </div>
 </div>
 
 <script>
-async function showKuroFlowActivity() {
-    const BACKEND_URL = "https://kuroflow-license-server.onrender.com";
+async function startKuroFlowNotifications() {
+    // URL única y confirmada
+    const API_URL = "https://kuroflow-license-server.onrender.com/activity";
     
-    // Evitar saturar al usuario: Solo mostrar una vez por sesión
-    if (sessionStorage.getItem('toast_shown')) return;
+    // Si ya se mostró en esta sesión, no hacer nada
+    if (sessionStorage.getItem('kf_notification_done')) return;
 
     try {
-        const response = await fetch(`${BACKEND_URL}/get-activity`);
+        const response = await fetch(API_URL);
         const data = await response.json();
 
-        if (data && data.user) {
+        // Si el servidor responde con un usuario (ej: Camperodi11)
+        if (data && data.user && data.user !== "") {
             const toast = document.getElementById('social-proof-toast');
             const userEl = document.getElementById('toast-user');
             const actionEl = document.getElementById('toast-action');
             const flagEl = document.getElementById('toast-flag');
 
-            // Inyectar datos
+            // 1. Inyectar los datos en el HTML
             userEl.textContent = data.user;
             actionEl.textContent = data.action;
             
-            // Lógica de bandera (fallback a 'us' si falla)
-            const countryCode = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
-            flagEl.src = `https://flagcdn.com/w40/${countryCode}.png`;
+            // 2. Configurar bandera (USA por defecto si no hay país)
+            const country = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
+            flagEl.src = `https://flagcdn.com/w40/${country}.png`;
             flagEl.style.display = 'block';
 
-            // Animación de entrada
+            // 3. Mostrar el pop-up
             toast.style.display = 'flex';
-            setTimeout(() => { toast.style.opacity = '1'; }, 100);
+            
+            // 4. Animación de entrada (fade in)
+            setTimeout(() => { 
+                toast.style.opacity = '1'; 
+            }, 100);
 
-            sessionStorage.setItem('toast_shown', 'true');
+            // Guardar que ya se mostró para no molestar más
+            sessionStorage.setItem('kf_notification_done', 'true');
 
-            // Autoocultar tras 8 segundos
+            // 5. Ocultar automáticamente tras 8 segundos
             setTimeout(() => {
                 toast.style.opacity = '0';
-                setTimeout(() => { toast.style.display = 'none'; }, 500);
+                setTimeout(() => { 
+                    toast.style.display = 'none'; 
+                }, 500);
             }, 8000);
         }
     } catch (e) {
-        console.log("KUROFLOW: Aguardando nueva actividad robótica...");
+        console.log("KuroFlow: Esperando nueva actividad del servidor...");
     }
 }
 
-// Disparar la notificación a los 4 segundos de carga
+// Iniciar 4 segundos después de que la página cargue
 window.addEventListener('load', () => {
-    setTimeout(showKuroFlowActivity, 4000);
+    setTimeout(startKuroFlowNotifications, 4000);
 });
 </script>
 
