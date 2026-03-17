@@ -1797,5 +1797,50 @@ async function showSocialProof() {
 setTimeout(showSocialProof, 4000);
 </script>
 
+<div id="kf-popup" style="
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: #0f0f12;
+  border: 1px solid #c9a84c;
+  padding: 16px 20px;
+  color: white;
+  font-family: monospace;
+  display: none;
+  z-index: 9999;
+">
+  <div id="kf-title" style="color:#c9a84c;font-weight:bold;"></div>
+  <div id="kf-product"></div>
+  <img id="kf-flag" width="20" style="margin-top:8px;" />
+</div>
+
+<script>
+async function testPopup() {
+  try {
+    const res = await fetch("https://TU-DOMINIO/activity"); // 👈 CAMBIA ESTO
+    const data = await res.json();
+
+    console.log("DATA:", data);
+
+    if (!data || !data.user) return;
+
+    document.getElementById("kf-title").innerText = data.user;
+    document.getElementById("kf-product").innerText = data.action;
+
+    if (data.country) {
+      document.getElementById("kf-flag").src =
+        "https://flagcdn.com/w40/" + data.country + ".png";
+    }
+
+    document.getElementById("kf-popup").style.display = "block";
+
+  } catch (e) {
+    console.error("POPUP ERROR:", e);
+  }
+}
+
+setTimeout(testPopup, 2000);
+</script>    
+
 </body>    
 </html>
