@@ -1724,118 +1724,123 @@ function showNotification(data, isGhost = false) {
     userEl.textContent = "NEW USER";
     actionEl.textContent = data.action;
 
+    // 1. CORRECCIÓN DE LA VARIABLE DE PAÍS
     const countryCode = data.country ? data.country.toLowerCase() : "us";
-    flagImg.src = `https://flagcdn.com/w40/${country}.png`;
-    flagImg.style.display = 'block';
+    if (flagImg) {
+        flagImg.src = `https://flagcdn.com/w40/${countryCode}.png`;
+        flagImg.style.display = 'block';
+    }
 
+    // 2. ESTÉTICA SEGÚN TIPO (Dorado para reales)
     toast.style.backgroundColor = '#0f0f12';
     toast.style.border = isGhost 
         ? '1px solid rgba(255,255,255,0.1)' 
-        : '1px solid #c9a84c';           // dorado para reales
+        : '1px solid #c9a84c'; 
 
+    // 3. ANIMACIÓN DE ENTRADA (Hacia arriba)
     toast.style.display = 'flex';
-    setTimeout(() => toast.style.opacity = '1', 50);
+    toast.style.transform = 'translateY(20px)'; // Empezamos un poco abajo
+    
+    setTimeout(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateY(0)'; // Sube a su posición
+    }, 50);
 
+    // 4. ANIMACIÓN DE SALIDA
     setTimeout(() => {
         toast.style.opacity = '0';
-        setTimeout(() => toast.style.display = 'none', 600);
+        toast.style.transform = 'translateY(20px)'; // Baja al desaparecer
+        setTimeout(() => {
+            toast.style.display = 'none';
+        }, 600);
     }, 7500);
 }
 
-// 1. LISTA AMPLIADA (Más países = Menos sospechas)
+<script>
+const BACKEND_URL = "https://kuroflow-license-server.onrender.com"; 
+
 const ghostData = [
     { country: "mx", action: "Activated a 7-Day Trial" },
     { country: "es", action: "Purchased a Monthly License" },
-    { country: "co", action: "Joined the Annual Membership" },
+    { country: "co", action: "Joined the VIP Community" },
     { country: "us", action: "Activated a 7-Day Trial" },
-    { country: "cl", action: "Purchased an Annual Membership" },
+    { country: "cl", action: "Purchased an Annual License" },
     { country: "ar", action: "Started a Free Trial" },
-    { country: "pe", action: "Upgraded to Annual Membership" },
-    { country: "gb", action: "New User Registered" },
-    { country: "br", action: "Activated a 7-Day Trial" },
+    { country: "pe", action: "Upgraded to Lifetime Access" },
+    { country: "br", action: "New User Registered" },
     { country: "it", action: "Purchased a Monthly License" },
-    { country: "fr", action: "Joined the Annual Membership" },
-    { country: "de", action: "Started a Free Trial" },
-    { country: "ec", action: "Started a Free Trial" },
-    { country: "pa", action: "Purchased an Annual Membership" },
-    { country: "uy", action: "Purchased a Monthly License" }
+    { country: "pa", action: "Joined the VIP Community" },
+    { country: "ec", action: "Activated a 7-Day Trial" }
 ];
 
-// 2. MOTOR HÍBRIDO CON TIEMPOS MÁS LARGOS
-function startSocialProofEngine() {
-    // Revisamos actividad real cada 45 segundos (menos agresivo)
-    setInterval(async () => {
-        const hadRealActivity = await checkLiveActivity();
+async function checkLiveActivity() {
+    try {
+        const response = await fetch(`${BACKEND_URL}/get-activity?t=${new Date().getTime()}`);
+        if (!response.ok) return false;
+        const data = await response.json();
         
-        // Si NO hay actividad real, lanzamos un fantasma con solo 30% de probabilidad
-        // Esto hace que los fantasmas sean mucho más aleatorios y espaciados
-        if (!hadRealActivity && Math.random() > 0.7) {
-            // El fantasma sale en un momento al azar entre 1 y 15 segundos después
-            const delay = Math.floor(Math.random() * 15000) + 1000;
-            setTimeout(triggerGhost, delay); 
+        if (data && data.action && data.status !== "waiting") {
+            if (window.lastActivity !== data.timestamp) {
+                showNotification(data, false); // Real (Dorado)
+                window.lastActivity = data.timestamp;
+                return true;
+            }
+        }
+    } catch (e) { console.log("Buscando..."); }
+    return false;
+}
+
+function triggerGhost() {
+    const randomGhost = ghostData[Math.floor(Math.random() * ghostData.length)];
+    showNotification(randomGhost, true); // Fantasma (Normal)
+}
+
+function showNotification(data, isGhost) {
+    const toast = document.getElementById('notification-toast');
+    const userEl = document.getElementById('toast-user');
+    const actionEl = document.getElementById('toast-action');
+    const flagImg = document.getElementById('toast-flag');
+
+    if (!toast) return;
+
+    userEl.innerText = "NEW USER"; 
+    actionEl.innerText = data.action;
+
+    // FIX: Extraer el país correctamente del objeto data
+    const cCode = data.country ? data.country.toLowerCase() : "us";
+    if (flagImg) {
+        flagImg.src = `https://flagcdn.com/w40/${cCode}.png`;
+        flagImg.style.display = 'block'; 
+    }
+
+    toast.style.display = 'flex';
+    toast.style.border = isGhost ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(201,168,76,0.6)';
+    
+    setTimeout(() => { 
+        toast.style.opacity = '1'; 
+        toast.style.transform = 'translateY(0)';
+    }, 100);
+
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(20px)';
+        setTimeout(() => { toast.style.display = 'none'; }, 500);
+    }, 8000);
+}
+
+function startSocialProofEngine() {
+    setInterval(async () => {
+        const hadReal = await checkLiveActivity();
+        if (!hadReal && Math.random() > 0.7) {
+            setTimeout(triggerGhost, Math.random() * 10000); 
         }
     }, 45000); 
 }
 
-function triggerGhost() {
-    if (Math.random() > 0.6) return; // no siempre
-    const ghost = ghostActions[Math.floor(Math.random() * ghostActions.length)];
-    showNotification(ghost, true);
-}
-
-// ── Chequear actividad real (polling) ──
-async function checkRecentActivity() {
-    try {
-        const res = await fetch(`${BACKEND_URL}/get-activity`);
-        const data = await res.json();
-
-        if (data.status === "waiting" || !data.timestamp) return;
-
-        const ts = Number(data.timestamp);
-        const age = Date.now() - (ts * 1000);
-
-        if (ts > lastKnownTimestamp && age < RECIENTE_MS) {
-            // ¡Es una actividad nueva y reciente!
-            lastKnownTimestamp = ts;
-            notificationCount++;
-
-            // Mostrar inmediatamente
-            showNotification(data, false);
-
-            // Opcional: después de 1–2 notificaciones reales, bajar frecuencia de fantasmas
-            if (notificationCount >= 2) {
-                // podrías reducir fantasmas temporalmente
-            }
-        }
-    } catch (err) {
-        console.warn("Activity check failed:", err);
-    }
-}
-
-// ── Motor principal ──
-function startSocialProof() {
-    // Chequeo inicial
-    checkRecentActivity();
-
-    // Polling cada 12–18 segundos (no abuses del servidor)
-    setInterval(() => {
-        checkRecentActivity();
-        
-        // Fantasmas solo si no hubo real reciente
-        if (Math.random() > 0.45) {
-            setTimeout(triggerGhost, Math.random() * 4000 + 2000);
-        }
-    }, 14000);
-}
-
-// ── Iniciar todo ──
 window.addEventListener('load', () => {
-    startSocialProof();
-    
-    // Primer fantasma suave después de 5–9 segundos
-    setTimeout(() => {
-        if (notificationCount === 0) triggerGhost();
-    }, 6000 + Math.random() * 3000);
+    checkLiveActivity(); // Intento real inmediato
+    setTimeout(triggerGhost, 4000); // Primer fantasma de bienvenida
+    startSocialProofEngine();
 });
 </script>
 </body>
