@@ -1714,14 +1714,14 @@ function closeLegal() {
   document.getElementById('legal-modal').style.display = 'none';
   document.body.style.overflow = 'auto';
 }
-</script>
-<div id="notification-toast" style="display:none; opacity:0; align-items:center; background: white; padding: 10px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); position: fixed; bottom: 20px; left: 20px; z-index: 9999; transition: opacity 0.5s;">
-    
-    <img id="toast-flag" src="" width="30" style="margin-right: 12px; border-radius: 3px; display: none;">
 
-    <div style="display: flex; flex-direction: column;">
-        <strong id="toast-user" style="font-size: 14px; color: #333;"></strong>
-        <span id="toast-action" style="font-size: 12px; color: #666;"></span>
+<div id="notification-toast" style="display:none; opacity:0; align-items:center; background: #0f0f12; padding: 16px 20px; border: 1px solid rgba(201,168,76,0.25); border-radius: 4px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); position: fixed; bottom: 25px; left: 25px; z-index: 9999; transition: all 0.5s ease; font-family: 'DM Mono', monospace; min-width: 280px; gap: 14px;">
+    
+    <img id="toast-flag" src="" width="26" style="border-radius: 2px; border: 1px solid rgba(255,255,255,0.1); display: none;">
+
+    <div style="display: flex; flex-direction: column; gap: 2px;">
+        <strong id="toast-user" style="font-size: 13px; color: #c9a84c; text-transform: uppercase; letter-spacing: 0.05em;">NUEVO USUARIO</strong>
+        <span id="toast-action" style="font-size: 11px; color: rgba(255,255,255,0.7); text-transform: uppercase;"></span>
     </div>
 </div>
 
@@ -1748,22 +1748,28 @@ function showNotification(data) {
     const toast = document.getElementById('notification-toast');
     const userEl = document.getElementById('toast-user');
     const actionEl = document.getElementById('toast-action');
-    const flagImg = document.getElementById('toast-flag'); // <-- Asegúrate de que este ID exista en tu HTML
+    const flagImg = document.getElementById('toast-flag');
 
-    // 1. Actualizamos los textos
-    userEl.innerText = data.user;
+    // 1. FORZAMOS EL ANONIMATO
+    // Borramos "data.user" y ponemos el texto fijo que quieras
+    userEl.innerText = "NUEVO USUARIO"; 
+    
+    // Mantenemos la acción (ej: "compró plan anual")
     actionEl.innerText = data.action;
 
-    // 2. Lógica de la bandera
+    // 2. Lógica de la bandera (la dejamos para que se vea real)
     if (flagImg) {
-        // Si el país es "un" o no existe, ponemos una bandera por defecto (ej: us)
         const country = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
         flagImg.src = `https://flagcdn.com/w40/${country}.png`;
         flagImg.style.display = 'block'; 
     }
 
-    // 3. Mostrar el pop-up
+    // 3. Mostrar el pop-up con la estética Kuro
     toast.style.display = 'flex';
+    // Nos aseguramos de que el fondo sea oscuro y la fuente sea la del sitio
+    toast.style.backgroundColor = '#0f0f12'; 
+    toast.style.border = '1px solid rgba(201,168,76,0.3)';
+
     setTimeout(() => { toast.style.opacity = '1'; }, 10);
     
     // Se queda 12 segundos visible
@@ -1772,11 +1778,6 @@ function showNotification(data) {
         setTimeout(() => { toast.style.display = 'none'; }, 500);
     }, 12000);
 }
-
-// Revisa cada 30 segundos
-setInterval(checkLiveActivity, 30000);
-// Primera revisión al cargar
-setTimeout(checkLiveActivity, 5000);
 </script>
 
 </body>    
