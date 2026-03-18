@@ -1717,18 +1717,24 @@ async function checkLiveActivity() {
         const response = await fetch(`${BACKEND_URL}/get-activity`);
         const data = await response.json();
         
-        // Si hay actividad real, la mostramos con prioridad
-        if (data && data.action && window.lastActivity !== data.timestamp) {
-            showNotification(data, false); // false = es real
+        // --- CAMBIO AQUÍ ---
+        // Si el servidor dice "waiting", no es una venta real, así que salimos (return false)
+        if (!data || data.status === "waiting" || !data.action) {
+            return false; 
+        }
+
+        // Si hay actividad real (no es "waiting") y es distinta a la última que vimos
+        if (data.action && window.lastActivity !== data.timestamp) {
+            showNotification(data, false); // false = es real (pondrá borde dorado)
             window.lastActivity = data.timestamp;
-            return true; // Indicamos que hubo éxito real
+            return true; // Éxito: se mostró una venta real
         }
     } catch (e) {
-        console.log("Esperando actividad real...");
+        console.log("Buscando nuevas ventas...");
     }
     return false;
 }
-
+  
 // Función para lanzar un Fantasma Aleatorio
 function triggerGhost() {
     const randomGhost = ghostData[Math.floor(Math.random() * ghostData.length)];
