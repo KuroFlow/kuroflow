@@ -1707,100 +1707,110 @@ body { top: 0 !important; }
 
 <script>
 const BACKEND_URL = "https://kuroflow-license-server.onrender.com";
+const RECIENTE_MS = 90 * 1000; // 90 segundos → considera "recién ocurrido"
 
-let lastActivity = null;
+let lastKnownTimestamp = 0;
+let notificationCount = 0; // evita spam si hay muchas rápidas
 
-// Datos fantasma
-const ghostData = [
+// ── Mostrar notificación (fantasma o real) ──
+function showNotification(data, isGhost = false) {
+    const toast = document.getElementById('notification-toast');
+    if (!toast) return;
+
+    const userEl   = document.getElementById('toast-user');
+    const actionEl = document.getElementById('toast-action');
+    const flagImg  = document.getElementById('toast-flag');
+
+    userEl.textContent = "NEW USER";
+    actionEl.textContent = data.action;
+
+    const country = (data.country || "us").toLowerCase();
+    flagImg.src = `https://flagcdn.com/w40/${country}.png`;
+    flagImg.style.display = 'block';
+
+    toast.style.backgroundColor = '#0f0f12';
+    toast.style.border = isGhost 
+        ? '1px solid rgba(255,255,255,0.1)' 
+        : '1px solid #c9a84c';           // dorado para reales
+
+    toast.style.display = 'flex';
+    setTimeout(() => toast.style.opacity = '1', 50);
+
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.style.display = 'none', 600);
+    }, 7500);
+}
+
+// ── Fantasma aleatorio ──
+const ghostActions = [
     { country: "mx", action: "Activated a 7-Day Trial" },
     { country: "es", action: "Purchased a Monthly License" },
     { country: "co", action: "Joined the VIP Community" },
     { country: "us", action: "Activated a 7-Day Trial" },
     { country: "cl", action: "Purchased an Annual License" },
-    { country: "ar", action: "Started a Free Trial" },
-    { country: "pe", action: "Upgraded to Lifetime Access" },
-    { country: "gb", action: "New User Registered" }
+    // ... puedes añadir más
 ];
 
-// 🔴 CHECK REAL
-async function checkLiveActivity() {
+function triggerGhost() {
+    if (Math.random() > 0.6) return; // no siempre
+    const ghost = ghostActions[Math.floor(Math.random() * ghostActions.length)];
+    showNotification(ghost, true);
+}
+
+// ── Chequear actividad real (polling) ──
+async function checkRecentActivity() {
     try {
         const res = await fetch(`${BACKEND_URL}/get-activity`);
         const data = await res.json();
 
-        if (!data || !data.timestamp) return false;
+        if (data.status === "waiting" || !data.timestamp) return;
 
-        if (data.timestamp !== lastActivity) {
+        const ts = Number(data.timestamp);
+        const age = Date.now() - (ts * 1000);
+
+        if (ts > lastKnownTimestamp && age < RECIENTE_MS) {
+            // ¡Es una actividad nueva y reciente!
+            lastKnownTimestamp = ts;
+            notificationCount++;
+
+            // Mostrar inmediatamente
             showNotification(data, false);
-            lastActivity = data.timestamp;
-            return true;
-        }
 
-    } catch (e) {
-        console.log("Error fetching activity");
+            // Opcional: después de 1–2 notificaciones reales, bajar frecuencia de fantasmas
+            if (notificationCount >= 2) {
+                // podrías reducir fantasmas temporalmente
+            }
+        }
+    } catch (err) {
+        console.warn("Activity check failed:", err);
     }
-
-    return false;
 }
 
-// 👻 Fantasma
-function triggerGhost() {
-    const randomGhost = ghostData[Math.floor(Math.random() * ghostData.length)];
-    showNotification(randomGhost, true);
-}
+// ── Motor principal ──
+function startSocialProof() {
+    // Chequeo inicial
+    checkRecentActivity();
 
-// 🔔 Mostrar popup
-function showNotification(data, isGhost) {
-    const toast = document.getElementById('notification-toast');
-    const userEl = document.getElementById('toast-user');
-    const actionEl = document.getElementById('toast-action');
-    const flagImg = document.getElementById('toast-flag');
-
-    if (!toast) return;
-
-    userEl.innerText = "NEW USER";
-    actionEl.innerText = data.action;
-
-    // bandera
-    const countryCode = data.country ? data.country.toLowerCase() : "us";
-    flagImg.src = `https://flagcdn.com/w40/${countryCode}.png`;
-    flagImg.style.display = 'block';
-
-    toast.style.display = 'flex';
-    toast.style.backgroundColor = '#0f0f12';
-    toast.style.border = isGhost 
-        ? '1px solid rgba(255,255,255,0.1)' 
-        : '1px solid rgba(201,168,76,0.6)';
-
-    setTimeout(() => { toast.style.opacity = '1'; }, 10);
-
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        setTimeout(() => { toast.style.display = 'none'; }, 500);
-    }, 8000);
-}
-
-// ⚙️ Motor
-function startSocialProofEngine() {
-    setInterval(async () => {
-        const real = await checkLiveActivity();
-
-        if (!real && Math.random() > 0.5) {
-            setTimeout(triggerGhost, Math.random() * 5000);
+    // Polling cada 12–18 segundos (no abuses del servidor)
+    setInterval(() => {
+        checkRecentActivity();
+        
+        // Fantasmas solo si no hubo real reciente
+        if (Math.random() > 0.45) {
+            setTimeout(triggerGhost, Math.random() * 4000 + 2000);
         }
-
-    }, 25000);
+    }, 14000);
 }
 
-// 🚀 INIT
+// ── Iniciar todo ──
 window.addEventListener('load', () => {
-    checkLiveActivity();
-
+    startSocialProof();
+    
+    // Primer fantasma suave después de 5–9 segundos
     setTimeout(() => {
-        if (!lastActivity) triggerGhost();
-    }, 4000);
-
-    startSocialProofEngine();
+        if (notificationCount === 0) triggerGhost();
+    }, 6000 + Math.random() * 3000);
 });
 </script>
 </body>
