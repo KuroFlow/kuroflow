@@ -1741,6 +1741,16 @@ function triggerGhost() {
     showNotification(randomGhost, true); // true = es fantasma
 }
 
+<div id="notification-toast" style="display: none; position: fixed; bottom: 20px; left: 20px; z-index: 99999; align-items: center; padding: 12px 18px; border-radius: 8px; color: white; font-family: sans-serif; opacity: 0; transition: all 0.5s ease; transform: translateY(20px);">
+  <img id="toast-flag" src="" style="width: 24px; margin-right: 12px; display: none;">
+        <div>
+      <div id="toast-user" style="font-weight: bold; font-size: 13px;"></div>
+    <div id="toast-action" style="font-size: 12px; color: #aaa;"></div>
+  </div>
+</div> 
+
+<script>
+
 function showNotification(data, isGhost) {
     const toast = document.getElementById('notification-toast');
     const userEl = document.getElementById('toast-user');
@@ -1790,12 +1800,19 @@ function startSocialProofEngine() {
 
 // Iniciar al cargar
 window.addEventListener('load', () => {
-    // Primer fantasma a los 4 segundos para "calentar" la web
-    setTimeout(triggerGhost, 4000);
-    startSocialProofEngine();
-});
-</script>
-</body>    
+            // 1. Buscamos actividad REAL de inmediato al cargar
+            checkLiveActivity(); 
+            
+            // 2. Si no hay real, el primer fantasma sale a los 4 segundos
+            setTimeout(() => {
+                if (!window.lastActivity) triggerGhost();
+            }, 4000);
+
+            // 3. Arrancamos el motor de revisión continua
+            startSocialProofEngine();
+        });
+    </script>
+</body>
 </html>
 """ # Este cierra el bloque PANEL_HTML
 
