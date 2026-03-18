@@ -1697,10 +1697,20 @@ body { top: 0 !important; }
   </div>
 </div>
 
-<script>
-const BACKEND_URL = "https://kuroflow-license-server.onrender.com"; 
+<div id="notification-toast" style="display: none; position: fixed; bottom: 20px; left: 20px; z-index: 99999; align-items: center; padding: 12px 18px; border-radius: 8px; color: white; font-family: sans-serif; opacity: 0; transition: all 0.5s ease; transform: translateY(20px);">
+  <img id="toast-flag" src="" style="width: 24px; margin-right: 12px; display: none;">
+        <div>
+      <div id="toast-user" style="font-weight: bold; font-size: 13px;"></div>
+    <div id="toast-action" style="font-size: 12px; color: #aaa;"></div>
+  </div>
+</div>     
 
-// 1. CONFIGURACIÓN DE "FANTASMAS" (Tropicalizados e Internacionales)
+<script>
+const BACKEND_URL = "https://kuroflow-license-server.onrender.com";
+
+let lastActivity = null;
+
+// Datos fantasma
 const ghostData = [
     { country: "mx", action: "Activated a 7-Day Trial" },
     { country: "es", action: "Purchased a Monthly License" },
@@ -1712,45 +1722,34 @@ const ghostData = [
     { country: "gb", action: "New User Registered" }
 ];
 
+// 🔴 CHECK REAL
 async function checkLiveActivity() {
     try {
-        const response = await fetch(`${BACKEND_URL}/get-activity`);
-        const data = await response.json();
-        
-        // --- CAMBIO AQUÍ ---
-        // Si el servidor dice "waiting", no es una venta real, así que salimos (return false)
-        if (!data || data.status === "waiting" || !data.action) {
-            return false; 
+        const res = await fetch(`${BACKEND_URL}/get-activity`);
+        const data = await res.json();
+
+        if (!data || !data.timestamp) return false;
+
+        if (data.timestamp !== lastActivity) {
+            showNotification(data, false);
+            lastActivity = data.timestamp;
+            return true;
         }
 
-        // Si hay actividad real (no es "waiting") y es distinta a la última que vimos
-        if (data.action && window.lastActivity !== data.timestamp) {
-            showNotification(data, false); // false = es real (pondrá borde dorado)
-            window.lastActivity = data.timestamp;
-            return true; // Éxito: se mostró una venta real
-        }
     } catch (e) {
-        console.log("Buscando nuevas ventas...");
+        console.log("Error fetching activity");
     }
+
     return false;
 }
-  
-// Función para lanzar un Fantasma Aleatorio
+
+// 👻 Fantasma
 function triggerGhost() {
     const randomGhost = ghostData[Math.floor(Math.random() * ghostData.length)];
-    showNotification(randomGhost, true); // true = es fantasma
+    showNotification(randomGhost, true);
 }
 
-<div id="notification-toast" style="display: none; position: fixed; bottom: 20px; left: 20px; z-index: 99999; align-items: center; padding: 12px 18px; border-radius: 8px; color: white; font-family: sans-serif; opacity: 0; transition: all 0.5s ease; transform: translateY(20px);">
-  <img id="toast-flag" src="" style="width: 24px; margin-right: 12px; display: none;">
-        <div>
-      <div id="toast-user" style="font-weight: bold; font-size: 13px;"></div>
-    <div id="toast-action" style="font-size: 12px; color: #aaa;"></div>
-  </div>
-</div> 
-
-<script>
-
+// 🔔 Mostrar popup
 function showNotification(data, isGhost) {
     const toast = document.getElementById('notification-toast');
     const userEl = document.getElementById('toast-user');
@@ -1759,58 +1758,50 @@ function showNotification(data, isGhost) {
 
     if (!toast) return;
 
-    // Estética y Anonimato
-    userEl.innerText = "NEW USER"; 
+    userEl.innerText = "NEW USER";
     actionEl.innerText = data.action;
 
-    // Lógica de Bandera (FlagCDN)
-    if (flagImg) {
-        const countryCode = data.country ? data.country.toLowerCase() : "us";
-        flagImg.src = `https://flagcdn.com/w40/${countryCode}.png`;
-        flagImg.style.display = 'block'; 
-    }
+    // bandera
+    const countryCode = data.country ? data.country.toLowerCase() : "us";
+    flagImg.src = `https://flagcdn.com/w40/${countryCode}.png`;
+    flagImg.style.display = 'block';
 
-    // Mostrar Pop-up (Estilo KuroFlow)
     toast.style.display = 'flex';
-    toast.style.backgroundColor = '#0f0f12'; 
-    toast.style.border = isGhost ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(201,168,76,0.6)';
+    toast.style.backgroundColor = '#0f0f12';
+    toast.style.border = isGhost 
+        ? '1px solid rgba(255,255,255,0.1)' 
+        : '1px solid rgba(201,168,76,0.6)';
 
     setTimeout(() => { toast.style.opacity = '1'; }, 10);
-    
-    // Duración: 8 segundos para que no canse
+
     setTimeout(() => {
         toast.style.opacity = '0';
         setTimeout(() => { toast.style.display = 'none'; }, 500);
     }, 8000);
 }
 
-// 2. EL MOTOR HÍBRIDO (Control de tiempos)
+// ⚙️ Motor
 function startSocialProofEngine() {
-    // Intentar buscar actividad real cada 20 segundos
     setInterval(async () => {
-        const hadRealActivity = await checkLiveActivity();
-        
-        // Si no hubo actividad real, lanzamos un fantasma con un 50% de probabilidad
-        // Esto hace que la actividad no parezca un cronómetro exacto
-        if (!hadRealActivity && Math.random() > 0.5) {
-            setTimeout(triggerGhost, Math.random() * 5000); 
+        const real = await checkLiveActivity();
+
+        if (!real && Math.random() > 0.5) {
+            setTimeout(triggerGhost, Math.random() * 5000);
         }
-    }, 25000); // Ciclo de revisión
+
+    }, 25000);
 }
 
-// Iniciar al cargar
+// 🚀 INIT
 window.addEventListener('load', () => {
-            // 1. Buscamos actividad REAL de inmediato al cargar
-            checkLiveActivity(); 
-            
-            // 2. Si no hay real, el primer fantasma sale a los 4 segundos
-            setTimeout(() => {
-                if (!window.lastActivity) triggerGhost();
-            }, 4000);
+    checkLiveActivity();
 
-            // 3. Arrancamos el motor de revisión continua
-            startSocialProofEngine();
-        });
-    </script>
+    setTimeout(() => {
+        if (!lastActivity) triggerGhost();
+    }, 4000);
+
+    startSocialProofEngine();
+});
+</script>
 </body>
 </html>
