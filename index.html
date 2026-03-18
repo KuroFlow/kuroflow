@@ -1698,86 +1698,96 @@ body { top: 0 !important; }
 </div>
 
 <script>
-const legalTexts = {
-  privacy: `<h2>Privacy Policy</h2><br><p>At Kuro-Flow, we value your privacy. We only collect your email address to provide you with the license key and important updates. We do not sell your data to third parties.</p>`,
-  terms: `<h2>Terms of Service</h2><br><p>By using Kuro-Flow, you acknowledge that you are using an automated tool at your own risk. We are not responsible for financial losses incurred while using our software.</p>`,
-  cookies: `<h2>Cookie Policy</h2><br><p>We use essential cookies to ensure the website functions correctly and to remember your session. By continuing to browse, you agree to our use of cookies.</p>`
-};
-
-function openLegal(type) {
-  document.getElementById('legal-content').innerHTML = legalTexts[type];
-  document.getElementById('legal-modal').style.display = 'block';
-  document.body.style.overflow = 'hidden'; // Bloquea el scroll de fondo
-}
-
-function closeLegal() {
-  document.getElementById('legal-modal').style.display = 'none';
-  document.body.style.overflow = 'auto';
-}
-
-<div id="notification-toast" style="display:none; opacity:0; align-items:center; background: #0f0f12; padding: 16px 20px; border: 1px solid rgba(201,168,76,0.25); border-radius: 4px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); position: fixed; bottom: 25px; left: 25px; z-index: 9999; transition: all 0.5s ease; font-family: 'DM Mono', monospace; min-width: 280px; gap: 14px;">
-    
-    <img id="toast-flag" src="" width="26" style="border-radius: 2px; border: 1px solid rgba(255,255,255,0.1); display: none;">
-
-    <div style="display: flex; flex-direction: column; gap: 2px;">
-        <strong id="toast-user" style="font-size: 13px; color: #c9a84c; text-transform: uppercase; letter-spacing: 0.05em;">NUEVO USUARIO</strong>
-        <span id="toast-action" style="font-size: 11px; color: rgba(255,255,255,0.7); text-transform: uppercase;"></span>
-    </div>
-</div>
-
-<script>
-// La URL de tu servicio en Render (Cámbiala por la tuya real)
 const BACKEND_URL = "https://kuroflow-license-server.onrender.com"; 
+
+// 1. CONFIGURACIÓN DE "FANTASMAS" (Tropicalizados e Internacionales)
+const ghostData = [
+    { country: "mx", action: "Activated a 7-Day Trial" },
+    { country: "es", action: "Purchased a Monthly License" },
+    { country: "co", action: "Joined the VIP Community" },
+    { country: "us", action: "Activated a 7-Day Trial" },
+    { country: "cl", action: "Purchased an Annual License" },
+    { country: "ar", action: "Started a Free Trial" },
+    { country: "pe", action: "Upgraded to Lifetime Access" },
+    { country: "gb", action: "New User Registered" }
+];
 
 async function checkLiveActivity() {
     try {
         const response = await fetch(`${BACKEND_URL}/get-activity`);
         const data = await response.json();
         
-        // Si el servidor devuelve una actividad real y no es la misma de antes
+        // Si hay actividad real, la mostramos con prioridad
         if (data && data.action && window.lastActivity !== data.timestamp) {
-            showNotification(data);
-            window.lastActivity = data.timestamp; // Usamos un timestamp para no repetir
+            showNotification(data, false); // false = es real
+            window.lastActivity = data.timestamp;
+            return true; // Indicamos que hubo éxito real
         }
     } catch (e) {
         console.log("Esperando actividad real...");
     }
+    return false;
 }
 
-function showNotification(data) {
+// Función para lanzar un Fantasma Aleatorio
+function triggerGhost() {
+    const randomGhost = ghostData[Math.floor(Math.random() * ghostData.length)];
+    showNotification(randomGhost, true); // true = es fantasma
+}
+
+function showNotification(data, isGhost) {
     const toast = document.getElementById('notification-toast');
     const userEl = document.getElementById('toast-user');
     const actionEl = document.getElementById('toast-action');
     const flagImg = document.getElementById('toast-flag');
 
-    // 1. FORZAMOS EL ANONIMATO
-    // Borramos "data.user" y ponemos el texto fijo que quieras
-    userEl.innerText = "NUEVO USUARIO"; 
-    
-    // Mantenemos la acción (ej: "compró plan anual")
+    if (!toast) return;
+
+    // Estética y Anonimato
+    userEl.innerText = "NEW USER"; 
     actionEl.innerText = data.action;
 
-    // 2. Lógica de la bandera (la dejamos para que se vea real)
+    // Lógica de Bandera (FlagCDN)
     if (flagImg) {
-        const country = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
-        flagImg.src = `https://flagcdn.com/w40/${country}.png`;
+        const countryCode = data.country ? data.country.toLowerCase() : "us";
+        flagImg.src = `https://flagcdn.com/w40/${countryCode}.png`;
         flagImg.style.display = 'block'; 
     }
 
-    // 3. Mostrar el pop-up con la estética Kuro
+    // Mostrar Pop-up (Estilo KuroFlow)
     toast.style.display = 'flex';
-    // Nos aseguramos de que el fondo sea oscuro y la fuente sea la del sitio
     toast.style.backgroundColor = '#0f0f12'; 
-    toast.style.border = '1px solid rgba(201,168,76,0.3)';
+    toast.style.border = isGhost ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(201,168,76,0.6)';
 
     setTimeout(() => { toast.style.opacity = '1'; }, 10);
     
-    // Se queda 12 segundos visible
+    // Duración: 8 segundos para que no canse
     setTimeout(() => {
         toast.style.opacity = '0';
         setTimeout(() => { toast.style.display = 'none'; }, 500);
-    }, 12000);
+    }, 8000);
 }
+
+// 2. EL MOTOR HÍBRIDO (Control de tiempos)
+function startSocialProofEngine() {
+    // Intentar buscar actividad real cada 20 segundos
+    setInterval(async () => {
+        const hadRealActivity = await checkLiveActivity();
+        
+        // Si no hubo actividad real, lanzamos un fantasma con un 50% de probabilidad
+        // Esto hace que la actividad no parezca un cronómetro exacto
+        if (!hadRealActivity && Math.random() > 0.5) {
+            setTimeout(triggerGhost, Math.random() * 5000); 
+        }
+    }, 25000); // Ciclo de revisión
+}
+
+// Iniciar al cargar
+window.addEventListener('load', () => {
+    // Primer fantasma a los 4 segundos para "calentar" la web
+    setTimeout(triggerGhost, 4000);
+    startSocialProofEngine();
+});
 </script>
 </body>    
 </html>
