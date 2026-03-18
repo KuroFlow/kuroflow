@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kuro-Flow — USDJPY Algorithmic Trading</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
@@ -13,31 +14,27 @@
       --paper: #f5f3ee;
       --mist: #e8e5de;
       --gold: #c9a84c;
-      --gold-pale: #f0e6c8;
       --ash: #6b6860;
       --white: #fafaf8;
       --danger: #c94c4c;
       --safe: #4c9c6b;
-      --safe-pale: #d4eddf;
       --border: rgba(10,10,12,0.12);
     }
 
+    /* ─── RESET & BASE ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
-
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--paper);
       color: var(--ink);
-      font-size: 16px;
       line-height: 1.6;
       overflow-x: hidden;
     }
 
-    /* ─── NAV ─────────────────────────────── */
+    /* ─── NAV ─── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       display: flex; align-items: center; justify-content: space-between;
       padding: 18px 48px;
       background: rgba(245,243,238,0.88);
@@ -45,223 +42,55 @@
       border-bottom: 1px solid var(--border);
     }
     .logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800; font-size: 1.3rem;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      text-decoration: none;
-      display: flex; align-items: center; gap: 8px;
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem;
+      color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px;
     }
-    .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); display: inline-block; }
+    .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
     .nav-links { display: flex; gap: 36px; list-style: none; }
-    .nav-links a {
-      font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase;
-      font-weight: 500; color: var(--ash); text-decoration: none;
-      transition: color 0.2s;
-    }
+    .nav-links a { font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500; color: var(--ash); text-decoration: none; transition: color 0.2s; }
     .nav-links a:hover { color: var(--ink); }
-    .nav-members-btn {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem; letter-spacing: 0.08em;
-      padding: 9px 20px;
-      background: transparent; color: var(--gold);
-      border: 1px solid var(--gold);
-      text-decoration: none;
-      transition: all 0.2s;
-      margin-right: 8px;
-    }
+    .nav-members-btn { font-family: 'DM Mono', monospace; font-size: 0.72rem; padding: 9px 20px; border: 1px solid var(--gold); text-decoration: none; color: var(--gold); margin-right: 8px; transition: all 0.2s; }
     .nav-members-btn:hover { background: var(--gold); color: var(--ink); }
-    .nav-cta {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.78rem; letter-spacing: 0.04em;
-      padding: 10px 24px;
-      background: var(--ink); color: var(--paper);
-      border: none; cursor: pointer;
-      text-decoration: none;
-      transition: background 0.2s;
-    }
-    .nav-cta:hover { background: #1e1e22; }
 
-    /* ─── HERO ────────────────────────────── */
-    #hero {
-      min-height: 100vh;
-      display: grid; grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding: 120px 48px 80px;
-      gap: 80px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-bg {
-      position: absolute; inset: 0; z-index: 0;
-      background:
-        radial-gradient(ellipse 60% 50% at 80% 50%, rgba(201,168,76,0.07) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(10,10,12,0.04) 0%, transparent 60%);
-    }
-    .hero-grid-lines {
-      position: absolute; inset: 0; z-index: 0;
-      background-image:
-        linear-gradient(rgba(10,10,12,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(10,10,12,0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
-    }
-    .hero-left { position: relative; z-index: 1; }
-    .hero-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--gold);
-      border: 1px solid rgba(201,168,76,0.35);
-      padding: 6px 14px; margin-bottom: 28px;
-      background: rgba(201,168,76,0.06);
-    }
-    .hero-tag::before {
-      content: ''; width: 6px; height: 6px; border-radius: 50%;
-      background: var(--gold); animation: blink 2s infinite;
-    }
-    @keyframes blink { 0%,100% { opacity:1 } 50% { opacity:0.3 } }
-
-    h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(2.6rem, 4.5vw, 4rem);
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-      margin-bottom: 24px;
-      color: var(--ink);
-    }
-    h1 .pain { color: var(--danger); }
-    h1 .solution {
-      position: relative; display: inline-block;
-      background: linear-gradient(135deg, #c9a84c, #a8832a);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-
-    .hero-sub {
-      font-size: 1.05rem; color: var(--ash); line-height: 1.7;
-      max-width: 460px; margin-bottom: 40px;
-      font-weight: 300;
-    }
-    .hero-sub strong { color: var(--ink); font-weight: 500; }
-
-    .hero-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-    .btn-primary {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.85rem; letter-spacing: 0.05em;
-      padding: 16px 36px;
-      background: var(--ink); color: var(--paper);
-      border: 2px solid var(--ink);
-      cursor: pointer; text-decoration: none;
-      transition: all 0.25s;
-      display: inline-block;
-    }
-    .btn-primary:hover {
-      background: transparent; color: var(--ink);
-    }
-
-    .btn-ghost {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.82rem; letter-spacing: 0.05em;
-      padding: 16px 28px;
-      background: transparent; color: var(--ash);
-      border: 1px solid var(--border);
-      cursor: pointer; text-decoration: none;
-      transition: all 0.25s;
-      display: inline-block;
-    }
-    .btn-ghost:hover { border-color: var(--ink); color: var(--ink); }
-
-    .hero-disclaimer {
-      margin-top: 20px;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.68rem; color: var(--ash); letter-spacing: 0.04em;
-      opacity: 0.7;
-    }
-
-    /* ─── HERO RIGHT: LIVE TICKER ─────────── */
-    .hero-right { position: relative; z-index: 1; }
-    .terminal-card {
-      background: var(--ink);
-      padding: 0;
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 40px 80px rgba(0,0,0,0.25), 0 0 0 1px rgba(201,168,76,0.1);
-      position: relative;
-      overflow: hidden;
-    }
-    .terminal-bar {
-      background: #151518;
-      padding: 12px 20px;
-      display: flex; align-items: center; justify-content: space-between;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
+    /* ─── HERO & TERMINAL ─── */
+    #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 120px 48px 80px; gap: 80px; position: relative; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--gold); border: 1px solid rgba(201,168,76,0.35); padding: 6px 14px; margin-bottom: 28px; background: rgba(201,168,76,0.06); }
+    h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.6rem, 4.5vw, 4rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 24px; }
+    h1 .solution { background: linear-gradient(135deg, #c9a84c, #a8832a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    
+    .terminal-card { background: var(--ink); border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 40px 80px rgba(0,0,0,0.25); overflow: hidden; color: white; }
+    .terminal-bar { background: #151518; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); }
     .terminal-dots { display: flex; gap: 6px; }
-    .terminal-dots span {
-      width: 10px; height: 10px; border-radius: 50%;
-    }
+    .terminal-dots span { width: 10px; height: 10px; border-radius: 50%; }
     .terminal-dots span:nth-child(1) { background: #ff5f57; }
     .terminal-dots span:nth-child(2) { background: #febc2e; }
     .terminal-dots span:nth-child(3) { background: #28c840; }
-    .terminal-title {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem; color: rgba(255,255,255,0.3);
-      letter-spacing: 0.08em;
-    }
     .terminal-body { padding: 24px; }
 
-    .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-    .kpi-box {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.07);
-      padding: 14px 16px;
-      position: relative;
-      overflow: hidden;
-    }
-    .kpi-box::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    }
-    .kpi-box.positive::before { background: var(--safe); }
-    .kpi-box.warning::before { background: var(--gold); }
-    .kpi-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
-      margin-bottom: 6px;
-    }
-    .kpi-value {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.5rem; font-weight: 700;
-    }
-    .kpi-value.green { color: #6edd9e; }
-    .kpi-value.gold { color: var(--gold); }
-    .kpi-value.white { color: rgba(255,255,255,0.9); }
+    /* ─── PROP SECTION (THE5ERS) ─── */
+    #prop { padding: 120px 48px; background: #faf9f6; }
+    .prop-h2 { font-family: 'Syne', sans-serif; font-size: 3rem; line-height: 1.1; margin-bottom: 24px; text-align: center; }
+    .cert-gallery { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 80px; }
+    .cert-card-wrap { background: white; padding: 12px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: all 0.4s ease; cursor: pointer; position: relative; }
+    .cert-card-wrap:hover { transform: rotate(0deg) translateY(-10px) !important; z-index: 10; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+    .cert-img { width: 220px; height: auto; display: block; }
+    .cert-label { margin-top: 12px; font-family: 'DM Mono', monospace; font-size: 10px; text-transform: uppercase; color: var(--ash); text-align: center; }
+    
+    .prop-stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--border); padding-top: 40px; max-width: 1200px; margin: 0 auto; }
+    .p-stat { text-align: center; border-right: 1px solid var(--border); }
+    .p-stat:last-child { border-right: none; }
+    .p-num { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; }
+    .p-num.gold { color: var(--gold); }
+    .p-num.green { color: var(--safe); }
 
-    .chart-placeholder {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      height: 120px; position: relative; overflow: hidden;
-      margin-bottom: 16px;
-    }
-    .chart-svg { width: 100%; height: 100%; }
+    /* ─── TRIAL SECTION ─── */
+    #trial-section { padding: 120px 48px; background: var(--ink); color: var(--paper); text-align: center; }
+    .trial-box { background: #0f0f12; border: 1px solid rgba(255,255,255,0.05); padding: 60px; border-radius: 4px; max-width: 800px; margin: 0 auto; }
+    .trial-form { display: flex; gap: 12px; max-width: 500px; margin: 32px auto; }
+    .trial-input { flex: 1; background: #151518; border: 1px solid #2a2a2e; color: white; padding: 18px 24px; font-family: 'DM Mono', monospace; }
+    .trial-submit { background: var(--gold); color: var(--ink); border: none; padding: 18px 32px; font-family: 'DM Mono', monospace; font-weight: 700; cursor: pointer; text-transform: uppercase; }
 
-    .trade-row {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-    }
-    .trade-row:last-child { border-bottom: none; }
-    .trade-pair { color: rgba(255,255,255,0.6); }
-    .trade-pips.pos { color: #6edd9e; }
-    .trade-pips.neg { color: #ed6e6e; }
-    .trade-time { color: rgba(255,255,255,0.2); }
-
-    /* Resto de tus estilos (proof, anti-hype, member, pricing, faq, responsive, etc.) — mantenidos exactamente como en tu código funcional */
-    /* ... (pega aquí el resto de tu <style> grande que funciona estéticamente, desde #proof hasta el final) ... */
-
-    /* Estilo del toast social proof (añadido sin quitar nada) */
+    /* ─── TOAST SOCIAL PROOF ─── */
     #social-proof-toast {
       position: fixed !important; bottom: 25px !important; left: 25px !important;
       background-color: #0f0f12 !important; border: 2px solid #c9a84c !important;
@@ -269,266 +98,155 @@
       gap: 14px !important; z-index: 9999999 !important; font-family: 'DM Mono', monospace !important;
       border-radius: 8px !important; box-shadow: 0 15px 35px rgba(0,0,0,0.6) !important;
       max-width: 340px !important; transition: all 0.4s ease !important; color: #ffffff;
+      opacity: 0;
     }
-    #toast-flag {
-      border-radius: 4px; border: 1px solid #555; display: none; width: 28px;
-    }
+
+    /* Animations */
+    .fade-up { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1); }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
 
-  <!-- NAV (sin botón de idioma) -->
   <nav>
-    <a href="#" class="logo">
-      <span class="logo-dot"></span>Kuro<span style="color:var(--gold)">Flow</span>
-    </a>
+    <a href="#" class="logo"><span class="logo-dot"></span>Kuro<span style="color:var(--gold)">Flow</span></a>
     <ul class="nav-links">
       <li><a href="#proof">Performance</a></li>
-      <li><a href="#anti-hype">Methodology</a></li>
-      <li><a href="#member">Members</a></li>
+      <li><a href="#prop">Verification</a></li>
       <li><a href="#pricing">Pricing</a></li>
     </ul>
-    <a href="members.html" target="_blank" class="nav-members-btn">Members Area</a>
-    <a href="https://kuroflow.gumroad.com" target="_blank" class="nav-cta">View Plans →</a>
+    <div>
+      <a href="members.html" class="nav-members-btn">Members Area</a>
+      <a href="#pricing" class="btn-primary" style="padding: 10px 20px; font-size: 0.75rem;">Get Access</a>
+    </div>
   </nav>
 
-  <!-- ══════════════════════════════════════════
-       SECTION 1: HERO (tu hero intacto)
-  ═══════════════════════════════════════════ -->
   <section id="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-grid-lines"></div>
-
     <div class="hero-left fade-up">
       <div class="hero-tag">USDJPY · Algorithmic Trading · Live Since 2025</div>
-
-      <h1>
-        You've lost enough money<br>
-        trusting your <span class="pain">gut.</span><br>
-        Time to trade with<br>
-        <span class="solution">real structure.</span>
-      </h1>
-
-      <p class="hero-sub">
-        <strong>Kuro-Flow</strong> is an algorithmic system for USDJPY with
-        audited track record, documented drawdown and zero get-rich-quick promises.
-        For traders who already know that consistency beats luck.
-      </p>
-
+      <h1>Time to trade with<br><span class="solution">real structure.</span></h1>
+      <p class="hero-sub" style="margin-bottom: 40px; color: var(--ash);">Audited track record, controlled drawdown and institutional-grade logic for USDJPY.</p>
       <div class="hero-actions">
-        <a href="#proof" class="btn-primary">View Verified Track Record</a>
-        <a href="#pricing" class="btn-ghost">Plans & Access</a>
+        <a href="#proof" class="btn-primary">View Track Record</a>
+        <a href="#trial-section" class="btn-ghost">Try 7-Day Free</a>
       </div>
-      <p class="hero-disclaimer">
-        ⚠ Trading involves risk. Past performance does not guarantee future results.
-      </p>
     </div>
-
-    <div class="hero-right fade-up" style="transition-delay:0.2s">
+    <div class="hero-right fade-up">
       <div class="terminal-card">
         <div class="terminal-bar">
-          <div class="terminal-dots">
-            <span></span><span></span><span></span>
-          </div>
-          <span class="terminal-title">KURO-FLOW // LIVE MONITOR</span>
-          <span style="font-family:'DM Mono',monospace;font-size:0.65rem;color:rgba(255,255,255,0.2)">UTC+0</span>
+          <div class="terminal-dots"><span></span><span></span><span></span></div>
+          <span class="terminal-title">LIVE MONITOR</span>
         </div>
         <div class="terminal-body">
-
-          <div class="kpi-grid">
-            <div class="kpi-box positive">
-              <div class="kpi-label">Total Return</div>
-              <div class="kpi-value green">+154%</div>
-            </div>
-            <div class="kpi-box positive">
-              <div class="kpi-label">Win Rate</div>
-              <div class="kpi-value white">68.3%</div>
-            </div>
-            <div class="kpi-box warning">
-              <div class="kpi-label">Max Drawdown</div>
-              <div class="kpi-value gold">3.31%</div>
-            </div>
-            <div class="kpi-box positive">
-              <div class="kpi-label">Profit Factor</div>
-              <div class="kpi-value white">1.79</div>
-            </div>
-          </div>
-
-          <div class="chart-placeholder">
-            <svg class="chart-svg" viewBox="0 0 400 120" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#6edd9e" stop-opacity="0.3"/>
-                  <stop offset="100%" stop-color="#6edd9e" stop-opacity="0"/>
-                </linearGradient>
-              </defs>
-              <path d="M0,90 C20,85 40,80 60,72 S100,60 120,55 S160,48 180,42 S220,35 250,30 S290,22 320,18 S360,12 400,8" fill="none" stroke="#6edd9e" stroke-width="2"/>
-              <path d="M0,90 C20,85 40,80 60,72 S100,60 120,55 S160,48 180,42 S220,35 250,30 S290,22 320,18 S360,12 400,8 L400,120 L0,120Z" fill="url(#lineGrad)"/>
-            </svg>
-          </div>
-
-          <div class="trade-row">
-            <span class="trade-pair">USDJPY BUY</span>
-            <span class="trade-pips pos">+18.4 pips</span>
-            <span class="trade-time">14:32 UTC</span>
-          </div>
-          <div class="trade-row">
-            <span class="trade-pair">USDJPY SELL</span>
-            <span class="trade-pips pos">+12.1 pips</span>
-            <span class="trade-time">11:07 UTC</span>
-          </div>
-          <div class="trade-row">
-            <span class="trade-pair">USDJPY BUY</span>
-            <span class="trade-pips neg">−4.8 pips</span>
-            <span class="trade-time">09:44 UTC</span>
-          </div>
+          <div style="font-size: 2rem; font-weight: 800; color: #6edd9e; margin-bottom: 10px;">+154.2%</div>
+          <div style="font-family: 'DM Mono', monospace; font-size: 0.7rem; opacity: 0.5;">TOTAL ACCOUNT RETURN</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Proof (tu sección intacta) -->
-  <section id="proof">
-    <!-- pega aquí todo el contenido de #proof que tenías -->
-  </section>
-
-  <!-- Anti-hype (intacta) -->
-  <section id="anti-hype">
-    <!-- pega aquí todo el contenido de #anti-hype -->
-  </section>
-
-  <!-- Member (intacta) -->
-  <section id="member">
-    <!-- pega aquí todo el contenido de #member -->
-  </section>
-
-  <!-- Prop (intacta) -->
   <section id="prop">
-    <!-- pega aquí todo el contenido de #prop -->
-  </section>
-
-  <!-- Pricing (intacta) -->
-  <section id="pricing">
-    <!-- pega aquí todo el contenido de #pricing -->
-  </section>
-
-  <!-- FAQ (intacta, con trial integrado) -->
-  <section id="faq">
-    <!-- pega aquí todo el contenido de #faq -->
-  </section>
-
-  <!-- Lightbox (intacta) -->
-  <div id="lightbox" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.92);backdrop-filter:blur(8px);align-items:center;justify-content:center;cursor:pointer">
-    <div style="position:relative;max-width:90vw;max-height:90vh">
-      <img id="lightbox-img" src="" alt="" style="max-width:90vw;max-height:85vh;object-fit:contain;border:1px solid rgba(201,168,76,0.3);box-shadow:0 40px 100px rgba(0,0,0,0.8)">
-      <div style="position:absolute;top:-16px;right:-16px;width:32px;height:32px;background:#1e1e22;border:1px solid rgba(201,168,76,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(245,243,238,0.6)">✕</div>
+    <div class="prop-inner">
+      <div class="fade-up" style="text-align:center; margin-bottom:56px">
+        <div class="hero-tag" style="margin: 0 auto 16px; border-color: var(--gold); color: var(--gold);">// Prop Firm Verification</div>
+        <h2 class="prop-h2">Funded Account at The5ers.<br><span style="color:var(--gold)">$7,066 withdrawn.</span></h2>
+      </div>
+      <div class="cert-gallery fade-up">
+        <div class="cert-card-wrap" style="transform: rotate(-2deg);"><img src="cert-funded.png" onclick="openLightbox(this.src)" class="cert-img"><div class="cert-label">Funded · Jul 2025</div></div>
+        <div class="cert-card-wrap" style="transform: rotate(1.5deg);"><img src="cert-payout1.png" onclick="openLightbox(this.src)" class="cert-img"><div class="cert-label">Payout $4,986</div></div>
+        <div class="cert-card-wrap" style="transform: rotate(-1deg);"><img src="cert-payout2.png" onclick="openLightbox(this.src)" class="cert-img"><div class="cert-label">Payout $2,080</div></div>
+      </div>
+      <div class="prop-stats fade-up">
+        <div class="p-stat"><div class="p-num gold">$100k</div><div class="p-label">Managed</div></div>
+        <div class="p-stat"><div class="p-num green">$7,066</div><div class="p-label">Withdrawn</div></div>
+        <div class="p-stat"><div class="p-num">2</div><div class="p-label">Payouts</div></div>
+        <div class="p-stat"><div class="p-num">0</div><div class="p-label">Violations</div></div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Footer (intacto) -->
-  <footer>
-    <!-- pega aquí todo tu footer -->
-  </footer>
+  <section id="trial-section">
+    <div class="trial-container fade-up">
+      <h2 style="font-family: 'Syne', sans-serif; font-size: 3rem; margin-bottom: 20px;">Experience Kuro-Flow Free</h2>
+      <p style="opacity: 0.6; margin-bottom: 40px;">Get a 7-day full access license for your MT5 account.</p>
+      <div class="trial-box">
+        <div class="trial-form" id="trial-form">
+          <input type="email" id="trial-email" placeholder="your@email.com" class="trial-input">
+          <button onclick="requestTrial()" id="trial-btn" class="trial-submit">Get Trial Key →</button>
+        </div>
+        <div id="trial-msg" style="margin-top: 20px; font-family: 'DM Mono', monospace;"></div>
+      </div>
+    </div>
+  </section>
 
-  <!-- SOCIAL PROOF TOAST (añadido sin quitar nada) -->
   <div id="social-proof-toast">
-    <img id="toast-flag" src="" width="28">
+    <img id="toast-flag" src="" width="28" style="border-radius:4px; display:none;">
     <div>
-      <strong id="toast-user"></strong>
-      <span id="toast-action"></span>
+      <strong id="toast-user" style="color:var(--gold); display:block;"></strong>
+      <span id="toast-action" style="font-size: 12px;"></span>
     </div>
   </div>
 
   <script>
-    // TODOS TUS SCRIPTS ORIGINALES (fade-up, gauge, toggleFaq, lightbox, etc.)
+    // Reveal Observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-    // SOCIAL PROOF TOAST (versión elegante)
-    (function() {
-      let popupVisible = false;
-      async function checkKuroFlowActivity() {
-        if (popupVisible) return;
-        try {
-          const res = await fetch('https://kuroflow-license-server.onrender.com/activity');
-          const data = await res.json();
-          if (data && data.user && data.status === "ok") {
-            const toast = document.getElementById('social-proof-toast');
-            document.getElementById('toast-user').textContent = data.user;
-            document.getElementById('toast-action').innerHTML = `${data.action} <span style="opacity:0.65">• ${data.time_ago || 'recently'}</span>`;
-            const countryCode = (data.country && data.country !== "un") ? data.country.toLowerCase() : "us";
-            document.getElementById('toast-flag').src = `https://flagcdn.com/w40/${countryCode}.png`;
-            document.getElementById('toast-flag').style.display = 'block';
-            toast.style.display = 'flex';
-            setTimeout(() => { toast.style.opacity = '1'; }, 80);
-            popupVisible = true;
-            setTimeout(() => {
-              toast.style.opacity = '0';
-              setTimeout(() => { toast.style.display = 'none'; popupVisible = false; }, 500);
-            }, 8200);
-          }
-        } catch (e) {}
-      }
-      setTimeout(checkKuroFlowActivity, 8500);
-      setInterval(() => {
-        if (Math.random() > 0.28) checkKuroFlowActivity();
-      }, 17000);
-    })();
-
-    // requestTrial con toast inmediato (sin quitar tu lógica original)
+    // Trial Request Logic (Robust from Index 5)
     async function requestTrial() {
-      var email = document.getElementById('trial-email').value.trim();
-      var msg = document.getElementById('trial-msg');
-      var btn = document.querySelector('#trial-form button');
-      if (!email || !email.includes('@')) {
-        msg.style.display = 'block';
-        msg.style.color = '#ed6e6e';
-        msg.textContent = 'Please enter a valid email address.';
-        return;
-      }
+      const email = document.getElementById('trial-email').value.trim();
+      const msg = document.getElementById('trial-msg');
+      const btn = document.getElementById('trial-btn');
+      if (!email.includes('@')) { msg.textContent = 'Invalid email'; return; }
+      
       btn.textContent = 'Sending...';
-      btn.disabled = true;
       try {
-        var res = await fetch('https://kuroflow-license-server.onrender.com/trial', {
+        const res = await fetch('https://kuroflow-license-server.onrender.com/trial', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email, ip: '' })
+          body: JSON.stringify({ email })
         });
-        var data = await res.json();
-        msg.style.display = 'block';
-        if (data.clave || data.key || res.ok) {
-          document.getElementById('trial-form').style.display = 'none';
-          msg.style.color = '#6edd9e';
-          msg.textContent = '✓ Trial key sent to ' + email + '. Check your inbox (and spam folder).';
-
-          // Toast inmediato
-          setTimeout(() => {
-            const toast = document.getElementById('social-proof-toast');
-            document.getElementById('toast-user').textContent = email.split('@')[0] || "New Trader";
-            document.getElementById('toast-action').innerHTML = `requested 7-day trial <span style="opacity:0.65">• just now</span>`;
-            document.getElementById('toast-flag').src = "https://flagcdn.com/w40/us.png";
-            document.getElementById('toast-flag').style.display = 'block';
-            toast.style.display = 'flex';
-            setTimeout(() => { toast.style.opacity = '1'; }, 100);
-            setTimeout(() => {
-              toast.style.opacity = '0';
-              setTimeout(() => { toast.style.display = 'none'; }, 500);
-            }, 7500);
-          }, 800);
-        } else {
-          msg.style.color = '#ed6e6e';
-          msg.textContent = data.error || 'Something went wrong. Please try again.';
-          btn.textContent = 'Get Trial Key →';
-          btn.disabled = false;
+        if (res.ok) {
+          msg.innerHTML = "✅ Check your inbox for the key!";
+          showInstantToast(email.split('@')[0], "requested a trial");
         }
-      } catch(e) {
-        msg.style.display = 'block';
-        msg.style.color = '#ed6e6e';
-        msg.textContent = 'Connection error. Please try again in a moment.';
-        btn.textContent = 'Get Trial Key →';
-        btn.disabled = false;
-      }
+      } catch (e) { msg.textContent = 'Error connecting to server.'; }
+      btn.textContent = 'Get Trial Key →';
     }
 
-    // Resto de tus funciones (toggleFaq, openLightbox, etc.) — mantenlas todas
+    // Social Proof Toast (Optimized)
+    async function checkActivity() {
+      try {
+        const res = await fetch('https://kuroflow-license-server.onrender.com/activity');
+        const data = await res.json();
+        if (data.status === "ok") {
+          showInstantToast(data.user, data.action, data.country);
+        }
+      } catch (e) {}
+    }
+
+    function showInstantToast(user, action, country = "us") {
+      const toast = document.getElementById('social-proof-toast');
+      document.getElementById('toast-user').textContent = user;
+      document.getElementById('toast-action').textContent = action;
+      const flag = document.getElementById('toast-flag');
+      flag.src = `https://flagcdn.com/w40/${country.toLowerCase()}.png`;
+      flag.style.display = 'block';
+      
+      toast.style.display = 'flex';
+      setTimeout(() => toast.style.opacity = "1", 100);
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        setTimeout(() => toast.style.display = "none", 500);
+      }, 6000);
+    }
+
+    setInterval(checkActivity, 20000);
+    setTimeout(checkActivity, 5000);
+
+    function openLightbox(src) { /* lógica de lightbox aquí */ }
   </script>
 </body>
 </html>
