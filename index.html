@@ -1697,13 +1697,13 @@ body { top: 0 !important; }
   </div>
 </div>
 
-<div id="notification-toast" style="display: none; position: fixed; bottom: 20px; left: 20px; z-index: 99999; align-items: center; padding: 12px 18px; border-radius: 8px; color: white; font-family: sans-serif; opacity: 0; transition: all 0.5s ease; transform: translateY(20px);">
-  <img id="toast-flag" src="" style="width: 24px; margin-right: 12px; display: none;">
-        <div>
-      <div id="toast-user" style="font-weight: bold; font-size: 13px;"></div>
-    <div id="toast-action" style="font-size: 12px; color: #aaa;"></div>
-  </div>
-</div>     
+<div id="notification-toast" style="display: none; position: fixed; bottom: 20px; left: 20px; z-index: 999999; align-items: center; padding: 12px 18px; border-radius: 10px; color: white; min-width: 250px; shadow: 0 4px 15px rgba(0,0,0,0.5); transition: all 0.5s ease; opacity: 0; transform: translateY(20px); font-family: sans-serif;">
+    <img id="toast-flag" src="" style="width: 28px; height: auto; margin-right: 15px; border-radius: 2px; display: none;">
+    <div style="display: flex; flex-direction: column;">
+        <span id="toast-user" style="font-weight: bold; font-size: 13px; color: #ffffff; margin-bottom: 2px;"></span>
+        <span id="toast-action" style="font-size: 12px; color: #bbbbbb;"></span>
+    </div>
+</div>   
 
 <script>
 const BACKEND_URL = "https://kuroflow-license-server.onrender.com";
@@ -1759,6 +1759,7 @@ function showNotification(data, isGhost = false) {
 <script>
 const BACKEND_URL = "https://kuroflow-license-server.onrender.com"; 
 
+// Lista extendida para que no sea sospechoso
 const ghostData = [
     { country: "mx", action: "Activated a 7-Day Trial" },
     { country: "es", action: "Purchased a Monthly License" },
@@ -1769,58 +1770,45 @@ const ghostData = [
     { country: "pe", action: "Upgraded to Lifetime Access" },
     { country: "br", action: "New User Registered" },
     { country: "it", action: "Purchased a Monthly License" },
-    { country: "pa", action: "Joined the VIP Community" },
-    { country: "ec", action: "Activated a 7-Day Trial" }
+    { country: "fr", action: "Joined the VIP Community" },
+    { country: "pa", action: "Activated a 7-Day Trial" }
 ];
 
-async function checkLiveActivity() {
-    try {
-        const response = await fetch(`${BACKEND_URL}/get-activity?t=${new Date().getTime()}`);
-        if (!response.ok) return false;
-        const data = await response.json();
-        
-        if (data && data.action && data.status !== "waiting") {
-            if (window.lastActivity !== data.timestamp) {
-                showNotification(data, false); // Real (Dorado)
-                window.lastActivity = data.timestamp;
-                return true;
-            }
-        }
-    } catch (e) { console.log("Buscando..."); }
-    return false;
-}
-
-function triggerGhost() {
-    const randomGhost = ghostData[Math.floor(Math.random() * ghostData.length)];
-    showNotification(randomGhost, true); // Fantasma (Normal)
-}
-
-function showNotification(data, isGhost) {
+function showNotification(data, isGhost = false) {
     const toast = document.getElementById('notification-toast');
     const userEl = document.getElementById('toast-user');
     const actionEl = document.getElementById('toast-action');
     const flagImg = document.getElementById('toast-flag');
 
-    if (!toast) return;
-
-    userEl.innerText = "NEW USER"; 
-    actionEl.innerText = data.action;
-
-    // FIX: Extraer el país correctamente del objeto data
-    const cCode = data.country ? data.country.toLowerCase() : "us";
-    if (flagImg) {
-        flagImg.src = `https://flagcdn.com/w40/${cCode}.png`;
-        flagImg.style.display = 'block'; 
+    if (!toast) {
+        console.error("❌ ERROR: No se encontró el ID 'notification-toast' en el HTML.");
+        return;
     }
 
+    // Configurar contenido
+    userEl.textContent = "NEW USER";
+    actionEl.textContent = data.action;
+
+    // Configurar bandera (FIX de la variable)
+    const countryCode = data.country ? data.country.toLowerCase() : "us";
+    flagImg.src = `https://flagcdn.com/w40/${countryCode}.png`;
+    flagImg.style.display = 'block';
+
+    // Estética
+    toast.style.backgroundColor = '#0f0f12';
+    toast.style.border = isGhost ? '1px solid rgba(255,255,255,0.1)' : '1px solid #c9a84c';
+
+    // MOSTRAR (Reset de estilos)
     toast.style.display = 'flex';
-    toast.style.border = isGhost ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(201,168,76,0.6)';
     
-    setTimeout(() => { 
-        toast.style.opacity = '1'; 
+    // Pequeño delay para que la transición funcione
+    setTimeout(() => {
+        toast.style.opacity = '1';
         toast.style.transform = 'translateY(0)';
+        console.log("🔔 Pop-up mostrado con éxito:", isGhost ? "Fantasma" : "REAL");
     }, 100);
 
+    // Ocultar después de 8 segundos
     setTimeout(() => {
         toast.style.opacity = '0';
         toast.style.transform = 'translateY(20px)';
@@ -1828,18 +1816,43 @@ function showNotification(data, isGhost) {
     }, 8000);
 }
 
+function triggerGhost() {
+    const randomGhost = ghostData[Math.floor(Math.random() * ghostData.length)];
+    showNotification(randomGhost, true);
+}
+
+async function checkLiveActivity() {
+    try {
+        const resp = await fetch(`${BACKEND_URL}/get-activity?t=${Date.now()}`);
+        const data = await resp.json();
+        if (data && data.action && data.status !== "waiting") {
+            if (window.lastActivity !== data.timestamp) {
+                showNotification(data, false);
+                window.lastActivity = data.timestamp;
+                return true;
+            }
+        }
+    } catch (e) { console.log("Revisando ventas..."); }
+    return false;
+}
+
+// MOTOR
 function startSocialProofEngine() {
     setInterval(async () => {
         const hadReal = await checkLiveActivity();
+        // Probabilidad del 30% para fantasmas si no hay real
         if (!hadReal && Math.random() > 0.7) {
-            setTimeout(triggerGhost, Math.random() * 10000); 
+            triggerGhost();
         }
-    }, 45000); 
+    }, 40000); // Cada 40 segundos
 }
 
 window.addEventListener('load', () => {
-    checkLiveActivity(); // Intento real inmediato
-    setTimeout(triggerGhost, 4000); // Primer fantasma de bienvenida
+    // 1. Intentar real al cargar
+    checkLiveActivity();
+    // 2. Primer fantasma a los 4 segundos para probar
+    setTimeout(triggerGhost, 4000);
+    // 3. Arrancar motor
     startSocialProofEngine();
 });
 </script>
