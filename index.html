@@ -943,6 +943,35 @@ body { top: 0 !important; }
 <!-- ══════════════════════════════════════════
      SECCIÓN 2: SOCIAL PROOF — Backtest
 ═══════════════════════════════════════════ -->
+
+<!-- ─── SOCIAL PROOF COUNTERS ────────────────── -->
+<div id="stats-bar" style="background:var(--ink);border-top:1px solid rgba(201,168,76,0.12);border-bottom:1px solid rgba(201,168,76,0.12);padding:20px 48px;">
+  <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;">
+
+    <div style="display:flex;align-items:center;gap:16px;padding:0 40px;border-right:1px solid rgba(255,255,255,0.06);">
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--gold);line-height:1" id="count-trials">—</div>
+        <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,243,238,0.3);margin-top:4px">Free trials activated</div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:16px;padding:0 40px;border-right:1px solid rgba(255,255,255,0.06);">
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--paper);line-height:1" id="count-monthly">—</div>
+        <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,243,238,0.3);margin-top:4px">Monthly subscribers</div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:16px;padding:0 40px;">
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--paper);line-height:1" id="count-annual">—</div>
+        <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,243,238,0.3);margin-top:4px">Annual subscribers</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <section id="proof">
   <div class="proof-header fade-up">
     <div>
@@ -1788,6 +1817,18 @@ function startSocialProofEngine() {
 }
 
 window.addEventListener('load', function() {
+  // Load social proof counters
+  fetch('https://kuroflow-license-server.onrender.com/stats')
+    .then(r => r.json())
+    .then(d => {
+      if (d.ok) {
+        document.getElementById('count-trials').textContent  = d.trials;
+        document.getElementById('count-monthly').textContent = d.monthly;
+        document.getElementById('count-annual').textContent  = d.annual;
+      }
+    })
+    .catch(function() {});
+
   // Check immediately on load
   checkLiveActivity();
   // Check again after 5s in case server was waking up
