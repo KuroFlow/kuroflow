@@ -1713,114 +1713,87 @@ body { top: 0 !important; }
 
 <script>
 const BACKEND_URL = "https://kuroflow-license-server.onrender.com";
-const RECIENTE_MS = 90 * 1000; // 90 segundos → considera "recién ocurrido"
 
-let lastKnownTimestamp = 0;
-let notificationCount = 0; // evita spam si hay muchas rápidas
-
-// ── Mostrar notificación (fantasma o real) ──
-    // 2. ESTÉTICA SEGÚN TIPO (Dorado para reales)
-    toast.style.backgroundColor = '#0f0f12';
-    toast.style.border = isGhost 
-        ? '1px solid rgba(255,255,255,0.1)' 
-        : '1px solid #c9a84c'; 
-
-    // 3. ANIMACIÓN DE ENTRADA (Hacia arriba)
-    toast.style.display = 'flex';
-    toast.style.transform = 'translateY(20px)'; // Empezamos un poco abajo
-    
-    setTimeout(() => {
-        toast.style.opacity = '1';
-        toast.style.transform = 'translateY(0)'; // Sube a su posición
-    }, 50);
-
-    // 4. ANIMACIÓN DE SALIDA
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateY(20px)'; // Baja al desaparecer
-        setTimeout(() => {
-            toast.style.display = 'none';
-        }, 600);
-    }, 7500);
-}
-
-<script>
-const BACKEND_URL = "https://kuroflow-license-server.onrender.com"; 
-
-// Lista extendida para que no sea sospechoso
 const ghostData = [
-    { country: "mx", action: "Activated a 7-Day Trial" },
-    { country: "es", action: "Purchased a Monthly License" },
-    { country: "us", action: "Activated a 7-Day Trial" },
-    { country: "cl", action: "Purchased an Annual License" },
-    { country: "ar", action: "Started a Free Trial" },
-    { country: "it", action: "Purchased a Monthly License" },
-    { country: "pa", action: "Activated a 7-Day Trial" }
+  { country: "mx", action: "Activated a 7-Day Free Trial" },
+  { country: "es", action: "Purchased a Monthly License" },
+  { country: "co", action: "Activated a 7-Day Free Trial" },
+  { country: "us", action: "Purchased an Annual License" },
+  { country: "cl", action: "Purchased a Monthly License" },
+  { country: "ar", action: "Activated a 7-Day Free Trial" },
+  { country: "pe", action: "Purchased a Monthly License" },
+  { country: "it", action: "Purchased an Annual License" },
+  { country: "fr", action: "Purchased a Monthly License" },
+  { country: "de", action: "Purchased an Annual License" },
+  { country: "gb", action: "Purchased a Monthly License" },
+  { country: "pa", action: "Activated a 7-Day Free Trial" }
 ];
 
-    // Configurar contenido
-    userEl.textContent = "NEW USER";
-    actionEl.textContent = data.action;
+function showToast(data, isReal) {
+  var toast = document.getElementById('notification-toast');
+  var userEl = document.getElementById('toast-user');
+  var actionEl = document.getElementById('toast-action');
+  var flagImg = document.getElementById('toast-flag');
+  if (!toast || !userEl || !actionEl) return;
 
-    // Configurar bandera (FIX de la variable)
-    const countryCode = data.country ? data.country.toLowerCase() : "us";
-    flagImg.src = `https://flagcdn.com/w40/${countryCode}.png`;
+  userEl.textContent = "NEW USER";
+  actionEl.textContent = data.action;
+
+  var code = (data.country || 'us').toLowerCase();
+  if (flagImg) {
+    flagImg.src = 'https://flagcdn.com/w40/' + code + '.png';
     flagImg.style.display = 'block';
+  }
 
-    // Estética
-    toast.style.backgroundColor = '#0f0f12';
-    toast.style.border = isGhost ? '1px solid rgba(255,255,255,0.1)' : '1px solid #c9a84c';
+  toast.style.backgroundColor = '#0f0f12';
+  toast.style.border = isReal ? '1px solid #c9a84c' : '1px solid rgba(255,255,255,0.08)';
+  toast.style.display = 'flex';
+  toast.style.opacity = '0';
+  toast.style.transform = 'translateY(20px)';
 
-    // MOSTRAR (Reset de estilos)
-    toast.style.display = 'flex';
-    
-    // Pequeño delay para que la transición funcione
-    setTimeout(() => {
-        toast.style.opacity = '1';
-        toast.style.transform = 'translateY(0)';
-        console.log("🔔 Pop-up mostrado con éxito:", isGhost ? "Fantasma" : "REAL");
-    }, 100);
+  setTimeout(function() {
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateY(0)';
+  }, 80);
 
-    // Ocultar después de 8 segundos
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateY(20px)';
-        setTimeout(() => { toast.style.display = 'none'; }, 500);
-    }, 8000);
+  setTimeout(function() {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(20px)';
+    setTimeout(function() { toast.style.display = 'none'; }, 500);
+  }, 7000);
 }
 
-function triggerGhost() {
-    const randomGhost = ghostData[Math.floor(Math.random() * ghostData.length)];
-    showNotification(randomGhost, true);
-}
+var lastActivityTs = null;
 
 async function checkLiveActivity() {
-    try {
-        const resp = await fetch(`${BACKEND_URL}/get-activity?t=${Date.now()}`);
-        const data = await resp.json();
-        if (data && data.action && data.status !== "waiting") {
-            if (window.lastActivity !== data.timestamp) {
-                showNotification(data, false);
-                window.lastActivity = data.timestamp;
-                return true;
-            }
-        }
-    } catch (e) { console.log("Revisando ventas..."); }
-    return false;
+  try {
+    var resp = await fetch(BACKEND_URL + '/get-activity?t=' + Date.now());
+    var data = await resp.json();
+    if (data && data.status === 'ok' && data.timestamp !== lastActivityTs) {
+      lastActivityTs = data.timestamp;
+      showToast(data, true);
+      return true;
+    }
+  } catch(e) {}
+  return false;
 }
 
-// MOTOR
 function startSocialProofEngine() {
-    setInterval(async () => {
-        const hadReal = await checkLiveActivity();
-        // Probabilidad del 30% para fantasmas si no hay real
-        if (!hadReal && Math.random() > 0.7) {
-            triggerGhost();
-        }
-    }, 40000); // Cada 40 segundos
+  setInterval(async function() {
+    var hadReal = await checkLiveActivity();
+    if (!hadReal && Math.random() > 0.80) {
+      showToast(ghostData[Math.floor(Math.random() * ghostData.length)], false);
+    }
+  }, 90000);
 }
 
-window.addEventListener('load', () => {
-    // 1. Intentar real al cargar
-    checkLiveActivity();
-    // 2. Primer fanta
+window.addEventListener('load', function() {
+  checkLiveActivity();
+  setTimeout(function() {
+    showToast(ghostData[Math.floor(Math.random() * ghostData.length)], false);
+  }, 50000);
+  startSocialProofEngine();
+});
+</script>
+</body>
+</html>
