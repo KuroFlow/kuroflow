@@ -1706,13 +1706,7 @@ body { top: 0 !important; }
       Trading forex involves risk. Kuro-Flow is a software tool. Past performance is not a guarantee of future results. © 2026.
     </p>
     <div style="font-size: 9px; color: #222; letter-spacing: 3px;">[ VER 3.1.0 ]</div>
-    <div style="margin-top:32px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.05);display:flex;gap:24px;flex-wrap:wrap;align-items:center;justify-content:center">
-      <a href="privacy.html" style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;color:rgba(245,243,238,0.25);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='rgba(245,243,238,0.25)'">Privacy Policy</a>
-      <span style="color:rgba(255,255,255,0.1);font-size:0.6rem">·</span>
-      <a href="terms.html" style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;color:rgba(245,243,238,0.25);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='rgba(245,243,238,0.25)'">Terms & Conditions</a>
-      <span style="color:rgba(255,255,255,0.1);font-size:0.6rem">·</span>
-      <a href="legal.html" style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;color:rgba(245,243,238,0.25);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='rgba(245,243,238,0.25)'">Cookie Policy & Disclaimer</a>
-    </div>
+
   </div>
 </footer>
 
@@ -1951,12 +1945,14 @@ window.addEventListener('load', function() {
   }
 
   // Close on backdrop click
-  document.getElementById('exit-popup').addEventListener('click', function(e) {
+  var exitPopupEl = document.getElementById('exit-popup');
+  if (exitPopupEl) exitPopupEl.addEventListener('click', function(e) {
     if (e.target === this) closeExitPopup();
   });
 
   // Exit trial button
-  document.getElementById('exit-trial-btn').addEventListener('click', function() {
+  var exitTrialBtn = document.getElementById('exit-trial-btn');
+  if (exitTrialBtn) exitTrialBtn.addEventListener('click', function() {
     var email = document.getElementById('exit-trial-email').value.trim();
     var msg   = document.getElementById('exit-trial-msg');
     var btn   = document.getElementById('exit-trial-btn');
