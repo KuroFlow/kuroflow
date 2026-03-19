@@ -962,7 +962,7 @@ body { top: 0 !important; }
       </div>
     </div>
 
-    <div style="display:flex;align-items:center;gap:16px;padding:0 40px;">
+    <div id="count-annual-wrap" style="display:flex;align-items:center;gap:16px;padding:0 40px;">
       <div>
         <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--paper);line-height:1" id="count-annual">—</div>
         <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,243,238,0.3);margin-top:4px">Annual subscribers</div>
@@ -1745,17 +1745,19 @@ const BACKEND_URL = "https://kuroflow-license-server.onrender.com";
 
 const ghostData = [
   { country: "mx", action: "Activated a 7-Day Free Trial" },
-  { country: "es", action: "Purchased a Monthly License" },
+  { country: "es", action: "Activated a 7-Day Free Trial" },
   { country: "co", action: "Activated a 7-Day Free Trial" },
-  { country: "us", action: "Purchased an Annual License" },
-  { country: "cl", action: "Purchased a Monthly License" },
+  { country: "us", action: "Activated a 7-Day Free Trial" },
+  { country: "cl", action: "Activated a 7-Day Free Trial" },
   { country: "ar", action: "Activated a 7-Day Free Trial" },
-  { country: "pe", action: "Purchased a Monthly License" },
-  { country: "it", action: "Purchased an Annual License" },
-  { country: "fr", action: "Purchased a Monthly License" },
-  { country: "de", action: "Purchased an Annual License" },
-  { country: "gb", action: "Purchased a Monthly License" },
-  { country: "pa", action: "Activated a 7-Day Free Trial" }
+  { country: "pe", action: "Activated a 7-Day Free Trial" },
+  { country: "it", action: "Activated a 7-Day Free Trial" },
+  { country: "fr", action: "Activated a 7-Day Free Trial" },
+  { country: "de", action: "Activated a 7-Day Free Trial" },
+  { country: "gb", action: "Activated a 7-Day Free Trial" },
+  { country: "pa", action: "Activated a 7-Day Free Trial" },
+  { country: "br", action: "Activated a 7-Day Free Trial" },
+  { country: "jp", action: "Activated a 7-Day Free Trial" }
 ];
 
 function showToast(data, isReal) {
@@ -1824,7 +1826,12 @@ window.addEventListener('load', function() {
       if (d.ok) {
         document.getElementById('count-trials').textContent  = d.trials;
         document.getElementById('count-monthly').textContent = d.monthly;
-        document.getElementById('count-annual').textContent  = d.annual;
+        var annualEl = document.getElementById('count-annual-wrap');
+        if (d.annual > 0) {
+          document.getElementById('count-annual').textContent = d.annual;
+        } else {
+          if (annualEl) annualEl.style.display = 'none';
+        }
       }
     })
     .catch(function() {});
