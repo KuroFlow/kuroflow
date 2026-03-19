@@ -1788,7 +1788,13 @@ function startSocialProofEngine() {
 }
 
 window.addEventListener('load', function() {
+  // Check immediately on load
   checkLiveActivity();
+  // Check again after 5s in case server was waking up
+  setTimeout(checkLiveActivity, 5000);
+  // Then every 30s for real activity
+  setInterval(checkLiveActivity, 30000);
+  // First ghost after 50s
   setTimeout(function() {
     showToast(ghostData[Math.floor(Math.random() * ghostData.length)], false);
   }, 50000);
