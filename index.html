@@ -1354,7 +1354,7 @@ body { top: 0 !important; }
     
     <div style="display:flex; gap:10px; flex-wrap:wrap;" id="trial-form">
       <input type="email" id="trial-email" placeholder="your@email.com" style="flex:1; min-width:200px; padding:12px 16px; background:#0a0a0c; border:1px solid rgba(201,168,76,0.3); color:var(--paper); font-family:'DM Mono',monospace; font-size:0.85rem; outline:none;">
-      <button onclick="requestTrial()" id="trial-btn" style="padding:12px 24px; background:var(--gold); color:var(--ink); border:none; cursor:pointer; font-family:'DM Mono',monospace; font-size:0.85rem; font-weight:700; letter-spacing:0.06em; transition:opacity 0.2s;">
+      <button id="trial-btn" style="padding:12px 24px; background:var(--gold); color:var(--ink); border:none; cursor:pointer; font-family:'DM Mono',monospace; font-size:0.85rem; font-weight:700; letter-spacing:0.06em; transition:opacity 0.2s;">
         Get Trial Key →
       </button>
     </div>
@@ -1559,7 +1559,7 @@ body { top: 0 !important; }
     <div style="display: flex; flex-direction: column; gap: 15px;">
       <div style="font-size: 10px; color: #333; letter-spacing: 2px; font-weight: bold;">SYSTEM</div>
       <a href="https://x.com/KuroFlowEA" target="_blank" style="color: #f5f3ee; text-decoration: none; font-size: 12px; opacity: 0.6;">X / Twitter</a>
-      <a href="mailto:licencias@kuro-flow.com" style="color: #f5f3ee; text-decoration: none; font-size: 12px; opacity: 0.6;">Support</a>
+      <a href="/cdn-cgi/l/email-protection#fe92979d9b909d979f8dbe958b8c91d398929189d09d9193" style="color: #f5f3ee; text-decoration: none; font-size: 12px; opacity: 0.6;">Support</a>
     </div>
 
   </div>
@@ -1572,7 +1572,7 @@ body { top: 0 !important; }
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -1604,6 +1604,12 @@ body { top: 0 !important; }
   document.querySelectorAll('#hero .fade-up').forEach((el, i) => {
     setTimeout(() => el.classList.add('visible'), 200 + i * 200);
   });
+
+  // Trial form buttons
+  var trialBtn = document.getElementById('trial-btn');
+  if (trialBtn) trialBtn.addEventListener('click', requestTrial);
+  var trialBtnFaq = document.getElementById('trial-btn-faq');
+  if (trialBtnFaq) trialBtnFaq.addEventListener('click', requestTrial);
 
   function toggleFaq(btn) {
     var answer = btn.nextElementSibling;
@@ -1697,11 +1703,11 @@ body { top: 0 !important; }
   </div>
 </div>
 
-<div id="notification-toast" style="display: none; position: fixed; bottom: 20px; left: 20px; z-index: 999999; align-items: center; padding: 12px 18px; border-radius: 10px; color: white; min-width: 250px; shadow: 0 4px 15px rgba(0,0,0,0.5); transition: all 0.5s ease; opacity: 0; transform: translateY(20px); font-family: sans-serif;">
+<div id="notification-toast" style="display: none; position: fixed; bottom: 20px; left: 20px; z-index: 999999; align-items: center; padding: 12px 18px; color: var(--paper); min-width: 260px; transition: all 0.4s ease; opacity: 0; transform: translateY(20px); font-family: 'DM Mono', monospace;">
     <img id="toast-flag" src="" style="width: 28px; height: auto; margin-right: 15px; border-radius: 2px; display: none;">
     <div style="display: flex; flex-direction: column;">
-        <span id="toast-user" style="font-weight: bold; font-size: 13px; color: #ffffff; margin-bottom: 2px;"></span>
-        <span id="toast-action" style="font-size: 12px; color: #bbbbbb;"></span>
+        <span id="toast-user" style="font-weight: 700; font-size: 0.78rem; color: var(--paper); margin-bottom: 3px; font-family: 'Syne', sans-serif;"></span>
+        <span id="toast-action" style="font-size: 0.7rem; color: rgba(245,243,238,0.45); letter-spacing: 0.04em;"></span>
     </div>
 </div>   
 
@@ -1850,11 +1856,4 @@ function startSocialProofEngine() {
 window.addEventListener('load', () => {
     // 1. Intentar real al cargar
     checkLiveActivity();
-    // 2. Primer fantasma a los 4 segundos para probar
-    setTimeout(triggerGhost, 4000);
-    // 3. Arrancar motor
-    startSocialProofEngine();
-});
-</script>
-</body>
-</html>
+    // 2. Primer fanta
