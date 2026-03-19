@@ -215,21 +215,7 @@ function loadAll() {
   fetchAnalysis();
 }
 
-  // Login button
-  var loginBtn = document.getElementById('login-btn');
-  if (loginBtn) loginBtn.addEventListener('click', doLogin);
-
-  // Support email
-  var supportLink = document.getElementById('support-link');
-  if (supportLink) {
-    supportLink.addEventListener('click', function(e) {
-      e.preventDefault();
-      window.location.href = 'mailto:support@kuro-flow.com';
-    });
-  }
-
-
-// Attach event listeners directly
+// Attach event listeners
 document.addEventListener('DOMContentLoaded', function() {
   var loginBtn = document.getElementById('login-btn');
   if (loginBtn) loginBtn.addEventListener('click', doLogin);
