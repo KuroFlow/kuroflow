@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@300;400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="https://fonts.gstatic.com/s/syne/v22/8vIS7w4qzmVxsWxjBZRjr0FKM_04uQ.woff2" as="font" type="font/woff2" crossorigin>
 <noscript><link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"></noscript>
 <style>
   :root {
@@ -1717,7 +1718,7 @@ body { top: 0 !important; }
 <!-- LIGHTBOX -->
 <div id="lightbox" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.92);backdrop-filter:blur(8px);align-items:center;justify-content:center;cursor:pointer">
   <div style="position:relative;max-width:90vw;max-height:90vh">
-    <img id="lightbox-img" src="" alt="" style="max-width:90vw;max-height:85vh;object-fit:contain;border:1px solid rgba(201,168,76,0.3);box-shadow:0 40px 100px rgba(0,0,0,0.8)">
+    <img id="lightbox-img" src="" alt="Certificate detail" width="800" height="600" style="max-width:90vw;max-height:85vh;object-fit:contain;border:1px solid rgba(201,168,76,0.3);box-shadow:0 40px 100px rgba(0,0,0,0.8)">
     <div style="position:absolute;top:-16px;right:-16px;width:32px;height:32px;background:#1e1e22;border:1px solid rgba(201,168,76,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(245,243,238,0.6)">✕</div>
   </div>
 </div>
@@ -1895,7 +1896,7 @@ body { top: 0 !important; }
 </div>
 
 <div id="notification-toast" style="display: none; position: fixed; bottom: 20px; left: 20px; z-index: 999999; align-items: center; padding: 12px 18px; color: var(--paper); min-width: 260px; transition: all 0.4s ease; opacity: 0; transform: translateY(20px); font-family: 'DM Mono', monospace;">
-    <img id="toast-flag" src="" style="width: 28px; height: auto; margin-right: 15px; border-radius: 2px; display: none;">
+    <img id="toast-flag" src="" alt="Country flag" width="28" height="20" style="width:28px;height:20px;margin-right:15px;border-radius:2px;display:none;">
     <div style="display: flex; flex-direction: column;">
         <span id="toast-user" style="font-weight: 700; font-size: 0.78rem; color: var(--paper); margin-bottom: 3px; font-family: 'Syne', sans-serif;"></span>
         <span id="toast-action" style="font-size: 0.7rem; color: rgba(245,243,238,0.45); letter-spacing: 0.04em;"></span>
@@ -1981,6 +1982,9 @@ function startSocialProofEngine() {
 }
 
 window.addEventListener('load', function() {
+  // Defer non-critical features until idle
+  var idleLoad = window.requestIdleCallback || function(fn){ setTimeout(fn, 200); };
+
   // Exit intent popup
   var exitShown = false;
   document.addEventListener('mouseleave', function(e) {
@@ -2042,7 +2046,8 @@ window.addEventListener('load', function() {
     });
   });
 
-  // Load social proof counters
+  // Load social proof counters — deferred to idle
+  idleLoad(function() {
   fetch('https://kuroflow-license-server.onrender.com/stats')
     .then(r => r.json())
     .then(d => {
@@ -2058,6 +2063,7 @@ window.addEventListener('load', function() {
       }
     })
     .catch(function() {});
+  }); // end idleLoad stats
 
   // Check immediately on load
   checkLiveActivity();
