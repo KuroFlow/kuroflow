@@ -5,13 +5,13 @@
 <meta name="theme-color" content="#0a0a0c">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kuro-Flow — USDJPY Algorithmic Trading EA for MT5</title>
-<meta name="description" content="Kuro-Flow is an algorithmic trading system for USDJPY on MT5. Verified on The5ers prop firm with $7,066 withdrawn, 70.5% win rate, 3.31% max drawdown and 6-year backtest. Try 7 days free.">
+<meta name="description" content="Kuro-Flow is an algorithmic trading system for USDJPY on MT5. Verified on The5ers prop firm with $7,066 withdrawn, 5.35 Sharpe Ratio, 4.17% max equity drawdown and 8-year backtest. Try 7 days free.">
 <meta name="keywords" content="USDJPY EA, algorithmic trading, MT5 expert advisor, prop firm EA, USDJPY robot, kuro-flow">
 <meta name="robots" content="index, follow">
 <meta name="author" content="Kuro-Flow">
 <link rel="canonical" href="https://kuro-flow.com/">
 <meta property="og:title" content="Kuro-Flow — USDJPY Algorithmic Trading">
-<meta property="og:description" content="Verified algorithmic trading EA for USDJPY. $7,066 withdrawn from The5ers. 70.5% win rate. Try free for 7 days.">
+<meta property="og:description" content="Verified algorithmic trading EA for USDJPY. $7,066 withdrawn from The5ers. 5.35 Sharpe Ratio. Try free for 7 days.">
 <meta property="og:url" content="https://kuro-flow.com/">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://kuro-flow.com/og-image.png">
@@ -474,7 +474,7 @@
     white-space: nowrap;
   }
   .gauge-bar-wrap { flex: 1; background: rgba(255,255,255,0.08); height: 6px; position: relative; }
-  .gauge-bar { height: 100%; background: linear-gradient(90deg, #6edd9e, #4c9c6b); width: 3.31%; min-width: 20px; }
+  .gauge-bar { height: 100%; background: linear-gradient(90deg, #6edd9e, #4c9c6b); width: 4.17%; min-width: 20px; }
   .gauge-pct {
     font-family: 'DM Mono', monospace;
     font-size: 0.85rem; color: #6edd9e; font-weight: 400;
@@ -770,8 +770,6 @@
     #faq { padding: 60px 24px; }
     footer { padding: 32px 24px; }
     .footer-inner { flex-direction: column; }
-
-    /* Buttons — mobile */
     .btn-primary, .btn-primary-light, .btn-ghost {
       width: 100%; text-align: center; padding: 14px 20px;
       font-size: 0.78rem; display: block; box-sizing: border-box;
@@ -781,14 +779,7 @@
       font-size: 0.78rem; display: block; box-sizing: border-box;
     }
     .nav-cta { padding: 8px 14px; font-size: 0.7rem; }
-
-    /* Hero buttons side by side on mobile */
     .hero-cta { flex-direction: column; gap: 12px; }
-
-    /* Pricing cards */
-    .pricing-card { padding: 32px 24px; }
-
-    /* FAQ */
     .faq-q { padding: 16px 20px; font-size: 0.88rem; }
     .faq-a { padding: 0 20px; }
     .faq-a.open { padding: 14px 20px 20px; }
@@ -848,7 +839,7 @@ body { top: 0 !important; }
   "name": "Kuro-Flow",
   "applicationCategory": "FinanceApplication",
   "operatingSystem": "MetaTrader 5",
-  "description": "Algorithmic trading Expert Advisor for USDJPY. Verified on The5ers prop firm with $7,066 withdrawn, 70.5% win rate and 3.31% max drawdown.",
+  "description": "Algorithmic trading Expert Advisor for USDJPY. Verified on The5ers prop firm with $7,066 withdrawn. 5.35 Sharpe Ratio, 4.17% max equity drawdown, 8-year backtest on 100% real ticks.",
   "url": "https://kuro-flow.com",
   "offers": [
     {
@@ -887,7 +878,7 @@ body { top: 0 !important; }
     <li><a href="#anti-hype">Methodology</a></li>
     <li><a href="#trial-section" style="color:var(--safe); font-weight:700;">★ FREE TRIAL</a></li>
     <li><a href="#conditions">Conditions</a></li>
-          <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#pricing">Pricing</a></li>
   </ul>
   <div style="display: flex; align-items: center;">
     <a href="members.html" target="_blank" class="nav-members-btn">Members</a>
@@ -898,7 +889,6 @@ body { top: 0 !important; }
 
 <!-- ══════════════════════════════════════════
      SECTION 1: HERO
-     Headline: Pain point. Solution.
 ═══════════════════════════════════════════ -->
 <section id="hero">
   <div class="hero-bg"></div>
@@ -940,22 +930,23 @@ body { top: 0 !important; }
       </div>
       <div class="terminal-body">
 
+        <!-- ── UPDATED: Hero KPIs ── -->
         <div class="kpi-grid">
           <div class="kpi-box positive">
             <div class="kpi-label">Total Return</div>
-            <div class="kpi-value green">+154%</div>
+            <div class="kpi-value green">+143%</div>
           </div>
           <div class="kpi-box positive">
-            <div class="kpi-label">Win Rate</div>
-            <div class="kpi-value white">68.3%</div>
+            <div class="kpi-label">Sharpe Ratio</div>
+            <div class="kpi-value white">5.35</div>
           </div>
           <div class="kpi-box warning">
-            <div class="kpi-label">Max Drawdown</div>
-            <div class="kpi-value gold">3.31%</div>
+            <div class="kpi-label">Max Equity DD</div>
+            <div class="kpi-value gold">4.17%</div>
           </div>
           <div class="kpi-box positive">
             <div class="kpi-label">Profit Factor</div>
-            <div class="kpi-value white">1.79</div>
+            <div class="kpi-value white">1.74</div>
           </div>
         </div>
 
@@ -968,8 +959,8 @@ body { top: 0 !important; }
                 <stop offset="100%" stop-color="#6edd9e" stop-opacity="0"/>
               </linearGradient>
             </defs>
-            <path d="M0,90 C20,85 40,80 60,72 S100,60 120,55 S160,48 180,42 S220,35 250,30 S290,22 320,18 S360,12 400,8" fill="none" stroke="#6edd9e" stroke-width="2"/>
-            <path d="M0,90 C20,85 40,80 60,72 S100,60 120,55 S160,48 180,42 S220,35 250,30 S290,22 320,18 S360,12 400,8 L400,120 L0,120Z" fill="url(#lineGrad)"/>
+            <path d="M0,100 C15,97 30,93 50,88 S85,78 105,70 S145,58 170,50 S210,40 240,33 S285,22 315,16 S360,10 400,6" fill="none" stroke="#6edd9e" stroke-width="2"/>
+            <path d="M0,100 C15,97 30,93 50,88 S85,78 105,70 S145,58 170,50 S210,40 240,33 S285,22 315,16 S360,10 400,6 L400,120 L0,120Z" fill="url(#lineGrad)"/>
           </svg>
         </div>
 
@@ -995,49 +986,46 @@ body { top: 0 !important; }
 </section>
 
 
-<!-- ══════════════════════════════════════════
-     SECCIÓN 2: SOCIAL PROOF — Backtest
-═══════════════════════════════════════════ -->
-
-<!-- ─── SOCIAL PROOF COUNTERS ────────────────── -->
+<!-- ── STATS BAR ── -->
 <div id="stats-bar" style="background:var(--ink);border-top:1px solid rgba(201,168,76,0.12);border-bottom:1px solid rgba(201,168,76,0.12);padding:20px 48px;">
   <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;">
-
     <div style="display:flex;align-items:center;gap:16px;padding:0 40px;border-right:1px solid rgba(255,255,255,0.06);">
       <div>
         <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--gold);line-height:1" id="count-trials">—</div>
         <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,243,238,0.3);margin-top:4px">Free trials activated</div>
       </div>
     </div>
-
     <div style="display:flex;align-items:center;gap:16px;padding:0 40px;border-right:1px solid rgba(255,255,255,0.06);">
       <div>
         <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--paper);line-height:1" id="count-monthly">—</div>
         <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,243,238,0.3);margin-top:4px">Monthly subscribers</div>
       </div>
     </div>
-
     <div id="count-annual-wrap" style="display:flex;align-items:center;gap:16px;padding:0 40px;">
       <div>
         <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--paper);line-height:1" id="count-annual">—</div>
         <div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,243,238,0.3);margin-top:4px">Annual subscribers</div>
       </div>
     </div>
-
   </div>
 </div>
 
+
+<!-- ══════════════════════════════════════════
+     SECTION 2: SOCIAL PROOF — Backtest
+═══════════════════════════════════════════ -->
 <section id="proof">
   <div class="proof-header fade-up">
     <div>
-      <div class="section-tag">Historical Backtest · 6.1 Years</div>
+      <!-- ── UPDATED: section tag ── -->
+      <div class="section-tag">Historical Backtest · 8 Years · 100% Real Ticks</div>
       <h2 class="proof-h2">
         We don't ask you<br>to trust us.<br>
         We ask you to<br><span style="color:var(--gold)">verify.</span>
       </h2>
       <p class="proof-sub">
-        This data comes from a historical backtest on real USDJPY M5 data
-        from 2020 to 2026, with 99% history quality.
+        This data comes from a historical backtest on 100% real tick USDJPY M5 data
+        from 2018 to 2026 — not interpolated, not modelled.
         The live track record is in progress — it will be published once there is
         sufficient audited history on Myfxbook.
       </p>
@@ -1045,53 +1033,56 @@ body { top: 0 !important; }
 
     <div class="fade-up" style="transition-delay:0.15s">
       <div class="myfxbook-frame">
+        <!-- ── UPDATED: label ── -->
         <div class="myfxbook-label">
-          <span>Backtest · USDJPY M5 · 2020–2026</span>
-          <span class="verified-badge">99% History</span>
+          <span>Backtest · USDJPY M5 · 2018–2026</span>
+          <span class="verified-badge">100% Real Ticks</span>
         </div>
 
+        <!-- ── UPDATED: all 6 stats ── -->
         <div class="myfxbook-stats">
           <div class="mfx-stat">
-            <div class="mfx-num green">+154%</div>
+            <div class="mfx-num green">+143%</div>
             <div class="mfx-desc">Net Profit</div>
           </div>
           <div class="mfx-stat">
-            <div class="mfx-num gold">3.31%</div>
-            <div class="mfx-desc">Max Drawdown</div>
+            <div class="mfx-num gold">4.17%</div>
+            <div class="mfx-desc">Max Equity DD</div>
           </div>
           <div class="mfx-stat">
-            <div class="mfx-num" style="color:rgba(245,243,238,0.9)">981</div>
+            <div class="mfx-num" style="color:rgba(245,243,238,0.9)">899</div>
             <div class="mfx-desc">Trades</div>
           </div>
           <div class="mfx-stat">
-            <div class="mfx-num" style="color:rgba(245,243,238,0.9)">1.79</div>
+            <div class="mfx-num" style="color:rgba(245,243,238,0.9)">1.74</div>
             <div class="mfx-desc">Profit Factor</div>
           </div>
           <div class="mfx-stat">
-            <div class="mfx-num green">70.5%</div>
-            <div class="mfx-desc">Win Rate</div>
+            <div class="mfx-num green">5.35</div>
+            <div class="mfx-desc">Sharpe Ratio</div>
           </div>
           <div class="mfx-stat">
-            <div class="mfx-num" style="color:rgba(245,243,238,0.9)">9.04</div>
-            <div class="mfx-desc">Sharpe Ratio</div>
+            <div class="mfx-num" style="color:rgba(245,243,238,0.9)">15.78</div>
+            <div class="mfx-desc">Recovery Factor</div>
           </div>
         </div>
 
         <div style="font-family:'DM Mono',monospace;font-size:0.62rem;color:rgba(245,243,238,0.3);padding:12px 16px;border-top:1px solid #1e1e22;line-height:1.6">
-          ⚠ Historical backtest data. 99% quality. Not live account results.
+          ⚠ Historical backtest — 100% real tick data. Not live account results.
           Past performance does not guarantee future results.
         </div>
       </div>
     </div>
   </div>
 
+  <!-- ── UPDATED: proof metrics bar ── -->
   <div class="proof-metrics fade-up">
     <div class="pm-item">
-      <div class="pm-num" style="color:var(--gold)">6.1</div>
-      <div class="pm-label">Years of historical data analysed</div>
+      <div class="pm-num" style="color:var(--gold)">8</div>
+      <div class="pm-label">Years of real tick data analysed (2018–2026)</div>
     </div>
     <div class="pm-item">
-      <div class="pm-num" style="color:#6edd9e">981</div>
+      <div class="pm-num" style="color:#6edd9e">899</div>
       <div class="pm-label">Trades in the analysed period</div>
     </div>
     <div class="pm-item">
@@ -1107,8 +1098,7 @@ body { top: 0 !important; }
 
 
 <!-- ══════════════════════════════════════════
-     SECCIÓN 3: ANTI-HYPE
-     Por qué un 3.31% DD es mejor que "100% mensual"
+     SECTION 3: ANTI-HYPE
 ═══════════════════════════════════════════ -->
 <section id="anti-hype">
   <div class="anti-hype-inner">
@@ -1124,23 +1114,25 @@ body { top: 0 !important; }
           </div>
           <div class="ch-right">
             <div class="compare-label good">Kuro-Flow Real</div>
-            <div class="compare-pct good">+154%</div>
-            <div class="compare-desc">6-year backtest · 99% quality</div>
+            <!-- ── UPDATED ── -->
+            <div class="compare-pct good">+143%</div>
+            <div class="compare-desc">8-year backtest · 100% real ticks</div>
           </div>
         </div>
         <div class="compare-body">
           <div class="compare-row">
-            <span class="cr-label">Max drawdown</span>
+            <span class="cr-label">Max equity drawdown</span>
             <div style="display:flex;gap:20px">
               <span class="cr-val bad">&gt;60%</span>
-              <span class="cr-val good">3.31%</span>
+              <!-- ── UPDATED ── -->
+              <span class="cr-val good">4.17%</span>
             </div>
           </div>
           <div class="compare-row">
             <span class="cr-label">Verifiable track record</span>
             <div style="display:flex;gap:20px">
               <span class="cr-val bad">No</span>
-              <span class="cr-val good">Backtest 99%</span>
+              <span class="cr-val good">100% Real Ticks</span>
             </div>
           </div>
           <div class="compare-row">
@@ -1151,21 +1143,30 @@ body { top: 0 !important; }
             </div>
           </div>
           <div class="compare-row">
+            <span class="cr-label">Sharpe Ratio</span>
+            <div style="display:flex;gap:20px">
+              <span class="cr-val bad">No data</span>
+              <!-- ── UPDATED ── -->
+              <span class="cr-val good">5.35</span>
+            </div>
+          </div>
+          <div class="compare-row">
             <span class="cr-label">Profit Factor</span>
             <div style="display:flex;gap:20px">
               <span class="cr-val bad">No data</span>
-              <span class="cr-val good">1.79</span>
+              <span class="cr-val good">1.74</span>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- ── UPDATED: gauge ── -->
       <div class="drawdown-gauge">
-        <span class="gauge-label">Current DD</span>
+        <span class="gauge-label">Max equity DD</span>
         <div class="gauge-bar-wrap">
           <div class="gauge-bar"></div>
         </div>
-        <span class="gauge-pct">3.31%</span>
+        <span class="gauge-pct">4.17%</span>
       </div>
 
       <p style="font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--ash);margin-top:12px;line-height:1.5;opacity:0.7">
@@ -1176,8 +1177,9 @@ body { top: 0 !important; }
 
     <div class="fade-up" style="transition-delay:0.15s">
       <div class="section-tag">The Kuro-Flow Philosophy</div>
+      <!-- ── UPDATED: headline ── -->
       <h2 class="ah-h2">
-        A 3.31% drawdown<br>
+        A 4.17% equity drawdown<br>
         is not a weakness.<br>
         It is the <span style="text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:4px">edge.</span>
       </h2>
@@ -1190,7 +1192,8 @@ body { top: 0 !important; }
           <div class="ah-icon">01</div>
           <div>
             <div class="ah-point-title">Per-trade risk management: fixed and non-negotiable</div>
-            <div class="ah-point-desc">Never more than 0.5% of capital at risk per trade. The algorithm has no ego to manage.</div>
+            <!-- ── UPDATED ── -->
+            <div class="ah-point-desc">Risk per trade is configured to match your prop firm's DD limit. The algorithm has no ego to manage.</div>
           </div>
         </li>
         <li class="ah-point">
@@ -1210,38 +1213,46 @@ body { top: 0 !important; }
         <li class="ah-point">
           <div class="ah-icon">04</div>
           <div>
-            <div class="ah-point-title">A profit factor of 1.79 matters more than win rate</div>
-            <div class="ah-point-desc">Winning 68% of trades with asymmetric exits produces a stable equity curve. Not spectacular. Sustainable.</div>
+            <!-- ── UPDATED ── -->
+            <div class="ah-point-title">A Sharpe of 5.35 matters more than win rate</div>
+            <div class="ah-point-desc">Winners nearly double the size of losers across 8 years of data. Not spectacular. Sustainable.</div>
           </div>
         </li>
       </ul>
-      <div class="strategy-details" style="margin-top: 40px; border-top: 1px solid var(--border); padding-top: 30px;">
-        <h3 style="font-family:'Syne'; font-size:1.2rem; margin-bottom:15px; color:var(--ink); text-transform: uppercase; letter-spacing: 0.05em;">Our Statistical Edge (Micro-Edge)</h3>
-        <p style="font-size:0.9rem; color:var(--ash); line-height: 1.6; margin-bottom: 20px;">
-          Kuro-Flow operates on an <strong>Intraday Breakout</strong> logic. We don't aim for "home runs"; we exploit a consistent, small statistical advantage over thousands of trades.
-        </p>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-          <div style="background: var(--white); padding: 15px; border: 1px solid var(--border);">
-            <div style="font-family:'DM Mono'; font-size:0.7rem; color:var(--gold); margin-bottom:5px;">STRATEGY</div>
-            <div style="font-size:0.85rem; font-weight:600;">USDJPY Intraday Breakout</div>
+
+      <!-- ── UPDATED: risk guide box ── -->
+      <div style="margin-top:32px;border:1px solid rgba(201,168,76,0.25);padding:20px 24px;background:rgba(201,168,76,0.04)">
+        <div style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:14px">// Risk configuration guide</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--ash)">
+          <div style="padding:8px 10px;border:1px solid var(--border);background:var(--white)">
+            <div style="color:var(--ink);font-weight:500;margin-bottom:2px">Prop 6% Max DD / 3% Daily</div>
+            <div>Risk = 0.38% · DailyStop = 2.5%</div>
           </div>
-          <div style="background: var(--white); padding: 15px; border: 1px solid var(--border);">
-            <div style="font-family:'DM Mono'; font-size:0.7rem; color:var(--gold); margin-bottom:5px;">IDEAL MARKET</div>
-            <div style="font-size:0.85rem; font-weight:600;">Moderate Volatility</div>
+          <div style="padding:8px 10px;border:1px solid var(--border);background:var(--white)">
+            <div style="color:var(--ink);font-weight:500;margin-bottom:2px">Prop 8% Max DD / 4% Daily</div>
+            <div>Risk = 0.45% · DailyStop = 3.5%</div>
+          </div>
+          <div style="padding:8px 10px;border:1px solid var(--border);background:var(--white)">
+            <div style="color:var(--ink);font-weight:500;margin-bottom:2px">Prop 10% Max DD / 5% Daily</div>
+            <div>Risk = 0.50% · DailyStop = 4.5%</div>
+          </div>
+          <div style="padding:8px 10px;border:1px solid var(--border);background:var(--white)">
+            <div style="color:var(--ink);font-weight:500;margin-bottom:2px">Own account (no limits)</div>
+            <div>Risk = 0.75% · DailyStop = 5.0%</div>
           </div>
         </div>
-        <p style="font-size:0.75rem; color:var(--ash); margin-top: 15px; font-style: italic;">
-          * Best performance during clear intraday structures. Risk is strictly managed via algorithmic protection.
-        </p>
+        <div style="font-size:0.72rem;color:var(--ash);margin-top:10px;font-family:'DM Mono',monospace;opacity:0.7">
+          Backtest DD = ~7.1% at 0.50% risk. Formula: RiskValue = (your_MaxDD / 7.1) × 0.50
+        </div>
       </div>
+
     </div>
   </div>
 </section>
 
 
 <!-- ══════════════════════════════════════════
-     SECCIÓN 4: MEMBER AREA TEASER
-     Crear deseo sin revelar todo
+     SECTION 4: MEMBER AREA TEASER
 ═══════════════════════════════════════════ -->
 <section id="member">
   <div class="member-glow"></div>
@@ -1256,14 +1267,13 @@ body { top: 0 !important; }
     </div>
 
     <div class="member-grid fade-up">
-      <!-- CARD 1: Señales en tiempo real (parcialmente visible) -->
       <div class="member-card">
         <div class="member-card-tag">Real-Time Signals</div>
         <h3>Active Signals Dashboard</h3>
         <p>Get every algorithm entry and exit with market context, trade rationale and internal confidence level.</p>
         <div class="signal-preview">
           <div class="signal-row">
-            <span>Par</span><span>Direction</span><span>Entry</span><span>SL</span><span>TP</span>
+            <span>Pair</span><span>Direction</span><span>Entry</span><span>SL</span><span>TP</span>
           </div>
           <div class="signal-row">
             <span>USDJPY</span>
@@ -1281,7 +1291,6 @@ body { top: 0 !important; }
         </p>
       </div>
 
-      <!-- CARD 2: Análisis semanal (bloqueado) -->
       <div class="member-card" style="position:relative">
         <div class="member-card-tag">Weekly Analysis</div>
         <h3>USDJPY Macro Context</h3>
@@ -1294,7 +1303,6 @@ body { top: 0 !important; }
         </div>
       </div>
 
-      <!-- CARD 3: Stats privadas (bloqueado) -->
       <div class="member-card" style="position:relative">
         <div class="member-card-tag">Internal Metrics</div>
         <h3>Advanced Stats</h3>
@@ -1309,7 +1317,6 @@ body { top: 0 !important; }
     </div>
 
     <div class="member-bottom fade-up">
-      <!-- CARD 4: Setup guide -->
       <div class="member-card" style="position:relative">
         <div class="member-card-tag">Setup & Configuration</div>
         <h3>Step-by-Step Installation Guide</h3>
@@ -1322,7 +1329,6 @@ body { top: 0 !important; }
         </div>
       </div>
 
-      <!-- CARD 5: Comunidad -->
       <div class="member-card" style="position:relative">
         <div class="member-card-tag">Private Community</div>
         <h3>Active Members Channel</h3>
@@ -1346,10 +1352,7 @@ body { top: 0 !important; }
 
 
 <!-- ══════════════════════════════════════════
-     SECCIÓN PROP FIRM: THE5ERS
-═══════════════════════════════════════════ -->
-<!-- ══════════════════════════════════════════
-     SECCIÓN PROP FIRM: THE5ERS
+     SECTION: THE5ERS
 ═══════════════════════════════════════════ -->
 <section id="prop" style="padding:100px 48px;background:var(--ink);overflow:hidden">
   <div style="max-width:1100px;margin:0 auto">
@@ -1365,9 +1368,7 @@ body { top: 0 !important; }
       </p>
     </div>
 
-    <!-- Certificate gallery -->
     <div class="fade-up" style="display:flex;justify-content:center;gap:16px;margin-bottom:56px;flex-wrap:wrap">
-
       <div style="width:180px;flex-shrink:0;transform:rotate(-2deg);transition:transform 0.35s ease,box-shadow 0.35s ease;cursor:pointer;background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.1);padding:8px;"
            onmouseover="this.style.transform='rotate(0deg) scale(1.04)';this.style.boxShadow='0 20px 48px rgba(201,168,76,0.12)'"
            onmouseout="this.style.transform='rotate(-2deg)';this.style.boxShadow='none'">
@@ -1395,10 +1396,8 @@ body { top: 0 !important; }
         <img src="cert-total.png" loading="lazy" decoding="async" onclick="openLightbox('cert-total.png')" style="cursor:zoom-in;width:100%;height:auto;display:block;border-radius:2px;" alt="The5ers total payouts $7,066 - Kuro-Flow EA">
         <div style="padding:8px 0 2px;font-family:'DM Mono',monospace;font-size:0.58rem;color:rgba(245,243,238,0.35);letter-spacing:0.1em;text-transform:uppercase;text-align:center">Total · $7,066</div>
       </div>
-
     </div>
 
-    <!-- Stats -->
     <div class="fade-up" style="display:flex;justify-content:center;gap:48px;flex-wrap:wrap;padding-top:40px;border-top:1px solid #1e1e22">
       <div style="text-align:center">
         <div style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--gold)">$100k</div>
@@ -1421,6 +1420,8 @@ body { top: 0 !important; }
   </div>
 </section>
 
+
+<!-- ── TRIAL SECTION ── -->
 <section id="trial-section" style="padding: 100px 48px; background: var(--gold-pale); text-align: center;">
   <div class="hero-tag" style="background: var(--white); color: var(--ink); border-color: var(--gold);">
     GET STARTED
@@ -1451,6 +1452,8 @@ body { top: 0 !important; }
   </div>
 </section>
 
+
+<!-- ── PRICING ── -->
 <section id="pricing">
   <div class="pricing-header fade-up">
     <div class="section-tag" style="justify-content:center;color:var(--ash)">Access Kuro-Flow</div>
@@ -1462,8 +1465,6 @@ body { top: 0 !important; }
   </div>
 
   <div class="pricing-grid fade-up">
-
-    <!-- PLAN: MENSUAL -->
     <div class="price-card">
       <div class="price-tier">Monthly</div>
       <div class="price-amount">
@@ -1476,35 +1477,16 @@ body { top: 0 !important; }
         No commitment. Cancel at any time.
       </p>
       <ul class="price-features">
-        <li class="pf-item">
-          <span class="pf-check">✓</span>
-          <span>EA file for MT5 (1 account license)</span>
-        </li>
-        <li class="pf-item">
-          <span class="pf-check">✓</span>
-          <span>Setup and installation guide</span>
-        </li>
-        <li class="pf-item">
-          <span class="pf-check">✓</span>
-          <span>Real-time signals with algorithmic context</span>
-        </li>
-        <li class="pf-item">
-          <span class="pf-check">✓</span>
-          <span>Weekly USDJPY analysis (macro + technical)</span>
-        </li>
-        <li class="pf-item">
-          <span class="pf-check">✓</span>
-          <span>Private active members channel</span>
-        </li>
-        <li class="pf-item">
-          <span class="pf-check">✓</span>
-          <span>High-impact BoJ/Fed alerts</span>
-        </li>
+        <li class="pf-item"><span class="pf-check">✓</span><span>EA file for MT5 (1 account license)</span></li>
+        <li class="pf-item"><span class="pf-check">✓</span><span>Setup and installation guide</span></li>
+        <li class="pf-item"><span class="pf-check">✓</span><span>Real-time signals with algorithmic context</span></li>
+        <li class="pf-item"><span class="pf-check">✓</span><span>Weekly USDJPY analysis (macro + technical)</span></li>
+        <li class="pf-item"><span class="pf-check">✓</span><span>Private active members channel</span></li>
+        <li class="pf-item"><span class="pf-check">✓</span><span>High-impact BoJ/Fed alerts</span></li>
       </ul>
       <a href="https://kuroflow.gumroad.com/l/ngqzzi" target="_blank" class="btn-pricing-secondary">Subscribe Monthly</a>
     </div>
 
-    <!-- PLAN: ANUAL (FEATURED) -->
     <div class="price-card featured">
       <div class="price-badge">Save 50%</div>
       <div class="price-tier">Annual</div>
@@ -1518,48 +1500,26 @@ body { top: 0 !important; }
         trading with discipline and a long-term horizon.
       </p>
       <ul class="price-features">
-        <li class="pf-item" style="color:var(--paper)">
-          <span class="pf-check gold">✓</span>
-          <span>Everything included in Monthly</span>
-        </li>
-        <li class="pf-item" style="color:var(--paper)">
-          <span class="pf-check gold">✓</span>
-          <span>€402 saving vs monthly payments</span>
-        </li>
-        <li class="pf-item" style="color:var(--paper)">
-          <span class="pf-check gold">✓</span>
-          <span>Priority access to new versions</span>
-        </li>
-        <li class="pf-item" style="color:var(--paper)">
-          <span class="pf-check gold">✓</span>
-          <span>Direct priority support</span>
-        </li>
-        <li class="pf-item" style="color:var(--paper)">
-          <span class="pf-check gold">✓</span>
-          <span>365 days of uninterrupted trading</span>
-        </li>
-        <li class="pf-item" style="color:var(--paper)">
-          <span class="pf-check gold">✓</span>
-          <span>Version updates included</span>
-        </li>
+        <li class="pf-item" style="color:var(--paper)"><span class="pf-check gold">✓</span><span>Everything included in Monthly</span></li>
+        <li class="pf-item" style="color:var(--paper)"><span class="pf-check gold">✓</span><span>€402 saving vs monthly payments</span></li>
+        <li class="pf-item" style="color:var(--paper)"><span class="pf-check gold">✓</span><span>Priority access to new versions</span></li>
+        <li class="pf-item" style="color:var(--paper)"><span class="pf-check gold">✓</span><span>Direct priority support</span></li>
+        <li class="pf-item" style="color:var(--paper)"><span class="pf-check gold">✓</span><span>365 days of uninterrupted trading</span></li>
+        <li class="pf-item" style="color:var(--paper)"><span class="pf-check gold">✓</span><span>Version updates included</span></li>
       </ul>
       <a href="https://kuroflow.gumroad.com/l/rumdt" target="_blank" class="btn-pricing-primary">Subscribe Annual →</a>
     </div>
-
   </div>
 
   <div class="price-note fade-up">
-    Payment securely processed via Gumroad · License automatically activated by email</p>
+    Payment securely processed via Gumroad · License automatically activated by email
     <p style="text-align:center;margin-top:20px;font-family:'DM Mono',monospace;font-size:0.75rem;color:rgba(10,10,12,0.4)">Already a member? <a href="members.html" target="_blank" style="color:var(--gold);text-decoration:none">Access your dashboard →</a><br>
-    <span style="opacity:0.5">If you want absolute certainty, review the audited track record before buying.</span>
+    <span style="opacity:0.5">If you want absolute certainty, review the audited track record before buying.</span></p>
   </div>
 </section>
 
 
-<!-- ─── FOOTER ─────────────────────────────── -->
-
-
-<!-- ─── MARKET CONDITIONS ─────────────────── -->
+<!-- ── CONDITIONS ── -->
 <section id="conditions" style="padding:100px 48px;background:var(--ink);border-top:1px solid var(--border)">
   <div style="max-width:1100px;margin:0 auto">
 
@@ -1572,12 +1532,9 @@ body { top: 0 !important; }
     </div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px" class="fade-up">
-
-      <!-- THRIVES -->
       <div style="background:#0f0f12;padding:48px 40px;border:1px solid rgba(110,221,158,0.15)">
         <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:#6edd9e;margin-bottom:24px">✓ Optimal conditions</div>
         <div style="display:flex;flex-direction:column;gap:20px">
-
           <div style="display:flex;gap:16px;align-items:flex-start">
             <div style="width:6px;height:6px;border-radius:50%;background:#6edd9e;flex-shrink:0;margin-top:6px"></div>
             <div>
@@ -1585,15 +1542,13 @@ body { top: 0 !important; }
               <div style="font-size:0.82rem;color:rgba(245,243,238,0.45);line-height:1.7">Tokyo open and London/NY overlap produce clean intraday ranges on USDJPY. The algorithm is built for these windows.</div>
             </div>
           </div>
-
           <div style="display:flex;gap:16px;align-items:flex-start">
             <div style="width:6px;height:6px;border-radius:50%;background:#6edd9e;flex-shrink:0;margin-top:6px"></div>
             <div>
               <div style="font-family:'Syne',sans-serif;font-weight:700;color:var(--paper);margin-bottom:4px">Moderate volatility</div>
-              <div style="font-size:0.82rem;color:rgba(245,243,238,0.45);line-height:1.7">Consistent daily ranges between 80–835 pips. The range filter ensures the EA only enters when market conditions match its parameters.</div>
+              <div style="font-size:0.82rem;color:rgba(245,243,238,0.45);line-height:1.7">Consistent daily ranges with defined structure. The range filter ensures the EA only enters when market conditions match its parameters.</div>
             </div>
           </div>
-
           <div style="display:flex;gap:16px;align-items:flex-start">
             <div style="width:6px;height:6px;border-radius:50%;background:#6edd9e;flex-shrink:0;margin-top:6px"></div>
             <div>
@@ -1601,23 +1556,20 @@ body { top: 0 !important; }
               <div style="font-size:0.82rem;color:rgba(245,243,238,0.45);line-height:1.7">Kuro-Flow is an intraday breakout system. It performs best when USDJPY shows directional conviction during session opens.</div>
             </div>
           </div>
-
           <div style="display:flex;gap:16px;align-items:flex-start">
             <div style="width:6px;height:6px;border-radius:50%;background:#6edd9e;flex-shrink:0;margin-top:6px"></div>
             <div>
               <div style="font-family:'Syne',sans-serif;font-weight:700;color:var(--paper);margin-bottom:4px">Prop firm accounts</div>
-              <div style="font-size:0.82rem;color:rgba(245,243,238,0.45);line-height:1.7">The 3.31% max drawdown and disciplined risk management align naturally with prop firm rules and daily loss limits.</div>
+              <!-- ── UPDATED ── -->
+              <div style="font-size:0.82rem;color:rgba(245,243,238,0.45);line-height:1.7">The 4.17% max equity drawdown and built-in risk configuration guide align naturally with prop firm rules from 6% to 10% DD limits.</div>
             </div>
           </div>
-
         </div>
       </div>
 
-      <!-- STRUGGLES -->
       <div style="background:#0f0f12;padding:48px 40px;border:1px solid rgba(237,110,110,0.15)">
         <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:#ed6e6e;margin-bottom:24px">⚠ Challenging conditions</div>
         <div style="display:flex;flex-direction:column;gap:20px">
-
           <div style="display:flex;gap:16px;align-items:flex-start">
             <div style="width:6px;height:6px;border-radius:50%;background:#ed6e6e;flex-shrink:0;margin-top:6px"></div>
             <div>
@@ -1625,7 +1577,6 @@ body { top: 0 !important; }
               <div style="font-size:0.82rem;color:rgba(245,243,238,0.45);line-height:1.7">Major BoJ interventions, flash crashes or black swan events produce erratic price action that falls outside the EA's structural parameters.</div>
             </div>
           </div>
-
           <div style="display:flex;gap:16px;align-items:flex-start">
             <div style="width:6px;height:6px;border-radius:50%;background:#ed6e6e;flex-shrink:0;margin-top:6px"></div>
             <div>
@@ -1633,7 +1584,6 @@ body { top: 0 !important; }
               <div style="font-size:0.82rem;color:rgba(245,243,238,0.45);line-height:1.7">When USDJPY consolidates without clear session structure, the range filter will reduce entries — which is by design, not a malfunction.</div>
             </div>
           </div>
-
           <div style="display:flex;gap:16px;align-items:flex-start">
             <div style="width:6px;height:6px;border-radius:50%;background:#ed6e6e;flex-shrink:0;margin-top:6px"></div>
             <div>
@@ -1641,7 +1591,6 @@ body { top: 0 !important; }
               <div style="font-size:0.82rem;color:rgba(245,243,238,0.45);line-height:1.7">NFP, FOMC and BoJ decisions can cause sharp moves. If your broker restricts news trading, adjust session inputs to avoid those windows.</div>
             </div>
           </div>
-
           <div style="display:flex;gap:16px;align-items:flex-start">
             <div style="width:6px;height:6px;border-radius:50%;background:#ed6e6e;flex-shrink:0;margin-top:6px"></div>
             <div>
@@ -1649,23 +1598,20 @@ body { top: 0 !important; }
               <div style="font-size:0.82rem;color:rgba(245,243,238,0.45);line-height:1.7">Kuro-Flow targets 1 quality trade per day. Some days conditions are not met and no trade fires. This is risk management, not a bug.</div>
             </div>
           </div>
-
         </div>
       </div>
-
     </div>
 
-    <!-- Bottom note -->
     <div class="fade-up" style="margin-top:32px;padding:20px 28px;border-left:3px solid rgba(201,168,76,0.3);background:rgba(201,168,76,0.04)">
       <p style="font-size:0.82rem;color:rgba(245,243,238,0.5);line-height:1.8;margin:0">
         <strong style="color:var(--paper)">The edge is structural, not magical.</strong> Kuro-Flow was designed to survive first and grow second. Understanding its conditions is part of using it responsibly. If you have questions about compatibility with your specific setup, contact us at support<span>&#64;</span>kuro-flow.com before subscribing.
       </p>
     </div>
-
   </div>
 </section>
 
-<!-- ─── FAQ ────────────────────────────────── -->
+
+<!-- ── FAQ ── -->
 <section id="faq">
   <div class="faq-header">
     <div class="section-tag" style="justify-content:center">// FAQ</div>
@@ -1677,10 +1623,11 @@ body { top: 0 !important; }
       <div class="faq-a">Kuro-Flow runs fully autonomously — it opens, manages and closes trades without any intervention. You do not need to analyse charts or make trading decisions. However, <strong>a basic understanding of MT5 and your broker or prop firm's rules is recommended</strong> before going live, especially on a funded challenge.</div></div>
 
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I use it on a prop firm challenge?<span class="faq-icon">+</span></button>
-      <div class="faq-a">Yes. Kuro-Flow has been personally verified on <strong>The5ers, GoatFunded and ACGMarkets</strong>. For other prop firms, the EA's session and range filters can be adjusted to comply with specific drawdown or news trading rules. We recommend testing compatibility on a trial account before running a paid challenge.</div></div>
+      <!-- ── UPDATED ── -->
+      <div class="faq-a">Yes. Kuro-Flow has been personally verified on <strong>The5ers, GoatFunded and ACGMarkets</strong>. The EA includes a built-in risk configuration guide for prop firms with 6%, 8% and 10% DD limits — each with the correct RiskValue and DailyLoss settings. We recommend testing compatibility on a trial account before running a paid challenge.</div></div>
 
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What is the minimum recommended balance?<span class="faq-icon">+</span></button>
-      <div class="faq-a">We recommend a minimum of <strong>$10,000</strong> (or equivalent prop firm capital). At 0.5% risk per trade, this allows the EA to size positions correctly without over-leveraging. The EA will run on smaller accounts but results may deviate from the backtest parameters.</div></div>
+      <div class="faq-a">We recommend a minimum of <strong>$10,000</strong> (or equivalent prop firm capital). At 0.38–0.50% risk per trade, this allows the EA to size positions correctly without over-leveraging. The EA will run on smaller accounts but results may deviate from the backtest parameters.</div></div>
 
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What broker do I need?<span class="faq-icon">+</span></button>
       <div class="faq-a">Any broker offering <strong>MT5, USDJPY with spreads below 2 pips, and automated trading allowed</strong>. We personally recommend The5ers, GoatFunded and ACGMarkets. Avoid brokers with minimum holding times, no-EA policies or excessive slippage on USDJPY.</div></div>
@@ -1689,13 +1636,13 @@ body { top: 0 !important; }
       <div class="faq-a">Each license is tied to <strong>one MT5 account number</strong>. If you need to run it on a second account, a separate subscription is required. To migrate to a different account, contact us at support<span>&#64;</span>kuro-flow.com — we will expire the old key and issue a new one for your new account number.</div></div>
 
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Do I need to leave MT5 open 24/7?<span class="faq-icon">+</span></button>
-      <div class="faq-a">No — MT5 only needs to be running during the <strong>EA's active session windows</strong>. Kuro-Flow operates within two defined daily time ranges. Outside those windows, the EA does not trade and your terminal does not need to be connected. A VPS is still recommended for reliability during those windows.</div></div>
+      <div class="faq-a">No — MT5 only needs to be running during the <strong>EA's active session windows</strong>. Kuro-Flow operates within defined daily time ranges. Outside those windows, the EA does not trade and your terminal does not need to be connected. A VPS is still recommended for reliability during those windows.</div></div>
 
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I run it on a VPS?<span class="faq-icon">+</span></button>
       <div class="faq-a">Yes, and it is strongly recommended. A VPS ensures MT5 is running and connected during the EA's active windows without depending on your personal computer. Install MT5 on the VPS, copy the EA file, attach it to the chart and enter your license key — the setup is identical to a local machine.</div></div>
 
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What timeframe does the EA use?<span class="faq-icon">+</span></button>
-      <div class="faq-a">The included optimized set file is configured for the <strong>M5 (5-minute) chart on USDJPY</strong>. That said, you are free to run your own backtests and experiment with different timeframes or parameters — the EA supports it. Just note that the verified results and certificates correspond to the M5 configuration.</div></div>
+      <div class="faq-a">The included optimized set file is configured for the <strong>M5 (5-minute) chart on USDJPY</strong>. The verified backtest results correspond to this M5 configuration across <strong>8 years of 100% real tick data (2018–2026)</strong>.</div></div>
 
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What happens during high-impact news events?<span class="faq-icon">+</span></button>
       <div class="faq-a">Kuro-Flow does not have a built-in automatic news filter. However, the session time inputs can be manually adjusted to avoid windows around high-impact USD/JPY events such as NFP or BOJ decisions — the recommended approach for prop firm accounts with strict news trading rules.</div></div>
@@ -1704,16 +1651,19 @@ body { top: 0 !important; }
       <div class="faq-a">The system is designed around <strong>1 high-quality trade per day</strong>. Each trade must meet all session, range and direction filters before the EA enters. Some days there will be no trades if conditions are not met — quality over quantity.</div></div>
 
     <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Is Kuro-Flow compatible with MT4?<span class="faq-icon">+</span></button>
-      <div class="faq-a">No — Kuro-Flow is currently built exclusively for <strong>MetaTrader 5 (MT5)</strong>. MT4 is not supported at this time. That said, an MT4 version and compatibility with other platforms is something we are actively considering for a future release. If MT4 support is important to you, feel free to let us know at support<span>&#64;</span>kuro-flow.com.</div></div>
+      <div class="faq-a">No — Kuro-Flow is currently built exclusively for <strong>MetaTrader 5 (MT5)</strong>. MT4 is not supported at this time. If MT4 support is important to you, feel free to let us know at support<span>&#64;</span>kuro-flow.com.</div></div>
 
     <div class="faq-item">
-  <button class="faq-q" onclick="toggleFaq(this)">Is there a free trial?<span class="faq-icon">+</span></button>
-  <div class="faq-a">
-    Yes — we offer a <strong>7-day free trial</strong>. You can activate it in the section above. No credit card required.
-    <br><br>
-    <a href="#trial-section" style="color:var(--gold); text-decoration: underline;">Go to Free Trial section ↑</a>
+      <button class="faq-q" onclick="toggleFaq(this)">Is there a free trial?<span class="faq-icon">+</span></button>
+      <div class="faq-a">
+        Yes — we offer a <strong>7-day free trial</strong>. You can activate it in the section above. No credit card required.
+        <br><br>
+        <a href="#trial-section" style="color:var(--gold); text-decoration: underline;">Go to Free Trial section ↑</a>
+      </div>
+    </div>
+
   </div>
-</div>
+</section>
 
 <!-- LIGHTBOX -->
 <div id="lightbox" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.92);backdrop-filter:blur(8px);align-items:center;justify-content:center;cursor:pointer">
@@ -1722,9 +1672,9 @@ body { top: 0 !important; }
     <div style="position:absolute;top:-16px;right:-16px;width:32px;height:32px;background:#1e1e22;border:1px solid rgba(201,168,76,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(245,243,238,0.6)">✕</div>
   </div>
 </div>
+
 <footer style="background-color: #050505 !important; padding: 100px 48px; border-top: 1px solid rgba(255,255,255,0.05); color: #f5f3ee !important; font-family: 'DM Mono', monospace;">
   <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px;">
-    
     <div style="display: flex; flex-direction: column; gap: 20px;">
       <div style="font-family: 'Syne', sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 1rem; color: #f5f3ee;">
         <span style="color: #c9a84c;">●</span> KUROFLOW
@@ -1733,87 +1683,64 @@ body { top: 0 !important; }
         Algorithmic systems for USDJPY intraday execution. 2026 Terminal Edition.
       </p>
     </div>
-
     <div style="display: flex; flex-direction: column; gap: 15px;">
       <div style="font-size: 10px; color: #333; letter-spacing: 2px; font-weight: bold;">NAV</div>
       <a href="#proof" style="color: #f5f3ee; text-decoration: none; font-size: 12px; opacity: 0.6;">Performance</a>
       <a href="#trial-section" style="color: #f5f3ee; text-decoration: none; font-size: 12px; opacity: 0.6;">Get Trial</a>
     </div>
-
     <div style="display: flex; flex-direction: column; gap: 15px;">
       <div style="font-size: 10px; color: #333; letter-spacing: 2px; font-weight: bold;">LEGAL</div>
       <a href="privacy.html" target="_blank" style="color: #f5f3ee; text-decoration: none; font-size: 12px; opacity: 0.6;">Privacy Policy</a>
       <a href="terms.html" target="_blank" style="color: #f5f3ee; text-decoration: none; font-size: 12px; opacity: 0.6;">Terms of Service</a>
       <a href="cookies.html" target="_blank" style="color: #f5f3ee; text-decoration: none; font-size: 12px; opacity: 0.6;">Cookie Policy</a>
     </div>
-
     <div style="display: flex; flex-direction: column; gap: 15px;">
       <div style="font-size: 10px; color: #333; letter-spacing: 2px; font-weight: bold;">SYSTEM</div>
       <a href="https://x.com/KuroFlowEA" target="_blank" style="color: #f5f3ee; text-decoration: none; font-size: 12px; opacity: 0.6;">X / Twitter</a>
       <a href="/cdn-cgi/l/email-protection#fe92979d9b909d979f8dbe958b8c91d398929189d09d9193" style="color: #f5f3ee; text-decoration: none; font-size: 12px; opacity: 0.6;">Support</a>
     </div>
-
   </div>
 
   <div style="max-width: 1200px; margin: 80px auto 0; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: flex-end;">
     <p style="font-size: 9px; color: #333; max-width: 500px; line-height: 1.6; text-transform: uppercase;">
       Trading forex involves risk. Kuro-Flow is a software tool. Past performance is not a guarantee of future results. © 2026.
     </p>
-    <div style="font-size: 9px; color: #222; letter-spacing: 3px;">[ VER 3.1.0 ]</div>
-
+    <div style="font-size: 9px; color: #222; letter-spacing: 3px;">[ VER 2.10 ]</div>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js" defer></script><script>
-  // Scroll reveal
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js" defer></script>
+<script>
   const scrollObserver = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) e.target.classList.add('visible');
-    });
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
-
   document.querySelectorAll('.fade-up').forEach(el => scrollObserver.observe(el));
 
-  // Animate gauge on scroll
   const gaugeObserver = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         const bar = e.target.querySelector('.gauge-bar');
-        if (bar) {
-          bar.style.transition = 'width 1.5s cubic-bezier(0.4,0,0.2,1)';
-          bar.style.width = '3.31%';
-        }
+        if (bar) { bar.style.transition = 'width 1.5s cubic-bezier(0.4,0,0.2,1)'; bar.style.width = '4.17%'; }
       }
     });
   });
   const gauge = document.querySelector('.drawdown-gauge');
-  if (gauge) {
-    gauge.querySelector('.gauge-bar').style.width = '0%';
-    gaugeObserver.observe(gauge);
-  }
+  if (gauge) { gauge.querySelector('.gauge-bar').style.width = '0%'; gaugeObserver.observe(gauge); }
 
-  // Staggered hero animation on load
   document.querySelectorAll('#hero .fade-up').forEach((el, i) => {
     setTimeout(() => el.classList.add('visible'), 200 + i * 200);
   });
 
-  // Trial form buttons
   var trialBtn = document.getElementById('trial-btn');
   if (trialBtn) trialBtn.addEventListener('click', requestTrial);
-  var trialBtnFaq = document.getElementById('trial-btn-faq');
-  if (trialBtnFaq) trialBtnFaq.addEventListener('click', requestTrial);
 
   function toggleFaq(btn) {
     var answer = btn.nextElementSibling;
     var isOpen = btn.classList.contains('open');
     document.querySelectorAll('.faq-q.open').forEach(function(b) {
-      b.classList.remove('open');
-      b.nextElementSibling.classList.remove('open');
+      b.classList.remove('open'); b.nextElementSibling.classList.remove('open');
     });
-    if (!isOpen) {
-      btn.classList.add('open');
-      answer.classList.add('open');
-    }
+    if (!isOpen) { btn.classList.add('open'); answer.classList.add('open'); }
   }
 
   function openLightbox(src) {
@@ -1826,26 +1753,20 @@ body { top: 0 !important; }
     document.getElementById('lightbox').style.display = 'none';
     document.body.style.overflow = '';
   }
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeLightbox();
-  });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightbox(); });
 
   async function requestTrial() {
     var email = document.getElementById('trial-email').value.trim();
     var msg = document.getElementById('trial-msg');
     var btn = document.querySelector('#trial-form button');
     if (!email || !email.includes('@')) {
-      msg.style.display = 'block';
-      msg.style.color = '#ed6e6e';
-      msg.textContent = 'Please enter a valid email address.';
-      return;
+      msg.style.display = 'block'; msg.style.color = '#ed6e6e';
+      msg.textContent = 'Please enter a valid email address.'; return;
     }
-    btn.textContent = 'Sending...';
-    btn.disabled = true;
+    btn.textContent = 'Sending...'; btn.disabled = true;
     try {
       var res = await fetch('https://kuroflow-license-server.onrender.com/trial', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email, ip: '' })
       });
       var data = await res.json();
@@ -1857,55 +1778,18 @@ body { top: 0 !important; }
       } else {
         msg.style.color = '#ed6e6e';
         msg.textContent = data.error || 'Something went wrong. Please try again.';
-        btn.textContent = 'Get Trial Key →';
-        btn.disabled = false;
+        btn.textContent = 'Get Trial Key →'; btn.disabled = false;
       }
     } catch(e) {
-      msg.style.display = 'block';
-      msg.style.color = '#ed6e6e';
+      msg.style.display = 'block'; msg.style.color = '#ed6e6e';
       msg.textContent = 'Connection error. Please try again in a moment.';
-      btn.textContent = 'Get Trial Key →';
-      btn.disabled = false;
+      btn.textContent = 'Get Trial Key →'; btn.disabled = false;
     }
   }
-
-  // Language toggle
-  var isES = false;
-  document.addEventListener('DOMContentLoaded', function() {
-    var btn = document.getElementById('lang-toggle');
-    if (!btn) return;
-    btn.addEventListener('click', function() {
-      isES = !isES;
-      btn.textContent = isES ? 'EN' : 'ES';
-      btn.classList.toggle('active', isES);
-      // Trigger Google Translate
-      var select = document.querySelector('.goog-te-combo');
-      if (select) {
-        select.value = isES ? 'es' : 'en';
-        select.dispatchEvent(new Event('change'));
-      }
-    });
-  });
 </script>
-<div id="legal-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(10,10,12,0.95); z-index:9999; padding:40px; overflow-y:auto;">
-  <div style="max-width:700px; margin:0 auto; background:var(--paper); padding:40px; position:relative; border:1px solid var(--gold);">
-    <button onclick="closeLegal()" style="position:absolute; top:20px; right:20px; background:none; border:none; font-family:'Syne'; font-size:1.5rem; cursor:pointer;">×</button>
-    <div id="legal-content" style="font-family:'DM Sans'; line-height:1.6; color:var(--ink);">
-      </div>
-  </div>
-</div>
-
-<div id="notification-toast" style="display: none; position: fixed; bottom: 20px; left: 20px; z-index: 999999; align-items: center; padding: 12px 18px; color: var(--paper); min-width: 260px; transition: all 0.4s ease; opacity: 0; transform: translateY(20px); font-family: 'DM Mono', monospace;">
-    <img id="toast-flag" src="" alt="Country flag" width="28" height="20" style="width:28px;height:20px;margin-right:15px;border-radius:2px;display:none;">
-    <div style="display: flex; flex-direction: column;">
-        <span id="toast-user" style="font-weight: 700; font-size: 0.78rem; color: var(--paper); margin-bottom: 3px; font-family: 'Syne', sans-serif;"></span>
-        <span id="toast-action" style="font-size: 0.7rem; color: rgba(245,243,238,0.45); letter-spacing: 0.04em;"></span>
-    </div>
-</div>   
 
 <script>
 const BACKEND_URL = "https://kuroflow-license-server.onrender.com";
-
 const ghostData = [
   { country: "mx", action: "Activated a 7-Day Free Trial" },
   { country: "es", action: "Activated a 7-Day Free Trial" },
@@ -1929,44 +1813,27 @@ function showToast(data, isReal) {
   var actionEl = document.getElementById('toast-action');
   var flagImg = document.getElementById('toast-flag');
   if (!toast || !userEl || !actionEl) return;
-
   userEl.textContent = "NEW USER";
   actionEl.textContent = data.action;
-
   var code = (data.country || 'us').toLowerCase();
-  if (flagImg) {
-    flagImg.src = 'https://flagcdn.com/w40/' + code + '.png';
-    flagImg.style.display = 'block';
-  }
-
+  if (flagImg) { flagImg.src = 'https://flagcdn.com/w40/' + code + '.png'; flagImg.style.display = 'block'; }
   toast.style.backgroundColor = '#0f0f12';
   toast.style.border = isReal ? '1px solid #c9a84c' : '1px solid rgba(255,255,255,0.08)';
-  toast.style.display = 'flex';
-  toast.style.opacity = '0';
-  toast.style.transform = 'translateY(20px)';
-
+  toast.style.display = 'flex'; toast.style.opacity = '0'; toast.style.transform = 'translateY(20px)';
+  setTimeout(function() { toast.style.opacity = '1'; toast.style.transform = 'translateY(0)'; }, 80);
   setTimeout(function() {
-    toast.style.opacity = '1';
-    toast.style.transform = 'translateY(0)';
-  }, 80);
-
-  setTimeout(function() {
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateY(20px)';
+    toast.style.opacity = '0'; toast.style.transform = 'translateY(20px)';
     setTimeout(function() { toast.style.display = 'none'; }, 500);
   }, 7000);
 }
 
 var lastActivityTs = null;
-
 async function checkLiveActivity() {
   try {
     var resp = await fetch(BACKEND_URL + '/get-activity?t=' + Date.now());
     var data = await resp.json();
     if (data && data.status === 'ok' && data.timestamp !== lastActivityTs) {
-      lastActivityTs = data.timestamp;
-      showToast(data, true);
-      return true;
+      lastActivityTs = data.timestamp; showToast(data, true); return true;
     }
   } catch(e) {}
   return false;
@@ -1982,10 +1849,8 @@ function startSocialProofEngine() {
 }
 
 window.addEventListener('load', function() {
-  // Defer non-critical features until idle
   var idleLoad = window.requestIdleCallback || function(fn){ setTimeout(fn, 200); };
 
-  // Exit intent popup
   var exitShown = false;
   document.addEventListener('mouseleave', function(e) {
     if (e.clientY < 10 && !exitShown && !sessionStorage.getItem('exit_popup_shown')) {
@@ -2000,29 +1865,23 @@ window.addEventListener('load', function() {
     var popup = document.getElementById('exit-popup');
     if (popup) popup.style.display = 'none';
   }
+  window.closeExitPopup = closeExitPopup;
 
-  // Close on backdrop click
   var exitPopupEl = document.getElementById('exit-popup');
-  if (exitPopupEl) exitPopupEl.addEventListener('click', function(e) {
-    if (e.target === this) closeExitPopup();
-  });
+  if (exitPopupEl) exitPopupEl.addEventListener('click', function(e) { if (e.target === this) closeExitPopup(); });
 
-  // Exit trial button
   var exitTrialBtn = document.getElementById('exit-trial-btn');
   if (exitTrialBtn) exitTrialBtn.addEventListener('click', function() {
     var email = document.getElementById('exit-trial-email').value.trim();
-    var msg   = document.getElementById('exit-trial-msg');
-    var btn   = document.getElementById('exit-trial-btn');
+    var msg = document.getElementById('exit-trial-msg');
+    var btn = document.getElementById('exit-trial-btn');
     if (!email || !email.includes('@')) {
-      msg.style.display = 'block';
-      msg.style.color = '#ed6e6e';
-      msg.textContent = 'Please enter a valid email address.';
-      return;
+      msg.style.display = 'block'; msg.style.color = '#ed6e6e';
+      msg.textContent = 'Please enter a valid email address.'; return;
     }
     btn.textContent = 'Sending...'; btn.disabled = true;
     fetch('https://kuroflow-license-server.onrender.com/trial', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      method: 'POST', headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({email: email})
     })
     .then(r => r.json())
@@ -2039,39 +1898,33 @@ window.addEventListener('load', function() {
       }
     })
     .catch(function() {
-      msg.style.display = 'block';
-      msg.style.color = '#ed6e6e';
+      msg.style.display = 'block'; msg.style.color = '#ed6e6e';
       msg.textContent = 'Connection error. Please try again.';
       btn.textContent = 'Get Free Trial →'; btn.disabled = false;
     });
   });
 
-  // Load social proof counters — deferred to idle
   idleLoad(function() {
-  fetch('https://kuroflow-license-server.onrender.com/stats')
-    .then(r => r.json())
-    .then(d => {
-      if (d.ok) {
-        document.getElementById('count-trials').textContent  = d.trials;
-        document.getElementById('count-monthly').textContent = d.monthly;
-        var annualEl = document.getElementById('count-annual-wrap');
-        if (d.annual > 0) {
-          document.getElementById('count-annual').textContent = d.annual;
-        } else {
-          if (annualEl) annualEl.style.display = 'none';
+    fetch('https://kuroflow-license-server.onrender.com/stats')
+      .then(r => r.json())
+      .then(d => {
+        if (d.ok) {
+          document.getElementById('count-trials').textContent  = d.trials;
+          document.getElementById('count-monthly').textContent = d.monthly;
+          var annualEl = document.getElementById('count-annual-wrap');
+          if (d.annual > 0) {
+            document.getElementById('count-annual').textContent = d.annual;
+          } else {
+            if (annualEl) annualEl.style.display = 'none';
+          }
         }
-      }
-    })
-    .catch(function() {});
-  }); // end idleLoad stats
+      })
+      .catch(function() {});
+  });
 
-  // Check immediately on load
   checkLiveActivity();
-  // Check again after 5s in case server was waking up
   setTimeout(checkLiveActivity, 5000);
-  // Then every 30s for real activity
   setInterval(checkLiveActivity, 30000);
-  // First ghost after 50s
   setTimeout(function() {
     showToast(ghostData[Math.floor(Math.random() * ghostData.length)], false);
   }, 50000);
@@ -2079,7 +1932,16 @@ window.addEventListener('load', function() {
 });
 </script>
 
-<!-- ─── EXIT INTENT POPUP ─────────────────── -->
+<!-- ── TOAST ── -->
+<div id="notification-toast" style="display: none; position: fixed; bottom: 20px; left: 20px; z-index: 999999; align-items: center; padding: 12px 18px; color: var(--paper); min-width: 260px; transition: all 0.4s ease; opacity: 0; transform: translateY(20px); font-family: 'DM Mono', monospace;">
+    <img id="toast-flag" src="" alt="Country flag" width="28" height="20" style="width:28px;height:20px;margin-right:15px;border-radius:2px;display:none;">
+    <div style="display: flex; flex-direction: column;">
+        <span id="toast-user" style="font-weight: 700; font-size: 0.78rem; color: var(--paper); margin-bottom: 3px; font-family: 'Syne', sans-serif;"></span>
+        <span id="toast-action" style="font-size: 0.7rem; color: rgba(245,243,238,0.45); letter-spacing: 0.04em;"></span>
+    </div>
+</div>
+
+<!-- ── EXIT INTENT POPUP ── -->
 <div id="exit-popup" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);align-items:center;justify-content:center;">
   <div style="background:#0f0f12;border:1px solid rgba(201,168,76,0.25);max-width:480px;width:90%;padding:48px 40px;position:relative">
     <button onclick="closeExitPopup()" style="position:absolute;top:16px;right:16px;background:transparent;border:none;color:rgba(245,243,238,0.3);font-size:1.2rem;cursor:pointer;line-height:1">✕</button>
@@ -2101,5 +1963,6 @@ window.addEventListener('load', function() {
     </p>
   </div>
 </div>
+
 </body>
 </html>
