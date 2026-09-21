@@ -273,6 +273,7 @@ footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--b
   <ul class="nav-links">
     <li><a href="#sistema">Sistema</a></li>
     <li><a href="#como-funciona">Cómo funciona</a></li>
+    <li><a href="#herramientas">Herramientas</a></li>
     <li><a href="#planes">Planes</a></li>
     <li><a href="#prop-firms">Prop Firms</a></li>
     <li><a href="#faq">FAQ</a></li>
@@ -486,6 +487,75 @@ footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--b
   </div>
 </div>
 
+
+<!-- HERRAMIENTAS -->
+<div class="section-wrap" id="herramientas">
+  <div class="section-inner">
+    <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span class="section-tag">Herramientas gratuitas</span></div>
+    <h2 class="section-h2">Calcula tu riesgo.<br>Antes de cada trade.</h2>
+    <p class="section-sub">Herramientas que uso en mi operativa diaria. Disponibles para todos, sin registro.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px">
+      <div style="background:var(--ink2);border:1px solid rgba(201,168,76,0.2);padding:40px">
+        <div class="section-eyebrow" style="margin-bottom:20px"><div class="section-eyebrow-line"></div><span class="section-tag">Calculadora de Lot Size</span></div>
+        <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:24px">
+          <div>
+            <label style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Balance de cuenta ($)</label>
+            <input id="balance" type="number" value="10000" style="width:100%;background:#0a0a0c;border:1px solid rgba(255,255,255,0.1);color:#f5f3ee;font-family:'DM Mono',monospace;font-size:0.9rem;padding:10px 14px;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='#c9a84c'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+          </div>
+          <div>
+            <label style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Riesgo por trade (%)</label>
+            <input id="risk" type="number" value="1" step="0.1" style="width:100%;background:#0a0a0c;border:1px solid rgba(255,255,255,0.1);color:#f5f3ee;font-family:'DM Mono',monospace;font-size:0.9rem;padding:10px 14px;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='#c9a84c'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+          </div>
+          <div>
+            <label style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Stop Loss (pips)</label>
+            <input id="sl" type="number" value="20" style="width:100%;background:#0a0a0c;border:1px solid rgba(255,255,255,0.1);color:#f5f3ee;font-family:'DM Mono',monospace;font-size:0.9rem;padding:10px 14px;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='#c9a84c'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+          </div>
+          <div>
+            <label style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Par de divisas</label>
+            <select id="pair" style="width:100%;background:#0a0a0c;border:1px solid rgba(255,255,255,0.1);color:#f5f3ee;font-family:'DM Mono',monospace;font-size:0.9rem;padding:10px 14px;outline:none;cursor:pointer">
+              <option value="10">EURUSD / GBPUSD / USDJPY</option>
+              <option value="10">XAUUSD (Oro) — pip = $0.01</option>
+              <option value="10">GBPJPY / EURJPY</option>
+            </select>
+          </div>
+          <button onclick="calcLot()" style="width:100%;background:#c9a84c;color:#0a0a0c;font-family:'DM Mono',monospace;font-size:0.78rem;font-weight:700;letter-spacing:0.08em;padding:13px;border:none;cursor:pointer;transition:opacity 0.2s" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Calcular →</button>
+        </div>
+        <div id="lot-result" style="display:none;padding:20px;background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.2)">
+          <div style="font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Resultado</div>
+          <div id="lot-num" style="font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;color:#c9a84c"></div>
+          <div style="font-size:0.7rem;color:var(--muted);margin-top:4px">Lot size recomendado</div>
+          <div id="lot-risk-usd" style="font-size:0.78rem;color:rgba(245,243,238,0.5);margin-top:8px"></div>
+        </div>
+        <p style="font-size:0.62rem;color:rgba(245,243,238,0.15);margin-top:16px;line-height:1.6">⚠️ Herramienta educativa. Verifica siempre los cálculos en tu plataforma de trading.</p>
+      </div>
+      <div style="background:var(--ink2);border:1px solid var(--border);padding:40px;display:flex;flex-direction:column;gap:24px">
+        <div>
+          <div class="section-eyebrow" style="margin-bottom:16px"><div class="section-eyebrow-line"></div><span class="section-tag">Próximamente</span></div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="padding:18px 20px;border:1px solid rgba(255,255,255,0.05);opacity:0.4">
+              <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;margin-bottom:4px">Risk/Reward Calculator</div>
+              <div style="font-size:0.75rem;color:var(--muted)">Calcula el R:R antes de entrar. Incluido en plan Pro.</div>
+            </div>
+            <div style="padding:18px 20px;border:1px solid rgba(255,255,255,0.05);opacity:0.4">
+              <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;margin-bottom:4px">Prop Firm Tracker</div>
+              <div style="font-size:0.75rem;color:var(--muted)">Seguimiento de DD diario y total de tu cuenta funded. Incluido en plan Pro.</div>
+            </div>
+            <div style="padding:18px 20px;border:1px solid rgba(255,255,255,0.05);opacity:0.4">
+              <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;margin-bottom:4px">Trade Journal</div>
+              <div style="font-size:0.75rem;color:var(--muted)">Registro de operaciones con estadísticas automáticas. Incluido en plan Mentoring.</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:auto;padding:20px;background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.15)">
+          <div style="font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:#c9a84c;margin-bottom:8px">Accede a todas las herramientas</div>
+          <div style="font-size:0.8rem;color:var(--muted);margin-bottom:16px;line-height:1.6">Risk/Reward, Prop Firm Tracker y Trade Journal incluidos desde el plan Pro.</div>
+          <a href="https://whop.com/kuro-flow/kuroflow-pro" target="_blank" style="display:block;text-align:center;padding:11px;background:#c9a84c;color:#0a0a0c;font-family:'DM Mono',monospace;font-size:0.75rem;font-weight:700;letter-spacing:0.06em;text-decoration:none;transition:opacity 0.2s" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Ver plan Pro →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- PLANES -->
 <div class="section-wrap dark" id="planes">
   <div class="section-inner">
@@ -557,6 +627,7 @@ footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--b
     <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span class="section-tag">Prop firms</span></div>
     <h2 class="section-h2">¿Qué prop firm elegir?</h2>
     <p class="section-sub">El sistema COMBO_TAC está diseñado para cumplir las reglas de las principales prop firms. Mi experiencia personal con cada una de ellas.</p>
+    <div style="margin-bottom:32px;padding:12px 18px;border:1px solid rgba(201,168,76,0.1);font-size:0.68rem;color:rgba(245,243,238,0.2);letter-spacing:0.04em">ℹ️ Algunos de los enlaces de esta sección son links de afiliado. Si te registras a través de ellos, puedo recibir una comisión sin coste adicional para ti.</div>
     <div class="propfirms-grid">
       <div class="pf-card">
         <div class="pf-header">
@@ -569,7 +640,7 @@ footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--b
           <span class="pf-tag">Scaling program</span>
           <span class="pf-tag">Trading manual</span>
         </div>
-        <span class="pf-link">Link de afiliado próximamente</span>
+        <a href="https://www.the5ers.com/?afmc=1g0t" target="_blank" class="pf-link">Abrir cuenta en The5ers →</a>
       </div>
       <div class="pf-card">
         <div class="pf-header"><div class="pf-name">FTMO</div></div>
@@ -589,7 +660,7 @@ footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--b
           <span class="pf-tag">Europa</span>
           <span class="pf-tag">Trading manual</span>
         </div>
-        <span class="pf-link">Link de afiliado próximamente</span>
+        <a href="https://app.fortraders.com/trading/new-challenge?affiliateCode=HJ5GP0HZBS" target="_blank" class="pf-link">Abrir cuenta en For Traders →</a>
       </div>
       <div class="pf-card">
         <div class="pf-header"><div class="pf-name">GOAT Funded</div></div>
@@ -735,13 +806,7 @@ footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--b
             <div class="contacto-link-sub">whop.com/kuro-flow</div>
           </div>
         </a>
-        <a href="https://x.com/KuroFlowEA" target="_blank" class="contacto-link">
-          <div class="contacto-link-icon">𝕏</div>
-          <div>
-            <div class="contacto-link-name">X / Twitter</div>
-            <div class="contacto-link-sub">@KuroFlowEA — Actualizaciones del sistema</div>
-          </div>
-        </a>
+        
         <a href="mailto:support@kuro-flow.com" class="contacto-link">
           <div class="contacto-link-icon">✉</div>
           <div>
@@ -804,6 +869,34 @@ footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--b
     </div>
   </div>
 </footer>
+
+
+<script>
+function calcLot() {
+  var balance = parseFloat(document.getElementById('balance').value) || 0;
+  var risk = parseFloat(document.getElementById('risk').value) || 0;
+  var sl = parseFloat(document.getElementById('sl').value) || 0;
+  if(balance <= 0 || risk <= 0 || sl <= 0) return;
+  var riskAmount = balance * (risk / 100);
+  var pipValue = 10; // standard for major pairs per standard lot
+  var lotSize = riskAmount / (sl * pipValue);
+  lotSize = Math.floor(lotSize * 100) / 100;
+  document.getElementById('lot-result').style.display = 'block';
+  document.getElementById('lot-num').textContent = lotSize.toFixed(2) + ' lotes';
+  document.getElementById('lot-risk-usd').textContent = 
+    'Riesgo máximo: $' + riskAmount.toFixed(2) + ' (' + risk + '% de $' + balance.toLocaleString() + ')';
+}
+function toggleFaq(btn) {
+  var answer = btn.nextElementSibling;
+  var icon = btn.querySelector('.faq-icon');
+  var isOpen = answer.classList.contains('open');
+  document.querySelectorAll('.faq-a.open').forEach(function(el) {
+    el.classList.remove('open');
+    el.previousElementSibling.querySelector('.faq-icon').textContent = '+';
+  });
+  if (!isOpen) { answer.classList.add('open'); icon.textContent = '−'; }
+}
+</script>
 
 <script>
 function toggleFaq(btn) {
