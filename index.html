@@ -513,9 +513,13 @@ footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--b
           <div>
             <label style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Par de divisas</label>
             <select id="pair" style="width:100%;background:#0a0a0c;border:1px solid rgba(255,255,255,0.1);color:#f5f3ee;font-family:'DM Mono',monospace;font-size:0.9rem;padding:10px 14px;outline:none;cursor:pointer">
-              <option value="10">EURUSD / GBPUSD / USDJPY</option>
-              <option value="10">XAUUSD (Oro) — pip = $0.01</option>
-              <option value="10">GBPJPY / EURJPY</option>
+              <option value="major">EURUSD — pip = $10/lote</option>
+              <option value="major">GBPUSD — pip = $10/lote</option>
+              <option value="major">USDCHF — pip = $10/lote</option>
+              <option value="jpy">USDJPY — pip ≈ $9.09/lote</option>
+              <option value="jpy">GBPJPY — pip ≈ $9.09/lote</option>
+              <option value="jpy">EURJPY — pip ≈ $9.09/lote</option>
+              <option value="gold">XAUUSD (Oro) — pip = $1/lote</option>
             </select>
           </div>
           <button onclick="calcLot()" style="width:100%;background:#c9a84c;color:#0a0a0c;font-family:'DM Mono',monospace;font-size:0.78rem;font-weight:700;letter-spacing:0.08em;padding:13px;border:none;cursor:pointer;transition:opacity 0.2s" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Calcular →</button>
@@ -626,52 +630,89 @@ footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--b
   <div class="section-inner">
     <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span class="section-tag">Prop firms</span></div>
     <h2 class="section-h2">¿Qué prop firm elegir?</h2>
-    <p class="section-sub">El sistema COMBO_TAC está diseñado para cumplir las reglas de las principales prop firms. Mi experiencia personal con cada una de ellas.</p>
-    <div style="margin-bottom:32px;padding:12px 18px;border:1px solid rgba(201,168,76,0.1);font-size:0.68rem;color:rgba(245,243,238,0.2);letter-spacing:0.04em">ℹ️ Algunos de los enlaces de esta sección son links de afiliado. Si te registras a través de ellos, puedo recibir una comisión sin coste adicional para ti.</div>
-    <div class="propfirms-grid">
-      <div class="pf-card">
-        <div class="pf-header">
-          <div class="pf-name">The5ers</div>
-          <div class="pf-badge">Recomendada</div>
+    <p class="section-sub">El sistema COMBO_TAC está diseñado para cumplir las reglas de las principales prop firms. Estas son las que uso y recomiendo por experiencia propia.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px">
+
+      <!-- The5ers — AFILIADO ACTIVO -->
+      <div style="background:linear-gradient(135deg,rgba(201,168,76,0.06) 0%,var(--ink2) 60%);border:1px solid rgba(201,168,76,0.35);padding:36px;display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#c9a84c,rgba(201,168,76,0.3))"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div>
+            <div style="font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:#c9a84c;margin-bottom:6px">// Recomendada</div>
+            <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem">The5ers</div>
+          </div>
+          <div style="background:rgba(110,221,158,0.1);border:1px solid rgba(110,221,158,0.3);padding:4px 10px;font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:#6edd9e;flex-shrink:0">✓ Link activo</div>
         </div>
-        <p class="pf-desc">Prop firm con sede en Israel con programa de scaling hasta $4M. Sin límite de tiempo en el challenge — ideal para sistemas de baja frecuencia como COMBO_TAC.</p>
-        <div class="pf-tags">
-          <span class="pf-tag">Sin límite de tiempo</span>
-          <span class="pf-tag">Scaling program</span>
-          <span class="pf-tag">Trading manual</span>
+        <p style="font-size:0.82rem;color:var(--muted);line-height:1.75">Sin límite de tiempo en el challenge. Programa de scaling hasta $4M. Ideal para sistemas de baja frecuencia — COMBO_TAC encaja perfectamente.</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <span style="font-size:0.6rem;padding:3px 10px;border:1px solid rgba(201,168,76,0.2);color:rgba(201,168,76,0.7)">Sin límite de tiempo</span>
+          <span style="font-size:0.6rem;padding:3px 10px;border:1px solid rgba(201,168,76,0.2);color:rgba(201,168,76,0.7)">Scaling $4M</span>
+          <span style="font-size:0.6rem;padding:3px 10px;border:1px solid rgba(201,168,76,0.2);color:rgba(201,168,76,0.7)">MT5 compatible</span>
         </div>
-        <a href="https://www.the5ers.com/?afmc=1g0t" target="_blank" class="pf-link">Abrir cuenta en The5ers →</a>
+        <a href="https://www.the5ers.com/?afmc=1g0t" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;background:#c9a84c;color:#0a0a0c;font-family:'DM Mono',monospace;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-decoration:none;transition:opacity 0.2s;margin-top:auto" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Abrir cuenta en The5ers →</a>
+        <div style="font-size:0.6rem;color:rgba(245,243,238,0.15);text-align:center;letter-spacing:0.04em">Link de afiliado — sin coste adicional para ti</div>
       </div>
-      <div class="pf-card">
-        <div class="pf-header"><div class="pf-name">FTMO</div></div>
-        <p class="pf-desc">La prop firm más reconocida del sector. Challenge de 2 fases con alta transparencia y payouts rápidos. Referente y estándar de la industria.</p>
-        <div class="pf-tags">
-          <span class="pf-tag">2 fases</span>
-          <span class="pf-tag">Alta reputación</span>
-          <span class="pf-tag">Trading manual</span>
+
+      <!-- For Traders — AFILIADO ACTIVO -->
+      <div style="background:linear-gradient(135deg,rgba(201,168,76,0.06) 0%,var(--ink2) 60%);border:1px solid rgba(201,168,76,0.35);padding:36px;display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#c9a84c,rgba(201,168,76,0.3))"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div>
+            <div style="font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:#c9a84c;margin-bottom:6px">// Sin restricción de noticias</div>
+            <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem">For Traders</div>
+          </div>
+          <div style="background:rgba(110,221,158,0.1);border:1px solid rgba(110,221,158,0.3);padding:4px 10px;font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:#6edd9e;flex-shrink:0">✓ Link activo</div>
         </div>
-        <span class="pf-link">Link de afiliado próximamente</span>
-      </div>
-      <div class="pf-card">
-        <div class="pf-header"><div class="pf-name">For Traders</div></div>
-        <p class="pf-desc">Prop firm europea con condiciones muy competitivas. Sin restricción de noticias — ventaja importante para cualquier sistema algorítmico.</p>
-        <div class="pf-tags">
-          <span class="pf-tag">Sin restricción noticias</span>
-          <span class="pf-tag">Europa</span>
-          <span class="pf-tag">Trading manual</span>
+        <p style="font-size:0.82rem;color:var(--muted);line-height:1.75">Prop firm europea con condiciones muy competitivas. Sin restricción de noticias — ventaja clave para cualquier sistema algorítmico que opere durante eventos macro.</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <span style="font-size:0.6rem;padding:3px 10px;border:1px solid rgba(201,168,76,0.2);color:rgba(201,168,76,0.7)">Sin restricción noticias</span>
+          <span style="font-size:0.6rem;padding:3px 10px;border:1px solid rgba(201,168,76,0.2);color:rgba(201,168,76,0.7)">Empresa europea</span>
+          <span style="font-size:0.6rem;padding:3px 10px;border:1px solid rgba(201,168,76,0.2);color:rgba(201,168,76,0.7)">Algorítmico friendly</span>
         </div>
-        <a href="https://app.fortraders.com/trading/new-challenge?affiliateCode=HJ5GP0HZBS" target="_blank" class="pf-link">Abrir cuenta en For Traders →</a>
+        <a href="https://app.fortraders.com/trading/new-challenge?affiliateCode=HJ5GP0HZBS" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;background:#c9a84c;color:#0a0a0c;font-family:'DM Mono',monospace;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-decoration:none;transition:opacity 0.2s;margin-top:auto" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Abrir cuenta en For Traders →</a>
+        <div style="font-size:0.6rem;color:rgba(245,243,238,0.15);text-align:center;letter-spacing:0.04em">Link de afiliado — sin coste adicional para ti</div>
       </div>
-      <div class="pf-card">
-        <div class="pf-header"><div class="pf-name">GOAT Funded</div></div>
-        <p class="pf-desc">Una de las opciones más accesibles del mercado. Ideal para empezar con capital reducido y validar el sistema antes de escalar.</p>
-        <div class="pf-tags">
-          <span class="pf-tag">Precio accesible</span>
-          <span class="pf-tag">EA friendly</span>
-          <span class="pf-tag">Trading manual</span>
+
+      <!-- FTMO — PRÓXIMAMENTE -->
+      <div style="background:var(--ink2);border:1px solid var(--border);padding:36px;display:flex;flex-direction:column;gap:16px;opacity:0.7">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div>
+            <div style="font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">// Referente de la industria</div>
+            <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem">FTMO</div>
+          </div>
+          <div style="background:transparent;border:1px solid rgba(255,255,255,0.08);padding:4px 10px;font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)">⧗ Próximamente</div>
         </div>
-        <span class="pf-link">Link de afiliado próximamente</span>
+        <p style="font-size:0.82rem;color:var(--muted);line-height:1.75">La prop firm más reconocida del sector. Challenge de 2 fases, alta transparencia y payouts rápidos. Referente y estándar absoluto de la industria.</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <span style="font-size:0.6rem;padding:3px 10px;border:1px solid rgba(255,255,255,0.07);color:rgba(245,243,238,0.3)">2 fases</span>
+          <span style="font-size:0.6rem;padding:3px 10px;border:1px solid rgba(255,255,255,0.07);color:rgba(245,243,238,0.3)">Alta reputación</span>
+          <span style="font-size:0.6rem;padding:3px 10px;border:1px solid rgba(255,255,255,0.07);color:rgba(245,243,238,0.3)">Payouts rápidos</span>
+        </div>
+        <div style="padding:14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);font-family:'DM Mono',monospace;font-size:0.75rem;color:rgba(245,243,238,0.2);text-align:center;letter-spacing:0.04em;margin-top:auto">Link de afiliado próximamente</div>
       </div>
+
+      <!-- GOAT Funded — PRÓXIMAMENTE -->
+      <div style="background:var(--ink2);border:1px solid var(--border);padding:36px;display:flex;flex-direction:column;gap:16px;opacity:0.7">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div>
+            <div style="font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">// Precio accesible</div>
+            <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem">GOAT Funded</div>
+          </div>
+          <div style="background:transparent;border:1px solid rgba(255,255,255,0.08);padding:4px 10px;font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)">⧗ Próximamente</div>
+        </div>
+        <p style="font-size:0.82rem;color:var(--muted);line-height:1.75">Una de las opciones más accesibles del mercado. Ideal para empezar con capital reducido y validar el sistema antes de escalar a cuentas mayores.</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <span style="font-size:0.6rem;padding:3px 10px;border:1px solid rgba(255,255,255,0.07);color:rgba(245,243,238,0.3)">Precio accesible</span>
+          <span style="font-size:0.6rem;padding:3px 10px;border:1px solid rgba(255,255,255,0.07);color:rgba(245,243,238,0.3)">EA friendly</span>
+          <span style="font-size:0.6rem;padding:3px 10px;border:1px solid rgba(255,255,255,0.07);color:rgba(245,243,238,0.3)">Para empezar</span>
+        </div>
+        <div style="padding:14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);font-family:'DM Mono',monospace;font-size:0.75rem;color:rgba(245,243,238,0.2);text-align:center;letter-spacing:0.04em;margin-top:auto">Link de afiliado próximamente</div>
+      </div>
+
+    </div>
+    <div style="padding:14px 20px;border:1px solid rgba(255,255,255,0.04);font-size:0.65rem;color:rgba(245,243,238,0.18);letter-spacing:0.04em;text-align:center">
+      ℹ️ Los enlaces marcados con "Link activo" son links de afiliado. Si te registras a través de ellos, puedo recibir una comisión sin coste adicional para ti. Solo recomiendo prop firms que uso o he probado personalmente.
     </div>
   </div>
 </div>
@@ -876,15 +917,32 @@ function calcLot() {
   var balance = parseFloat(document.getElementById('balance').value) || 0;
   var risk = parseFloat(document.getElementById('risk').value) || 0;
   var sl = parseFloat(document.getElementById('sl').value) || 0;
+  var pair = document.getElementById('pair').value;
   if(balance <= 0 || risk <= 0 || sl <= 0) return;
+
   var riskAmount = balance * (risk / 100);
-  var pipValue = 10; // standard for major pairs per standard lot
+
+  // Pip value per standard lot (1.0)
+  var pipValue;
+  var pipNote;
+  if(pair === 'major') {
+    pipValue = 10;       // $10 per pip per standard lot
+    pipNote = '$10/pip por lote estándar';
+  } else if(pair === 'jpy') {
+    pipValue = 9.09;     // approx $9.09 per pip per standard lot (100/USDJPY ~110)
+    pipNote = '≈$9.09/pip por lote estándar (varía con el tipo de cambio)';
+  } else if(pair === 'gold') {
+    pipValue = 1;        // $1 per pip (0.01 move) per standard lot on XAUUSD
+    pipNote = '$1/pip por lote estándar (0.01 de movimiento)';
+  }
+
   var lotSize = riskAmount / (sl * pipValue);
   lotSize = Math.floor(lotSize * 100) / 100;
+
   document.getElementById('lot-result').style.display = 'block';
   document.getElementById('lot-num').textContent = lotSize.toFixed(2) + ' lotes';
-  document.getElementById('lot-risk-usd').textContent = 
-    'Riesgo máximo: $' + riskAmount.toFixed(2) + ' (' + risk + '% de $' + balance.toLocaleString() + ')';
+  document.getElementById('lot-risk-usd').textContent =
+    'Riesgo: $' + riskAmount.toFixed(2) + ' · ' + pipNote;
 }
 function toggleFaq(btn) {
   var answer = btn.nextElementSibling;
