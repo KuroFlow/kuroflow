@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía: Cómo pasar un Challenge de Prop Firm — KuroFlow</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+@page { margin: 0; size: A4; }
+*{ box-sizing:border-box; margin:0; padding:0; }
+body{ font-family:'DM Mono',monospace; background:#fff; color:#0a0a0c; line-height:1.6; }
+
+/* PAGE */
+.page{ width:210mm; min-height:297mm; margin:0 auto; position:relative; overflow:hidden; }
+
+/* COVER */
+.cover{ background:#0a0a0c; width:100%; min-height:297mm; display:flex; flex-direction:column; justify-content:space-between; padding:48px; position:relative; overflow:hidden; page-break-after:always; }
+.cover-grid{ position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px); background-size:40px 40px; }
+.cover-glow{ position:absolute; top:-100px; right:-100px; width:500px; height:500px; background:radial-gradient(circle,rgba(201,168,76,0.08) 0%,transparent 70%); }
+.cover-top{ position:relative; z-index:1; }
+.cover-logo{ display:flex; align-items:center; gap:8px; margin-bottom:60px; }
+.cover-dot{ width:8px; height:8px; border-radius:50%; background:#c9a84c; }
+.cover-brand{ font-family:'Syne',sans-serif; font-weight:800; font-size:1rem; color:#f5f3ee; letter-spacing:-0.02em; }
+.cover-tag{ font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:#c9a84c; margin-bottom:20px; }
+.cover-h1{ font-family:'Syne',sans-serif; font-weight:800; font-size:2.8rem; line-height:1.05; letter-spacing:-0.03em; color:#f5f3ee; margin-bottom:16px; }
+.cover-h1 span{ color:#c9a84c; }
+.cover-sub{ font-size:0.82rem; color:rgba(245,243,238,0.45); line-height:1.8; max-width:400px; margin-bottom:40px; }
+.cover-stats{ display:flex; gap:32px; }
+.cover-stat{ }
+.cover-stat-num{ font-family:'Syne',sans-serif; font-weight:800; font-size:1.6rem; color:#c9a84c; }
+.cover-stat-label{ font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(245,243,238,0.3); margin-top:2px; }
+.cover-bottom{ position:relative; z-index:1; }
+.cover-author{ font-size:0.72rem; color:rgba(245,243,238,0.3); }
+.cover-author strong{ color:#f5f3ee; }
+.cover-disclaimer{ font-size:0.58rem; color:rgba(245,243,238,0.15); margin-top:8px; line-height:1.6; }
+.cover-bar{ position:absolute; bottom:0; left:0; right:0; height:3px; background:#c9a84c; }
+
+/* CONTENT PAGES */
+.content-page{ width:100%; min-height:297mm; padding:48px; display:flex; flex-direction:column; page-break-after:always; position:relative; }
+.content-page:last-child{ page-break-after:auto; }
+
+/* PAGE HEADER */
+.page-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:40px; padding-bottom:16px; border-bottom:1px solid rgba(0,0,0,0.08); }
+.page-header-logo{ display:flex; align-items:center; gap:6px; }
+.page-header-dot{ width:5px; height:5px; border-radius:50%; background:#c9a84c; }
+.page-header-brand{ font-family:'Syne',sans-serif; font-weight:800; font-size:0.75rem; color:#0a0a0c; }
+.page-num{ font-size:0.6rem; letter-spacing:0.1em; color:rgba(0,0,0,0.25); }
+
+/* SECTION */
+.section-tag{ font-size:0.58rem; letter-spacing:0.2em; text-transform:uppercase; color:#c9a84c; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.section-tag::before{ content:''; width:16px; height:1px; background:#c9a84c; }
+.section-h2{ font-family:'Syne',sans-serif; font-weight:800; font-size:1.6rem; letter-spacing:-0.02em; line-height:1.1; margin-bottom:12px; color:#0a0a0c; }
+.section-intro{ font-size:0.8rem; color:rgba(0,0,0,0.5); line-height:1.8; margin-bottom:32px; }
+
+/* CARDS */
+.card-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px; }
+.card{ background:#f8f7f5; border:1px solid rgba(0,0,0,0.07); padding:20px; }
+.card.gold{ background:#0a0a0c; border-color:#c9a84c; }
+.card-num{ font-family:'Syne',sans-serif; font-weight:800; font-size:1.8rem; color:rgba(0,0,0,0.08); line-height:1; margin-bottom:8px; }
+.card.gold .card-num{ color:rgba(201,168,76,0.2); }
+.card-title{ font-family:'Syne',sans-serif; font-weight:700; font-size:0.85rem; margin-bottom:6px; color:#0a0a0c; }
+.card.gold .card-title{ color:#f5f3ee; }
+.card-desc{ font-size:0.72rem; color:rgba(0,0,0,0.5); line-height:1.65; }
+.card.gold .card-desc{ color:rgba(245,243,238,0.5); }
+
+/* RULES TABLE */
+.rules-table{ width:100%; border-collapse:collapse; margin-bottom:24px; }
+.rules-table th{ font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(0,0,0,0.35); padding:8px 12px; text-align:left; border-bottom:2px solid #0a0a0c; font-weight:400; }
+.rules-table td{ padding:10px 12px; border-bottom:1px solid rgba(0,0,0,0.06); font-size:0.75rem; color:rgba(0,0,0,0.7); vertical-align:top; }
+.rules-table tr:last-child td{ border:none; }
+.rules-table .highlight{ color:#0a0a0c; font-weight:700; }
+.rules-table .gold-text{ color:#c9a84c; font-weight:700; }
+.badge{ display:inline-flex; align-items:center; gap:4px; padding:2px 8px; font-size:0.6rem; letter-spacing:0.08em; text-transform:uppercase; }
+.badge.green{ background:rgba(110,221,158,0.1); border:1px solid rgba(110,221,158,0.3); color:#2d9e5f; }
+.badge.red{ background:rgba(237,110,110,0.1); border:1px solid rgba(237,110,110,0.3); color:#c0392b; }
+.badge.gold{ background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.3); color:#a07d2a; }
+
+/* ERRORS */
+.error-list{ display:flex; flex-direction:column; gap:10px; margin-bottom:24px; }
+.error-item{ display:flex; gap:14px; align-items:flex-start; padding:14px 16px; background:#f8f7f5; border:1px solid rgba(0,0,0,0.07); border-left:3px solid #ed6e6e; }
+.error-icon{ font-size:1rem; flex-shrink:0; margin-top:1px; }
+.error-title{ font-family:'Syne',sans-serif; font-weight:700; font-size:0.8rem; margin-bottom:3px; }
+.error-desc{ font-size:0.72rem; color:rgba(0,0,0,0.5); line-height:1.6; }
+
+/* TIPS */
+.tip-list{ display:flex; flex-direction:column; gap:10px; margin-bottom:24px; }
+.tip-item{ display:flex; gap:14px; align-items:flex-start; padding:14px 16px; background:#f8f7f5; border:1px solid rgba(0,0,0,0.07); border-left:3px solid #c9a84c; }
+.tip-label{ font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:#c9a84c; margin-bottom:3px; }
+.tip-title{ font-family:'Syne',sans-serif; font-weight:700; font-size:0.8rem; margin-bottom:3px; }
+.tip-desc{ font-size:0.72rem; color:rgba(0,0,0,0.5); line-height:1.6; }
+
+/* PROP FIRM CARDS */
+.pf-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px; }
+.pf-card{ padding:20px; border:1px solid rgba(0,0,0,0.1); }
+.pf-card.recommended{ border-color:#c9a84c; background:rgba(201,168,76,0.03); }
+.pf-header{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; }
+.pf-name{ font-family:'Syne',sans-serif; font-weight:800; font-size:1rem; }
+.pf-rec{ font-size:0.58rem; letter-spacing:0.1em; text-transform:uppercase; color:#c9a84c; }
+.pf-desc{ font-size:0.72rem; color:rgba(0,0,0,0.5); line-height:1.65; margin-bottom:12px; }
+.pf-tags{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+.pf-tag{ font-size:0.58rem; padding:2px 8px; border:1px solid rgba(0,0,0,0.1); color:rgba(0,0,0,0.4); }
+.pf-link{ font-size:0.68rem; color:#c9a84c; font-weight:700; }
+
+/* CTA PAGE */
+.cta-page{ background:#0a0a0c; }
+.cta-inner{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:40px 0; }
+.cta-tag{ font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:#c9a84c; margin-bottom:20px; }
+.cta-h2{ font-family:'Syne',sans-serif; font-weight:800; font-size:2rem; color:#f5f3ee; letter-spacing:-0.02em; margin-bottom:16px; line-height:1.1; }
+.cta-h2 span{ color:#c9a84c; }
+.cta-sub{ font-size:0.8rem; color:rgba(245,243,238,0.4); line-height:1.8; max-width:380px; margin:0 auto 32px; }
+.cta-plans{ display:flex; gap:12px; justify-content:center; margin-bottom:32px; flex-wrap:wrap; }
+.cta-plan{ padding:20px 24px; border:1px solid rgba(255,255,255,0.1); text-align:center; min-width:120px; }
+.cta-plan.featured{ border-color:#c9a84c; background:rgba(201,168,76,0.05); }
+.cta-plan-name{ font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:#c9a84c; margin-bottom:8px; }
+.cta-plan-price{ font-family:'Syne',sans-serif; font-weight:800; font-size:1.4rem; color:#f5f3ee; }
+.cta-plan-old{ font-size:0.65rem; color:rgba(245,243,238,0.2); text-decoration:line-through; margin-bottom:2px; }
+.cta-plan-period{ font-size:0.6rem; color:rgba(245,243,238,0.3); margin-top:4px; }
+.cta-url{ font-size:0.85rem; color:#c9a84c; letter-spacing:0.06em; margin-bottom:8px; font-family:'Syne',sans-serif; font-weight:700; }
+.cta-disclaimer{ font-size:0.6rem; color:rgba(245,243,238,0.15); line-height:1.6; max-width:420px; margin:0 auto; }
+
+/* CHECKLIST BOX */
+.checklist{ background:#f8f7f5; border:1px solid rgba(0,0,0,0.07); padding:20px 24px; margin-bottom:24px; }
+.checklist-title{ font-family:'Syne',sans-serif; font-weight:700; font-size:0.85rem; margin-bottom:14px; color:#0a0a0c; }
+.checklist-item{ display:flex; gap:10px; align-items:flex-start; padding:6px 0; border-bottom:1px solid rgba(0,0,0,0.05); font-size:0.75rem; color:rgba(0,0,0,0.65); }
+.checklist-item:last-child{ border:none; }
+.check-box{ width:14px; height:14px; border:1.5px solid #c9a84c; flex-shrink:0; margin-top:1px; }
+
+/* FORMULA BOX */
+.formula{ background:#0a0a0c; padding:20px 24px; margin:16px 0; display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap; }
+.formula-item{ text-align:center; }
+.formula-val{ font-family:'Syne',sans-serif; font-weight:800; font-size:1.4rem; color:#c9a84c; }
+.formula-label{ font-size:0.58rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(245,243,238,0.3); margin-top:4px; }
+.formula-op{ font-family:'Syne',sans-serif; font-weight:800; font-size:1.4rem; color:rgba(245,243,238,0.2); }
+
+/* PRINT */
+@media print{
+  body{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .page{ margin:0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ COVER ═══ -->
+<div class="page cover">
+  <div class="cover-grid"></div>
+  <div class="cover-glow"></div>
+  <div class="cover-top">
+    <div class="cover-logo">
+      <div class="cover-dot"></div>
+      <span class="cover-brand">KuroFlow</span>
+    </div>
+    <div class="cover-tag">// Guía educativa gratuita</div>
+    <h1 class="cover-h1">Cómo pasar un<br><span>Challenge</span><br>de Prop Firm</h1>
+    <p class="cover-sub">Todo lo que necesitas saber antes de empezar — reglas, errores comunes, gestión de riesgo y qué prop firm elegir según tu perfil.</p>
+    <div class="cover-stats">
+      <div class="cover-stat">
+        <div class="cover-stat-num">5</div>
+        <div class="cover-stat-label">Secciones</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">4</div>
+        <div class="cover-stat-label">Prop firms analizadas</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">12</div>
+        <div class="cover-stat-label">Errores a evitar</div>
+      </div>
+    </div>
+  </div>
+  <div class="cover-bottom">
+    <div class="cover-author">Por <strong>Diego Campero</strong> — Trader Cuantitativo · kuro-flow.com</div>
+    <div class="cover-disclaimer">⚠️ Contenido exclusivamente educativo. No es asesoramiento financiero. El trading conlleva riesgo de pérdida de capital.</div>
+  </div>
+  <div class="cover-bar"></div>
+</div>
+
+<!-- ═══ PAGE 2 — QUÉ ES UNA PROP FIRM ═══ -->
+<div class="page content-page">
+  <div class="page-header">
+    <div class="page-header-logo"><div class="page-header-dot"></div><span class="page-header-brand">KuroFlow</span></div>
+    <span class="page-num">01 / 05</span>
+  </div>
+
+  <div class="section-tag">Fundamentos</div>
+  <h2 class="section-h2">¿Qué es una<br>Prop Firm?</h2>
+  <p class="section-intro">Una prop firm (empresa de financiación) te da acceso a capital real para operar a cambio de superar una prueba de evaluación llamada "challenge". Si la superas, operas con su dinero y compartes los beneficios.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-num">01</div>
+      <div class="card-title">El Challenge</div>
+      <div class="card-desc">Fase de evaluación donde demuestras que puedes gestionar el riesgo correctamente. Normalmente 1-2 fases con objetivos de beneficio y límites de pérdida.</div>
+    </div>
+    <div class="card">
+      <div class="card-num">02</div>
+      <div class="card-title">La cuenta Funded</div>
+      <div class="card-desc">Si superas el challenge, recibes acceso a una cuenta real de $10K-$200K. Operas con ese capital y te quedas el 80-90% de los beneficios.</div>
+    </div>
+    <div class="card">
+      <div class="card-num">03</div>
+      <div class="card-title">El Payout</div>
+      <div class="card-desc">Cuando acumulas beneficios, solicitas un retiro. La prop firm te paga directamente. Los plazos varían de 14 a 30 días según la firma.</div>
+    </div>
+    <div class="card gold">
+      <div class="card-num">04</div>
+      <div class="card-title" style="color:#f5f3ee">¿Por qué es interesante?</div>
+      <div class="card-desc">Puedes controlar $100,000 con solo pagar $500-$1,000 de challenge fee. Si el sistema funciona, el retorno sobre la inversión es muy alto.</div>
+    </div>
+  </div>
+
+  <div class="section-tag" style="margin-top:8px">Las reglas fundamentales</div>
+  <table class="rules-table">
+    <thead>
+      <tr>
+        <th>Regla</th>
+        <th>Qué significa</th>
+        <th>Valor típico</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="highlight">Drawdown diario</td>
+        <td>Pérdida máxima permitida en un solo día</td>
+        <td class="gold-text">5%</td>
+        <td><span class="badge red">Crítico</span></td>
+      </tr>
+      <tr>
+        <td class="highlight">Drawdown total</td>
+        <td>Pérdida máxima acumulada desde el inicio</td>
+        <td class="gold-text">10%</td>
+        <td><span class="badge red">Crítico</span></td>
+      </tr>
+      <tr>
+        <td class="highlight">Objetivo de profit</td>
+        <td>Beneficio mínimo para superar la fase</td>
+        <td class="gold-text">8-10%</td>
+        <td><span class="badge green">Alcanzable</span></td>
+      </tr>
+      <tr>
+        <td class="highlight">Tiempo mínimo</td>
+        <td>Días mínimos de trading activo</td>
+        <td class="gold-text">4-10 días</td>
+        <td><span class="badge gold">Variable</span></td>
+      </tr>
+      <tr>
+        <td class="highlight">Noticias</td>
+        <td>Restricción de operar en eventos macro</td>
+        <td class="gold-text">Varía</td>
+        <td><span class="badge gold">Consultar</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ PAGE 3 — ERRORES COMUNES ═══ -->
+<div class="page content-page">
+  <div class="page-header">
+    <div class="page-header-logo"><div class="page-header-dot"></div><span class="page-header-brand">KuroFlow</span></div>
+    <span class="page-num">02 / 05</span>
+  </div>
+
+  <div class="section-tag">Lo más importante</div>
+  <h2 class="section-h2">12 errores que hacen<br>fallar el challenge</h2>
+  <p class="section-intro">El 80% de los traders fallan en el challenge por los mismos motivos. Conocerlos antes de empezar es la ventaja más grande que puedes tener.</p>
+
+  <div class="error-list">
+    <div class="error-item">
+      <div class="error-icon">⚡</div>
+      <div>
+        <div class="error-title">Arriesgar demasiado por operación</div>
+        <div class="error-desc">El error más común. Con un 5% de DD diario, dos malas operaciones del 2.5% te eliminan. Máximo 0.5-1% de riesgo por trade.</div>
+      </div>
+    </div>
+    <div class="error-item">
+      <div class="error-icon">⚡</div>
+      <div>
+        <div class="error-title">Operar en noticias de alto impacto</div>
+        <div class="error-desc">NFP, CPI, decisiones de tipos de la Fed. La volatilidad puede disparar el SL en segundos. Muchas prop firms lo prohíben explícitamente.</div>
+      </div>
+    </div>
+    <div class="error-item">
+      <div class="error-icon">⚡</div>
+      <div>
+        <div class="error-title">Intentar recuperar pérdidas en el mismo día</div>
+        <div class="error-desc">Si has perdido el 3% en un día, operar más para recuperarlo casi siempre lleva a superar el DD diario. Para, espera al día siguiente.</div>
+      </div>
+    </div>
+    <div class="error-item">
+      <div class="error-icon">⚡</div>
+      <div>
+        <div class="error-title">No respetar el plan de gestión de riesgo</div>
+        <div class="error-desc">Aumentar el tamaño de posición "porque estás seguro" es el camino más rápido al fallo. El plan es el plan, siempre.</div>
+      </div>
+    </div>
+    <div class="error-item">
+      <div class="error-icon">⚡</div>
+      <div>
+        <div class="error-title">Usar estrategias no permitidas</div>
+        <div class="error-desc">Grid trading, martingala, high-frequency trading o copy trading están prohibidos en la mayoría de prop firms. Lee los términos antes de empezar.</div>
+      </div>
+    </div>
+    <div class="error-item">
+      <div class="error-icon">⚡</div>
+      <div>
+        <div class="error-title">Correr demasiado al principio</div>
+        <div class="error-desc">Intentar conseguir el 8% en los primeros 3 días implica riesgo excesivo. El objetivo debe conseguirse de forma gradual y consistente.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="formula">
+    <div class="formula-item">
+      <div class="formula-val">1%</div>
+      <div class="formula-label">Riesgo máximo/trade</div>
+    </div>
+    <div class="formula-op">×</div>
+    <div class="formula-item">
+      <div class="formula-val">5</div>
+      <div class="formula-label">Trades seguidos perdidos</div>
+    </div>
+    <div class="formula-op">=</div>
+    <div class="formula-item">
+      <div class="formula-val">5%</div>
+      <div class="formula-label">DD máximo</div>
+    </div>
+    <div class="formula-op">→</div>
+    <div class="formula-item">
+      <div class="formula-val" style="color:#6edd9e">✓</div>
+      <div class="formula-label">Cuenta segura</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE 4 — GESTIÓN DE RIESGO ═══ -->
+<div class="page content-page">
+  <div class="page-header">
+    <div class="page-header-logo"><div class="page-header-dot"></div><span class="page-header-brand">KuroFlow</span></div>
+    <span class="page-num">03 / 05</span>
+  </div>
+
+  <div class="section-tag">El núcleo del éxito</div>
+  <h2 class="section-h2">Gestión de riesgo<br>para prop firms</h2>
+  <p class="section-intro">La gestión de riesgo no es opcional — es el único factor que determina si pasas o no el challenge. Un sistema mediocre con buena gestión de riesgo pasa. Un sistema excelente sin ella, falla.</p>
+
+  <div class="tip-list">
+    <div class="tip-item">
+      <div>
+        <div class="tip-label">Regla 1</div>
+        <div class="tip-title">Máximo 1% de riesgo por operación</div>
+        <div class="tip-desc">Con $100,000 de cuenta, arriesgas máximo $1,000 por trade. Esto te da margen para 10 operaciones perdedoras consecutivas antes de acercarte al DD total del 10%.</div>
+      </div>
+    </div>
+    <div class="tip-item">
+      <div>
+        <div class="tip-label">Regla 2</div>
+        <div class="tip-title">Para si llegas al 3% de pérdida diaria</div>
+        <div class="tip-desc">No esperes al 5%. Si en un día has perdido el 3%, cierra el ordenador. No operes más ese día. El objetivo es preservar la cuenta para mañana.</div>
+      </div>
+    </div>
+    <div class="tip-item">
+      <div>
+        <div class="tip-label">Regla 3</div>
+        <div class="tip-title">Calcula el lot size antes de cada trade</div>
+        <div class="tip-desc">Usa la calculadora de KuroFlow: Balance × Riesgo% ÷ (SL en pips × Valor del pip). Nunca calcules mentalmente — los errores cuestan la cuenta.</div>
+      </div>
+    </div>
+    <div class="tip-item">
+      <div>
+        <div class="tip-label">Regla 4</div>
+        <div class="tip-title">No acumules posiciones en la misma dirección</div>
+        <div class="tip-desc">Si tienes 2 trades abiertos en BUY EURUSD, tu riesgo real es el doble. Cuenta la exposición total, no por trade individual.</div>
+      </div>
+    </div>
+    <div class="tip-item">
+      <div>
+        <div class="tip-label">Regla 5</div>
+        <div class="tip-title">Define SL y TP antes de entrar</div>
+        <div class="tip-desc">Si no tienes SL definido antes de abrir la posición, no la abras. Mover el SL para "darle más espacio" es una de las principales causas de fallos.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="checklist">
+    <div class="checklist-title">✓ Checklist antes de cada trade</div>
+    <div class="checklist-item"><div class="check-box"></div>¿He calculado el lot size con la fórmula?</div>
+    <div class="checklist-item"><div class="check-box"></div>¿El riesgo es máximo 1% del balance?</div>
+    <div class="checklist-item"><div class="check-box"></div>¿Hay noticias de alto impacto en los próximos 30 minutos?</div>
+    <div class="checklist-item"><div class="check-box"></div>¿Mi DD del día está por debajo del 3%?</div>
+    <div class="checklist-item"><div class="check-box"></div>¿Tengo SL y TP definidos y colocados?</div>
+    <div class="checklist-item"><div class="check-box"></div>¿Esta operación cumple con las reglas de mi sistema?</div>
+  </div>
+</div>
+
+<!-- ═══ PAGE 5 — PROP FIRMS ═══ -->
+<div class="page content-page">
+  <div class="page-header">
+    <div class="page-header-logo"><div class="page-header-dot"></div><span class="page-header-brand">KuroFlow</span></div>
+    <span class="page-num">04 / 05</span>
+  </div>
+
+  <div class="section-tag">Comparativa</div>
+  <h2 class="section-h2">¿Qué prop firm<br>elegir?</h2>
+  <p class="section-intro">No todas las prop firms son iguales. Estas son las 4 que recomiendo por experiencia propia — ordenadas por adecuación para sistemas algorítmicos y de baja frecuencia como COMBO_TAC.</p>
+
+  <div class="pf-grid">
+    <div class="pf-card recommended">
+      <div class="pf-header">
+        <div class="pf-name">The5ers</div>
+        <div class="pf-rec">⭐ Mi favorita</div>
+      </div>
+      <div class="pf-desc">Sin límite de tiempo en el challenge — ideal para sistemas de baja frecuencia. Programa de scaling hasta $4M. Una de las más flexibles.</div>
+      <div class="pf-tags">
+        <span class="pf-tag">Sin límite de tiempo</span>
+        <span class="pf-tag">Scaling $4M</span>
+        <span class="pf-tag">MT5</span>
+      </div>
+      <div class="pf-link">→ the5ers.com/?afmc=1g0t</div>
+    </div>
+    <div class="pf-card recommended">
+      <div class="pf-header">
+        <div class="pf-name">For Traders</div>
+        <div class="pf-rec">⭐ Sin restricción noticias</div>
+      </div>
+      <div class="pf-desc">Sin restricción de noticias — ventaja clave para cualquier sistema algorítmico. Condiciones muy competitivas. Empresa europea.</div>
+      <div class="pf-tags">
+        <span class="pf-tag">Sin restricción noticias</span>
+        <span class="pf-tag">Europa</span>
+        <span class="pf-tag">Algorítmico</span>
+      </div>
+      <div class="pf-link">→ app.fortraders.com (código HJ5GP0HZBS)</div>
+    </div>
+    <div class="pf-card">
+      <div class="pf-header">
+        <div class="pf-name">FTMO</div>
+      </div>
+      <div class="pf-desc">El referente de la industria. Challenge de 2 fases, alta transparencia y payouts rápidos. La más reconocida y con mejor reputación.</div>
+      <div class="pf-tags">
+        <span class="pf-tag">2 fases</span>
+        <span class="pf-tag">Alta reputación</span>
+        <span class="pf-tag">Payouts rápidos</span>
+      </div>
+      <div class="pf-link" style="color:rgba(0,0,0,0.3)">→ ftmo.com</div>
+    </div>
+    <div class="pf-card">
+      <div class="pf-header">
+        <div class="pf-name">GOAT Funded</div>
+      </div>
+      <div class="pf-desc">La opción más accesible para empezar. Ideal para validar el sistema con capital reducido antes de escalar a cuentas mayores.</div>
+      <div class="pf-tags">
+        <span class="pf-tag">Precio accesible</span>
+        <span class="pf-tag">EA friendly</span>
+        <span class="pf-tag">Para empezar</span>
+      </div>
+      <div class="pf-link" style="color:rgba(0,0,0,0.3)">→ goatfunded.com</div>
+    </div>
+  </div>
+
+  <div style="padding:16px 20px;background:#f8f7f5;border:1px solid rgba(0,0,0,0.07);font-size:0.68rem;color:rgba(0,0,0,0.4);line-height:1.6">
+    ℹ️ Los enlaces de The5ers y For Traders son links de afiliado de KuroFlow. Si te registras a través de ellos apoyas el proyecto sin coste adicional para ti. Solo recomiendo prop firms que he probado personalmente.
+  </div>
+</div>
+
+<!-- ═══ PAGE 6 — CTA ═══ -->
+<div class="page content-page cta-page">
+  <div class="page-header" style="border-bottom-color:rgba(255,255,255,0.08)">
+    <div class="page-header-logo"><div class="page-header-dot"></div><span class="page-header-brand" style="color:#f5f3ee">KuroFlow</span></div>
+    <span class="page-num" style="color:rgba(255,255,255,0.2)">05 / 05</span>
+  </div>
+
+  <div class="cta-inner">
+    <div class="cta-tag">// Siguiente paso</div>
+    <h2 class="cta-h2">Sigue el sistema<br>en <span>tiempo real</span></h2>
+    <p class="cta-sub">KuroFlow es el diario algorítmico donde comparto en tiempo real la operativa del sistema COMBO_TAC — diseñado específicamente para prop firms.</p>
+
+    <div class="cta-plans">
+      <div class="cta-plan">
+        <div class="cta-plan-name">Basic</div>
+        <div class="cta-plan-old">€29</div>
+        <div class="cta-plan-price">€9</div>
+        <div class="cta-plan-period">primer mes</div>
+      </div>
+      <div class="cta-plan featured">
+        <div class="cta-plan-name">Pro</div>
+        <div class="cta-plan-old">€79</div>
+        <div class="cta-plan-price">€19</div>
+        <div class="cta-plan-period">primer mes</div>
+      </div>
+      <div class="cta-plan">
+        <div class="cta-plan-name">Mentoring</div>
+        <div class="cta-plan-old">€199</div>
+        <div class="cta-plan-price">€49</div>
+        <div class="cta-plan-period">primer mes</div>
+      </div>
+    </div>
+
+    <div class="cta-url">kuro-flow.com</div>
+    <div style="font-size:0.7rem;color:rgba(245,243,238,0.25);margin-bottom:24px;letter-spacing:0.04em">Precio de lanzamiento · Cancela cuando quieras</div>
+    <div class="cta-disclaimer">⚠️ Todo el contenido de KuroFlow es exclusivamente educativo y no constituye asesoramiento financiero. El trading conlleva riesgo de pérdida de capital. Los resultados pasados no garantizan resultados futuros.</div>
+  </div>
+
+  <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;display:flex;justify-content:space-between;align-items:center">
+    <div style="font-size:0.65rem;color:rgba(245,243,238,0.2)">© 2026 KuroFlow · Diego Campero · kuro-flow.com</div>
+    <div style="font-size:0.65rem;color:rgba(245,243,238,0.2)">Guía educativa gratuita — Comparte libremente</div>
+  </div>
+</div>
+
+</body>
+</html>
