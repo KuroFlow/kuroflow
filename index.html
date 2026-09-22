@@ -512,17 +512,33 @@ footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--b
             <label style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Stop Loss (pips)</label>
             <input id="sl" type="number" value="20" style="width:100%;background:#0a0a0c;border:1px solid rgba(255,255,255,0.1);color:#f5f3ee;font-family:'DM Mono',monospace;font-size:0.9rem;padding:10px 14px;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='#c9a84c'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
           </div>
-          <div>
-            <label style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Par de divisas</label>
-            <select id="pair" style="width:100%;background:#0a0a0c;border:1px solid rgba(255,255,255,0.1);color:#f5f3ee;font-family:'DM Mono',monospace;font-size:0.9rem;padding:10px 14px;outline:none;cursor:pointer">
-              <option value="major">EURUSD — pip = $10/lote</option>
-              <option value="major">GBPUSD — pip = $10/lote</option>
-              <option value="major">USDCHF — pip = $10/lote</option>
-              <option value="jpy">USDJPY — pip ≈ $9.09/lote</option>
-              <option value="jpy">GBPJPY — pip ≈ $9.09/lote</option>
-              <option value="jpy">EURJPY — pip ≈ $9.09/lote</option>
-              <option value="gold">XAUUSD (Oro) — pip = $1/lote</option>
-            </select>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div>
+              <label style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Par de divisas</label>
+              <select id="pair" style="width:100%;background:#0a0a0c;border:1px solid rgba(255,255,255,0.1);color:#f5f3ee;font-family:'DM Mono',monospace;font-size:0.9rem;padding:10px 14px;outline:none;cursor:pointer">
+                <option value="major">EURUSD</option>
+                <option value="major">GBPUSD</option>
+                <option value="major">USDCHF</option>
+                <option value="jpy">USDJPY</option>
+                <option value="jpy">GBPJPY</option>
+                <option value="jpy">EURJPY</option>
+                <option value="gold">XAUUSD (Oro)</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Moneda de cuenta</label>
+              <select id="account-currency" style="width:100%;background:#0a0a0c;border:1px solid rgba(255,255,255,0.1);color:#f5f3ee;font-family:'DM Mono',monospace;font-size:0.9rem;padding:10px 14px;outline:none;cursor:pointer">
+                <option value="USD">USD — Dólar</option>
+                <option value="EUR">EUR — Euro</option>
+                <option value="GBP">GBP — Libra</option>
+                <option value="CHF">CHF — Franco</option>
+              </select>
+            </div>
+          </div>
+          <div id="fx-rate-row" style="display:none">
+            <label style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Tipo de cambio (tu moneda → USD)</label>
+            <input id="fx-rate" type="number" value="1.08" step="0.001" style="width:100%;background:#0a0a0c;border:1px solid rgba(255,255,255,0.1);color:#f5f3ee;font-family:'DM Mono',monospace;font-size:0.9rem;padding:10px 14px;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='#c9a84c'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+            <div style="font-size:0.6rem;color:rgba(245,243,238,0.2);margin-top:4px">Ej: si cuenta en EUR y 1 EUR = 1.08 USD → pon 1.08</div>
           </div>
           <button onclick="calcLot()" style="width:100%;background:#c9a84c;color:#0a0a0c;font-family:'DM Mono',monospace;font-size:0.78rem;font-weight:700;letter-spacing:0.08em;padding:13px;border:none;cursor:pointer;transition:opacity 0.2s" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Calcular →</button>
         </div>
@@ -1035,32 +1051,58 @@ function calcLot() {
   var risk = parseFloat(document.getElementById('risk').value) || 0;
   var sl = parseFloat(document.getElementById('sl').value) || 0;
   var pair = document.getElementById('pair').value;
+  var accountCurrency = document.getElementById('account-currency').value;
+  var fxRate = parseFloat(document.getElementById('fx-rate').value) || 1;
   if(balance <= 0 || risk <= 0 || sl <= 0) return;
 
-  var riskAmount = balance * (risk / 100);
+  // Convert balance to USD if account is not in USD
+  var balanceUSD = accountCurrency === 'USD' ? balance : balance * fxRate;
+  var riskAmountUSD = balanceUSD * (risk / 100);
+  var riskAmountLocal = balance * (risk / 100);
 
-  // Pip value per standard lot (1.0)
-  var pipValue;
-  var pipNote;
+  // Pip value per standard lot in USD
+  var pipValue, pipNote;
   if(pair === 'major') {
-    pipValue = 10;       // $10 per pip per standard lot
+    pipValue = 10;
     pipNote = '$10/pip por lote estándar';
   } else if(pair === 'jpy') {
-    pipValue = 9.09;     // approx $9.09 per pip per standard lot (100/USDJPY ~110)
-    pipNote = '≈$9.09/pip por lote estándar (varía con el tipo de cambio)';
+    pipValue = 9.09;
+    pipNote = '≈$9.09/pip por lote estándar';
   } else if(pair === 'gold') {
-    pipValue = 1;        // $1 per pip (0.01 move) per standard lot on XAUUSD
-    pipNote = '$1/pip por lote estándar (0.01 de movimiento)';
+    pipValue = 1;
+    pipNote = '$1/pip por lote estándar';
   }
 
-  var lotSize = riskAmount / (sl * pipValue);
+  var lotSize = riskAmountUSD / (sl * pipValue);
   lotSize = Math.floor(lotSize * 100) / 100;
+
+  var currencySymbol = accountCurrency === 'EUR' ? '€' : accountCurrency === 'GBP' ? '£' : '$';
 
   document.getElementById('lot-result').style.display = 'block';
   document.getElementById('lot-num').textContent = lotSize.toFixed(2) + ' lotes';
   document.getElementById('lot-risk-usd').textContent =
-    'Riesgo: $' + riskAmount.toFixed(2) + ' · ' + pipNote;
+    'Riesgo: ' + currencySymbol + riskAmountLocal.toFixed(2) +
+    (accountCurrency !== 'USD' ? ' ≈ $' + riskAmountUSD.toFixed(2) : '') +
+    ' · ' + pipNote;
 }
+
+// Show/hide FX rate field based on account currency
+document.addEventListener('DOMContentLoaded', function() {
+  var sel = document.getElementById('account-currency');
+  if(sel) {
+    sel.addEventListener('change', function() {
+      var row = document.getElementById('fx-rate-row');
+      if(this.value !== 'USD') {
+        row.style.display = 'block';
+        // Set default exchange rates
+        var defaults = {'EUR': 1.08, 'GBP': 1.27, 'CHF': 0.89};
+        document.getElementById('fx-rate').value = defaults[this.value] || 1;
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+});
 function toggleFaq(btn) {
   var answer = btn.nextElementSibling;
   var icon = btn.querySelector('.faq-icon');
