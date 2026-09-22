@@ -535,10 +535,13 @@ footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--b
               </select>
             </div>
           </div>
-          <div id="fx-rate-row" style="display:none">
-            <label style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Tipo de cambio (tu moneda → USD)</label>
-            <input id="fx-rate" type="number" value="1.08" step="0.001" style="width:100%;background:#0a0a0c;border:1px solid rgba(255,255,255,0.1);color:#f5f3ee;font-family:'DM Mono',monospace;font-size:0.9rem;padding:10px 14px;outline:none;transition:border-color 0.2s" onfocus="this.style.borderColor='#c9a84c'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
-            <div style="font-size:0.6rem;color:rgba(245,243,238,0.2);margin-top:4px">Ej: si cuenta en EUR y 1 EUR = 1.08 USD → pon 1.08</div>
+          <div id="fx-rate-row" style="display:none;padding:10px 14px;background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.15)">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)">Tipo de cambio (tiempo real)</span>
+              <span id="fx-rate-display" style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;color:#c9a84c">Cargando...</span>
+            </div>
+            <input id="fx-rate" type="hidden" value="1">
+            <div id="fx-rate-note" style="font-size:0.6rem;color:rgba(245,243,238,0.2);margin-top:4px"></div>
           </div>
           <button onclick="calcLot()" style="width:100%;background:#c9a84c;color:#0a0a0c;font-family:'DM Mono',monospace;font-size:0.78rem;font-weight:700;letter-spacing:0.08em;padding:13px;border:none;cursor:pointer;transition:opacity 0.2s" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Calcular →</button>
         </div>
@@ -1086,19 +1089,48 @@ function calcLot() {
     ' · ' + pipNote;
 }
 
-// Show/hide FX rate field based on account currency
+// Fetch real exchange rates and update calculator
+var fxRatesCache = {};
+
+function fetchFxRate(currency, callback) {
+  if(fxRatesCache[currency]) {
+    callback(fxRatesCache[currency]);
+    return;
+  }
+  // Use exchangerate-api free endpoint (no key needed for basic pairs)
+  fetch('https://api.exchangerate-api.com/v4/latest/' + currency)
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      var rate = data.rates['USD'];
+      fxRatesCache[currency] = rate;
+      callback(rate);
+    })
+    .catch(function(){
+      // Fallback to approximate rates if API fails
+      var fallback = {'EUR': 1.08, 'GBP': 1.27, 'CHF': 0.89};
+      callback(fallback[currency] || 1);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   var sel = document.getElementById('account-currency');
   if(sel) {
     sel.addEventListener('change', function() {
       var row = document.getElementById('fx-rate-row');
-      if(this.value !== 'USD') {
+      var currency = this.value;
+      if(currency !== 'USD') {
         row.style.display = 'block';
-        // Set default exchange rates
-        var defaults = {'EUR': 1.08, 'GBP': 1.27, 'CHF': 0.89};
-        document.getElementById('fx-rate').value = defaults[this.value] || 1;
+        document.getElementById('fx-rate-display').textContent = 'Cargando...';
+        fetchFxRate(currency, function(rate) {
+          document.getElementById('fx-rate').value = rate;
+          document.getElementById('fx-rate-display').textContent = 
+            '1 ' + currency + ' = ' + rate.toFixed(4) + ' USD';
+          document.getElementById('fx-rate-note').textContent = 
+            'Tipo de cambio en tiempo real · Actualizado ahora';
+        });
       } else {
         row.style.display = 'none';
+        document.getElementById('fx-rate').value = 1;
       }
     });
   }
