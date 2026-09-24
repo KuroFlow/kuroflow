@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Blog — Trading Algorítmico y Prop Firms | KuroFlow</title>
+<meta name="description" content="Artículos educativos sobre trading algorítmico, prop firms y sistemas cuantitativos. Aprende cómo pasar un challenge, gestionar el riesgo y operar con consistencia.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Diego Campero — KuroFlow">
+<link rel="canonical" href="https://kuro-flow.com/blog.html">
+<meta property="og:title" content="Blog KuroFlow — Trading Algorítmico y Prop Firms">
+<meta property="og:description" content="Artículos educativos sobre trading algorítmico, prop firms y sistemas cuantitativos en español.">
+<meta property="og:url" content="https://kuro-flow.com/blog.html">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23c9a84c'/%3E%3Ctext x='50' y='68' font-family='sans-serif' font-weight='900' font-size='54' fill='%230a0a0c' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@300;400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"></noscript>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "KuroFlow Blog",
+  "description": "Artículos educativos sobre trading algorítmico, prop firms y sistemas cuantitativos",
+  "url": "https://kuro-flow.com/blog.html",
+  "author": {
+    "@type": "Person",
+    "name": "Diego Campero"
+  },
+  "inLanguage": "es"
+}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0a0a0c;--ink2:#0f0f12;--paper:#f5f3ee;--gold:#c9a84c;--border:rgba(255,255,255,0.07);--muted:rgba(245,243,238,0.4)}
+body{background:var(--ink);color:var(--paper);font-family:'DM Mono',monospace;line-height:1.6}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:rgba(10,10,12,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.nav-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:var(--paper);letter-spacing:-0.02em}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:0.68rem;color:var(--muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.06em;padding:10px 22px;background:var(--gold);color:var(--ink);text-decoration:none;font-weight:700}
+
+/* HERO */
+.blog-hero{padding:140px 48px 80px;max-width:1100px;margin:0 auto}
+.eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+.eyebrow-line{width:24px;height:1px;background:var(--gold)}
+.eyebrow-text{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold)}
+.blog-hero h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2rem,4vw,3rem);letter-spacing:-0.02em;margin-bottom:16px}
+.blog-hero p{font-size:0.88rem;color:var(--muted);max-width:560px;line-height:1.9}
+
+/* ARTICLES GRID */
+.articles-section{padding:0 48px 100px;max-width:1100px;margin:0 auto}
+.articles-grid{display:grid;grid-template-columns:2fr 1fr;gap:2px}
+.article-featured{background:var(--ink2);border:1px solid rgba(201,168,76,0.2);padding:40px;text-decoration:none;display:block;transition:border-color 0.2s}
+.article-featured:hover{border-color:rgba(201,168,76,0.4)}
+.article-tag{font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.article-featured h2{font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;letter-spacing:-0.02em;line-height:1.15;margin-bottom:14px;color:var(--paper)}
+.article-excerpt{font-size:0.82rem;color:var(--muted);line-height:1.8;margin-bottom:24px}
+.article-meta{display:flex;gap:16px;align-items:center;font-size:0.65rem;letter-spacing:0.06em;color:rgba(245,243,238,0.25)}
+.article-read{font-size:0.72rem;color:var(--gold);letter-spacing:0.08em;margin-top:20px;display:block}
+
+.articles-sidebar{display:flex;flex-direction:column;gap:2px}
+.article-card{background:var(--ink2);border:1px solid var(--border);padding:24px;text-decoration:none;display:block;transition:border-color 0.2s}
+.article-card:hover{border-color:rgba(201,168,76,0.2)}
+.article-card h3{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;letter-spacing:-0.01em;line-height:1.3;margin-bottom:8px;color:var(--paper)}
+.article-card p{font-size:0.75rem;color:var(--muted);line-height:1.6}
+.article-card .article-meta{margin-top:12px}
+.coming-soon{opacity:0.4;cursor:default}
+.coming-soon:hover{border-color:var(--border)}
+.coming-badge{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,243,238,0.3);border:1px solid rgba(255,255,255,0.08);padding:2px 8px;display:inline-block;margin-bottom:10px}
+
+/* TOPICS */
+.topics-section{background:var(--ink2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:60px 48px}
+.topics-inner{max-width:1100px;margin:0 auto}
+.topics-grid{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
+.topic-tag{font-size:0.72rem;letter-spacing:0.08em;padding:8px 16px;border:1px solid var(--border);color:var(--muted);text-decoration:none;transition:all 0.2s}
+.topic-tag:hover{border-color:var(--gold);color:var(--gold)}
+
+/* CTA */
+.blog-cta{padding:80px 48px;max-width:1100px;margin:0 auto;text-align:center}
+.blog-cta h2{font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;letter-spacing:-0.02em;margin-bottom:12px}
+.blog-cta p{font-size:0.86rem;color:var(--muted);margin-bottom:32px}
+.btn-gold{font-family:'DM Mono',monospace;font-size:0.78rem;letter-spacing:0.06em;padding:14px 32px;background:var(--gold);color:var(--ink);text-decoration:none;font-weight:700;display:inline-block;transition:opacity 0.2s}
+.btn-gold:hover{opacity:0.85}
+
+footer{background:var(--ink);padding:40px 48px;border-top:1px solid var(--border);text-align:center}
+.footer-legal{font-size:0.65rem;color:rgba(245,243,238,0.15);line-height:1.7;max-width:700px;margin:0 auto}
+
+@media(max-width:768px){
+  nav{padding:16px 20px}.nav-links{display:none}
+  .blog-hero,.articles-section,.blog-cta{padding-left:20px;padding-right:20px}
+  .articles-grid{grid-template-columns:1fr}
+  .topics-section{padding:40px 20px}
+  footer{padding:32px 20px}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo"><div class="nav-dot"></div><span class="nav-brand">KuroFlow</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#sistema">Sistema</a></li>
+    <li><a href="index.html#planes">Planes</a></li>
+    <li><a href="blog.html" style="color:var(--gold)">Blog</a></li>
+  </ul>
+  <a href="https://whop.com/kuro-flow" target="_blank" class="nav-cta">Desde €9 →</a>
+</nav>
+
+<div class="blog-hero">
+  <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Blog educativo</span></div>
+  <h1>Trading algorítmico<br>y prop firms — sin filtros.</h1>
+  <p>Artículos educativos sobre sistemas cuantitativos, gestión de riesgo y cómo operar en prop firms. Todo desde la experiencia real, no desde la teoría.</p>
+</div>
+
+<div class="articles-section">
+  <div class="articles-grid">
+
+    <!-- Featured article -->
+    <a href="blog/como-pasar-challenge-prop-firm.html" class="article-featured">
+      <div class="article-tag">// Prop Firms · Guía completa</div>
+      <h2>Cómo pasar un challenge de prop firm en 2026 — Guía definitiva</h2>
+      <p class="article-excerpt">Todo lo que necesitas saber antes de empezar un challenge: las reglas más importantes, los errores que cometen el 80% de los traders y cómo configurar tu gestión de riesgo para llegar al objetivo sin violar ninguna norma.</p>
+      <div class="article-meta">
+        <span>Diego Campero</span>
+        <span>·</span>
+        <span>Sep 2026</span>
+        <span>·</span>
+        <span>8 min lectura</span>
+      </div>
+      <span class="article-read">Leer artículo →</span>
+    </a>
+
+    <!-- Sidebar articles -->
+    <div class="articles-sidebar">
+      <a href="blog/como-pasar-challenge-prop-firm.html" class="article-card">
+        <div class="article-tag" style="font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Gestión de riesgo</div>
+        <h3>Cómo calcular el lot size correctamente según tu cuenta</h3>
+        <p>El error más común en prop firms es arriesgar demasiado. Aprende la fórmula exacta.</p>
+        <div class="article-meta"><span>5 min</span></div>
+        <div class="coming-badge" style="margin-top:8px">Próximamente</div>
+      </a>
+      <a href="#" class="article-card coming-soon">
+        <div class="coming-badge">Próximamente</div>
+        <h3>The5ers vs FTMO vs For Traders — Comparativa 2026</h3>
+        <p>Cuál elegir según tu estilo de trading y perfil de riesgo.</p>
+        <div class="article-meta"><span>6 min</span></div>
+      </a>
+      <a href="#" class="article-card coming-soon">
+        <div class="coming-badge">Próximamente</div>
+        <h3>Qué es el ADX y por qué es clave para sistemas algorítmicos</h3>
+        <p>El indicador que usa COMBO_TAC para detectar condiciones de mercado óptimas.</p>
+        <div class="article-meta"><span>4 min</span></div>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<div class="topics-section">
+  <div class="topics-inner">
+    <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Temas</span></div>
+    <div class="topics-grid">
+      <a href="#" class="topic-tag">Prop Firms</a>
+      <a href="#" class="topic-tag">Gestión de riesgo</a>
+      <a href="#" class="topic-tag">Trading algorítmico</a>
+      <a href="#" class="topic-tag">EURUSD</a>
+      <a href="#" class="topic-tag">USDJPY</a>
+      <a href="#" class="topic-tag">XAUUSD</a>
+      <a href="#" class="topic-tag">MetaTrader 5</a>
+      <a href="#" class="topic-tag">Sistemas cuantitativos</a>
+      <a href="#" class="topic-tag">COMBO_TAC</a>
+      <a href="#" class="topic-tag">Challenge FTMO</a>
+      <a href="#" class="topic-tag">The5ers</a>
+      <a href="#" class="topic-tag">For Traders</a>
+    </div>
+  </div>
+</div>
+
+<div class="blog-cta">
+  <h2>¿Quieres seguir el sistema<br>en tiempo real?</h2>
+  <p>Accede al diario algorítmico de KuroFlow — operativa real del sistema COMBO_TAC en Discord privado.</p>
+  <a href="https://whop.com/kuro-flow" target="_blank" class="btn-gold">Ver planes desde €9 →</a>
+</div>
+
+<footer>
+  <p class="footer-legal">⚠️ Todo el contenido de kuro-flow.com es exclusivamente educativo y no constituye asesoramiento financiero. El trading conlleva riesgo de pérdida de capital. © 2026 KuroFlow — Diego Campero.</p>
+</footer>
+</body>
+</html>
