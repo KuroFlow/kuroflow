@@ -255,7 +255,7 @@ footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--b
   .hero-btns{flex-direction:column}
   .btn-primary,.btn-outline{width:100%;justify-content:center}
   #stats{padding:48px 20px}
-  .stats-inner{grid-template-columns:repeat(3,1fr);overflow-x:hidden}
+  .stats-inner{grid-template-columns:repeat(3,1fr) !important;overflow-x:hidden;gap:1px}
   .section-wrap{padding:64px 20px}
   .section-wrap.dark{padding:64px 20px}
   .sistema-grid,.planes-grid,.propfirms-grid,.sobre-grid,.contacto-grid{grid-template-columns:1fr}
@@ -272,6 +272,10 @@ footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--b
   [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important}
   [style*="grid-template-columns:2fr 1fr"]{grid-template-columns:1fr !important}
   [style*="grid-template-columns:1fr 1fr 1fr"]{grid-template-columns:1fr !important}
+  .stats-inner{grid-template-columns:repeat(3,1fr) !important}
+  .stat-item:nth-child(n+4){display:none}
+  .stat-num{font-size:1.6rem !important}
+  .stat-label{font-size:0.6rem !important}
   .section-wrap.full .section-inner{padding:0 20px;width:100%;overflow-x:hidden}
 }
 </style>
@@ -811,7 +815,7 @@ footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--b
             <div style="font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">// Referente de la industria</div>
             <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem">FTMO</div>
           </div>
-          <div style="background:transparent;border:1px solid rgba(255,255,255,0.08);padding:4px 10px;font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)">⧗ Próximamente</div>
+          <a href="https://join.ftmo.com/YxmIxqxCWuqKGfcPaEJd" target="_blank" style="background:transparent;border:1px solid rgba(201,168,76,0.3);padding:4px 10px;font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:#c9a84c;text-decoration:none;display:inline-block">→ Ir a FTMO</a><span style="font-size:0.55rem;color:rgba(245,243,238,0.15);margin-left:6px">afiliado</span>
         </div>
         <p style="font-size:0.82rem;color:var(--muted);line-height:1.75">La prop firm más reconocida del sector. Challenge de 2 fases, alta transparencia y payouts rápidos. Referente y estándar absoluto de la industria.</p>
         <div style="display:flex;gap:6px;flex-wrap:wrap">
@@ -829,7 +833,7 @@ footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--b
             <div style="font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">// Precio accesible</div>
             <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem">GOAT Funded</div>
           </div>
-          <div style="background:transparent;border:1px solid rgba(255,255,255,0.08);padding:4px 10px;font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)">⧗ Próximamente</div>
+          <a href="https://join.ftmo.com/YxmIxqxCWuqKGfcPaEJd" target="_blank" style="background:transparent;border:1px solid rgba(201,168,76,0.3);padding:4px 10px;font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:#c9a84c;text-decoration:none;display:inline-block">→ Ir a FTMO</a><span style="font-size:0.55rem;color:rgba(245,243,238,0.15);margin-left:6px">afiliado</span>
         </div>
         <p style="font-size:0.82rem;color:var(--muted);line-height:1.75">Una de las opciones más accesibles del mercado. Ideal para empezar con capital reducido y validar el sistema antes de escalar a cuentas mayores.</p>
         <div style="display:flex;gap:6px;flex-wrap:wrap">
