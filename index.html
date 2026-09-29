@@ -1567,10 +1567,18 @@ function toggleChat(){
 }
 
 function linkify(text){
-  return (text || '').replace(/(https?:\/\/[^\s]+)/g, function(url){
-    var clean = url.replace(/[.,;:!?]$/, '')
-    return '<a href="' + clean + '" target="_blank" style="color:#c9a84c;text-decoration:underline">' + clean + '</a>'
-  }).replace(/\n/g, '<br>')
+  if(!text) return ''
+  // Match URLs with or without protocol
+  return text
+    .replace(/(https?:\/\/[^\s<]+)/g, function(url){
+      var clean = url.replace(/[.,;:!?]+$/, '')
+      return '<a href="' + clean + '" target="_blank" style="color:#c9a84c;text-decoration:underline;font-weight:700">' + clean + '</a>'
+    })
+    .replace(/(?<!["\/])((?:whop|kuro-flow|the5ers|ftmo|fortraders|app\.fortraders)\.(?:com|es)[^\s<,;:!?]*)/g, function(url){
+      var clean = url.replace(/[.,;:!?]+$/, '')
+      return '<a href="https://' + clean + '" target="_blank" style="color:#c9a84c;text-decoration:underline;font-weight:700">' + clean + '</a>'
+    })
+    .replace(/\n/g, '<br>')
 }
 
 function addMessage(text, type){
