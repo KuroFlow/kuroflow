@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Herramientas de Trading | KuroFlow</title>
+<meta name="description" content="Herramientas gratuitas y exclusivas para traders de prop firms — Calculadora de Lot Size, Risk/Reward Calculator, Prop Firm Tracker y Trade Journal.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://kuro-flow.com/herramientas.html">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23c9a84c'/%3E%3Ctext x='50' y='68' font-family='sans-serif' font-weight='900' font-size='54' fill='%230a0a0c' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@300;400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"></noscript>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden;width:100%}
+:root{--ink:#0a0a0c;--ink2:#0f0f12;--paper:#f5f3ee;--gold:#c9a84c;--border:rgba(255,255,255,0.07);--muted:rgba(245,243,238,0.5);--green:#6edd9e;--red:#ed6e6e}
+body{background:var(--ink);color:var(--paper);font-family:'DM Mono',monospace;line-height:1.6;min-height:100vh}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:rgba(10,10,12,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.nav-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:var(--paper)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:0.68rem;color:var(--muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-cta{font-family:'DM Mono',monospace;font-size:0.72rem;padding:10px 22px;background:var(--gold);color:var(--ink);text-decoration:none;font-weight:700}
+
+/* HERO */
+.tools-hero{padding:120px 48px 48px;max-width:1100px;margin:0 auto}
+.eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+.eyebrow-line{width:24px;height:1px;background:var(--gold)}
+.eyebrow-text{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold)}
+.tools-hero h1{font-family:'Syne',sans-serif;font-weight:800;font-size:2.4rem;letter-spacing:-0.02em;margin-bottom:12px}
+.tools-hero p{font-size:0.86rem;color:var(--muted);max-width:540px;line-height:1.9}
+
+/* TABS */
+.tabs-wrap{padding:0 48px;max-width:1100px;margin:0 auto 0}
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:0}
+.tab{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;padding:14px 24px;background:none;border:none;color:var(--muted);cursor:pointer;transition:color 0.2s;position:relative;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.tab:hover{color:var(--paper)}
+.tab.active{color:var(--gold)}
+.tab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--gold)}
+.tab-badge{font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;padding:2px 6px;border:1px solid}
+.tab-badge.free{border-color:rgba(110,221,158,0.3);color:var(--green)}
+.tab-badge.pro{border-color:rgba(201,168,76,0.3);color:var(--gold)}
+.tab-badge.mentoring{border-color:rgba(237,110,110,0.3);color:var(--red)}
+
+/* TOOL PANELS */
+.tools-content{max-width:1100px;margin:0 auto;padding:40px 48px 100px}
+.tool-panel{display:none}
+.tool-panel.active{display:block}
+
+/* LOCKED OVERLAY */
+.locked{position:relative}
+.locked-overlay{position:absolute;inset:0;background:rgba(10,10,12,0.85);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;z-index:10;backdrop-filter:blur(4px)}
+.locked-icon{font-size:2rem}
+.locked-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:var(--paper);text-align:center}
+.locked-sub{font-size:0.75rem;color:var(--muted);text-align:center;max-width:260px;line-height:1.6}
+.locked-btn{font-family:'DM Mono',monospace;font-size:0.72rem;font-weight:700;letter-spacing:0.06em;padding:10px 24px;background:var(--gold);color:var(--ink);text-decoration:none;transition:opacity 0.2s}
+.locked-btn:hover{opacity:0.85}
+
+/* TOOL LAYOUT */
+.tool-header{margin-bottom:32px}
+.tool-tag{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.tool-tag::before{content:'';width:16px;height:1px;background:var(--gold)}
+.tool-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;letter-spacing:-0.02em;margin-bottom:8px}
+.tool-desc{font-size:0.84rem;color:var(--muted);line-height:1.8;max-width:560px}
+
+/* CALCULATOR SHARED */
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.calc-inputs{display:flex;flex-direction:column;gap:16px}
+.input-group{display:flex;flex-direction:column;gap:6px}
+.input-group label{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,243,238,0.35)}
+.input-group input,.input-group select{width:100%;background:#0f0f12;border:1px solid rgba(255,255,255,0.08);color:var(--paper);font-family:'DM Mono',monospace;font-size:0.9rem;padding:11px 14px;outline:none;transition:border-color 0.2s}
+.input-group input:focus,.input-group select:focus{border-color:var(--gold)}
+.calc-btn{width:100%;background:var(--gold);color:var(--ink);font-family:'DM Mono',monospace;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;padding:13px;border:none;cursor:pointer;transition:opacity 0.2s;margin-top:8px}
+.calc-btn:hover{opacity:0.85}
+.calc-result{background:#0f0f12;border:1px solid rgba(201,168,76,0.2);padding:28px;display:flex;flex-direction:column;gap:16px}
+.result-main{text-align:center;padding:24px;background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.15)}
+.result-label{font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.result-value{font-family:'Syne',sans-serif;font-weight:800;font-size:2.4rem;color:var(--gold);line-height:1}
+.result-unit{font-size:0.75rem;color:var(--muted);margin-top:4px}
+.result-breakdown{display:flex;flex-direction:column;gap:10px}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.78rem}
+.result-row:last-child{border:none}
+.result-row-label{color:var(--muted)}
+.result-row-val{color:var(--paper);font-weight:700}
+
+/* PROP FIRM TRACKER */
+.tracker-grid{display:grid;gap:12px}
+.tracker-account{background:#0f0f12;border:1px solid var(--border);padding:24px}
+.tracker-account-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.tracker-account-name{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem}
+.tracker-bars{display:flex;flex-direction:column;gap:12px}
+.tracker-bar-wrap{display:flex;flex-direction:column;gap:6px}
+.tracker-bar-header{display:flex;justify-content:space-between;font-size:0.72rem}
+.tracker-bar-label{color:var(--muted)}
+.tracker-bar-val{font-weight:700}
+.tracker-bar-bg{height:8px;background:rgba(255,255,255,0.06);overflow:hidden}
+.tracker-bar-fill{height:100%;transition:width 0.6s ease;border-radius:0}
+.add-account-btn{width:100%;padding:14px;background:none;border:1px dashed rgba(255,255,255,0.1);color:var(--muted);font-family:'DM Mono',monospace;font-size:0.75rem;cursor:pointer;letter-spacing:0.06em;transition:all 0.2s;margin-top:4px}
+.add-account-btn:hover{border-color:rgba(201,168,76,0.3);color:var(--gold)}
+
+/* TRADE JOURNAL */
+.journal-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:24px}
+.journal-stat{background:#0f0f12;border:1px solid var(--border);padding:16px}
+.journal-stat-val{font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;margin-bottom:4px}
+.journal-stat-label{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
+.journal-table{width:100%;border-collapse:collapse}
+.journal-table th{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,243,238,0.25);padding:10px 14px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06);font-weight:400}
+.journal-table td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.78rem;color:var(--muted)}
+.journal-table tr:last-child td{border:none}
+.journal-table tr:hover td{background:rgba(255,255,255,0.02)}
+.win-cell{color:#6edd9e;font-weight:700}
+.loss-cell{color:#ed6e6e;font-weight:700}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:32px 48px;text-align:center}
+.footer-legal{font-size:0.65rem;color:rgba(245,243,238,0.15);line-height:1.7;max-width:700px;margin:0 auto}
+
+@media(max-width:768px){
+  nav{padding:16px 20px}.nav-links{display:none}
+  .tools-hero,.tabs-wrap,.tools-content{padding-left:20px;padding-right:20px}
+  .tools-hero{padding-top:100px}
+  .calc-grid{grid-template-columns:1fr}
+  .journal-stats{grid-template-columns:1fr 1fr}
+  .tabs{overflow-x:auto;padding-bottom:0}
+  footer{padding:24px 20px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><div class="nav-dot"></div><span class="nav-brand">KuroFlow</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#sistema">Sistema</a></li>
+    <li><a href="index.html#planes">Planes</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="herramientas.html" class="active">Herramientas</a></li>
+  </ul>
+  <a href="https://whop.com/kuro-flow" target="_blank" class="nav-cta">Desde €9 →</a>
+</nav>
+
+<div class="tools-hero">
+  <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Herramientas gratuitas y exclusivas</span></div>
+  <h1>Calcula. Rastrea.<br>Opera mejor.</h1>
+  <p>Herramientas diseñadas para traders de prop firms. Algunas son gratuitas para todos — las más avanzadas están incluidas en los planes Pro y Mentoring.</p>
+</div>
+
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('lot')">
+      Lot Size Calculator <span class="tab-badge free">Gratis</span>
+    </button>
+    <button class="tab" onclick="showTab('rr')">
+      Risk/Reward <span class="tab-badge free">Gratis</span>
+    </button>
+    <button class="tab" onclick="showTab('tracker')">
+      Prop Firm Tracker <span class="tab-badge pro">Pro</span>
+    </button>
+    <button class="tab" onclick="showTab('journal')">
+      Trade Journal <span class="tab-badge mentoring">Mentoring</span>
+    </button>
+  </div>
+</div>
+
+<div class="tools-content">
+
+  <!-- ═══ LOT SIZE CALCULATOR ═══ -->
+  <div class="tool-panel active" id="panel-lot">
+    <div class="tool-header">
+      <div class="tool-tag">Calculadora gratuita</div>
+      <div class="tool-title">Lot Size Calculator</div>
+      <div class="tool-desc">Calcula el tamaño de posición exacto según tu balance, riesgo y stop loss. El error más común en prop firms es arriesgar demasiado — esta calculadora lo evita.</div>
+    </div>
+    <div class="calc-grid">
+      <div class="calc-inputs">
+        <div class="input-group">
+          <label>Balance de la cuenta</label>
+          <input type="number" id="ls-balance" value="10000" placeholder="10000">
+        </div>
+        <div class="input-group">
+          <label>Riesgo por operación (%)</label>
+          <input type="number" id="ls-risk" value="1" step="0.1" min="0.1" max="5" placeholder="1">
+        </div>
+        <div class="input-group">
+          <label>Stop Loss (pips)</label>
+          <input type="number" id="ls-sl" value="20" placeholder="20">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="input-group">
+            <label>Par de divisas</label>
+            <select id="ls-pair">
+              <option value="major">EURUSD</option>
+              <option value="major">GBPUSD</option>
+              <option value="major">USDCHF</option>
+              <option value="jpy">USDJPY</option>
+              <option value="jpy">GBPJPY</option>
+              <option value="jpy">EURJPY</option>
+              <option value="gold">XAUUSD (Oro)</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Moneda cuenta</label>
+            <select id="ls-currency">
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-group" id="ls-fx-group" style="display:none">
+          <label>Tipo de cambio → USD</label>
+          <input type="number" id="ls-fx" value="1.08" step="0.001">
+        </div>
+        <button class="calc-btn" onclick="calcLotSize()">Calcular lot size →</button>
+      </div>
+      <div class="calc-result">
+        <div class="result-main">
+          <div class="result-label">Lot size recomendado</div>
+          <div class="result-value" id="ls-result-val">—</div>
+          <div class="result-unit">lotes estándar</div>
+        </div>
+        <div class="result-breakdown" id="ls-breakdown" style="display:none">
+          <div class="result-row"><span class="result-row-label">Riesgo en USD</span><span class="result-row-val" id="ls-risk-usd">—</span></div>
+          <div class="result-row"><span class="result-row-label">Valor del pip</span><span class="result-row-val" id="ls-pip-val">—</span></div>
+          <div class="result-row"><span class="result-row-label">Stop loss</span><span class="result-row-val" id="ls-sl-val">—</span></div>
+          <div class="result-row"><span class="result-row-label">Pérdida máxima</span><span class="result-row-val" id="ls-max-loss">—</span></div>
+        </div>
+        <div style="font-size:0.68rem;color:rgba(245,243,238,0.2);line-height:1.6;margin-top:8px">⚠️ Herramienta educativa. Verifica siempre con tu broker antes de operar.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ RISK/REWARD CALCULATOR ═══ -->
+  <div class="tool-panel" id="panel-rr">
+    <div class="tool-header">
+      <div class="tool-tag">Calculadora gratuita</div>
+      <div class="tool-title">Risk/Reward Calculator</div>
+      <div class="tool-desc">Calcula el ratio Risk/Reward antes de entrar en cada operación. Un R:R mínimo de 1:1.5 es recomendable para que el sistema sea rentable a largo plazo incluso con un win rate del 50%.</div>
+    </div>
+    <div class="calc-grid">
+      <div class="calc-inputs">
+        <div class="input-group">
+          <label>Precio de entrada</label>
+          <input type="number" id="rr-entry" placeholder="1.0850" step="0.0001">
+        </div>
+        <div class="input-group">
+          <label>Stop Loss</label>
+          <input type="number" id="rr-sl" placeholder="1.0820" step="0.0001">
+        </div>
+        <div class="input-group">
+          <label>Take Profit</label>
+          <input type="number" id="rr-tp" placeholder="1.0920" step="0.0001">
+        </div>
+        <div class="input-group">
+          <label>Dirección</label>
+          <select id="rr-dir">
+            <option value="long">▲ Long (Compra)</option>
+            <option value="short">▼ Short (Venta)</option>
+          </select>
+        </div>
+        <button class="calc-btn" onclick="calcRR()">Calcular R:R →</button>
+      </div>
+      <div class="calc-result">
+        <div class="result-main">
+          <div class="result-label">Ratio Risk/Reward</div>
+          <div class="result-value" id="rr-result-val">—</div>
+          <div class="result-unit" id="rr-result-label">introduce los datos</div>
+        </div>
+        <div class="result-breakdown" id="rr-breakdown" style="display:none">
+          <div class="result-row"><span class="result-row-label">Riesgo (pips)</span><span class="result-row-val" id="rr-risk-pips">—</span></div>
+          <div class="result-row"><span class="result-row-label">Beneficio potencial (pips)</span><span class="result-row-val" id="rr-reward-pips">—</span></div>
+          <div class="result-row"><span class="result-row-label">Win rate mínimo necesario</span><span class="result-row-val" id="rr-min-wr">—</span></div>
+          <div class="result-row"><span class="result-row-label">Valoración</span><span class="result-row-val" id="rr-rating">—</span></div>
+        </div>
+        <div style="font-size:0.68rem;color:rgba(245,243,238,0.2);line-height:1.6;margin-top:8px">⚠️ Herramienta educativa. Verifica siempre con tu broker antes de operar.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PROP FIRM TRACKER ═══ -->
+  <div class="tool-panel" id="panel-tracker">
+    <div class="tool-header">
+      <div class="tool-tag">Exclusivo Plan Pro</div>
+      <div class="tool-title">Prop Firm Tracker</div>
+      <div class="tool-desc">Rastrea el drawdown diario y total de tus cuentas fondeadas en tiempo real. Configura alertas visuales cuando te acerques a los límites.</div>
+    </div>
+    <div style="position:relative">
+      <div style="filter:blur(3px);pointer-events:none">
+        <div class="tracker-grid">
+          <div class="tracker-account">
+            <div class="tracker-account-header">
+              <div>
+                <div class="tracker-account-name">The5ers — $100K</div>
+                <div style="font-size:0.68rem;color:var(--muted);margin-top:2px">Fase 1 · Activa</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-size:0.68rem;color:var(--muted)">Objetivo</div>
+                <div style="font-family:'Syne',sans-serif;font-weight:800;color:var(--green)">+$2,840 / $8,000</div>
+              </div>
+            </div>
+            <div class="tracker-bars">
+              <div class="tracker-bar-wrap">
+                <div class="tracker-bar-header">
+                  <span class="tracker-bar-label">Drawdown diario</span>
+                  <span class="tracker-bar-val" style="color:var(--green)">-0.8% / 4%</span>
+                </div>
+                <div class="tracker-bar-bg"><div class="tracker-bar-fill" style="width:20%;background:#6edd9e"></div></div>
+              </div>
+              <div class="tracker-bar-wrap">
+                <div class="tracker-bar-header">
+                  <span class="tracker-bar-label">Drawdown total</span>
+                  <span class="tracker-bar-val" style="color:var(--green)">-1.2% / 5%</span>
+                </div>
+                <div class="tracker-bar-bg"><div class="tracker-bar-fill" style="width:24%;background:#6edd9e"></div></div>
+              </div>
+              <div class="tracker-bar-wrap">
+                <div class="tracker-bar-header">
+                  <span class="tracker-bar-label">Progreso objetivo</span>
+                  <span class="tracker-bar-val" style="color:var(--gold)">35.5%</span>
+                </div>
+                <div class="tracker-bar-bg"><div class="tracker-bar-fill" style="width:35.5%;background:#c9a84c"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="tracker-account">
+            <div class="tracker-account-header">
+              <div>
+                <div class="tracker-account-name">FTMO — $50K</div>
+                <div style="font-size:0.68rem;color:var(--muted);margin-top:2px">Fase 2 · Activa</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-size:0.68rem;color:var(--muted)">Objetivo</div>
+                <div style="font-family:'Syne',sans-serif;font-weight:800;color:var(--gold)">+$1,100 / $2,500</div>
+              </div>
+            </div>
+            <div class="tracker-bars">
+              <div class="tracker-bar-wrap">
+                <div class="tracker-bar-header">
+                  <span class="tracker-bar-label">Drawdown diario</span>
+                  <span class="tracker-bar-val" style="color:var(--gold)">-3.2% / 5%</span>
+                </div>
+                <div class="tracker-bar-bg"><div class="tracker-bar-fill" style="width:64%;background:#c9a84c"></div></div>
+              </div>
+              <div class="tracker-bar-wrap">
+                <div class="tracker-bar-header">
+                  <span class="tracker-bar-label">Drawdown total</span>
+                  <span class="tracker-bar-val" style="color:var(--green)">-2.1% / 10%</span>
+                </div>
+                <div class="tracker-bar-bg"><div class="tracker-bar-fill" style="width:21%;background:#6edd9e"></div></div>
+              </div>
+              <div class="tracker-bar-wrap">
+                <div class="tracker-bar-header">
+                  <span class="tracker-bar-label">Progreso objetivo</span>
+                  <span class="tracker-bar-val" style="color:var(--gold)">44%</span>
+                </div>
+                <div class="tracker-bar-bg"><div class="tracker-bar-fill" style="width:44%;background:#c9a84c"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="locked-overlay">
+        <div class="locked-icon">🔒</div>
+        <div class="locked-title">Disponible en Plan Pro</div>
+        <div class="locked-sub">Rastrea el DD diario y total de todas tus cuentas fondeadas desde un solo lugar.</div>
+        <a href="https://whop.com/kuro-flow/kuroflow-pro" target="_blank" class="locked-btn">Empezar por €19/mes →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ TRADE JOURNAL ═══ -->
+  <div class="tool-panel" id="panel-journal">
+    <div class="tool-header">
+      <div class="tool-tag">Exclusivo Plan Mentoring</div>
+      <div class="tool-title">Trade Journal</div>
+      <div class="tool-desc">Registra cada operación con estadísticas automáticas. Identifica patrones, mejora tu consistencia y comparte el journal para revisión mensual en la sesión 1:1.</div>
+    </div>
+    <div style="position:relative">
+      <div style="filter:blur(3px);pointer-events:none">
+        <div class="journal-stats">
+          <div class="journal-stat">
+            <div class="journal-stat-val" style="color:var(--gold)">68%</div>
+            <div class="journal-stat-label">Win Rate</div>
+          </div>
+          <div class="journal-stat">
+            <div class="journal-stat-val">24</div>
+            <div class="journal-stat-label">Operaciones</div>
+          </div>
+          <div class="journal-stat">
+            <div class="journal-stat-val" style="color:var(--green)">$4,820</div>
+            <div class="journal-stat-label">PnL total</div>
+          </div>
+          <div class="journal-stat">
+            <div class="journal-stat-val">1.8</div>
+            <div class="journal-stat-label">Avg R:R</div>
+          </div>
+        </div>
+        <table class="journal-table">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Par</th>
+              <th>Dir.</th>
+              <th>Entrada</th>
+              <th>Salida</th>
+              <th>R:R</th>
+              <th>PnL</th>
+              <th>Resultado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>22 Sep</td><td>EURUSD</td><td>▲</td><td>1.0842</td><td>1.0891</td><td>1.8</td><td class="win-cell">+$410</td><td class="win-cell">WIN</td></tr>
+            <tr><td>20 Sep</td><td>USDJPY</td><td>▼</td><td>148.32</td><td>147.81</td><td>2.1</td><td class="win-cell">+$380</td><td class="win-cell">WIN</td></tr>
+            <tr><td>18 Sep</td><td>XAUUSD</td><td>▲</td><td>2,612</td><td>2,598</td><td>—</td><td class="loss-cell">-$280</td><td class="loss-cell">LOSS</td></tr>
+            <tr><td>15 Sep</td><td>GBPUSD</td><td>▲</td><td>1.3120</td><td>1.3178</td><td>1.6</td><td class="win-cell">+$350</td><td class="win-cell">WIN</td></tr>
+            <tr><td>12 Sep</td><td>EURUSD</td><td>▼</td><td>1.0910</td><td>1.0868</td><td>2.0</td><td class="win-cell">+$420</td><td class="win-cell">WIN</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="locked-overlay">
+        <div class="locked-icon">🔒</div>
+        <div class="locked-title">Disponible en Plan Mentoring</div>
+        <div class="locked-sub">Incluye revisión mensual de tu journal en la sesión 1:1 con KuroFlow.</div>
+        <a href="https://whop.com/kuro-flow/kuroflow-mentoring" target="_blank" class="locked-btn">Empezar por €49/mes →</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p class="footer-legal">⚠️ Todas las herramientas son exclusivamente educativas. No constituyen asesoramiento financiero. El trading conlleva riesgo de pérdida de capital. © 2026 KuroFlow · <a href="riesgos.html" style="color:rgba(201,168,76,0.3)">Disclaimer</a> · <a href="terms.html" style="color:rgba(201,168,76,0.3)">Términos</a></p>
+</footer>
+
+<script>
+// ─── TAB NAVIGATION ───────────────────────────────
+function showTab(id) {
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active') })
+  document.querySelectorAll('.tool-panel').forEach(function(p){ p.classList.remove('active') })
+  event.currentTarget.classList.add('active')
+  document.getElementById('panel-'+id).classList.add('active')
+}
+
+// ─── LOT SIZE CALCULATOR ──────────────────────────
+var fxCache = {}
+
+function calcLotSize() {
+  var balance = parseFloat(document.getElementById('ls-balance').value) || 0
+  var risk = parseFloat(document.getElementById('ls-risk').value) || 0
+  var sl = parseFloat(document.getElementById('ls-sl').value) || 0
+  var pair = document.getElementById('ls-pair').value
+  var currency = document.getElementById('ls-currency').value
+  var fx = parseFloat(document.getElementById('ls-fx').value) || 1
+
+  if (!balance || !risk || !sl) return
+
+  var pipValues = { major: 10, jpy: 9.09, gold: 1 }
+  var pipVal = pipValues[pair] || 10
+  var pipLabels = { major: '$10/pip por lote', jpy: '≈$9.09/pip por lote', gold: '$1/pip por lote' }
+
+  var balanceUSD = currency === 'USD' ? balance : balance * fx
+  var riskUSD = balanceUSD * (risk / 100)
+  var lotSize = Math.floor((riskUSD / (sl * pipVal)) * 100) / 100
+  var currSym = { USD: '$', EUR: '€', GBP: '£' }[currency] || '$'
+
+  document.getElementById('ls-result-val').textContent = lotSize.toFixed(2)
+  document.getElementById('ls-risk-usd').textContent = currSym + (balance * risk / 100).toFixed(2) + (currency !== 'USD' ? ' ≈ $' + riskUSD.toFixed(2) : '')
+  document.getElementById('ls-pip-val').textContent = pipLabels[pair]
+  document.getElementById('ls-sl-val').textContent = sl + ' pips'
+  document.getElementById('ls-max-loss').textContent = '$' + (lotSize * sl * pipVal).toFixed(2)
+  document.getElementById('ls-breakdown').style.display = 'flex'
+}
+
+document.getElementById('ls-currency').addEventListener('change', function() {
+  var grp = document.getElementById('ls-fx-group')
+  if (this.value !== 'USD') {
+    grp.style.display = 'flex'
+    var defaults = { EUR: 1.08, GBP: 1.27 }
+    document.getElementById('ls-fx').value = defaults[this.value] || 1
+  } else {
+    grp.style.display = 'none'
+  }
+})
+
+// ─── RISK/REWARD CALCULATOR ───────────────────────
+function calcRR() {
+  var entry = parseFloat(document.getElementById('rr-entry').value)
+  var sl = parseFloat(document.getElementById('rr-sl').value)
+  var tp = parseFloat(document.getElementById('rr-tp').value)
+  var dir = document.getElementById('rr-dir').value
+
+  if (!entry || !sl || !tp) return
+
+  var risk, reward
+  if (dir === 'long') {
+    risk = Math.abs(entry - sl)
+    reward = Math.abs(tp - entry)
+  } else {
+    risk = Math.abs(sl - entry)
+    reward = Math.abs(entry - tp)
+  }
+
+  if (risk === 0) return
+
+  var rr = reward / risk
+  var minWR = Math.round((1 / (1 + rr)) * 100)
+
+  var rating, ratingColor
+  if (rr >= 2) { rating = '✓ Excelente'; ratingColor = '#6edd9e' }
+  else if (rr >= 1.5) { rating = '✓ Bueno'; ratingColor = '#6edd9e' }
+  else if (rr >= 1) { rating = '⚠ Aceptable'; ratingColor = '#c9a84c' }
+  else { rating = '✗ Bajo'; ratingColor = '#ed6e6e' }
+
+  var toFixed = entry < 100 ? 4 : entry < 1000 ? 2 : 1
+  var riskPips = (risk * (entry < 10 ? 100 : entry < 100 ? 10000 : 10)).toFixed(0)
+  var rewardPips = (reward * (entry < 10 ? 100 : entry < 100 ? 10000 : 10)).toFixed(0)
+
+  document.getElementById('rr-result-val').textContent = '1:' + rr.toFixed(2)
+  document.getElementById('rr-result-val').style.color = ratingColor
+  document.getElementById('rr-result-label').textContent = rating
+  document.getElementById('rr-risk-pips').textContent = riskPips + ' pips'
+  document.getElementById('rr-reward-pips').textContent = rewardPips + ' pips'
+  document.getElementById('rr-min-wr').textContent = minWR + '%'
+  document.getElementById('rr-rating').textContent = rating
+  document.getElementById('rr-rating').style.color = ratingColor
+  document.getElementById('rr-breakdown').style.display = 'flex'
+}
+
+// Recalculate on enter
+document.querySelectorAll('#panel-lot input, #panel-rr input').forEach(function(inp) {
+  inp.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      if (this.id.startsWith('ls-')) calcLotSize()
+      else calcRR()
+    }
+  })
+})
+
+// Auto-calc on load
+calcLotSize()
+</script>
+</body>
+</html>
