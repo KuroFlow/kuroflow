@@ -1554,6 +1554,7 @@ setInterval(function(){
 }, 500)
 </script>
 
+
 <script>
 var kfOpen = false
 var kfHistory = []
@@ -1567,23 +1568,29 @@ function toggleChat(){
 
 function addMessage(text, type){
   var msgs = document.getElementById('kf-messages')
+  if(!msgs) return null
   var chips = msgs.querySelector('.kf-chips-wrap')
   if(chips) chips.remove()
   var div = document.createElement('div')
   div.className = 'kf-msg kf-msg-' + type
-  div.textContent = text
+  div.textContent = text || ''
   msgs.appendChild(div)
   msgs.scrollTop = msgs.scrollHeight
   return div
 }
 
+function removeTyping(el){
+  try { if(el && el.parentNode) el.remove() } catch(e){}
+}
+
 function sendChip(text){
-  document.getElementById('kf-input').value = text
-  sendMessage()
+  var input = document.getElementById('kf-input')
+  if(input){ input.value = text; sendMessage() }
 }
 
 async function sendMessage(){
   var input = document.getElementById('kf-input')
+  if(!input) return
   var text = input.value.trim()
   if(!text) return
   input.value = ''
@@ -1597,15 +1604,15 @@ async function sendMessage(){
       body: JSON.stringify({messages: kfHistory.slice(-8)})
     })
     var data = await res.json()
-    typing.remove()
-    if(data.ok){
+    removeTyping(typing)
+    if(data && data.ok && data.reply){
       addMessage(data.reply, 'bot')
       kfHistory.push({"role":"assistant","content":data.reply})
     } else {
       addMessage('Lo siento, hubo un error. Escribe a support@kuro-flow.com', 'bot')
     }
   } catch(e) {
-    typing.remove()
+    removeTyping(typing)
     addMessage('Error de conexion. Escribe a support@kuro-flow.com', 'bot')
   }
 }
