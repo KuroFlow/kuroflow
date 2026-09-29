@@ -367,5 +367,25 @@ footer{background:var(--ink);padding:40px 48px;border-top:1px solid var(--border
 <footer>
   <p class="footer-legal">⚠️ Todo el contenido de kuro-flow.com es exclusivamente educativo y no constituye asesoramiento financiero. El trading conlleva riesgo de pérdida de capital. © 2026 KuroFlow — Diego Campero.</p>
 </footer>
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()})
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey&&[67,88,85,83,80].indexOf(e.keyCode)!==-1){e.preventDefault();return false}
+  if(e.keyCode===123){e.preventDefault();return false}
+  if(e.ctrlKey&&e.shiftKey&&[73,74,67].indexOf(e.keyCode)!==-1){e.preventDefault();return false}
+})
+document.addEventListener('copy',function(e){
+  var sel=window.getSelection().toString()
+  if(sel.length>30){
+    e.clipboardData.setData('text/plain',sel+'\n\n© KuroFlow — kuro-flow.com\nContenido protegido. Todos los derechos reservados.')
+    e.preventDefault()
+  }
+})
+document.addEventListener('DOMContentLoaded',function(){
+  var s=document.createElement('style')
+  s.innerHTML='::selection{background:transparent}::-moz-selection{background:transparent}body{-webkit-user-select:none;-moz-user-select:none;user-select:none}'
+  document.head.appendChild(s)
+})
+</script>
 </body>
 </html>
