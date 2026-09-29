@@ -1394,5 +1394,131 @@ setInterval(updateCountdown, 60000);
 })()
 </script>
 
+
+<!-- KUROFLOW CHAT WIDGET -->
+<div id="kf-chat-btn" onclick="toggleChat()" style="position:fixed;bottom:24px;right:24px;z-index:1000;width:56px;height:56px;border-radius:50%;background:#c9a84c;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(201,168,76,0.4);transition:transform 0.2s" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="#0a0a0c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</div>
+
+<div id="kf-chat-window" style="position:fixed;bottom:90px;right:24px;z-index:1000;width:360px;height:520px;background:#0f0f12;border:1px solid rgba(201,168,76,0.25);display:none;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,0.5);overflow:hidden">
+
+  <!-- Header -->
+  <div style="background:#0a0a0c;padding:16px 20px;border-bottom:1px solid rgba(201,168,76,0.15);display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="width:8px;height:8px;border-radius:50%;background:#6edd9e;animation:pulse 2s infinite"></div>
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:0.85rem;color:#f5f3ee">KuroFlow AI</div>
+        <div style="font-size:0.6rem;color:rgba(245,243,238,0.3);letter-spacing:0.06em">Pregúntame lo que quieras</div>
+      </div>
+    </div>
+    <button onclick="toggleChat()" style="background:none;border:none;color:rgba(245,243,238,0.3);cursor:pointer;font-size:1.2rem;padding:0;line-height:1">×</button>
+  </div>
+
+  <!-- Messages -->
+  <div id="kf-messages" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth">
+    <div class="kf-msg kf-msg-bot">
+      Hola 👋 Soy el asistente de KuroFlow.<br><br>
+      Puedo contarte todo sobre el sistema COMBO_TAC, los planes, las prop firms o cómo empezar.<br><br>
+      ¿Qué quieres saber?
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="kf-chip" onclick="sendChip('¿Qué es COMBO_TAC?')">¿Qué es COMBO_TAC?</button>
+      <button class="kf-chip" onclick="sendChip('¿Cuánto cuesta?')">¿Cuánto cuesta?</button>
+      <button class="kf-chip" onclick="sendChip('¿Funciona en prop firms?')">¿Funciona en prop firms?</button>
+    </div>
+  </div>
+
+  <!-- Input -->
+  <div style="padding:12px 16px;border-top:1px solid rgba(255,255,255,0.06);display:flex;gap:8px;flex-shrink:0">
+    <input id="kf-input" type="text" placeholder="Escribe tu pregunta..." maxlength="300"
+      style="flex:1;background:#0a0a0c;border:1px solid rgba(255,255,255,0.08);color:#f5f3ee;font-family:'DM Mono',monospace;font-size:0.78rem;padding:10px 14px;outline:none;transition:border-color 0.2s"
+      onfocus="this.style.borderColor='#c9a84c'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'"
+      onkeydown="if(event.key==='Enter')sendMessage()">
+    <button onclick="sendMessage()" style="background:#c9a84c;border:none;color:#0a0a0c;padding:10px 14px;cursor:pointer;font-family:'DM Mono',monospace;font-size:0.78rem;font-weight:700;transition:opacity 0.2s" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">→</button>
+  </div>
+
+  <!-- Legal -->
+  <div style="padding:6px 16px 10px;font-size:0.58rem;color:rgba(245,243,238,0.15);text-align:center">
+    Contenido educativo · No es asesoramiento financiero
+  </div>
+</div>
+
+<style>
+.kf-msg{font-size:0.78rem;line-height:1.7;padding:12px 16px;max-width:85%}
+.kf-msg-bot{background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.12);color:rgba(245,243,238,0.85);align-self:flex-start;border-radius:0 12px 12px 12px}
+.kf-msg-user{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:rgba(245,243,238,0.7);align-self:flex-end;border-radius:12px 0 12px 12px}
+.kf-msg-typing{background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.12);color:rgba(201,168,76,0.6);align-self:flex-start;padding:12px 16px;font-size:0.75rem;border-radius:0 12px 12px 12px}
+.kf-chip{background:none;border:1px solid rgba(201,168,76,0.25);color:#c9a84c;font-family:'DM Mono',monospace;font-size:0.65rem;padding:5px 12px;cursor:pointer;transition:all 0.2s;letter-spacing:0.04em}
+.kf-chip:hover{background:rgba(201,168,76,0.08);border-color:rgba(201,168,76,0.5)}
+#kf-messages::-webkit-scrollbar{width:4px}
+#kf-messages::-webkit-scrollbar-track{background:transparent}
+#kf-messages::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.2)}
+</style>
+
+
+
+<script>
+var kfOpen = false
+var kfHistory = []
+
+var KF_SYSTEM = "Eres el asistente de KuroFlow, un diario algoritmico de trading para prop firms. SOBRE KUROFLOW: El sistema COMBO_TAC opera en EURUSD, GBPUSD, USDJPY y XAUUSD en M15. Estadisticas backtest 2019-2024: WR 65%, Max DD -2.1%, Sharpe 9.04, 7 trades/mes. Challenge activo en For Traders. Retiros verificados The5ers: $4,986 y $2,080 = $7,066 total. PLANES (precio fundador bloqueado para siempre): Basic 9 euros/mes (normal 29) incluye alertas tiempo real + Discord + informe mensual PDF. Pro 19 euros/mes (normal 79) incluye todo Basic + contexto de cada entrada + Prop Firm Tracker + Risk/Reward Calculator. Mentoring 49 euros/mes (normal 199) incluye todo Pro + Trade Journal + sesion 1:1 mensual + max 8 plazas. PROP FIRMS: The5ers sin limite de tiempo the5ers.com/?afmc=1g0t, FTMO referente join.ftmo.com/YxmIxqxCWuqKGfcPaEJd, For Traders sin restriccion noticias app.fortraders.com codigo HJ5GP0HZBS. SUSCRIPCION: whop.com/kuro-flow. HERRAMIENTAS GRATIS: kuro-flow.com/herramientas.html. REGLAS: responde siempre en espanol, maximo 3-4 frases por respuesta, nunca des recomendaciones de inversion personalizadas, si quieren suscribirse dales whop.com/kuro-flow, si no sabes algo di que escriban a support@kuro-flow.com"
+
+function toggleChat(){
+  kfOpen = !kfOpen
+  var w = document.getElementById('kf-chat-window')
+  w.style.display = kfOpen ? 'flex' : 'none'
+  if(kfOpen) document.getElementById('kf-input').focus()
+}
+
+function addMessage(text, type){
+  var msgs = document.getElementById('kf-messages')
+  var chips = msgs.querySelector('.kf-chips')
+  if(chips) chips.remove()
+  var div = document.createElement('div')
+  div.className = 'kf-msg kf-msg-' + type
+  div.textContent = text
+  msgs.appendChild(div)
+  msgs.scrollTop = msgs.scrollHeight
+  return div
+}
+
+function sendChip(text){
+  document.getElementById('kf-input').value = text
+  sendMessage()
+}
+
+async function sendMessage(){
+  var input = document.getElementById('kf-input')
+  var text = input.value.trim()
+  if(!text) return
+  input.value = ''
+  addMessage(text, 'user')
+  kfHistory.push({"role":"user","content":text})
+  var typing = addMessage('Escribiendo...', 'typing')
+  try {
+    var res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 400,
+        system: KF_SYSTEM,
+        messages: kfHistory.slice(-8)
+      })
+    })
+    var data = await res.json()
+    var reply = (data.content && data.content[0]) ? data.content[0].text : 'Hubo un error. Escribe a support@kuro-flow.com'
+    typing.remove()
+    addMessage(reply, 'bot')
+    kfHistory.push({"role":"assistant","content":reply})
+  } catch(e) {
+    typing.remove()
+    addMessage('Error de conexion. Escribe a support@kuro-flow.com', 'bot')
+  }
+}
+
+</script>
 </body>
 </html>
