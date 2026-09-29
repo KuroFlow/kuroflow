@@ -1459,11 +1459,10 @@ setInterval(updateCountdown, 60000);
 
 
 
+
 <script>
 var kfOpen = false
 var kfHistory = []
-
-var KF_SYSTEM = "Eres el asistente de KuroFlow, un diario algoritmico de trading para prop firms. SOBRE KUROFLOW: El sistema COMBO_TAC opera en EURUSD, GBPUSD, USDJPY y XAUUSD en M15. Estadisticas backtest 2019-2024: WR 65%, Max DD -2.1%, Sharpe 9.04, 7 trades/mes. Challenge activo en For Traders. Retiros verificados The5ers: $4,986 y $2,080 = $7,066 total. PLANES (precio fundador bloqueado para siempre): Basic 9 euros/mes (normal 29) incluye alertas tiempo real + Discord + informe mensual PDF. Pro 19 euros/mes (normal 79) incluye todo Basic + contexto de cada entrada + Prop Firm Tracker + Risk/Reward Calculator. Mentoring 49 euros/mes (normal 199) incluye todo Pro + Trade Journal + sesion 1:1 mensual + max 8 plazas. PROP FIRMS: The5ers sin limite de tiempo the5ers.com/?afmc=1g0t, FTMO referente join.ftmo.com/YxmIxqxCWuqKGfcPaEJd, For Traders sin restriccion noticias app.fortraders.com codigo HJ5GP0HZBS. SUSCRIPCION: whop.com/kuro-flow. HERRAMIENTAS GRATIS: kuro-flow.com/herramientas.html. REGLAS: responde siempre en espanol, maximo 3-4 frases por respuesta, nunca des recomendaciones de inversion personalizadas, si quieren suscribirse dales whop.com/kuro-flow, si no sabes algo di que escriban a support@kuro-flow.com"
 
 function toggleChat(){
   kfOpen = !kfOpen
@@ -1498,21 +1497,19 @@ async function sendMessage(){
   kfHistory.push({"role":"user","content":text})
   var typing = addMessage('Escribiendo...', 'typing')
   try {
-    var res = await fetch('https://api.anthropic.com/v1/messages', {
+    var res = await fetch('https://kuroflow-license-server.onrender.com/chat', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 400,
-        system: KF_SYSTEM,
-        messages: kfHistory.slice(-8)
-      })
+      body: JSON.stringify({messages: kfHistory.slice(-8)})
     })
     var data = await res.json()
-    var reply = (data.content && data.content[0]) ? data.content[0].text : 'Hubo un error. Escribe a support@kuro-flow.com'
     typing.remove()
-    addMessage(reply, 'bot')
-    kfHistory.push({"role":"assistant","content":reply})
+    if(data.ok){
+      addMessage(data.reply, 'bot')
+      kfHistory.push({"role":"assistant","content":data.reply})
+    } else {
+      addMessage('Lo siento, hubo un error. Escribe a support@kuro-flow.com', 'bot')
+    }
   } catch(e) {
     typing.remove()
     addMessage('Error de conexion. Escribe a support@kuro-flow.com', 'bot')
