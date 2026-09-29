@@ -317,6 +317,12 @@ footer{background:var(--ink);padding:40px 48px;border-top:1px solid var(--border
     <div class="affiliate-disclosure">ℹ️ Enlace de afiliado — sin coste adicional para ti</div>
   </div>
 
+  <div class="affiliate-box" style="margin-bottom:16px">
+    <div class="affiliate-box-title">FTMO — El referente de la industria</div>
+    <p style="font-size:0.82rem;color:var(--muted);margin-bottom:0">La prop firm más reconocida del sector. Challenge de 2 fases, payouts rápidos y la mayor comunidad de traders financiados del mundo.</p>
+    <a href="https://join.ftmo.com/YxmIxqxCWuqKGfcPaEJd" target="_blank" class="affiliate-link">Ir a FTMO →</a>
+    <div class="affiliate-disclosure">ℹ️ Enlace de afiliado — sin coste adicional para ti</div>
+  </div>
   <p>Para una comparativa completa de las tres principales prop firms, lee: <a href="the5ers-vs-ftmo-vs-for-traders-2026.html" style="color:var(--gold)">The5ers vs FTMO vs For Traders 2026 →</a></p>
 
   <h2 id="faq">Preguntas frecuentes</h2>
@@ -389,6 +395,26 @@ function toggleFaq(btn) {
   });
   if(!open){a.classList.add('open');icon.textContent='−';}
 }
+</script>
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()})
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey&&[67,88,85,83,80].indexOf(e.keyCode)!==-1){e.preventDefault();return false}
+  if(e.keyCode===123){e.preventDefault();return false}
+  if(e.ctrlKey&&e.shiftKey&&[73,74,67].indexOf(e.keyCode)!==-1){e.preventDefault();return false}
+})
+document.addEventListener('copy',function(e){
+  var sel=window.getSelection().toString()
+  if(sel.length>30){
+    e.clipboardData.setData('text/plain',sel+'\n\n© KuroFlow — kuro-flow.com\nContenido protegido. Todos los derechos reservados.')
+    e.preventDefault()
+  }
+})
+document.addEventListener('DOMContentLoaded',function(){
+  var s=document.createElement('style')
+  s.innerHTML='::selection{background:transparent}::-moz-selection{background:transparent}body{-webkit-user-select:none;-moz-user-select:none;user-select:none}'
+  document.head.appendChild(s)
+})
 </script>
 </body>
 </html>
