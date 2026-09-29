@@ -1566,6 +1566,13 @@ function toggleChat(){
   if(kfOpen) document.getElementById('kf-input').focus()
 }
 
+function linkify(text){
+  return (text || '').replace(/(https?:\/\/[^\s]+)/g, function(url){
+    var clean = url.replace(/[.,;:!?]$/, '')
+    return '<a href="' + clean + '" target="_blank" style="color:#c9a84c;text-decoration:underline">' + clean + '</a>'
+  }).replace(/\n/g, '<br>')
+}
+
 function addMessage(text, type){
   var msgs = document.getElementById('kf-messages')
   if(!msgs) return null
@@ -1573,7 +1580,11 @@ function addMessage(text, type){
   if(chips) chips.remove()
   var div = document.createElement('div')
   div.className = 'kf-msg kf-msg-' + type
-  div.textContent = text || ''
+  if(type === 'bot'){
+    div.innerHTML = linkify(text || '')
+  } else {
+    div.textContent = text || ''
+  }
   msgs.appendChild(div)
   msgs.scrollTop = msgs.scrollHeight
   return div
