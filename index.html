@@ -1288,23 +1288,68 @@ setInterval(updateCountdown, 60000);
 
 <script>
 (function(){
-  // Países hispanohablantes con banderas
+  // TODOS los países de habla hispana con varias ciudades por país
   var countries = [
+    // España
     {flag:'🇪🇸', city:'Madrid', country:'España'},
     {flag:'🇪🇸', city:'Barcelona', country:'España'},
     {flag:'🇪🇸', city:'Valencia', country:'España'},
+    {flag:'🇪🇸', city:'Sevilla', country:'España'},
+    {flag:'🇪🇸', city:'Bilbao', country:'España'},
+    {flag:'🇪🇸', city:'Málaga', country:'España'},
+    // México
     {flag:'🇲🇽', city:'Ciudad de México', country:'México'},
     {flag:'🇲🇽', city:'Monterrey', country:'México'},
+    {flag:'🇲🇽', city:'Guadalajara', country:'México'},
+    {flag:'🇲🇽', city:'Puebla', country:'México'},
+    // Argentina
     {flag:'🇦🇷', city:'Buenos Aires', country:'Argentina'},
+    {flag:'🇦🇷', city:'Córdoba', country:'Argentina'},
+    {flag:'🇦🇷', city:'Rosario', country:'Argentina'},
+    // Colombia
     {flag:'🇨🇴', city:'Bogotá', country:'Colombia'},
+    {flag:'🇨🇴', city:'Medellín', country:'Colombia'},
+    {flag:'🇨🇴', city:'Cali', country:'Colombia'},
+    // Chile
     {flag:'🇨🇱', city:'Santiago', country:'Chile'},
+    {flag:'🇨🇱', city:'Valparaíso', country:'Chile'},
+    // Perú
     {flag:'🇵🇪', city:'Lima', country:'Perú'},
+    {flag:'🇵🇪', city:'Arequipa', country:'Perú'},
+    // Venezuela
     {flag:'🇻🇪', city:'Caracas', country:'Venezuela'},
-    {flag:'🇺🇾', city:'Montevideo', country:'Uruguay'},
-    {flag:'🇵🇦', city:'Panamá', country:'Panamá'},
-    {flag:'🇩🇴', city:'Santo Domingo', country:'R. Dominicana'},
+    {flag:'🇻🇪', city:'Maracaibo', country:'Venezuela'},
+    // Ecuador
     {flag:'🇪🇨', city:'Quito', country:'Ecuador'},
-    {flag:'🇵🇾', city:'Asunción', country:'Paraguay'}
+    {flag:'🇪🇨', city:'Guayaquil', country:'Ecuador'},
+    // Uruguay
+    {flag:'🇺🇾', city:'Montevideo', country:'Uruguay'},
+    // Paraguay
+    {flag:'🇵🇾', city:'Asunción', country:'Paraguay'},
+    // Bolivia
+    {flag:'🇧🇴', city:'La Paz', country:'Bolivia'},
+    {flag:'🇧🇴', city:'Santa Cruz', country:'Bolivia'},
+    // R. Dominicana
+    {flag:'🇩🇴', city:'Santo Domingo', country:'R. Dominicana'},
+    {flag:'🇩🇴', city:'Santiago', country:'R. Dominicana'},
+    // Cuba
+    {flag:'🇨🇺', city:'La Habana', country:'Cuba'},
+    // Guatemala
+    {flag:'🇬🇹', city:'Guatemala', country:'Guatemala'},
+    // Honduras
+    {flag:'🇭🇳', city:'Tegucigalpa', country:'Honduras'},
+    // El Salvador
+    {flag:'🇸🇻', city:'San Salvador', country:'El Salvador'},
+    // Nicaragua
+    {flag:'🇳🇮', city:'Managua', country:'Nicaragua'},
+    // Costa Rica
+    {flag:'🇨🇷', city:'San José', country:'Costa Rica'},
+    // Panamá
+    {flag:'🇵🇦', city:'Panamá', country:'Panamá'},
+    // Puerto Rico
+    {flag:'🇵🇷', city:'San Juan', country:'Puerto Rico'},
+    // Guinea Ecuatorial
+    {flag:'🇬🇶', city:'Malabo', country:'Guinea Ecuatorial'}
   ]
 
   var plans = [
@@ -1313,28 +1358,28 @@ setInterval(updateCountdown, 60000);
     {name:'Plan Mentoring', price:'€49/mes', weight:2}
   ]
 
+  // Solo tiempos largos — no "hace 3 minutos" para no crear expectativa de actividad en Discord
   var tiempos = [
-    'hace 3 minutos','hace 8 minutos','hace 14 minutos',
-    'hace 27 minutos','hace 1 hora','hace 2 horas',
-    'hace 4 horas','hace 6 horas','hace 12 horas',
-    'hace 1 día'
+    'hace 2 horas','hace 3 horas','hace 5 horas',
+    'hace 8 horas','hace 12 horas','hace 1 día',
+    'hace 2 días','hace 3 días'
   ]
 
-  // Mensajes reales van aquí cuando existan (inyectados desde Whop)
   var realQueue = []
+  var simuladosMostrados = 0
+  var MAX_SIMULADOS_POR_SESION = 2  // máximo 2 simulados por visita
+
+  function randFrom(arr){ return arr[Math.floor(Math.random()*arr.length)] }
 
   function weightedPlan(){
     var total = plans.reduce(function(s,p){return s+p.weight},0)
-    var r = Math.random()*total
-    var acc = 0
+    var r = Math.random()*total, acc = 0
     for(var i=0;i<plans.length;i++){
       acc += plans[i].weight
       if(r < acc) return plans[i]
     }
     return plans[0]
   }
-
-  function randFrom(arr){ return arr[Math.floor(Math.random()*arr.length)] }
 
   function showPopup(flag, city, country, planName, planPrice, tiempo){
     var popup = document.getElementById('sp-popup')
@@ -1345,9 +1390,8 @@ setInterval(updateCountdown, 60000);
     document.getElementById('sp-detail').textContent = city + ', ' + country + ' · ' + planPrice + ' · ' + tiempo
 
     bar.style.animation = 'none'
-    bar.offsetHeight // reflow
-    bar.style.setProperty('--sp-dur','7s')
-    bar.style.animation = 'spProgress 7s linear forwards'
+    bar.offsetHeight
+    bar.style.animation = 'spProgress 8s linear forwards'
 
     popup.style.display = 'flex'
     popup.style.flexDirection = 'column'
@@ -1357,42 +1401,44 @@ setInterval(updateCountdown, 60000);
 
     setTimeout(function(){
       popup.style.opacity = '0'
-      popup.style.transition = 'opacity 0.5s'
+      popup.style.transition = 'opacity 0.6s'
       setTimeout(function(){
         popup.style.display = 'none'
         popup.style.opacity = '1'
         popup.style.transition = ''
-      }, 500)
-    }, 7000)
+      }, 600)
+    }, 8000)
   }
 
   function showNext(){
-    // Si hay real pendiente, mostrarlo primero
+    // Reales primero — siempre, sin límite
     if(realQueue.length > 0){
       var r = realQueue.shift()
       showPopup(r.flag, r.city, r.country, r.plan, r.price, 'ahora mismo')
-      scheduleNext(20000)
+      // Próximo real o simulado en 2-3 min
+      setTimeout(showNext, 120000 + Math.random()*60000)
       return
     }
 
-    // Simulado con frecuencia baja para no parecer spam
-    var loc = randFrom(countries)
-    var plan = weightedPlan()
-    var tiempo = randFrom(tiempos)
-    showPopup(loc.flag, loc.city, loc.country, plan.name, plan.price, tiempo)
-    scheduleNext(35000 + Math.random()*30000) // entre 35s y 65s
+    // Simulados: máximo 2 por sesión, tiempos largos
+    if(simuladosMostrados < MAX_SIMULADOS_POR_SESION){
+      var loc = randFrom(countries)
+      var plan = weightedPlan()
+      var tiempo = randFrom(tiempos)
+      showPopup(loc.flag, loc.city, loc.country, plan.name, plan.price, tiempo)
+      simuladosMostrados++
+      // Próximo simulado entre 4 y 8 minutos
+      setTimeout(showNext, 240000 + Math.random()*240000)
+    }
+    // Si ya se mostraron 2 simulados — no más hasta que haya reales
   }
 
-  function scheduleNext(ms){
-    setTimeout(showNext, ms)
-  }
+  // Primer popup tras 40 segundos (da tiempo a leer la página)
+  setTimeout(showNext, 40000)
 
-  // Primer popup tras 15 segundos en la página
-  scheduleNext(15000)
-
-  // Exponer función para que Whop webhook pueda inyectar reales
+  // API para inyectar compras reales desde Whop
   window.kfAddRealPurchase = function(city, country, flag, plan, price){
-    realQueue.push({city:city, country:country, flag:flag||'🌍', plan:plan, price:price})
+    realQueue.push({city:city||'', country:country||'', flag:flag||'🌍', plan:plan, price:price})
   }
 })()
 </script>
