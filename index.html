@@ -1463,107 +1463,7 @@ setInterval(updateCountdown, 60000);
 
 
 
-<script>
-var kfOpen = false
 
-var KF_FAQ = [
-  {
-    keys: ["precio","cuesta","cuanto","cost","plan","planes","basic","pro","mentoring","suscri"],
-    answer: "Tenemos 3 planes con precio fundador bloqueado para siempre:\n\n🥉 Basic — €9/mes: alertas en tiempo real, diario de operaciones, informe mensual PDF, Discord.\n\n🥈 Pro — €19/mes: todo Basic + contexto de cada entrada + Prop Firm Tracker + R:R Calculator.\n\n👑 Mentoring — €49/mes: todo Pro + sesión 1:1 mensual + Trade Journal. Máx. 8 plazas.\n\n👉 whop.com/kuro-flow"
-  },
-  {
-    keys: ["combo_tac","sistema","algoritmo","algorit","robot","ea","funciona","como"],
-    answer: "COMBO_TAC es el sistema algorítmico de KuroFlow. Opera en EURUSD, GBPUSD, USDJPY y XAUUSD en temporalidad M15.\n\nEstadísticas de backtest 2019-2024:\n→ Win Rate: 65%\n→ Max Drawdown: -2.1%\n→ Sharpe Ratio: 9.04\n→ ~7 operaciones/mes\n\nActualmente en challenge activo en For Traders, documentado en tiempo real en el Discord."
-  },
-  {
-    keys: ["prop firm","fondead","challenge","ftmo","5ers","the5ers","for traders","funded","cuenta"],
-    answer: "El sistema COMBO_TAC está diseñado para prop firms. Es compatible con:\n\n⭐ The5ers — sin límite de tiempo → the5ers.com/?afmc=1g0t\n⭐ FTMO — el referente → join.ftmo.com/YxmIxqxCWuqKGfcPaEJd\n⭐ For Traders — sin restricción de noticias → app.fortraders.com (código HJ5GP0HZBS)\n\nSin martingala, sin grid — cumple las reglas de todas las firmas principales."
-  },
-  {
-    keys: ["discord","comunidad","servidor","acceso","miembro","unir"],
-    answer: "Al suscribirte en Whop recibes acceso automático al servidor Discord privado de KuroFlow.\n\nEn el Discord encontrarás:\n→ Alertas en tiempo real del sistema\n→ Análisis semanal cada domingo\n→ Canal de resultados y track record\n→ Comunidad de traders\n\n👉 whop.com/kuro-flow para entrar."
-  },
-  {
-    keys: ["retiro","payout","gano","ganar","dinero","profit","resultado","reales"],
-    answer: "Los retiros verificados del sistema en The5ers son:\n\n💰 $4,986 — Julio 2025\n💰 $2,080 — Agosto 2025\n📊 Total: $7,066\n\nActualmente en challenge activo en For Traders con el sistema documentado en tiempo real.\n\n⚠️ Resultados pasados no garantizan resultados futuros. Contenido educativo."
-  },
-  {
-    keys: ["herramienta","calculadora","lot","lote","riesgo","risk","reward","tracker"],
-    answer: "KuroFlow tiene herramientas gratuitas y exclusivas:\n\n✅ Lot Size Calculator — gratis para todos\n✅ Risk/Reward Calculator — gratis para todos\n🔒 Prop Firm Tracker — Plan Pro\n🔒 Trade Journal — Plan Mentoring\n\n👉 kuro-flow.com/herramientas.html"
-  },
-  {
-    keys: ["cancel","baja","salir","permanencia","compromiso","renovacion"],
-    answer: "Puedes cancelar cuando quieras desde tu panel de Whop, sin permanencia ni penalizaciones.\n\nImportante: si cancelas pierdes el precio de Socio Fundador. Si vuelves a suscribirte, pagarás el precio normal vigente (€29/€79/€199)."
-  },
-  {
-    keys: ["guia","gratis","free","pdf","recurso","aprend"],
-    answer: "Tenemos una guía gratuita sobre cómo pasar un challenge de prop firm:\n\n→ 12 errores más comunes\n→ Gestión de riesgo exacta\n→ Comparativa de prop firms\n→ Checklist antes de cada trade\n\n📖 kuro-flow.com/guia-prop-firms.html\n\nSin registro, sin email, acceso directo."
-  },
-  {
-    keys: ["suscribir","registrar","unirse","empezar","contratar","comprar"],
-    answer: "Para suscribirte ve a:\n\n👉 whop.com/kuro-flow\n\nElige el plan que mejor se adapte a ti. El acceso al Discord se activa automáticamente al completar la suscripción.\n\nRecuerda: el precio Socio Fundador está disponible solo durante el período de lanzamiento."
-  },
-  {
-    keys: ["seguro","legal","estafa","confiable","fiable","regulado"],
-    answer: "KuroFlow es un diario algorítmico educativo. Todo el contenido documenta la operativa personal del sistema COMBO_TAC con fines formativos.\n\nNo somos un servicio de inversión regulado. Los retiros de $7,066 están verificados por The5ers oficialmente.\n\n⚠️ Contenido exclusivamente educativo. No es asesoramiento financiero."
-  }
-]
-
-function getBotReply(text){
-  var lower = text.toLowerCase()
-  for(var i=0; i<KF_FAQ.length; i++){
-    for(var j=0; j<KF_FAQ[i].keys.length; j++){
-      if(lower.indexOf(KF_FAQ[i].keys[j]) !== -1){
-        return KF_FAQ[i].answer
-      }
-    }
-  }
-  return "No tengo una respuesta específica para eso.\n\nPuedes escribirnos directamente:\n📧 support@kuro-flow.com\n\nO visitar el sitio para más info:\n🌐 kuro-flow.com"
-}
-
-function toggleChat(){
-  kfOpen = !kfOpen
-  var w = document.getElementById('kf-chat-window')
-  w.style.display = kfOpen ? 'flex' : 'none'
-  if(kfOpen) document.getElementById('kf-input').focus()
-}
-
-function addMessage(text, type){
-  var msgs = document.getElementById('kf-messages')
-  var chips = msgs.querySelector('.kf-chips-wrap')
-  if(chips) chips.remove()
-  var div = document.createElement('div')
-  div.className = 'kf-msg kf-msg-' + type
-  div.textContent = text
-  msgs.appendChild(div)
-  msgs.scrollTop = msgs.scrollHeight
-}
-
-function sendChip(text){
-  document.getElementById('kf-input').value = text
-  sendMessage()
-}
-
-function sendMessage(){
-  var input = document.getElementById('kf-input')
-  var text = input.value.trim()
-  if(!text) return
-  input.value = ''
-  addMessage(text, 'user')
-  setTimeout(function(){
-    var reply = getBotReply(text)
-    addMessage(reply, 'bot')
-  }, 400)
-}
-
-document.addEventListener('DOMContentLoaded', function(){
-  var inp = document.getElementById('kf-input')
-  if(inp) inp.addEventListener('keydown', function(e){
-    if(e.key === 'Enter') sendMessage()
-  })
-})
-
-</script>
 
 <!-- PROTECCIÓN DE CONTENIDO -->
 <script>
@@ -1654,5 +1554,69 @@ setInterval(function(){
 }, 500)
 </script>
 
+<script>
+var kfOpen = false
+var kfHistory = []
+
+function toggleChat(){
+  kfOpen = !kfOpen
+  var w = document.getElementById('kf-chat-window')
+  w.style.display = kfOpen ? 'flex' : 'none'
+  if(kfOpen) document.getElementById('kf-input').focus()
+}
+
+function addMessage(text, type){
+  var msgs = document.getElementById('kf-messages')
+  var chips = msgs.querySelector('.kf-chips-wrap')
+  if(chips) chips.remove()
+  var div = document.createElement('div')
+  div.className = 'kf-msg kf-msg-' + type
+  div.textContent = text
+  msgs.appendChild(div)
+  msgs.scrollTop = msgs.scrollHeight
+  return div
+}
+
+function sendChip(text){
+  document.getElementById('kf-input').value = text
+  sendMessage()
+}
+
+async function sendMessage(){
+  var input = document.getElementById('kf-input')
+  var text = input.value.trim()
+  if(!text) return
+  input.value = ''
+  addMessage(text, 'user')
+  kfHistory.push({"role":"user","content":text})
+  var typing = addMessage('Escribiendo...', 'typing')
+  try {
+    var res = await fetch('https://kuroflow-license-server.onrender.com/chat', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({messages: kfHistory.slice(-8)})
+    })
+    var data = await res.json()
+    typing.remove()
+    if(data.ok){
+      addMessage(data.reply, 'bot')
+      kfHistory.push({"role":"assistant","content":data.reply})
+    } else {
+      addMessage('Lo siento, hubo un error. Escribe a support@kuro-flow.com', 'bot')
+    }
+  } catch(e) {
+    typing.remove()
+    addMessage('Error de conexion. Escribe a support@kuro-flow.com', 'bot')
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  var inp = document.getElementById('kf-input')
+  if(inp) inp.addEventListener('keydown', function(e){
+    if(e.key === 'Enter') sendMessage()
+  })
+})
+
+</script>
 </body>
 </html>
