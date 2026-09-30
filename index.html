@@ -456,7 +456,7 @@ footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--b
         <div class="sistema-rows">
           <div class="sistema-row"><span class="sistema-row-label">Win Rate histórico</span><span class="sistema-row-val gold">65%</span></div>
           <div class="sistema-row"><span class="sistema-row-label">Drawdown máximo</span><span class="sistema-row-val">-2.1%</span></div>
-          <div class="sistema-row"><span class="sistema-row-label">Frecuencia</span><span class="sistema-row-val">~7 operaciones/mes</span></div>
+          <div class="sistema-row"><span class="sistema-row-label">Frecuencia</span><span class="sistema-row-val">~7 ops/mes</span></div>
           <div class="sistema-row"><span class="sistema-row-label">Condición de entrada</span><span class="sistema-row-val">ADX &lt; 0.20</span></div>
           <div class="sistema-row"><span class="sistema-row-label">Validación</span><span class="sistema-row-val">5 años OOS</span></div>
         </div>
@@ -638,14 +638,14 @@ footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--b
           </div>
         </div>
 
-        <div style="text-align:center;flex-shrink:0;min-width:120px;max-width:140px">
-          <div style="font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-bottom:8px">Precio fundador</div>
-          <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:2.4rem;color:#c9a84c;line-height:1">€9</div>
-          <div style="font-size:0.7rem;color:rgba(245,243,238,0.3);margin-top:4px">/mes · bloqueado</div>
-          <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06)">
-            <div style="font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-bottom:8px">Plan Pro fundador</div>
-            <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:2.4rem;color:#c9a84c;line-height:1">€19</div>
-            <div style="font-size:0.7rem;color:rgba(245,243,238,0.3);margin-top:4px">/mes · bloqueado</div>
+        <div style="display:flex;flex-direction:column;gap:12px;flex-shrink:0">
+          <div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);padding:12px 20px;text-align:center">
+            <div style="font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-bottom:4px">Basic fundador</div>
+            <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;color:#c9a84c;line-height:1">€9<span style="font-size:0.7rem;font-weight:400;color:rgba(245,243,238,0.3)">/mes</span></div>
+          </div>
+          <div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);padding:12px 20px;text-align:center">
+            <div style="font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-bottom:4px">Pro fundador</div>
+            <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;color:#c9a84c;line-height:1">€19<span style="font-size:0.7rem;font-weight:400;color:rgba(245,243,238,0.3)">/mes</span></div>
           </div>
         </div>
       </div>
@@ -984,6 +984,19 @@ footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--b
         <div style="font-size:0.68rem;color:#c9a84c;margin-top:16px;letter-spacing:0.06em">Leer →</div>
       </a>
     </div>
+  </div>
+</div>
+
+
+<!-- HERRAMIENTAS CTA -->
+<div style="background:var(--ink2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:32px 48px">
+  <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
+    <div>
+      <div style="font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:6px">// Calculadoras gratuitas</div>
+      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem">Lot Size · Risk/Reward · Prop Firm Tracker</div>
+      <div style="font-size:0.78rem;color:var(--muted);margin-top:4px">Herramientas para operar mejor en prop firms — algunas gratis para todos.</div>
+    </div>
+    <a href="herramientas.html" style="font-family:'DM Mono',monospace;font-size:0.75rem;font-weight:700;letter-spacing:0.06em;padding:12px 28px;background:var(--gold);color:var(--ink);text-decoration:none;white-space:nowrap;flex-shrink:0;transition:opacity 0.2s" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Ver herramientas →</a>
   </div>
 </div>
 
