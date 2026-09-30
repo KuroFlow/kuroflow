@@ -2,23 +2,11 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="theme-color" content="#0a0a0c">
-<meta name="google-site-verification" content="82x-ii4dfO9jqVXroHQt8xnWWrZEdEZyv4tXuLuzyhU">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>KuroFlow — Diario Algorítmico para Prop Firms | Sistema COMBO_TAC</title>
-<meta name="description" content="KuroFlow es el diario algorítmico del sistema COMBO_TAC para prop firms en España — EURUSD, USDJPY, XAUUSD. WR 65%, DD -2.1% en backtest. Contenido educativo sobre trading algorítmico.">
-<meta name="keywords" content="cuentas fondeadas, cuentas de fondeo, prop firm españa, diario algorítmico trading, COMBO_TAC sistema, pasar challenge prop firm, robot trading mt5, trading algorítmico españa, EURUSD algorítmico, USDJPY sistema cuantitativo, XAUUSD sistema, kuroflow, Diego Campero trader cuantitativo">
+<title>Herramientas de Trading | KuroFlow</title>
+<meta name="description" content="Herramientas gratuitas y exclusivas para traders de prop firms — Calculadora de Lot Size, Risk/Reward Calculator, Prop Firm Tracker y Trade Journal.">
 <meta name="robots" content="index, follow">
-<meta name="copyright" content="© 2026 KuroFlow. Todos los derechos reservados.">
-<meta name="author" content="KuroFlow">
-<meta name="author" content="Diego Campero — KuroFlow">
-<link rel="canonical" href="https://kuro-flow.com/">
-<meta property="og:title" content="KuroFlow — Diario Algorítmico">
-<meta property="og:description" content="Seguimiento en vivo del sistema COMBO_TAC. WR 65% | DD -2.1%. Contenido exclusivamente educativo.">
-<meta property="og:url" content="https://kuro-flow.com/">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@KuroFlowEA">
+<link rel="canonical" href="https://kuro-flow.com/herramientas.html">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23c9a84c'/%3E%3Ctext x='50' y='68' font-family='sans-serif' font-weight='900' font-size='54' fill='%230a0a0c' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,1640 +14,542 @@
 <noscript><link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"></noscript>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{overflow-x:hidden;width:100%}
-:root{
-  --ink:#0a0a0c;
-  --ink2:#0f0f12;
-  --paper:#f5f3ee;
-  --gold:#c9a84c;
-  --gold-pale:rgba(201,168,76,0.12);
-  --border:rgba(255,255,255,0.07);
-  --muted:rgba(245,243,238,0.4);
-  --safe:#6edd9e;
-  --danger:#ed6e6e;
-}
-html{scroll-behavior:smooth}
-body{background:var(--ink);color:var(--paper);font-family:'DM Mono',monospace;line-height:1.6;overflow-x:hidden}
+html,body{overflow-x:hidden;width:100%}
+:root{--ink:#0a0a0c;--ink2:#0f0f12;--paper:#f5f3ee;--gold:#c9a84c;--border:rgba(255,255,255,0.07);--muted:rgba(245,243,238,0.5);--green:#6edd9e;--red:#ed6e6e}
+body{background:var(--ink);color:var(--paper);font-family:'DM Mono',monospace;line-height:1.6;min-height:100vh}
 
-/* ── NAV ── */
+/* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:rgba(10,10,12,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0}
-.nav-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:var(--paper);letter-spacing:-0.02em}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.nav-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:var(--paper)}
 .nav-links{display:flex;gap:28px;list-style:none}
 .nav-links a{font-size:0.68rem;color:var(--muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s}
-.nav-links a:hover{color:var(--gold)}
-.nav-cta{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.06em;padding:10px 22px;background:var(--gold);color:var(--ink);border:none;cursor:pointer;text-decoration:none;font-weight:700;transition:opacity 0.2s}
-.nav-cta:hover{opacity:0.85}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-cta{font-family:'DM Mono',monospace;font-size:0.72rem;padding:10px 22px;background:var(--gold);color:var(--ink);text-decoration:none;font-weight:700}
 
-/* ── HERO ── */
-#hero{min-height:100vh;display:flex;align-items:center;padding:0 48px;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;overflow:hidden;background:radial-gradient(ellipse 60% 60% at 70% 50%, rgba(201,168,76,0.04) 0%, transparent 70%)}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:80px 80px;opacity:0.3}
-.hero-inner{max-width:1100px;margin:0 auto;width:100%;position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-.hero-left{}
-.hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:28px}
-.hero-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
-.hero-eyebrow-text{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold)}
-.hero-h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.2rem,4vw,3.6rem);line-height:1.05;letter-spacing:-0.03em;margin-bottom:20px}
-.hero-h1 em{font-style:normal;color:var(--gold)}
-.hero-sub{font-size:0.88rem;color:var(--muted);line-height:1.9;margin-bottom:36px;max-width:440px}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
-.btn-primary{font-family:'DM Mono',monospace;font-size:0.75rem;letter-spacing:0.06em;padding:14px 28px;background:var(--gold);color:var(--ink);border:none;cursor:pointer;text-decoration:none;font-weight:700;transition:opacity 0.2s;display:inline-flex;align-items:center;gap:8px}
-.btn-primary:hover{opacity:0.85}
-.btn-outline{font-family:'DM Mono',monospace;font-size:0.75rem;letter-spacing:0.06em;padding:14px 28px;background:transparent;color:var(--paper);border:1px solid rgba(245,243,238,0.2);cursor:pointer;text-decoration:none;transition:border-color 0.2s;display:inline-flex;align-items:center;gap:8px}
-.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
-.hero-legal{font-size:0.62rem;color:rgba(245,243,238,0.2);letter-spacing:0.04em;line-height:1.6}
+/* HERO */
+.tools-hero{padding:120px 48px 48px;max-width:1100px;margin:0 auto}
+.eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+.eyebrow-line{width:24px;height:1px;background:var(--gold)}
+.eyebrow-text{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold)}
+.tools-hero h1{font-family:'Syne',sans-serif;font-weight:800;font-size:2.4rem;letter-spacing:-0.02em;margin-bottom:12px}
+.tools-hero p{font-size:0.86rem;color:var(--muted);max-width:540px;line-height:1.9}
 
-/* HERO RIGHT — live card */
-.hero-right{}
-.live-card{background:var(--ink2);border:1px solid rgba(201,168,76,0.2);padding:28px}
-.live-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border)}
-.live-badge{display:flex;align-items:center;gap:6px;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--safe)}
-.live-dot{width:6px;height:6px;border-radius:50%;background:var(--safe);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-.live-date{font-size:0.65rem;color:var(--muted)}
-.live-operation{margin-bottom:20px}
-.live-op-label{font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-.live-op-par{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;color:var(--paper);margin-bottom:4px}
-.live-op-tipo{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;background:rgba(110,221,158,0.1);border:1px solid rgba(110,221,158,0.2);font-size:0.65rem;color:var(--safe);letter-spacing:0.08em}
-.live-metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);margin-bottom:20px}
-.live-metric{background:var(--ink);padding:14px 12px;text-align:center}
-.live-metric-val{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:var(--paper)}
-.live-metric-val.gold{color:var(--gold)}
-.live-metric-label{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,243,238,0.25);margin-top:3px}
-.live-disclaimer{font-size:0.6rem;color:rgba(245,243,238,0.2);line-height:1.6;padding-top:16px;border-top:1px solid var(--border)}
+/* TABS */
+.tabs-wrap{padding:0 48px;max-width:1100px;margin:0 auto 0}
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:0}
+.tab{font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;padding:14px 24px;background:none;border:none;color:var(--muted);cursor:pointer;transition:color 0.2s;position:relative;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.tab:hover{color:var(--paper)}
+.tab.active{color:var(--gold)}
+.tab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--gold)}
+.tab-badge{font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;padding:2px 6px;border:1px solid}
+.tab-badge.free{border-color:rgba(110,221,158,0.3);color:var(--green)}
+.tab-badge.pro{border-color:rgba(201,168,76,0.3);color:var(--gold)}
+.tab-badge.mentoring{border-color:rgba(237,110,110,0.3);color:var(--red)}
 
-/* TICKER */
-.ticker-wrap{background:#0f0f12;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:0;overflow:hidden;position:relative}
-.ticker-inner{display:flex;animation:ticker 25s linear infinite;width:max-content}
-.ticker-inner:hover{animation-play-state:paused}
-.ticker-item{display:flex;align-items:center;gap:8px;padding:14px 40px;white-space:nowrap;font-size:0.7rem;letter-spacing:0.06em;border-right:1px solid var(--border)}
-.ticker-par{color:var(--gold)}
-.ticker-val{color:var(--paper)}
-.ticker-change{color:var(--safe)}
-@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* TOOL PANELS */
+.tools-content{max-width:1100px;margin:0 auto;padding:40px 48px 100px}
+.tool-panel{display:none}
+.tool-panel.active{display:block}
 
-/* ── STATS ── */
-#stats{padding:80px 48px;background:var(--ink)}
-.stats-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
-.stat-block{background:var(--ink2);padding:32px 24px;text-align:center;border:1px solid var(--border);transition:border-color 0.2s}
-.stat-block:hover{border-color:rgba(201,168,76,0.3)}
-.stat-num{font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;color:var(--gold);line-height:1;margin-bottom:8px}
-.stat-num.w{color:var(--paper)}
-.stat-label{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,243,238,0.3);line-height:1.4}
+/* LOCKED OVERLAY */
+.locked{position:relative}
+.locked-overlay{position:absolute;inset:0;background:rgba(10,10,12,0.85);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;z-index:10;backdrop-filter:blur(4px)}
+.locked-icon{font-size:2rem}
+.locked-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:var(--paper);text-align:center}
+.locked-sub{font-size:0.75rem;color:var(--muted);text-align:center;max-width:260px;line-height:1.6}
+.locked-btn{font-family:'DM Mono',monospace;font-size:0.72rem;font-weight:700;letter-spacing:0.06em;padding:10px 24px;background:var(--gold);color:var(--ink);text-decoration:none;transition:opacity 0.2s}
+.locked-btn:hover{opacity:0.85}
 
-/* ── SECTIONS ── */
-.section-wrap{padding:100px 48px}
-.section-wrap.dark{background:var(--ink2)}
-.section-wrap.full{padding:100px 0}
-.section-inner{max-width:1100px;margin:0 auto}
-.section-eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:16px}
-.section-eyebrow-line{width:24px;height:1px;background:var(--gold)}
-.section-tag{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold)}
-.section-h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.8rem,3vw,2.6rem);letter-spacing:-0.02em;line-height:1.1;margin-bottom:16px}
-.section-sub{font-size:0.86rem;color:var(--muted);max-width:560px;line-height:1.9;margin-bottom:56px}
+/* TOOL LAYOUT */
+.tool-header{margin-bottom:32px}
+.tool-tag{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.tool-tag::before{content:'';width:16px;height:1px;background:var(--gold)}
+.tool-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;letter-spacing:-0.02em;margin-bottom:8px}
+.tool-desc{font-size:0.84rem;color:var(--muted);line-height:1.8;max-width:560px}
 
-/* ── SISTEMA ── */
-.sistema-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:32px}
-.sistema-card{background:var(--ink);border:1px solid var(--border);padding:40px;position:relative;overflow:hidden;transition:border-color 0.2s}
-.sistema-card:hover{border-color:rgba(201,168,76,0.3)}
-.sistema-card.active{border-color:rgba(201,168,76,0.3)}
-.sistema-card-glow{position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(201,168,76,0.06) 0%,transparent 70%);pointer-events:none}
-.sistema-status{display:inline-flex;align-items:center;gap:6px;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:20px;padding:4px 12px;border:1px solid}
-.sistema-status.on{color:var(--safe);border-color:rgba(110,221,158,0.3);background:rgba(110,221,158,0.05)}
-.sistema-status.off{color:var(--muted);border-color:rgba(255,255,255,0.08);background:transparent}
-.sistema-name{font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;margin-bottom:10px}
-.sistema-desc{font-size:0.82rem;color:var(--muted);line-height:1.75;margin-bottom:28px}
-.sistema-rows{display:flex;flex-direction:column;gap:0}
-.sistema-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
-.sistema-row:last-child{border:none}
-.sistema-row-label{font-size:0.7rem;color:rgba(245,243,238,0.3);letter-spacing:0.06em}
-.sistema-row-val{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;color:var(--paper)}
-.sistema-row-val.gold{color:var(--gold)}
-.sistema-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:20px}
-.sistema-tag{font-size:0.62rem;letter-spacing:0.08em;padding:4px 10px;border:1px solid rgba(201,168,76,0.2);color:rgba(201,168,76,0.7)}
+/* CALCULATOR SHARED */
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.calc-inputs{display:flex;flex-direction:column;gap:16px}
+.input-group{display:flex;flex-direction:column;gap:6px}
+.input-group label{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,243,238,0.35)}
+.input-group input,.input-group select{width:100%;background:#0f0f12;border:1px solid rgba(255,255,255,0.08);color:var(--paper);font-family:'DM Mono',monospace;font-size:0.9rem;padding:11px 14px;outline:none;transition:border-color 0.2s}
+.input-group input:focus,.input-group select:focus{border-color:var(--gold)}
+.calc-btn{width:100%;background:var(--gold);color:var(--ink);font-family:'DM Mono',monospace;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;padding:13px;border:none;cursor:pointer;transition:opacity 0.2s;margin-top:8px}
+.calc-btn:hover{opacity:0.85}
+.calc-result{background:#0f0f12;border:1px solid rgba(201,168,76,0.2);padding:28px;display:flex;flex-direction:column;gap:16px}
+.result-main{text-align:center;padding:24px;background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.15)}
+.result-label{font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.result-value{font-family:'Syne',sans-serif;font-weight:800;font-size:2.4rem;color:var(--gold);line-height:1}
+.result-unit{font-size:0.75rem;color:var(--muted);margin-top:4px}
+.result-breakdown{display:flex;flex-direction:column;gap:10px}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.78rem}
+.result-row:last-child{border:none}
+.result-row-label{color:var(--muted)}
+.result-row-val{color:var(--paper);font-weight:700}
 
-/* ── CÓMO FUNCIONA ── */
-.proceso-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-bottom:40px}
-.proceso-step{background:var(--ink2);border:1px solid var(--border);padding:32px 28px;position:relative;transition:border-color 0.2s}
-.proceso-step:hover{border-color:rgba(201,168,76,0.3)}
-.proceso-num{font-family:'Syne',sans-serif;font-weight:800;font-size:3rem;color:rgba(201,168,76,0.15);line-height:1;margin-bottom:16px}
-.proceso-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:10px}
-.proceso-desc{font-size:0.78rem;color:var(--muted);line-height:1.7}
-.proceso-example{margin-top:14px;padding:10px 14px;background:rgba(201,168,76,0.05);border-left:2px solid var(--gold);font-size:0.7rem;color:var(--gold);line-height:1.6}
-.compat-bar{display:flex;align-items:center;gap:16px;padding:20px 28px;background:var(--ink2);border:1px solid var(--border);flex-wrap:wrap}
-.compat-label{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);flex-shrink:0}
-.compat-tags{display:flex;gap:8px;flex-wrap:wrap}
-.compat-tag{font-size:0.7rem;padding:5px 14px;border:1px solid rgba(255,255,255,0.08);color:rgba(245,243,238,0.5);letter-spacing:0.04em}
+/* PROP FIRM TRACKER */
+.tracker-grid{display:grid;gap:12px}
+.tracker-account{background:#0f0f12;border:1px solid var(--border);padding:24px}
+.tracker-account-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.tracker-account-name{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem}
+.tracker-bars{display:flex;flex-direction:column;gap:12px}
+.tracker-bar-wrap{display:flex;flex-direction:column;gap:6px}
+.tracker-bar-header{display:flex;justify-content:space-between;font-size:0.72rem}
+.tracker-bar-label{color:var(--muted)}
+.tracker-bar-val{font-weight:700}
+.tracker-bar-bg{height:8px;background:rgba(255,255,255,0.06);overflow:hidden}
+.tracker-bar-fill{height:100%;transition:width 0.6s ease;border-radius:0}
+.add-account-btn{width:100%;padding:14px;background:none;border:1px dashed rgba(255,255,255,0.1);color:var(--muted);font-family:'DM Mono',monospace;font-size:0.75rem;cursor:pointer;letter-spacing:0.06em;transition:all 0.2s;margin-top:4px}
+.add-account-btn:hover{border-color:rgba(201,168,76,0.3);color:var(--gold)}
 
-/* ── TRACK RECORD ── */
-.track-card{background:var(--ink);border:1px solid rgba(201,168,76,0.15);padding:60px;text-align:center}
-.track-icon{font-size:2.5rem;margin-bottom:20px;opacity:0.35}
-.track-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;margin-bottom:10px}
-.track-sub{font-size:0.82rem;color:var(--muted);line-height:1.8;max-width:480px;margin:0 auto 28px}
-.track-eta{display:inline-flex;align-items:center;gap:8px;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.2);padding:8px 20px}
+/* TRADE JOURNAL */
+.journal-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:24px}
+.journal-stat{background:#0f0f12;border:1px solid var(--border);padding:16px}
+.journal-stat-val{font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;margin-bottom:4px}
+.journal-stat-label{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
+.journal-table{width:100%;border-collapse:collapse}
+.journal-table th{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,243,238,0.25);padding:10px 14px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06);font-weight:400}
+.journal-table td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.78rem;color:var(--muted)}
+.journal-table tr:last-child td{border:none}
+.journal-table tr:hover td{background:rgba(255,255,255,0.02)}
+.win-cell{color:#6edd9e;font-weight:700}
+.loss-cell{color:#ed6e6e;font-weight:700}
 
-/* ── PLANES ── */
-.planes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start}
-.plan-card{background:var(--ink2);border:1px solid var(--border);padding:44px 40px;display:flex;flex-direction:column;position:relative;transition:border-color 0.3s;min-width:0}
-.plan-card:hover{border-color:rgba(201,168,76,0.3)}
-.plan-card.featured{border-color:rgba(201,168,76,0.4);background:linear-gradient(160deg,rgba(201,168,76,0.04) 0%,var(--ink2) 60%)}
-.plan-popular{position:absolute;top:-1px;left:0;right:0;height:2px;background:var(--gold)}
-.plan-popular-label{position:absolute;top:-12px;right:28px;background:var(--gold);color:var(--ink);font-size:0.6rem;letter-spacing:0.1em;padding:3px 10px;font-weight:700}
-.plan-name{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
-.plan-price-wrap{margin-bottom:8px}
-.plan-price{font-family:'Syne',sans-serif;font-weight:800;font-size:2.6rem;line-height:1;letter-spacing:-0.02em}
-.plan-currency{font-size:1.4rem;vertical-align:top;margin-top:8px;display:inline-block}
-.plan-period{font-size:0.74rem;color:var(--muted);margin-bottom:28px;letter-spacing:0.02em;line-height:1.7}
-.plan-divider{height:1px;background:var(--border);margin-bottom:24px}
-.plan-features{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:32px;flex:1}
-.plan-features li{font-size:0.8rem;color:rgba(245,243,238,0.65);display:flex;gap:10px;align-items:flex-start;line-height:1.5}
-.plan-features li .check{color:var(--gold);flex-shrink:0;margin-top:1px}
-.btn-plan{font-family:'DM Mono',monospace;font-size:0.75rem;letter-spacing:0.06em;padding:13px 20px;width:100%;cursor:pointer;text-decoration:none;text-align:center;display:block;transition:all 0.2s;font-weight:700;border:none}
-.btn-plan-gold{background:var(--gold);color:var(--ink)}
-.btn-plan-gold:hover{opacity:0.85}
-.btn-plan-border{background:transparent;color:var(--paper);border:1px solid rgba(245,243,238,0.18)}
-.btn-plan-border:hover{border-color:var(--gold);color:var(--gold)}
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:32px 48px;text-align:center}
+.footer-legal{font-size:0.65rem;color:rgba(245,243,238,0.15);line-height:1.7;max-width:700px;margin:0 auto}
 
-/* ── PROP FIRMS ── */
-.propfirms-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px}
-.pf-card{background:var(--ink);border:1px solid var(--border);padding:32px;transition:border-color 0.2s}
-.pf-card:hover{border-color:rgba(201,168,76,0.25)}
-.pf-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
-.pf-name{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem}
-.pf-badge{font-size:0.58rem;letter-spacing:0.1em;padding:3px 8px;border:1px solid rgba(110,221,158,0.3);color:var(--safe);text-transform:uppercase}
-.pf-desc{font-size:0.8rem;color:var(--muted);line-height:1.75;margin-bottom:16px}
-.pf-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
-.pf-tag{font-size:0.6rem;letter-spacing:0.08em;padding:3px 9px;border:1px solid rgba(255,255,255,0.07);color:rgba(245,243,238,0.35)}
-.pf-link{font-size:0.7rem;color:rgba(201,168,76,0.5);letter-spacing:0.06em}
-
-/* ── SOBRE MÍ ── */
-.sobre-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
-.sobre-quote{font-family:'Syne',sans-serif;font-weight:700;font-size:1.5rem;line-height:1.4;color:var(--paper);margin-bottom:24px;letter-spacing:-0.01em}
-.sobre-quote em{color:var(--gold);font-style:normal}
-.sobre-text p{font-size:0.84rem;color:var(--muted);line-height:1.9;margin-bottom:14px}
-.sobre-cards{display:flex;flex-direction:column;gap:2px}
-.sobre-card{background:var(--ink);border:1px solid var(--border);padding:20px 24px;display:flex;gap:16px;align-items:flex-start;transition:border-color 0.2s}
-.sobre-card:hover{border-color:rgba(201,168,76,0.2)}
-.sobre-card-icon{font-size:1.2rem;flex-shrink:0;margin-top:2px}
-.sobre-card-title{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
-.sobre-card-desc{font-size:0.78rem;color:var(--muted);line-height:1.6}
-
-/* ── FAQ ── */
-.faq-list{display:flex;flex-direction:column;gap:2px}
-.faq-item{background:var(--ink);border:1px solid var(--border);overflow:hidden;transition:border-color 0.2s}
-.faq-item:hover{border-color:rgba(201,168,76,0.2)}
-.faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;padding:20px 28px;background:transparent;border:none;color:var(--paper);font-family:'DM Mono',monospace;font-size:0.84rem;letter-spacing:0.01em;cursor:pointer;text-align:left;gap:20px;transition:color 0.2s}
-.faq-q:hover{color:var(--gold)}
-.faq-icon{width:20px;height:20px;border:1px solid rgba(201,168,76,0.3);border-radius:0;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:0.9rem;flex-shrink:0;transition:background 0.2s}
-.faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
-.faq-a.open{max-height:400px}
-.faq-a-inner{padding:0 28px 22px;font-size:0.82rem;color:var(--muted);line-height:1.85;border-top:1px solid var(--border)}
-
-/* ── CONTACTO ── */
-.contacto-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-.contacto-links{display:flex;flex-direction:column;gap:2px}
-.contacto-link{display:flex;align-items:center;gap:20px;padding:22px 24px;background:var(--ink);border:1px solid var(--border);text-decoration:none;transition:border-color 0.2s}
-.contacto-link:hover{border-color:rgba(201,168,76,0.3)}
-.contacto-link-icon{width:40px;height:40px;border:1px solid rgba(201,168,76,0.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
-.contacto-link-name{font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;color:var(--paper);margin-bottom:2px}
-.contacto-link-sub{font-size:0.7rem;color:var(--muted);letter-spacing:0.04em}
-
-/* ── FOOTER ── */
-footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--border)}
-.footer-inner{max-width:1100px;margin:0 auto}
-.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
-.footer-brand{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.footer-tagline{font-size:0.72rem;color:rgba(245,243,238,0.2);line-height:1.7;max-width:260px;margin-bottom:20px}
-.footer-col h4{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
-.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
-.footer-col a{font-size:0.76rem;color:var(--muted);text-decoration:none;transition:color 0.2s}
-.footer-col a:hover{color:var(--paper)}
-.footer-bottom{border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
-.footer-legal{font-size:0.65rem;color:rgba(245,243,238,0.15);line-height:1.7;max-width:680px}
-.footer-ver{font-size:0.6rem;color:rgba(245,243,238,0.1);letter-spacing:0.1em;flex-shrink:0}
-
-/* ── RESPONSIVE ── */
-@media(max-width:1024px){
-  .hero-inner{grid-template-columns:1fr;gap:48px}
-  .hero-right{max-width:480px}
-  .proceso-grid{grid-template-columns:1fr 1fr}
-  .footer-top{grid-template-columns:1fr 1fr}
-}
 @media(max-width:768px){
-  .sistema-row-val{font-size:0.82rem}
-  .sistema-row-label{font-size:0.68rem}
-  [style*="grid-template-columns:1fr auto"]{grid-template-columns:1fr!important}
-  [style*="min-width:120px"]{max-width:100%!important;display:flex;gap:16px;justify-content:flex-start}
-  nav{padding:16px 20px}
-  .nav-links{display:none}
-  #hero{padding:0 20px;min-height:auto;padding-top:100px;padding-bottom:60px;overflow-x:hidden}
-  .hero-inner{grid-template-columns:1fr !important;gap:40px}
-  .hero-right{display:none}
-  .hero-h1{font-size:1.9rem}
-  .hero-btns{flex-direction:column}
-  .btn-primary,.btn-outline{width:100%;justify-content:center}
-  #stats{padding:48px 20px}
-  .stats-inner{grid-template-columns:repeat(3,1fr) !important;overflow-x:hidden;gap:1px}
-  .section-wrap{padding:64px 20px}
-  .section-wrap.dark{padding:64px 20px}
-  .sistema-grid,.planes-grid,.propfirms-grid,.sobre-grid,.contacto-grid{grid-template-columns:1fr}
-  .planes-grid{gap:16px}
-  .plan-card{padding:28px 24px}
-  .proceso-grid{grid-template-columns:1fr}
-  .footer-top{grid-template-columns:1fr}
-  footer{padding:48px 20px 32px}
-  .footer-bottom{flex-direction:column}
-  .live-metrics{grid-template-columns:1fr 1fr 1fr}
-  .section-inner{max-width:100% !important;padding:0 20px !important}
-  [style*="max-width:1100px"]{max-width:100% !important}
-  [style*="padding:0 48px"]{padding:0 20px !important}
-  [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important}
-  [style*="grid-template-columns:2fr 1fr"]{grid-template-columns:1fr !important}
-  [style*="grid-template-columns:1fr 1fr 1fr"]{grid-template-columns:1fr !important}
-  .stats-inner{grid-template-columns:repeat(3,1fr) !important}
-  .stat-item:nth-child(n+4){display:none}
-  .stat-num{font-size:1.6rem !important}
-  .stat-label{font-size:0.6rem !important}
-  .section-wrap.full .section-inner{padding:0 20px;width:100%;overflow-x:hidden}
+  nav{padding:16px 20px}.nav-links{display:none}
+  .tools-hero,.tabs-wrap,.tools-content{padding-left:20px;padding-right:20px}
+  .tools-hero{padding-top:100px}
+  .calc-grid{grid-template-columns:1fr}
+  .journal-stats{grid-template-columns:1fr 1fr}
+  .tabs{overflow-x:auto;padding-bottom:0}
+  footer{padding:24px 20px}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">
-    <div class="nav-dot"></div>
-    <span class="nav-brand">KuroFlow</span>
-  </a>
+  <a href="index.html" class="nav-logo"><div class="nav-dot"></div><span class="nav-brand">KuroFlow</span></a>
   <ul class="nav-links">
-    <li><a href="#sistema">Sistema</a></li>
-    <li><a href="#como-funciona">Cómo funciona</a></li>
-    <li><a href="#sobre">Track Record</a></li>
-    <li><a href="#planes">Planes</a></li>
-    <li><a href="#prop-firms">Prop Firms</a></li>
-    <li><a href="#faq">FAQ</a></li>
+    <li><a href="index.html#sistema">Sistema</a></li>
+    <li><a href="index.html#planes">Planes</a></li>
     <li><a href="blog.html">Blog</a></li>
-    <li><a href="herramientas.html">Herramientas</a></li>
+    <li><a href="herramientas.html" class="active">Herramientas</a></li>
   </ul>
-  <a href="https://whop.com/kuro-flow" target="_blank" class="nav-cta">Precio lanzamiento →</a>
+  <a href="https://whop.com/kuro-flow" target="_blank" class="nav-cta">Desde €9 →</a>
 </nav>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-inner">
-    <div class="hero-left">
-      <div class="hero-eyebrow">
-        <div class="hero-eyebrow-dot"></div>
-        <span class="hero-eyebrow-text">🚀 Lanzamiento — Plazas de Socio Fundador abiertas</span>
-      </div>
-      <h1 class="hero-h1">El diario algorítmico<br>de un trader<br><em>cuantitativo.</em></h1>
-      <p class="hero-sub">El diario algorítmico del sistema COMBO_TAC documentado en vivo. Cada operación registrada con contexto, gestión de riesgo y análisis semanal. Diseñado para traders que operan en <strong style="color:var(--gold)">prop firms</strong>. Sin humo. Solo datos.</p>
-      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px">
-        <div style="display:flex;align-items:center;gap:10px;font-size:0.82rem;color:rgba(245,243,238,0.6)"><span style="color:#6edd9e;flex-shrink:0">✓</span>Alertas del sistema COMBO_TAC en tiempo real</div>
-        <div style="display:flex;align-items:center;gap:10px;font-size:0.82rem;color:rgba(245,243,238,0.6)"><span style="color:#6edd9e;flex-shrink:0">✓</span>Diseñado específicamente para prop firms</div>
-        <div style="display:flex;align-items:center;gap:10px;font-size:0.82rem;color:rgba(245,243,238,0.6)"><span style="color:#6edd9e;flex-shrink:0">✓</span>Análisis semanal del mercado cada domingo</div>
-        <div style="display:flex;align-items:center;gap:10px;font-size:0.82rem;color:rgba(245,243,238,0.6)"><span style="color:#c9a84c;flex-shrink:0">🎁</span><strong style="color:#c9a84c">Precio fundador bloqueado para siempre</strong> — solo en lanzamiento</div>
-      </div>
-      <div class="hero-btns">
-        <a href="https://whop.com/kuro-flow" target="_blank" class="btn-primary">Unirme ahora por €9 →</a>
-        <a href="#como-funciona" class="btn-outline">Ver cómo funciona</a>
-      </div>
-      <p class="hero-legal">⚠️ Contenido exclusivamente educativo. No es asesoramiento financiero. El trading conlleva riesgo de pérdida de capital.</p>
-    </div>
-    <div class="hero-right">
-      <div class="live-card">
-        <div class="live-card-header">
-          <div class="live-badge">
-            <div class="live-dot"></div>
-            Diario en vivo
-          </div>
-          <span class="live-date">COMBO_TAC · 2026</span>
-        </div>
-        <div class="live-operation">
-          <div class="live-op-label">Última entrada registrada · mi cuenta personal</div>
-          <div class="live-op-par">EURUSD</div>
-          <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
-            <span class="live-op-tipo">▲ LARGO</span>
-            <span style="font-size:0.65rem;color:var(--muted)">ADX &lt; 0.20 · Rango definido</span>
-          </div>
-        </div>
-        <div class="live-metrics">
-          <div class="live-metric">
-            <div class="live-metric-val gold">65%</div>
-            <div class="live-metric-label">Win Rate</div>
-          </div>
-          <div class="live-metric">
-            <div class="live-metric-val">-2.1%</div>
-            <div class="live-metric-label">Max DD</div>
-          </div>
-          <div class="live-metric">
-            <div class="live-metric-val">9.04</div>
-            <div class="live-metric-label">Sharpe</div>
-          </div>
-        </div>
-        <div class="live-disclaimer">⚠️ Los datos mostrados corresponden al backtest histórico del sistema (2019-2024). Los resultados pasados no garantizan resultados futuros. Contenido educativo.</div>
-      </div>
-    </div>
-  </div>
-</section>
+<div style="position:fixed;bottom:24px;left:24px;z-index:999">
+  <a href="index.html#planes" style="display:flex;align-items:center;gap:8px;background:#c9a84c;color:#0a0a0c;font-family:'DM Mono',monospace;font-size:0.72rem;font-weight:700;letter-spacing:0.06em;padding:12px 20px;text-decoration:none;box-shadow:0 4px 20px rgba(201,168,76,0.35);transition:opacity 0.2s" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+    Desde €9/mes →
+  </a>
+</div>
 
-<!-- TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker-inner">
-    <div class="ticker-item"><span class="ticker-par">EURUSD</span><span class="ticker-val">Seguimiento activo</span><span class="ticker-change">↑</span></div>
-    <div class="ticker-item"><span class="ticker-par">GBPUSD</span><span class="ticker-val">COMBO_TAC</span><span class="ticker-change">↑</span></div>
-    <div class="ticker-item"><span class="ticker-par">USDJPY</span><span class="ticker-val">ADX &lt; 0.20</span><span class="ticker-change">→</span></div>
-    <div class="ticker-item"><span class="ticker-par">XAUUSD</span><span class="ticker-val">En seguimiento</span><span class="ticker-change">↑</span></div>
-    <div class="ticker-item"><span class="ticker-par">WR</span><span class="ticker-val">65%</span><span class="ticker-change">↑</span></div>
-    <div class="ticker-item"><span class="ticker-par">DD</span><span class="ticker-val">-2.1%</span><span class="ticker-change">✓</span></div>
-    <div class="ticker-item"><span class="ticker-par">Backtest OOS</span><span class="ticker-val">5 años</span><span class="ticker-change">✓</span></div>
-    <div class="ticker-item"><span class="ticker-par">EURUSD</span><span class="ticker-val">Seguimiento activo</span><span class="ticker-change">↑</span></div>
-    <div class="ticker-item"><span class="ticker-par">GBPUSD</span><span class="ticker-val">COMBO_TAC</span><span class="ticker-change">↑</span></div>
-    <div class="ticker-item"><span class="ticker-par">USDJPY</span><span class="ticker-val">ADX &lt; 0.20</span><span class="ticker-change">→</span></div>
-    <div class="ticker-item"><span class="ticker-par">XAUUSD</span><span class="ticker-val">En seguimiento</span><span class="ticker-change">↑</span></div>
-    <div class="ticker-item"><span class="ticker-par">WR</span><span class="ticker-val">65%</span><span class="ticker-change">↑</span></div>
-    <div class="ticker-item"><span class="ticker-par">DD</span><span class="ticker-val">-2.1%</span><span class="ticker-change">✓</span></div>
-    <div class="ticker-item"><span class="ticker-par">Backtest OOS</span><span class="ticker-val">5 años</span><span class="ticker-change">✓</span></div>
+<div class="tools-hero">
+  <div class="eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Herramientas gratuitas y exclusivas</span></div>
+  <h1>Calcula. Rastrea.<br>Opera mejor.</h1>
+  <p>Herramientas diseñadas para traders de prop firms. Algunas son gratuitas para todos — las más avanzadas están incluidas en los planes Pro y Mentoring.</p>
+</div>
+
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('lot')">
+      Lot Size Calculator <span class="tab-badge free">Gratis</span>
+    </button>
+    <button class="tab" onclick="showTab('rr')">
+      Risk/Reward <span class="tab-badge free">Gratis</span>
+    </button>
+    <button class="tab" onclick="showTab('tracker')">
+      Prop Firm Tracker <span class="tab-badge pro">Pro</span>
+    </button>
+    <button class="tab" onclick="showTab('journal')">
+      Trade Journal <span class="tab-badge mentoring">Mentoring</span>
+    </button>
   </div>
 </div>
 
-<!-- STATS -->
-<div id="stats">
-  <div class="stats-inner">
-    <div class="stat-block">
-      <div class="stat-num">65%</div>
-      <div class="stat-label">Win Rate<br>COMBO_TAC <span style="color:rgba(201,168,76,0.4);font-size:0.55rem">backtest</span></div>
-    </div>
-    <div class="stat-block">
-      <div class="stat-num w">-2.1%</div>
-      <div class="stat-label">Drawdown máx.<br><span style="color:rgba(201,168,76,0.5);font-size:0.7rem">backtest 2019-2024</span></div>
-    </div>
-    <div class="stat-block">
-      <div class="stat-num w">7</div>
-      <div class="stat-label">Operaciones<br>por mes</div>
-    </div>
-    <div class="stat-block">
-      <div class="stat-num w">5</div>
-      <div class="stat-label">Años backtest<br>OOS validado</div>
-    </div>
-    <div class="stat-block">
-      <div class="stat-num w">4</div>
-      <div class="stat-label">Activos en<br>seguimiento</div>
-    </div>
-  </div>
-</div>
+<div class="tools-content">
 
-<!-- WHAT IS LIVE vs BACKTEST -->
-<div style="background:#0f0f12;border-top:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);padding:24px 48px">
-  <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:32px">
-    <div style="display:flex;gap:14px;align-items:flex-start">
-      <div style="width:8px;height:8px;border-radius:50%;background:#6edd9e;flex-shrink:0;margin-top:5px"></div>
-      <div>
-        <div style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:#6edd9e;margin-bottom:4px">En tiempo real — lo que publico ahora</div>
-        <div style="font-size:0.78rem;color:rgba(245,243,238,0.5);line-height:1.7">El registro de cada operación de mi cuenta personal se publica en el Discord privado cuando ocurre. Eso es lo que ven los suscriptores en vivo.</div>
-      </div>
+  <!-- ═══ LOT SIZE CALCULATOR ═══ -->
+  <div class="tool-panel active" id="panel-lot">
+    <div class="tool-header">
+      <div class="tool-tag">Calculadora gratuita</div>
+      <div class="tool-title">Lot Size Calculator</div>
+      <div class="tool-desc">Calcula el tamaño de posición exacto según tu balance, riesgo y stop loss. El error más común en prop firms es arriesgar demasiado — esta calculadora lo evita.</div>
     </div>
-    <div style="display:flex;gap:14px;align-items:flex-start">
-      <div style="width:8px;height:8px;border-radius:50%;background:#c9a84c;flex-shrink:0;margin-top:5px"></div>
-      <div>
-        <div style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:#c9a84c;margin-bottom:4px">Estadísticas históricas — backtest 2019-2024</div>
-        <div style="font-size:0.78rem;color:rgba(245,243,238,0.5);line-height:1.7">Los datos de WR, DD y Sharpe mostrados arriba son del backtesting histórico del sistema. No son resultados en cuenta real. El historial en vivo está en construcción.</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- BACKTEST DISCLAIMER -->
-<div style="background:#0f0f12;border-bottom:1px solid rgba(255,255,255,0.05);padding:14px 48px">
-  <div style="max-width:1100px;margin:0 auto;font-size:0.65rem;color:rgba(245,243,238,0.2);line-height:1.6;letter-spacing:0.02em">
-    ⚠️ Todos los datos estadísticos mostrados (Win Rate, Drawdown, Sharpe Ratio) corresponden exclusivamente a backtesting histórico del sistema COMBO_TAC sobre datos del período 2019-2024. No representan resultados reales de trading en vivo. El backtesting no incluye slippage real, spreads variables ni errores de ejecución. Los resultados en cuenta real pueden diferir significativamente. El rendimiento pasado no es indicador de resultados futuros.
-  </div>
-</div>
-
-<!-- SISTEMA -->
-<div class="section-wrap">
-  <div class="section-inner" id="sistema">
-    <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span class="section-tag">El sistema</span></div>
-    <h2 class="section-h2">QuantBot — dos módulos,<br>una sola filosofía.</h2>
-    <p class="section-sub">Alta selectividad. Riesgo controlado. Sin intervención emocional. El sistema solo opera cuando las condiciones estadísticas son óptimas.</p>
-    <div class="sistema-grid">
-      <div class="sistema-card active">
-        <div class="sistema-card-glow"></div>
-        <div class="sistema-status on"><span>●</span> Módulo activo</div>
-        <div class="sistema-name">COMBO_TAC</div>
-        <p class="sistema-desc">Opera en mercados con estructura de rango definida. Detecta anomalías estadísticas cuando el mercado pierde direccionalidad (ADX &lt; 0.20) y espera la condición óptima de entrada.</p>
-        <div class="sistema-rows">
-          <div class="sistema-row"><span class="sistema-row-label">Win Rate histórico</span><span class="sistema-row-val gold">65%</span></div>
-          <div class="sistema-row"><span class="sistema-row-label">Drawdown máximo</span><span class="sistema-row-val">-2.1%</span></div>
-          <div class="sistema-row"><span class="sistema-row-label">Frecuencia</span><span class="sistema-row-val">~7 ops/mes</span></div>
-          <div class="sistema-row"><span class="sistema-row-label">Condición de entrada</span><span class="sistema-row-val">ADX &lt; 0.20</span></div>
-          <div class="sistema-row"><span class="sistema-row-label">Validación</span><span class="sistema-row-val">5 años OOS</span></div>
+    <div class="calc-grid">
+      <div class="calc-inputs">
+        <div class="input-group">
+          <label>Balance de la cuenta</label>
+          <input type="number" id="ls-balance" value="10000" placeholder="10000">
         </div>
-        <div class="sistema-tags">
-          <span class="sistema-tag">EURUSD</span>
-          <span class="sistema-tag">GBPUSD</span>
-          <span class="sistema-tag">USDJPY</span>
-          <span class="sistema-tag">XAUUSD</span>
+        <div class="input-group">
+          <label>Riesgo por operación (%)</label>
+          <input type="number" id="ls-risk" value="1" step="0.1" min="0.1" max="5" placeholder="1">
         </div>
-      </div>
-      <div class="sistema-card">
-        <div class="sistema-status off">⧗ En validación</div>
-        <div class="sistema-name" style="color:rgba(245,243,238,0.35)">Módulo Híbrido</div>
-        <p class="sistema-desc" style="color:rgba(245,243,238,0.2)">Complementa COMBO_TAC con un sistema tendencial para mercados en movimiento. Mayor frecuencia de operaciones con gestión de riesgo adaptativa.</p>
-        <div class="sistema-rows">
-          <div class="sistema-row"><span class="sistema-row-label">Win Rate histórico</span><span class="sistema-row-val" style="color:rgba(245,243,238,0.25)">45%</span></div>
-          <div class="sistema-row"><span class="sistema-row-label">Drawdown máximo</span><span class="sistema-row-val" style="color:rgba(245,243,238,0.25)">-5.5%</span></div>
-          <div class="sistema-row"><span class="sistema-row-label">Frecuencia</span><span class="sistema-row-val" style="color:rgba(245,243,238,0.25)">~60 operaciones/mes</span></div>
-          <div class="sistema-row"><span class="sistema-row-label">Condición</span><span class="sistema-row-val" style="color:rgba(245,243,238,0.25)">ADX &gt; 0.25</span></div>
+        <div class="input-group">
+          <label>Stop Loss (pips)</label>
+          <input type="number" id="ls-sl" value="20" placeholder="20">
         </div>
-        <div style="margin-top:20px;padding:14px 16px;border:1px solid rgba(255,255,255,0.05);font-size:0.72rem;color:rgba(245,243,238,0.2)">
-          Disponible cuando el historial out-of-sample lo valide.
-        </div>
-      </div>
-    </div>
-    <div style="padding:16px 24px;border:1px solid rgba(255,255,255,0.05);font-size:0.7rem;color:rgba(245,243,238,0.2);text-align:center;letter-spacing:0.04em">
-      ⚠️ Los datos estadísticos mostrados corresponden a backtesting histórico (2019-2024). Los resultados pasados no son garantía de resultados futuros.
-    </div>
-  </div>
-</div>
-
-<!-- CÓMO FUNCIONA -->
-<div class="section-wrap dark" id="como-funciona">
-  <div class="section-inner">
-    <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span class="section-tag">Cómo funciona</span></div>
-    <h2 class="section-h2">Cuatro pasos.<br>Sin complicaciones.</h2>
-    <p class="section-sub">No necesitas instalar nada ni saber de programación. Sigues el diario, aprendes cómo piensa el sistema y decides tú si aplicas lo que comparto.</p>
-    <div class="proceso-grid">
-      <div class="proceso-step">
-        <div class="proceso-num">01</div>
-        <div class="proceso-title">Te suscribes</div>
-        <p class="proceso-desc">Eliges tu plan y accedes al Discord privado de KuroFlow inmediatamente.</p>
-      </div>
-      <div class="proceso-step">
-        <div class="proceso-num">02</div>
-        <div class="proceso-title">Accedes al diario</div>
-        <p class="proceso-desc">Publico en tiempo real las condiciones que detecta el sistema y las operaciones que registro en mi cuenta personal.</p>
-        <div class="proceso-example">EURUSD · ADX: 0.18 · Rango detectado<br>Condición COMBO_TAC activa<br>Mi operativa: entrada larga</div>
-      </div>
-      <div class="proceso-step">
-        <div class="proceso-num">03</div>
-        <div class="proceso-title">Tú decides</div>
-        <p class="proceso-desc">Con esa información, decides de forma autónoma si aplicas algo similar en tu propia cuenta, en la plataforma que uses.</p>
-      </div>
-      <div class="proceso-step" style="border-color:rgba(201,168,76,0.2)">
-        <div class="proceso-num">04</div>
-        <div class="proceso-title">Aprendes el sistema</div>
-        <p class="proceso-desc">Cada publicación incluye el contexto del sistema — por qué el algoritmo detectó esa condición y qué espera del mercado.</p>
-      </div>
-    </div>
-    <div class="compat-bar">
-      <span class="compat-label">Compatible con:</span>
-      <div class="compat-tags">
-        <span class="compat-tag">MetaTrader 5</span>
-        <span class="compat-tag">MetaTrader 4</span>
-        <span class="compat-tag">cTrader</span>
-        <span class="compat-tag">TradingView</span>
-        <span class="compat-tag">App de tu broker</span>
-        <span class="compat-tag">Cualquier prop firm</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- TRACK RECORD -->
-<div class="section-wrap">
-  <div class="section-inner">
-    <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span class="section-tag">Track record</span></div>
-    <h2 class="section-h2">Transparencia total.</h2>
-    <p class="section-sub">Publicaré el historial verificado completo cuando tengamos suficiente historial en cuenta real. Sin edición, sin filtros.</p>
-    <div class="track-card">
-      <div class="track-icon">📊</div>
-      <div class="track-title">Myfxbook — En acumulación</div>
-      <p class="track-sub">El sistema está actualmente operando en cuentas reales acumulando historial verificado. Track record público disponible en los próximos meses.<br><br>La transparencia es uno de los pilares de KuroFlow. Publicaremos pérdidas y ganancias sin excepción.</p>
-      <div class="track-eta">⧗ Estimado: Q3 2026</div>
-    </div>
-  </div>
-</div>
-
-
-
-
-<!-- SOBRE -->
-<div class="section-wrap" id="sobre">
-  <div class="section-inner">
-    <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span class="section-tag">Track record real</span></div>
-    <h2 class="section-h2">Retiros verificados.<br>No es teoría.</h2>
-    <p class="section-sub">Estos son los retiros reales del sistema en cuentas de The5ers. Certificados oficiales de la prop firm. Resultados pasados — no garantizan resultados futuros.</p>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:40px;align-items:start">
-
-      <!-- Payout 1 -->
-      <div style="background:var(--ink2);border:1px solid rgba(201,168,76,0.2);overflow:hidden">
-        <img src="cert-payout1.png" alt="Certificado retiro The5ers $4,986 - julio 2025" style="width:100%;display:block;opacity:0.95" loading="lazy">
-        <div style="padding:16px 20px;border-top:1px solid rgba(201,168,76,0.1)">
-          <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:#c9a84c">$4,986</div>
-          <div style="font-size:0.72rem;color:rgba(245,243,238,0.4);margin-top:2px">Retiro · Julio 2025 · The5ers</div>
-        </div>
-      </div>
-
-      <!-- Payout 2 -->
-      <div style="background:var(--ink2);border:1px solid rgba(201,168,76,0.2);overflow:hidden">
-        <img src="cert-payout2.png" alt="Certificado retiro The5ers $2,080 - agosto 2025" style="width:100%;display:block;opacity:0.95" loading="lazy">
-        <div style="padding:16px 20px;border-top:1px solid rgba(201,168,76,0.1)">
-          <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:#c9a84c">$2,080</div>
-          <div style="font-size:0.72rem;color:rgba(245,243,238,0.4);margin-top:2px">Retiro · Agosto 2025 · The5ers</div>
-        </div>
-      </div>
-
-      <!-- Total -->
-      <div style="background:var(--ink2);border:1px solid rgba(201,168,76,0.35);overflow:hidden">
-        <img src="cert-total.png" alt="Total retiros The5ers $7,066" style="width:100%;display:block;opacity:0.95" loading="lazy">
-        <div style="padding:16px 20px;border-top:1px solid rgba(201,168,76,0.2);background:rgba(201,168,76,0.04)">
-          <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;color:#c9a84c">$7,066</div>
-          <div style="font-size:0.72rem;color:rgba(245,243,238,0.4);margin-top:2px">Total retirado · The5ers · 2025</div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Estado actual -->
-    <div style="background:rgba(110,221,158,0.04);border:1px solid rgba(110,221,158,0.2);padding:20px 28px;margin-top:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
-      <div style="width:8px;height:8px;border-radius:50%;background:#6edd9e;animation:pulse 2s infinite;flex-shrink:0"></div>
-      <div>
-        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;color:#6edd9e;margin-bottom:4px">Actualmente en challenge activo — For Traders</div>
-        <div style="font-size:0.78rem;color:rgba(245,243,238,0.45);line-height:1.7">El sistema COMBO_TAC está operando ahora mismo en una cuenta de evaluación de For Traders. Cada operación se documenta en tiempo real en el Discord privado — incluyendo pérdidas. El próximo certificado de retiro llegará cuando se complete el funded.</div>
-      </div>
-    </div>
-
-    <!-- Disclaimer -->
-    <div style="margin-top:12px;padding:14px 24px;border:1px solid rgba(255,255,255,0.05);font-size:0.65rem;color:rgba(245,243,238,0.18);text-align:center;line-height:1.7">
-      ⚠️ Certificados oficiales verificados por The5ers. Los resultados pasados no garantizan resultados futuros. El trading conlleva riesgo de pérdida de capital.
-    </div>
-
-    <!-- CTA -->
-    <div style="text-align:center;margin-top:32px">
-      <a href="https://www.the5ers.com/?afmc=1g0t" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.75rem;font-weight:700;letter-spacing:0.06em;padding:12px 28px;background:transparent;border:1px solid rgba(201,168,76,0.3);color:#c9a84c;text-decoration:none;display:inline-block;transition:border-color 0.2s" onmouseover="this.style.borderColor='#c9a84c'" onmouseout="this.style.borderColor='rgba(201,168,76,0.3)'">Abrir cuenta en The5ers →</a>
-      <div style="font-size:0.6rem;color:rgba(245,243,238,0.15);margin-top:8px">Enlace de afiliado — sin coste adicional para ti</div>
-    </div>
-
-  </div>
-</div>
-
-<!-- PLANES -->
-<div class="section-wrap dark" id="planes">
-  <div class="section-inner" style="max-width:1400px">
-    <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span class="section-tag">Planes</span></div>
-    <h2 class="section-h2">Elige tu nivel de acceso.</h2>
-    <p class="section-sub">Acceso al servidor Discord privado de KuroFlow. Cancela cuando quieras. Sin permanencia.</p>
-
-    <!-- Socio Fundador Banner -->
-    <div style="background:#0a0a0c;border:1px solid rgba(201,168,76,0.35);padding:32px;margin-bottom:32px;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#c9a84c,rgba(201,168,76,0.2))"></div>
-
-      <div style="display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start;flex-wrap:wrap">
-        <div>
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
-            <div style="width:8px;height:8px;border-radius:50%;background:#c9a84c;animation:pulse 2s infinite;flex-shrink:0"></div>
-            <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:0.9rem;color:#c9a84c;letter-spacing:-0.02em">KuroFlow está comenzando — y tú puedes ser de los primeros.</span>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="input-group">
+            <label>Par de divisas</label>
+            <select id="ls-pair">
+              <option value="major">EURUSD</option>
+              <option value="major">GBPUSD</option>
+              <option value="major">USDCHF</option>
+              <option value="jpy">USDJPY</option>
+              <option value="jpy">GBPJPY</option>
+              <option value="jpy">EURJPY</option>
+              <option value="gold">XAUUSD (Oro)</option>
+            </select>
           </div>
-          <p style="font-size:0.84rem;color:rgba(245,243,238,0.55);line-height:1.85;margin-bottom:16px">
-            Estamos en la fase de lanzamiento. El Discord es nuevo, la comunidad se está formando y el track record en vivo está empezando a construirse ahora mismo.<br><br>
-            <strong style="color:#f5f3ee">Ser Socio Fundador significa entrar antes que nadie</strong> — con el precio más bajo que KuroFlow tendrá jamás, bloqueado para siempre mientras no canceles.
-          </p>
-          <div style="display:flex;flex-direction:column;gap:8px">
-            <div style="display:flex;align-items:flex-start;gap:10px;font-size:0.8rem;color:rgba(245,243,238,0.5)"><span style="color:#c9a84c;flex-shrink:0;margin-top:1px">→</span><span><strong style="color:#f5f3ee">Precio bloqueado para siempre</strong> — cuando el lanzamiento cierre, el precio sube. El tuyo no.</span></div>
-            <div style="display:flex;align-items:flex-start;gap:10px;font-size:0.8rem;color:rgba(245,243,238,0.5)"><span style="color:#c9a84c;flex-shrink:0;margin-top:1px">→</span><span><strong style="color:#f5f3ee">Tu voz importa desde el día 1</strong> — los fundadores dan forma a la comunidad y al producto.</span></div>
-            <div style="display:flex;align-items:flex-start;gap:10px;font-size:0.8rem;color:rgba(245,243,238,0.5)"><span style="color:#c9a84c;flex-shrink:0;margin-top:1px">→</span><span><strong style="color:#f5f3ee">Acceso directo</strong> — con pocos miembros el acceso y la atención son máximos.</span></div>
+          <div class="input-group">
+            <label>Moneda cuenta</label>
+            <select id="ls-currency">
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
+            </select>
           </div>
         </div>
+        <div class="input-group" id="ls-fx-group" style="display:none">
+          <label>Tipo de cambio → USD</label>
+          <input type="number" id="ls-fx" value="1.08" step="0.001">
+        </div>
+        <button class="calc-btn" onclick="calcLotSize()">Calcular lot size →</button>
+      </div>
+      <div class="calc-result">
+        <div class="result-main">
+          <div class="result-label">Lot size recomendado</div>
+          <div class="result-value" id="ls-result-val">—</div>
+          <div class="result-unit">lotes estándar</div>
+        </div>
+        <div class="result-breakdown" id="ls-breakdown" style="display:none">
+          <div class="result-row"><span class="result-row-label">Riesgo en USD</span><span class="result-row-val" id="ls-risk-usd">—</span></div>
+          <div class="result-row"><span class="result-row-label">Valor del pip</span><span class="result-row-val" id="ls-pip-val">—</span></div>
+          <div class="result-row"><span class="result-row-label">Stop loss</span><span class="result-row-val" id="ls-sl-val">—</span></div>
+          <div class="result-row"><span class="result-row-label">Pérdida máxima</span><span class="result-row-val" id="ls-max-loss">—</span></div>
+        </div>
+        <div style="font-size:0.68rem;color:rgba(245,243,238,0.2);line-height:1.6;margin-top:8px">⚠️ Herramienta educativa. Verifica siempre con tu broker antes de operar.</div>
+      </div>
+    </div>
+  </div>
 
-        <div style="display:flex;flex-direction:column;gap:12px;flex-shrink:0">
-          <div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);padding:12px 20px;text-align:center">
-            <div style="font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-bottom:4px">Basic fundador</div>
-            <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;color:#c9a84c;line-height:1">€9<span style="font-size:0.7rem;font-weight:400;color:rgba(245,243,238,0.3)">/mes</span></div>
+  <!-- ═══ RISK/REWARD CALCULATOR ═══ -->
+  <div class="tool-panel" id="panel-rr">
+    <div class="tool-header">
+      <div class="tool-tag">Calculadora gratuita</div>
+      <div class="tool-title">Risk/Reward Calculator</div>
+      <div class="tool-desc">Calcula el ratio Risk/Reward antes de entrar en cada operación. Un R:R mínimo de 1:1.5 es recomendable para que el sistema sea rentable a largo plazo incluso con un win rate del 50%.</div>
+    </div>
+    <div class="calc-grid">
+      <div class="calc-inputs">
+        <div class="input-group">
+          <label>Precio de entrada</label>
+          <input type="number" id="rr-entry" placeholder="1.0850" step="0.0001">
+        </div>
+        <div class="input-group">
+          <label>Stop Loss</label>
+          <input type="number" id="rr-sl" placeholder="1.0820" step="0.0001">
+        </div>
+        <div class="input-group">
+          <label>Take Profit</label>
+          <input type="number" id="rr-tp" placeholder="1.0920" step="0.0001">
+        </div>
+        <div class="input-group">
+          <label>Dirección</label>
+          <select id="rr-dir">
+            <option value="long">▲ Long (Compra)</option>
+            <option value="short">▼ Short (Venta)</option>
+          </select>
+        </div>
+        <button class="calc-btn" onclick="calcRR()">Calcular R:R →</button>
+      </div>
+      <div class="calc-result">
+        <div class="result-main">
+          <div class="result-label">Ratio Risk/Reward</div>
+          <div class="result-value" id="rr-result-val">—</div>
+          <div class="result-unit" id="rr-result-label">introduce los datos</div>
+        </div>
+        <div class="result-breakdown" id="rr-breakdown" style="display:none">
+          <div class="result-row"><span class="result-row-label">Riesgo (pips)</span><span class="result-row-val" id="rr-risk-pips">—</span></div>
+          <div class="result-row"><span class="result-row-label">Beneficio potencial (pips)</span><span class="result-row-val" id="rr-reward-pips">—</span></div>
+          <div class="result-row"><span class="result-row-label">Win rate mínimo necesario</span><span class="result-row-val" id="rr-min-wr">—</span></div>
+          <div class="result-row"><span class="result-row-label">Valoración</span><span class="result-row-val" id="rr-rating">—</span></div>
+        </div>
+        <div style="font-size:0.68rem;color:rgba(245,243,238,0.2);line-height:1.6;margin-top:8px">⚠️ Herramienta educativa. Verifica siempre con tu broker antes de operar.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PROP FIRM TRACKER ═══ -->
+  <div class="tool-panel" id="panel-tracker">
+    <div class="tool-header">
+      <div class="tool-tag">Exclusivo Plan Pro</div>
+      <div class="tool-title">Prop Firm Tracker</div>
+      <div class="tool-desc">Rastrea el drawdown diario y total de tus cuentas fondeadas en tiempo real. Configura alertas visuales cuando te acerques a los límites.</div>
+    </div>
+    <div style="position:relative">
+      <div style="filter:blur(3px);pointer-events:none">
+        <div class="tracker-grid">
+          <div class="tracker-account">
+            <div class="tracker-account-header">
+              <div>
+                <div class="tracker-account-name">The5ers — $100K</div>
+                <div style="font-size:0.68rem;color:var(--muted);margin-top:2px">Fase 1 · Activa</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-size:0.68rem;color:var(--muted)">Objetivo</div>
+                <div style="font-family:'Syne',sans-serif;font-weight:800;color:var(--green)">+$2,840 / $8,000</div>
+              </div>
+            </div>
+            <div class="tracker-bars">
+              <div class="tracker-bar-wrap">
+                <div class="tracker-bar-header">
+                  <span class="tracker-bar-label">Drawdown diario</span>
+                  <span class="tracker-bar-val" style="color:var(--green)">-0.8% / 4%</span>
+                </div>
+                <div class="tracker-bar-bg"><div class="tracker-bar-fill" style="width:20%;background:#6edd9e"></div></div>
+              </div>
+              <div class="tracker-bar-wrap">
+                <div class="tracker-bar-header">
+                  <span class="tracker-bar-label">Drawdown total</span>
+                  <span class="tracker-bar-val" style="color:var(--green)">-1.2% / 5%</span>
+                </div>
+                <div class="tracker-bar-bg"><div class="tracker-bar-fill" style="width:24%;background:#6edd9e"></div></div>
+              </div>
+              <div class="tracker-bar-wrap">
+                <div class="tracker-bar-header">
+                  <span class="tracker-bar-label">Progreso objetivo</span>
+                  <span class="tracker-bar-val" style="color:var(--gold)">35.5%</span>
+                </div>
+                <div class="tracker-bar-bg"><div class="tracker-bar-fill" style="width:35.5%;background:#c9a84c"></div></div>
+              </div>
+            </div>
           </div>
-          <div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);padding:12px 20px;text-align:center">
-            <div style="font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-bottom:4px">Pro fundador</div>
-            <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;color:#c9a84c;line-height:1">€19<span style="font-size:0.7rem;font-weight:400;color:rgba(245,243,238,0.3)">/mes</span></div>
+          <div class="tracker-account">
+            <div class="tracker-account-header">
+              <div>
+                <div class="tracker-account-name">FTMO — $50K</div>
+                <div style="font-size:0.68rem;color:var(--muted);margin-top:2px">Fase 2 · Activa</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-size:0.68rem;color:var(--muted)">Objetivo</div>
+                <div style="font-family:'Syne',sans-serif;font-weight:800;color:var(--gold)">+$1,100 / $2,500</div>
+              </div>
+            </div>
+            <div class="tracker-bars">
+              <div class="tracker-bar-wrap">
+                <div class="tracker-bar-header">
+                  <span class="tracker-bar-label">Drawdown diario</span>
+                  <span class="tracker-bar-val" style="color:var(--gold)">-3.2% / 5%</span>
+                </div>
+                <div class="tracker-bar-bg"><div class="tracker-bar-fill" style="width:64%;background:#c9a84c"></div></div>
+              </div>
+              <div class="tracker-bar-wrap">
+                <div class="tracker-bar-header">
+                  <span class="tracker-bar-label">Drawdown total</span>
+                  <span class="tracker-bar-val" style="color:var(--green)">-2.1% / 10%</span>
+                </div>
+                <div class="tracker-bar-bg"><div class="tracker-bar-fill" style="width:21%;background:#6edd9e"></div></div>
+              </div>
+              <div class="tracker-bar-wrap">
+                <div class="tracker-bar-header">
+                  <span class="tracker-bar-label">Progreso objetivo</span>
+                  <span class="tracker-bar-val" style="color:var(--gold)">44%</span>
+                </div>
+                <div class="tracker-bar-bg"><div class="tracker-bar-fill" style="width:44%;background:#c9a84c"></div></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- Plans Grid -->
-    <div class="planes-grid">
-
-      <!-- BASIC -->
-      <div class="plan-card">
-        <div class="plan-name">Basic</div>
-        <div class="plan-price-wrap">
-          <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;color:rgba(245,243,238,0.3);text-decoration:line-through;margin-right:8px;vertical-align:middle">€29</span>
-          <span class="plan-price" style="display:inline"><span class="plan-currency">€</span>9</span>
-        </div>
-        <div class="plan-period">/ mes · <span style="color:#6edd9e">bloqueado para siempre si entras ahora</span></div>
-        <div style="display:flex;align-items:center;gap:6px;padding:8px 0;margin-bottom:4px;flex-wrap:wrap"><div style="width:6px;height:6px;border-radius:50%;background:#c9a84c;flex-shrink:0"></div><span style="font-size:0.68rem;color:#c9a84c;letter-spacing:0.04em;line-height:1.4">🎁 Socio Fundador · precio bloqueado para siempre</span></div>
-        <div class="plan-divider"></div>
-        <ul class="plan-features">
-          <li><span class="check">→</span>Alertas del sistema en tiempo real</li>
-          <li><span class="check">→</span>Diario de operaciones con resultado</li>
-          <li><span class="check">→</span>Análisis semanal cada domingo</li>
-          <li><span class="check">→</span>Track record actualizado</li>
-          <li><span class="check">→</span>Informe mensual PDF del sistema</li>
-          <li><span class="check">→</span>Discord privado — comunidad</li>
-        </ul>
-        <a href="https://whop.com/kuro-flow/kuroflow-basic" target="_blank" class="btn-plan btn-plan-border">Empezar por €9 →</a>
-      </div>
-
-      <!-- PRO -->
-      <div class="plan-card featured">
-        <div class="plan-popular"></div>
-        <div class="plan-popular-label">Más popular</div>
-        <div class="plan-name">Pro</div>
-        <div class="plan-price-wrap">
-          <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;color:rgba(245,243,238,0.3);text-decoration:line-through;margin-right:8px;vertical-align:middle">€79</span>
-          <span class="plan-price" style="display:inline"><span class="plan-currency">€</span>19</span>
-        </div>
-        <div class="plan-period">/ mes · <span style="color:#6edd9e">bloqueado para siempre si entras ahora</span></div>
-        <div style="display:flex;align-items:center;gap:6px;padding:8px 0;margin-bottom:4px;flex-wrap:wrap"><div style="width:6px;height:6px;border-radius:50%;background:#c9a84c;flex-shrink:0"></div><span style="font-size:0.68rem;color:#c9a84c;letter-spacing:0.04em;line-height:1.4">🎁 Socio Fundador · precio bloqueado para siempre</span></div>
-        <div class="plan-divider"></div>
-        <ul class="plan-features">
-          <li><span class="check">→</span>Todo lo del plan Basic</li>
-          <li><span class="check" style="color:#c9a84c">→</span><span><strong style="color:#f5f3ee">Contexto completo</strong><span style="color:rgba(245,243,238,0.4)"> · por qué entró el sistema</span></span></li>
-          <li><span class="check" style="color:#c9a84c">→</span><span><strong style="color:#f5f3ee">Prop Firm Tracker</strong><span style="color:rgba(245,243,238,0.4)"> · seguimiento DD diario y total</span></span></li>
-          <li><span class="check" style="color:#c9a84c">→</span><span><strong style="color:#f5f3ee">Risk/Reward Calculator</strong><span style="color:rgba(245,243,238,0.4)"> · antes de cada trade</span></span></li>
-          <li><span class="check">→</span>Soporte directo por Discord</li>
-          <li><span class="check">→</span>Canal exclusivo Pro</li>
-        </ul>
-        <a href="https://whop.com/kuro-flow/kuroflow-pro" target="_blank" class="btn-plan btn-plan-gold">Empezar por €19/mes →</a>
-        <div style="text-align:center;margin-top:10px;font-size:0.68rem;color:rgba(245,243,238,0.25);letter-spacing:0.04em">¿Prefieres pago anual? <a href="mailto:support@kuro-flow.com" style="color:var(--gold);text-decoration:none">Contáctanos →</a></div>
-      </div>
-
-      <!-- MENTORING -->
-      <div class="plan-card">
-        <div style="font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:#ed6e6e;margin-bottom:6px">⚡ Solo 8 plazas</div>
-        <div class="plan-name">Mentoring</div>
-        <div class="plan-price-wrap">
-          <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;color:rgba(245,243,238,0.3);text-decoration:line-through;margin-right:8px;vertical-align:middle">€199</span>
-          <span class="plan-price" style="display:inline"><span class="plan-currency">€</span>49</span>
-        </div>
-        <div class="plan-period">/ mes · <span style="color:#6edd9e">bloqueado · máx. 8 plazas · solo lanzamiento</span></div>
-        <div style="display:flex;align-items:center;gap:6px;padding:8px 0;margin-bottom:4px;flex-wrap:wrap"><div style="width:6px;height:6px;border-radius:50%;background:#c9a84c;flex-shrink:0"></div><span style="font-size:0.68rem;color:#c9a84c;letter-spacing:0.04em;line-height:1.4">🎁 Socio Fundador · precio bloqueado para siempre</span></div>
-        <div class="plan-divider"></div>
-        <ul class="plan-features">
-          <li><span class="check">→</span>Todo lo del plan Pro</li>
-          <li><span class="check" style="color:#c9a84c">→</span><span><strong style="color:#f5f3ee">Trade Journal</strong><span style="color:rgba(245,243,238,0.4)"> · revisión mensual de tu operativa</span></span></li>
-          <li><span class="check">→</span>Sesión educativa 1:1 mensual por Discord</li>
-          <li><span class="check">→</span>Canal privado directo</li>
-          <li><span class="check">→</span>Orientación educativa sobre prop firms</li>
-          <li><span class="check">→</span><span style="font-size:0.72rem;color:rgba(245,243,238,0.3)">Plazas limitadas — máx. 8 simultáneas</span></li>
-        </ul>
-        <a href="https://whop.com/kuro-flow/kuroflow-mentoring" target="_blank" class="btn-plan btn-plan-border">Empezar por €49 →</a>
-      </div>
-
-    </div>
-
-    <div style="margin-top:20px;padding:16px 24px;border:1px solid rgba(255,255,255,0.05);font-size:0.68rem;color:rgba(245,243,238,0.2);text-align:center;line-height:1.7">
-      ⚠️ Todo el contenido de KuroFlow es exclusivamente educativo. No constituye asesoramiento financiero ni recomendación de inversión. El trading conlleva riesgo de pérdida de capital. Cancela en cualquier momento.
-    </div>
-  </div>
-</div>
-
-<!-- PROP FIRMS -->
-<div class="section-wrap" id="prop-firms">
-  <div class="section-inner">
-    <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span class="section-tag">Prop firms</span></div>
-    <h2 class="section-h2">¿Qué prop firm elegir?</h2>
-    <p class="section-sub">El sistema COMBO_TAC está diseñado para cumplir las reglas de las principales prop firms. Estas son las que uso y recomiendo por experiencia propia.</p>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px">
-
-      <!-- The5ers — AFILIADO ACTIVO -->
-      <div style="background:linear-gradient(135deg,rgba(201,168,76,0.06) 0%,var(--ink2) 60%);border:1px solid rgba(201,168,76,0.35);padding:36px;display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden">
-        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#c9a84c,rgba(201,168,76,0.3))"></div>
-        <div style="display:flex;justify-content:space-between;align-items:flex-start">
-          <div>
-            <div style="font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:#c9a84c;margin-bottom:6px">// Recomendada</div>
-            <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem">The5ers</div>
-          </div>
-          <div style="background:rgba(110,221,158,0.1);border:1px solid rgba(110,221,158,0.3);padding:4px 10px;font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:#6edd9e;flex-shrink:0">✓ Link activo</div>
-        </div>
-        <p style="font-size:0.82rem;color:var(--muted);line-height:1.75">Sin límite de tiempo en el challenge. Programa de scaling hasta $4M. Ideal para sistemas de baja frecuencia — COMBO_TAC encaja perfectamente.</p>
-        <div style="display:flex;gap:6px;flex-wrap:wrap">
-          <span style="font-size:0.6rem;padding:3px 10px;border:1px solid rgba(201,168,76,0.2);color:rgba(201,168,76,0.7)">Sin límite de tiempo</span>
-          <span style="font-size:0.6rem;padding:3px 10px;border:1px solid rgba(201,168,76,0.2);color:rgba(201,168,76,0.7)">Scaling $4M</span>
-          <span style="font-size:0.6rem;padding:3px 10px;border:1px solid rgba(201,168,76,0.2);color:rgba(201,168,76,0.7)">MT5 compatible</span>
-        </div>
-        <a href="https://www.the5ers.com/?afmc=1g0t" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;background:#c9a84c;color:#0a0a0c;font-family:'DM Mono',monospace;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-decoration:none;transition:opacity 0.2s;margin-top:auto" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Abrir cuenta en The5ers →</a>
-        <div style="font-size:0.6rem;color:rgba(245,243,238,0.15);text-align:center;letter-spacing:0.04em">Link de afiliado — sin coste adicional para ti</div>
-      </div>
-
-      <!-- For Traders — AFILIADO ACTIVO -->
-      <div style="background:linear-gradient(135deg,rgba(201,168,76,0.06) 0%,var(--ink2) 60%);border:1px solid rgba(201,168,76,0.35);padding:36px;display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden">
-        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#c9a84c,rgba(201,168,76,0.3))"></div>
-        <div style="display:flex;justify-content:space-between;align-items:flex-start">
-          <div>
-            <div style="font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:#c9a84c;margin-bottom:6px">// Sin restricción de noticias</div>
-            <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem">For Traders</div>
-          </div>
-          <div style="background:rgba(110,221,158,0.1);border:1px solid rgba(110,221,158,0.3);padding:4px 10px;font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:#6edd9e;flex-shrink:0">✓ Link activo</div>
-        </div>
-        <p style="font-size:0.82rem;color:var(--muted);line-height:1.75">Prop firm europea con condiciones muy competitivas. Sin restricción de noticias — ventaja clave para cualquier sistema algorítmico que opere durante eventos macro.</p>
-        <div style="display:flex;gap:6px;flex-wrap:wrap">
-          <span style="font-size:0.6rem;padding:3px 10px;border:1px solid rgba(201,168,76,0.2);color:rgba(201,168,76,0.7)">Sin restricción noticias</span>
-          <span style="font-size:0.6rem;padding:3px 10px;border:1px solid rgba(201,168,76,0.2);color:rgba(201,168,76,0.7)">Empresa europea</span>
-          <span style="font-size:0.6rem;padding:3px 10px;border:1px solid rgba(201,168,76,0.2);color:rgba(201,168,76,0.7)">Algorítmico friendly</span>
-        </div>
-        <a href="https://app.fortraders.com/trading/new-challenge?affiliateCode=HJ5GP0HZBS" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;background:#c9a84c;color:#0a0a0c;font-family:'DM Mono',monospace;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-decoration:none;transition:opacity 0.2s;margin-top:auto" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Abrir cuenta en For Traders →</a>
-        <div style="font-size:0.6rem;color:rgba(245,243,238,0.15);text-align:center;letter-spacing:0.04em">Link de afiliado — sin coste adicional para ti</div>
-      </div>
-
-      <!-- FTMO — PRÓXIMAMENTE -->
-      <div style="background:linear-gradient(135deg,rgba(201,168,76,0.06) 0%,var(--ink2) 60%);border:1px solid rgba(201,168,76,0.35);padding:36px;display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden">
-        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#c9a84c,rgba(201,168,76,0.3))"></div>
-        <div style="display:flex;justify-content:space-between;align-items:flex-start">
-          <div>
-            <div style="font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:#c9a84c;margin-bottom:6px">// Referente de la industria</div>
-            <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem">FTMO</div>
-          </div>
-          <div style="background:rgba(110,221,158,0.1);border:1px solid rgba(110,221,158,0.3);padding:4px 10px;font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:#6edd9e;flex-shrink:0">✓ Link activo</div>
-        </div>
-        <p style="font-size:0.82rem;color:var(--muted);line-height:1.75">La prop firm más reconocida del sector. Challenge de 2 fases, alta transparencia y payouts rápidos. Referente y estándar absoluto de la industria.</p>
-        <div style="display:flex;gap:6px;flex-wrap:wrap">
-          <span style="font-size:0.6rem;padding:3px 10px;border:1px solid rgba(201,168,76,0.2);color:rgba(201,168,76,0.7)">2 fases</span>
-          <span style="font-size:0.6rem;padding:3px 10px;border:1px solid rgba(201,168,76,0.2);color:rgba(201,168,76,0.7)">Alta reputación</span>
-          <span style="font-size:0.6rem;padding:3px 10px;border:1px solid rgba(201,168,76,0.2);color:rgba(201,168,76,0.7)">Payouts rápidos</span>
-        </div>
-        <a href="https://join.ftmo.com/YxmIxqxCWuqKGfcPaEJd" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;background:#c9a84c;color:#0a0a0c;font-family:'DM Mono',monospace;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-decoration:none;transition:opacity 0.2s;margin-top:auto" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Abrir cuenta en FTMO →</a>
-        <div style="font-size:0.6rem;color:rgba(245,243,238,0.15);text-align:center;letter-spacing:0.04em">Link de afiliado — sin coste adicional para ti</div>
-      </div>
-
-      
-
-    </div>
-    <div style="padding:14px 20px;border:1px solid rgba(255,255,255,0.04);font-size:0.65rem;color:rgba(245,243,238,0.18);letter-spacing:0.04em;text-align:center">
-      ℹ️ Los enlaces marcados con "Link activo" son links de afiliado. Si te registras a través de ellos, puedo recibir una comisión sin coste adicional para ti. Solo recomiendo prop firms que uso o he probado personalmente.
-    </div>
-  </div>
-</div>
-
-<!-- SOBRE MÍ -->
-<div class="section-wrap dark" id="sobre">
-  <div class="section-inner">
-    <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span class="section-tag">Sobre mí</span></div>
-    <div class="sobre-grid">
-      <div class="sobre-text">
-        <div class="sobre-quote">Construí un sistema que <em>no necesita</em> que yo esté mirando la pantalla.</div>
-        <p>Soy Diego Campero, trader cuantitativo. Llevo años desarrollando QuantBot — un sistema algorítmico diseñado para eliminar la emoción del trading.</p>
-        <p>KuroFlow nació para compartir ese proceso con transparencia. No vendo resultados perfectos — comparto mi operativa real, con pérdidas incluidas, para que puedas aprender cómo funciona un sistema cuantitativo de verdad.</p>
-        <p>La filosofía es simple: datos primero, siempre.</p>
-        <p style="font-size:0.72rem;color:rgba(245,243,238,0.2);margin-top:16px;line-height:1.7">⚠️ Nada de lo que comparto en KuroFlow constituye asesoramiento financiero. Cada persona es responsable de sus propias decisiones de inversión.</p>
-      </div>
-      <div class="sobre-cards">
-        <div class="sobre-card">
-          <div class="sobre-card-icon">📐</div>
-          <div>
-            <div class="sobre-card-title">Sistema real</div>
-            <div class="sobre-card-desc">QuantBot COMBO_TAC — validado con 5 años de backtest out-of-sample en 4 activos.</div>
-          </div>
-        </div>
-        <div class="sobre-card">
-          <div class="sobre-card-icon">🎯</div>
-          <div>
-            <div class="sobre-card-title">Alta selectividad</div>
-            <div class="sobre-card-desc">Solo opera cuando las condiciones estadísticas son óptimas. La paciencia es parte del edge.</div>
-          </div>
-        </div>
-        <div class="sobre-card">
-          <div class="sobre-card-icon">🔎</div>
-          <div>
-            <div class="sobre-card-title">Transparencia total</div>
-            <div class="sobre-card-desc">Publico pérdidas y ganancias. Track record verificado en Myfxbook próximamente.</div>
-          </div>
-        </div>
-        <div class="sobre-card">
-          <div class="sobre-card-icon">🏦</div>
-          <div>
-            <div class="sobre-card-title">Orientado a prop firms</div>
-            <div class="sobre-card-desc">El sistema está diseñado con las reglas de las prop firms en mente desde el principio.</div>
-          </div>
-        </div>
+      <div class="locked-overlay">
+        <div class="locked-icon">🔒</div>
+        <div class="locked-title">Disponible en Plan Pro</div>
+        <div class="locked-sub">Rastrea el DD diario y total de todas tus cuentas fondeadas desde un solo lugar.</div>
+        <a href="https://whop.com/kuro-flow/kuroflow-pro" target="_blank" class="locked-btn">Empezar por €19/mes →</a>
       </div>
     </div>
   </div>
-</div>
 
-<!-- FAQ -->
-<div class="section-wrap" id="faq">
-  <div class="section-inner">
-    <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span class="section-tag">FAQ</span></div>
-    <h2 class="section-h2" style="margin-bottom:40px">Preguntas frecuentes.</h2>
-    <div class="faq-list">
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          ¿Esto es asesoramiento financiero?
-          <div class="faq-icon">+</div>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">No. KuroFlow es un diario educativo donde comparto mi operativa personal con fines formativos. No recomiendo comprar ni vender ningún activo. Cada persona es responsable de sus propias decisiones de inversión. El trading conlleva riesgo significativo de pérdida de capital.</div></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          ¿Qué es exactamente lo que recibo?
-          <div class="faq-icon">+</div>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">Acceso al servidor Discord privado de KuroFlow donde publico en tiempo real las condiciones que detecta el sistema COMBO_TAC, mis registros de operativa personal y el contexto educativo de cada situación. No es un servicio de señales ni de gestión de capital.</div></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          ¿Qué necesito para empezar?
-          <div class="faq-icon">+</div>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">Solo necesitas una cuenta de Discord y acceso a cualquier plataforma de trading (MT5, MT4, cTrader, TradingView o la app de tu broker). No necesitas instalar ningún software especial ni tener conocimientos técnicos de programación.</div></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          ¿Es compatible con prop firms?
-          <div class="faq-icon">+</div>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">El sistema COMBO_TAC está diseñado con las reglas de las prop firms en mente — drawdown controlado, sin martingala ni grid, sin trading en noticias de alto impacto. Compatible con The5ers, FTMO, For Traders y cualquier prop firm que permita trading manual.</div></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          ¿Puedo cancelar cuando quiera?
-          <div class="faq-icon">+</div>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">Sí. Todas las suscripciones son mensuales con renovación automática. Puedes cancelar en cualquier momento desde tu panel de Whop sin penalizaciones ni permanencia mínima.</div></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          ¿Cuándo estará disponible el track record en Myfxbook?
-          <div class="faq-icon">+</div>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">El sistema está acumulando historial en cuentas reales. Publicaremos el track record verificado cuando tengamos un mínimo de 3-6 meses de historial continuo. La transparencia es un principio no negociable de KuroFlow — publicaremos pérdidas y ganancias sin excepción.</div></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          ¿Por qué solo COMBO_TAC y no el módulo Híbrido?
-          <div class="faq-icon">+</div>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">COMBO_TAC tiene un historial de backtest más sólido y un drawdown muy controlado (-2.1%), ideal para prop firms. El módulo Híbrido está en fase de validación estadística out-of-sample. Solo lo añadiremos cuando los datos lo justifiquen — no antes.</div></div>
-      </div>
-
+  <!-- ═══ TRADE JOURNAL ═══ -->
+  <div class="tool-panel" id="panel-journal">
+    <div class="tool-header">
+      <div class="tool-tag">Exclusivo Plan Mentoring</div>
+      <div class="tool-title">Trade Journal</div>
+      <div class="tool-desc">Registra cada operación con estadísticas automáticas. Identifica patrones, mejora tu consistencia y comparte el journal para revisión mensual en la sesión 1:1.</div>
     </div>
-  </div>
-</div>
-
-<!-- CONTACTO -->
-<div class="section-wrap dark" id="contacto">
-  <div class="section-inner">
-    <div class="contacto-grid">
-      <div>
-        <div class="section-eyebrow"><div class="section-eyebrow-line"></div><span class="section-tag">Contacto</span></div>
-        <h2 class="section-h2">¿Tienes<br>dudas?</h2>
-        <p style="font-size:0.86rem;color:var(--muted);line-height:1.9;max-width:380px">Si tienes preguntas antes de unirte o quieres saber si KuroFlow encaja con lo que buscas, contáctame directamente.</p>
-      </div>
-      <div class="contacto-links">
-        <a href="https://discord.gg/dHczhAffq" target="_blank" class="contacto-link">
-          <div class="contacto-link-icon">🎮</div>
-          <div>
-            <div class="contacto-link-name">Discord — KuroFlow</div>
-            <div class="contacto-link-sub">discord.gg/kuroflow</div>
+    <div style="position:relative">
+      <div style="filter:blur(3px);pointer-events:none">
+        <div class="journal-stats">
+          <div class="journal-stat">
+            <div class="journal-stat-val" style="color:var(--gold)">68%</div>
+            <div class="journal-stat-label">Win Rate</div>
           </div>
-        </a>
-        
-        <a href="mailto:support@kuro-flow.com" class="contacto-link">
-          <div class="contacto-link-icon">✉</div>
-          <div>
-            <div class="contacto-link-name">Email</div>
-            <div class="contacto-link-sub">support@kuro-flow.com</div>
+          <div class="journal-stat">
+            <div class="journal-stat-val">24</div>
+            <div class="journal-stat-label">Operaciones</div>
           </div>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- BLOG TEASER -->
-<div style="background:var(--ink2);border-top:1px solid var(--border);padding:80px 0">
-  <div style="max-width:1100px;margin:0 auto;padding:0 48px">
-    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;flex-wrap:wrap;gap:16px">
-      <div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
-          <div style="width:24px;height:1px;background:#c9a84c"></div>
-          <span style="font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:#c9a84c">Blog educativo</span>
+          <div class="journal-stat">
+            <div class="journal-stat-val" style="color:var(--green)">$4,820</div>
+            <div class="journal-stat-label">PnL total</div>
+          </div>
+          <div class="journal-stat">
+            <div class="journal-stat-val">1.8</div>
+            <div class="journal-stat-label">Avg R:R</div>
+          </div>
         </div>
-        <h2 style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;letter-spacing:-0.02em;color:#f5f3ee">Aprende trading algorítmico<br>y prop firms.</h2>
+        <table class="journal-table">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Par</th>
+              <th>Dir.</th>
+              <th>Entrada</th>
+              <th>Salida</th>
+              <th>R:R</th>
+              <th>PnL</th>
+              <th>Resultado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>22 Sep</td><td>EURUSD</td><td>▲</td><td>1.0842</td><td>1.0891</td><td>1.8</td><td class="win-cell">+$410</td><td class="win-cell">WIN</td></tr>
+            <tr><td>20 Sep</td><td>USDJPY</td><td>▼</td><td>148.32</td><td>147.81</td><td>2.1</td><td class="win-cell">+$380</td><td class="win-cell">WIN</td></tr>
+            <tr><td>18 Sep</td><td>XAUUSD</td><td>▲</td><td>2,612</td><td>2,598</td><td>—</td><td class="loss-cell">-$280</td><td class="loss-cell">LOSS</td></tr>
+            <tr><td>15 Sep</td><td>GBPUSD</td><td>▲</td><td>1.3120</td><td>1.3178</td><td>1.6</td><td class="win-cell">+$350</td><td class="win-cell">WIN</td></tr>
+            <tr><td>12 Sep</td><td>EURUSD</td><td>▼</td><td>1.0910</td><td>1.0868</td><td>2.0</td><td class="win-cell">+$420</td><td class="win-cell">WIN</td></tr>
+          </tbody>
+        </table>
       </div>
-      <a href="blog.html" style="font-family:'DM Mono',monospace;font-size:0.75rem;letter-spacing:0.06em;padding:10px 22px;border:1px solid rgba(201,168,76,0.3);color:#c9a84c;text-decoration:none;transition:border-color 0.2s;white-space:nowrap">Ver todos los artículos →</a>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px">
-      <a href="blog/como-pasar-challenge-prop-firm.html" style="background:var(--ink);border:1px solid rgba(201,168,76,0.2);padding:28px;text-decoration:none;transition:border-color 0.2s;display:block" onmouseover="this.style.borderColor='rgba(201,168,76,0.4)'" onmouseout="this.style.borderColor='rgba(201,168,76,0.2)'">
-        <div style="font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:#c9a84c;margin-bottom:12px">Prop Firms</div>
-        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;line-height:1.3;margin-bottom:10px;color:#f5f3ee">Cómo pasar un challenge de prop firm en 2026</div>
-        <div style="font-size:0.75rem;color:rgba(245,243,238,0.35);line-height:1.6">Reglas, errores comunes, gestión de riesgo y comparativa de firmas.</div>
-        <div style="font-size:0.68rem;color:#c9a84c;margin-top:16px;letter-spacing:0.06em">Leer →</div>
-      </a>
-      <a href="blog/the5ers-vs-ftmo-vs-for-traders-2026.html" style="background:var(--ink);border:1px solid rgba(201,168,76,0.15);padding:28px;text-decoration:none;transition:border-color 0.2s;display:block" onmouseover="this.style.borderColor='rgba(201,168,76,0.4)'" onmouseout="this.style.borderColor='rgba(201,168,76,0.15)'">
-        <div style="font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:#c9a84c;margin-bottom:12px">Prop Firms</div>
-        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;line-height:1.3;margin-bottom:10px;color:#f5f3ee">The5ers vs FTMO vs For Traders 2026</div>
-        <div style="font-size:0.75rem;color:rgba(245,243,238,0.35);line-height:1.6">Comparativa completa para traders algorítmicos. ¿Cuál es mejor para tu sistema?</div>
-        <div style="font-size:0.68rem;color:#c9a84c;margin-top:16px;letter-spacing:0.06em">Leer →</div>
-      </a>
-      <a href="blog/cuentas-fondeadas-que-son-como-funcionan.html" style="background:var(--ink);border:1px solid rgba(201,168,76,0.15);padding:28px;text-decoration:none;transition:border-color 0.2s;display:block" onmouseover="this.style.borderColor='rgba(201,168,76,0.4)'" onmouseout="this.style.borderColor='rgba(201,168,76,0.15)'">
-        <div style="font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:#c9a84c;margin-bottom:12px">Guía principiantes</div>
-        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;line-height:1.3;margin-bottom:10px;color:#f5f3ee">Cuentas fondeadas: qué son y cómo funcionan</div>
-        <div style="font-size:0.75rem;color:rgba(245,243,238,0.35);line-height:1.6">Guía completa desde cero para entender las cuentas de fondeo.</div>
-        <div style="font-size:0.68rem;color:#c9a84c;margin-top:16px;letter-spacing:0.06em">Leer →</div>
-      </a>
+      <div class="locked-overlay">
+        <div class="locked-icon">🔒</div>
+        <div class="locked-title">Disponible en Plan Mentoring</div>
+        <div class="locked-sub">Incluye revisión mensual de tu journal en la sesión 1:1 con KuroFlow.</div>
+        <a href="https://whop.com/kuro-flow/kuroflow-mentoring" target="_blank" class="locked-btn">Empezar por €49/mes →</a>
+      </div>
     </div>
   </div>
+
 </div>
 
-
-<!-- HERRAMIENTAS CTA -->
-<div style="background:var(--ink2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:32px 48px">
-  <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
-    <div>
-      <div style="font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:6px">// Calculadoras gratuitas</div>
-      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem">Lot Size · Risk/Reward · Prop Firm Tracker</div>
-      <div style="font-size:0.78rem;color:var(--muted);margin-top:4px">Herramientas para operar mejor en prop firms — algunas gratis para todos.</div>
-    </div>
-    <a href="herramientas.html" style="font-family:'DM Mono',monospace;font-size:0.75rem;font-weight:700;letter-spacing:0.06em;padding:12px 28px;background:var(--gold);color:var(--ink);text-decoration:none;white-space:nowrap;flex-shrink:0;transition:opacity 0.2s" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Ver herramientas →</a>
-  </div>
-</div>
-
-<!-- FOOTER -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div>
-        <div class="footer-brand">
-          <div class="nav-dot"></div>
-          <span class="nav-brand">KuroFlow</span>
-        </div>
-        <p class="footer-tagline">Diario algorítmico cuantitativo.<br>Transparencia total. Datos primero.</p>
-        <div style="display:flex;gap:12px">
-          <a href="https://x.com/KuroFlowEA" target="_blank" style="font-size:0.7rem;color:rgba(245,243,238,0.25);text-decoration:none;letter-spacing:0.06em;transition:color 0.2s" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='rgba(245,243,238,0.25)'">X / Twitter</a>
-          <span style="color:rgba(255,255,255,0.1)">·</span>
-          <a href="https://whop.com/kuro-flow" target="_blank" style="font-size:0.7rem;color:rgba(245,243,238,0.25);text-decoration:none;letter-spacing:0.06em;transition:color 0.2s" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color='rgba(245,243,238,0.25)'">Discord</a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>Navegación</h4>
-        <ul>
-          <li><a href="#sistema">El sistema</a></li>
-          <li><a href="#como-funciona">Cómo funciona</a></li>
-          <li><a href="#sobre">Track Record</a></li>
-    <li><a href="#planes">Planes</a></li>
-          <li><a href="#prop-firms">Prop firms</a></li>
-          <li><a href="#sobre">Sobre mí</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="privacy.html">Política de privacidad</a></li>
-          <li><a href="terms.html">Términos y condiciones</a></li>
-          <li><a href="legal.html">Aviso legal</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Comunidad</h4>
-        <ul>
-          <li><a href="https://whop.com/kuro-flow/kuroflow-basic" target="_blank">Plan Basic</a></li>
-          <li><a href="https://whop.com/kuro-flow/kuroflow-pro" target="_blank">Plan Pro</a></li>
-          <li><a href="https://whop.com/kuro-flow/kuroflow-mentoring" target="_blank">Mentoring</a></li>
-          <li><a href="mailto:support@kuro-flow.com">Soporte</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p class="footer-legal">Todo el contenido publicado en kuro-flow.com tiene carácter exclusivamente educativo e informativo y no constituye asesoramiento financiero, recomendación de inversión ni gestión de capital de terceros. Los datos estadísticos mostrados corresponden a backtesting histórico y no garantizan resultados futuros. El trading de divisas, índices y materias primas conlleva un riesgo significativo de pérdida de capital. Cada usuario es responsable de sus propias decisiones de inversión. Diego Campero no está registrado como asesor de inversiones ante la CNMV ni ningún otro organismo regulador. © 2026 KuroFlow.</p>
-      <span class="footer-ver">[ VER 4.0.0 ]</span>
-    </div>
-  </div>
+  <p class="footer-legal">⚠️ Todas las herramientas son exclusivamente educativas. No constituyen asesoramiento financiero. El trading conlleva riesgo de pérdida de capital. © 2026 KuroFlow · <a href="riesgos.html" style="color:rgba(201,168,76,0.3)">Disclaimer</a> · <a href="terms.html" style="color:rgba(201,168,76,0.3)">Términos</a></p>
 </footer>
 
-
 <script>
-
-function submitLeadMagnet() {
-  var name = document.getElementById('lm-name').value.trim();
-  var email = document.getElementById('lm-email').value.trim();
-  var btn = document.getElementById('lm-btn');
-  var msg = document.getElementById('lm-msg');
-
-  if (!name) { 
-    showLmMsg('Por favor escribe tu nombre.', '#ed6e6e'); 
-    return; 
-  }
-  if (!email || !email.includes('@')) { 
-    showLmMsg('Por favor escribe un email válido.', '#ed6e6e'); 
-    return; 
-  }
-
-  btn.textContent = 'Enviando...';
-  btn.style.opacity = '0.6';
-  btn.disabled = true;
-
-  fetch('https://kuroflow-license-server.onrender.com/leadmagnet', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name: name, email: email })
-  })
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    if (data.ok) {
-      showLmMsg('✓ Enviado. Revisa tu bandeja de entrada.', '#6edd9e');
-      document.getElementById('lm-name').value = '';
-      document.getElementById('lm-email').value = '';
-    } else {
-      showLmMsg(data.error || 'Error al enviar. Inténtalo de nuevo.', '#ed6e6e');
-    }
-    btn.textContent = 'Enviarme la guía gratis →';
-    btn.style.opacity = '1';
-    btn.disabled = false;
-  })
-  .catch(function() {
-    showLmMsg('Error de conexión. Inténtalo de nuevo.', '#ed6e6e');
-    btn.textContent = 'Enviarme la guía gratis →';
-    btn.style.opacity = '1';
-    btn.disabled = false;
-  });
+// ─── TAB NAVIGATION ───────────────────────────────
+function showTab(id) {
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active') })
+  document.querySelectorAll('.tool-panel').forEach(function(p){ p.classList.remove('active') })
+  event.currentTarget.classList.add('active')
+  document.getElementById('panel-'+id).classList.add('active')
 }
 
-function showLmMsg(text, color) {
-  var msg = document.getElementById('lm-msg');
-  msg.style.display = 'block';
-  msg.style.color = color;
-  msg.style.background = color + '10';
-  msg.style.border = '1px solid ' + color + '30';
-  msg.textContent = text;
+// ─── LOT SIZE CALCULATOR ──────────────────────────
+var fxCache = {}
+
+function calcLotSize() {
+  var balance = parseFloat(document.getElementById('ls-balance').value) || 0
+  var risk = parseFloat(document.getElementById('ls-risk').value) || 0
+  var sl = parseFloat(document.getElementById('ls-sl').value) || 0
+  var pair = document.getElementById('ls-pair').value
+  var currency = document.getElementById('ls-currency').value
+  var fx = parseFloat(document.getElementById('ls-fx').value) || 1
+
+  if (!balance || !risk || !sl) return
+
+  var pipValues = { major: 10, jpy: 9.09, gold: 1 }
+  var pipVal = pipValues[pair] || 10
+  var pipLabels = { major: '$10/pip por lote', jpy: '≈$9.09/pip por lote', gold: '$1/pip por lote' }
+
+  var balanceUSD = currency === 'USD' ? balance : balance * fx
+  var riskUSD = balanceUSD * (risk / 100)
+  var lotSize = Math.floor((riskUSD / (sl * pipVal)) * 100) / 100
+  var currSym = { USD: '$', EUR: '€', GBP: '£' }[currency] || '$'
+
+  document.getElementById('ls-result-val').textContent = lotSize.toFixed(2)
+  document.getElementById('ls-risk-usd').textContent = currSym + (balance * risk / 100).toFixed(2) + (currency !== 'USD' ? ' ≈ $' + riskUSD.toFixed(2) : '')
+  document.getElementById('ls-pip-val').textContent = pipLabels[pair]
+  document.getElementById('ls-sl-val').textContent = sl + ' pips'
+  document.getElementById('ls-max-loss').textContent = '$' + (lotSize * sl * pipVal).toFixed(2)
+  document.getElementById('ls-breakdown').style.display = 'flex'
 }
 
-function calcLot() {
-  var balance = parseFloat(document.getElementById('balance').value) || 0;
-  var risk = parseFloat(document.getElementById('risk').value) || 0;
-  var sl = parseFloat(document.getElementById('sl').value) || 0;
-  var pair = document.getElementById('pair').value;
-  var accountCurrency = document.getElementById('account-currency').value;
-  var fxRate = parseFloat(document.getElementById('fx-rate').value) || 1;
-  if(balance <= 0 || risk <= 0 || sl <= 0) return;
-
-  // Convert balance to USD if account is not in USD
-  var balanceUSD = accountCurrency === 'USD' ? balance : balance * fxRate;
-  var riskAmountUSD = balanceUSD * (risk / 100);
-  var riskAmountLocal = balance * (risk / 100);
-
-  // Pip value per standard lot in USD
-  var pipValue, pipNote;
-  if(pair === 'major') {
-    pipValue = 10;
-    pipNote = '$10/pip por lote estándar';
-  } else if(pair === 'jpy') {
-    pipValue = 9.09;
-    pipNote = '≈$9.09/pip por lote estándar';
-  } else if(pair === 'gold') {
-    pipValue = 1;
-    pipNote = '$1/pip por lote estándar';
-  }
-
-  var lotSize = riskAmountUSD / (sl * pipValue);
-  lotSize = Math.floor(lotSize * 100) / 100;
-
-  var currencySymbol = accountCurrency === 'EUR' ? '€' : accountCurrency === 'GBP' ? '£' : '$';
-
-  document.getElementById('lot-result').style.display = 'block';
-  document.getElementById('lot-num').textContent = lotSize.toFixed(2) + ' lotes';
-  document.getElementById('lot-risk-usd').textContent =
-    'Riesgo: ' + currencySymbol + riskAmountLocal.toFixed(2) +
-    (accountCurrency !== 'USD' ? ' ≈ $' + riskAmountUSD.toFixed(2) : '') +
-    ' · ' + pipNote;
-}
-
-// Fetch real exchange rates and update calculator
-var fxRatesCache = {};
-
-function fetchFxRate(currency, callback) {
-  if(fxRatesCache[currency]) {
-    callback(fxRatesCache[currency]);
-    return;
-  }
-  // Use exchangerate-api free endpoint (no key needed for basic pairs)
-  fetch('https://api.exchangerate-api.com/v4/latest/' + currency)
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      var rate = data.rates['USD'];
-      fxRatesCache[currency] = rate;
-      callback(rate);
-    })
-    .catch(function(){
-      // Fallback to approximate rates if API fails
-      var fallback = {'EUR': 1.08, 'GBP': 1.27, 'CHF': 0.89};
-      callback(fallback[currency] || 1);
-    });
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  var sel = document.getElementById('account-currency');
-  if(sel) {
-    sel.addEventListener('change', function() {
-      var row = document.getElementById('fx-rate-row');
-      var currency = this.value;
-      if(currency !== 'USD') {
-        row.style.display = 'block';
-        document.getElementById('fx-rate-display').textContent = 'Cargando...';
-        fetchFxRate(currency, function(rate) {
-          document.getElementById('fx-rate').value = rate;
-          document.getElementById('fx-rate-display').textContent = 
-            '1 ' + currency + ' = ' + rate.toFixed(4) + ' USD';
-          document.getElementById('fx-rate-note').textContent = 
-            'Tipo de cambio en tiempo real · Actualizado ahora';
-        });
-      } else {
-        row.style.display = 'none';
-        document.getElementById('fx-rate').value = 1;
-      }
-    });
-  }
-});
-function toggleFaq(btn) {
-  var answer = btn.nextElementSibling;
-  var icon = btn.querySelector('.faq-icon');
-  var isOpen = answer.classList.contains('open');
-  document.querySelectorAll('.faq-a.open').forEach(function(el) {
-    el.classList.remove('open');
-    el.previousElementSibling.querySelector('.faq-icon').textContent = '+';
-  });
-  if (!isOpen) { answer.classList.add('open'); icon.textContent = '−'; }
-}
-</script>
-
-<script>
-function toggleFaq(btn) {
-  var answer = btn.nextElementSibling;
-  var icon = btn.querySelector('.faq-icon');
-  var isOpen = answer.classList.contains('open');
-  document.querySelectorAll('.faq-a.open').forEach(function(el) {
-    el.classList.remove('open');
-    el.previousElementSibling.querySelector('.faq-icon').textContent = '+';
-  });
-  if (!isOpen) {
-    answer.classList.add('open');
-    icon.textContent = '−';
-  }
-}
-</script>
-
-<script>
-// Countdown to end of month for launch price urgency
-function updateCountdown() {
-  var now = new Date();
-  var endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
-  var diff = endOfMonth - now;
-  var days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var el = document.getElementById('countdown');
-  if (el) el.textContent = days + 'd ' + hours + 'h restantes';
-}
-updateCountdown();
-setInterval(updateCountdown, 60000);
-</script>
-
-<!-- SOCIAL PROOF POPUPS -->
-<div id="sp-popup" style="position:fixed;bottom:24px;left:24px;z-index:999;max-width:280px;display:none;animation:spSlideIn 0.4s ease">
-  <div style="background:#0f0f12;border:1px solid rgba(201,168,76,0.2);padding:14px 16px;box-shadow:0 8px 32px rgba(0,0,0,0.4);display:flex;gap:12px;align-items:center">
-    <div id="sp-flag" style="font-size:1.6rem;flex-shrink:0;line-height:1"></div>
-    <div style="min-width:0">
-      <div id="sp-action" style="font-size:0.72rem;color:#f5f3ee;font-weight:700;font-family:'Syne',sans-serif;line-height:1.3;margin-bottom:3px"></div>
-      <div id="sp-detail" style="font-size:0.65rem;color:rgba(245,243,238,0.4);line-height:1.4"></div>
-    </div>
-    <button onclick="document.getElementById('sp-popup').style.display='none'" style="background:none;border:none;color:rgba(245,243,238,0.2);cursor:pointer;font-size:1rem;flex-shrink:0;padding:0;line-height:1">×</button>
-  </div>
-  <div style="position:absolute;bottom:-1px;left:0;right:0;height:2px;background:#c9a84c;transform-origin:left;animation:spProgress var(--sp-dur,6s) linear forwards" id="sp-bar"></div>
-</div>
-
-<style>
-@keyframes spSlideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
-@keyframes spProgress{from{width:100%}to{width:0%}}
-</style>
-
-<script>
-(function(){
-  // TODOS los países de habla hispana con varias ciudades por país
-  var countries = [
-    // España
-    {flag:'🇪🇸', city:'Madrid', country:'España'},
-    {flag:'🇪🇸', city:'Barcelona', country:'España'},
-    {flag:'🇪🇸', city:'Valencia', country:'España'},
-    {flag:'🇪🇸', city:'Sevilla', country:'España'},
-    {flag:'🇪🇸', city:'Bilbao', country:'España'},
-    {flag:'🇪🇸', city:'Málaga', country:'España'},
-    // México
-    {flag:'🇲🇽', city:'Ciudad de México', country:'México'},
-    {flag:'🇲🇽', city:'Monterrey', country:'México'},
-    {flag:'🇲🇽', city:'Guadalajara', country:'México'},
-    {flag:'🇲🇽', city:'Puebla', country:'México'},
-    // Argentina
-    {flag:'🇦🇷', city:'Buenos Aires', country:'Argentina'},
-    {flag:'🇦🇷', city:'Córdoba', country:'Argentina'},
-    {flag:'🇦🇷', city:'Rosario', country:'Argentina'},
-    // Colombia
-    {flag:'🇨🇴', city:'Bogotá', country:'Colombia'},
-    {flag:'🇨🇴', city:'Medellín', country:'Colombia'},
-    {flag:'🇨🇴', city:'Cali', country:'Colombia'},
-    // Chile
-    {flag:'🇨🇱', city:'Santiago', country:'Chile'},
-    {flag:'🇨🇱', city:'Valparaíso', country:'Chile'},
-    // Perú
-    {flag:'🇵🇪', city:'Lima', country:'Perú'},
-    {flag:'🇵🇪', city:'Arequipa', country:'Perú'},
-    // Venezuela
-    {flag:'🇻🇪', city:'Caracas', country:'Venezuela'},
-    {flag:'🇻🇪', city:'Maracaibo', country:'Venezuela'},
-    // Ecuador
-    {flag:'🇪🇨', city:'Quito', country:'Ecuador'},
-    {flag:'🇪🇨', city:'Guayaquil', country:'Ecuador'},
-    // Uruguay
-    {flag:'🇺🇾', city:'Montevideo', country:'Uruguay'},
-    // Paraguay
-    {flag:'🇵🇾', city:'Asunción', country:'Paraguay'},
-    // Bolivia
-    {flag:'🇧🇴', city:'La Paz', country:'Bolivia'},
-    {flag:'🇧🇴', city:'Santa Cruz', country:'Bolivia'},
-    // R. Dominicana
-    {flag:'🇩🇴', city:'Santo Domingo', country:'R. Dominicana'},
-    {flag:'🇩🇴', city:'Santiago', country:'R. Dominicana'},
-    // Cuba
-    {flag:'🇨🇺', city:'La Habana', country:'Cuba'},
-    // Guatemala
-    {flag:'🇬🇹', city:'Guatemala', country:'Guatemala'},
-    // Honduras
-    {flag:'🇭🇳', city:'Tegucigalpa', country:'Honduras'},
-    // El Salvador
-    {flag:'🇸🇻', city:'San Salvador', country:'El Salvador'},
-    // Nicaragua
-    {flag:'🇳🇮', city:'Managua', country:'Nicaragua'},
-    // Costa Rica
-    {flag:'🇨🇷', city:'San José', country:'Costa Rica'},
-    // Panamá
-    {flag:'🇵🇦', city:'Panamá', country:'Panamá'},
-    // Puerto Rico
-    {flag:'🇵🇷', city:'San Juan', country:'Puerto Rico'},
-    // Guinea Ecuatorial
-    {flag:'🇬🇶', city:'Malabo', country:'Guinea Ecuatorial'}
-  ]
-
-  var plans = [
-    {name:'Plan Basic', price:'€9/mes', weight:5},
-    {name:'Plan Pro', price:'€19/mes', weight:3},
-    {name:'Plan Mentoring', price:'€49/mes', weight:2}
-  ]
-
-  // Solo tiempos largos — no "hace 3 minutos" para no crear expectativa de actividad en Discord
-  var tiempos = [
-    'hace 2 horas','hace 3 horas','hace 5 horas',
-    'hace 8 horas','hace 12 horas','hace 1 día',
-    'hace 2 días','hace 3 días'
-  ]
-
-  var realQueue = []
-  var simuladosMostrados = 0
-  var MAX_SIMULADOS_POR_SESION = 2  // máximo 2 simulados por visita
-
-  function randFrom(arr){ return arr[Math.floor(Math.random()*arr.length)] }
-
-  function weightedPlan(){
-    var total = plans.reduce(function(s,p){return s+p.weight},0)
-    var r = Math.random()*total, acc = 0
-    for(var i=0;i<plans.length;i++){
-      acc += plans[i].weight
-      if(r < acc) return plans[i]
-    }
-    return plans[0]
-  }
-
-  function showPopup(flag, city, country, planName, planPrice, tiempo){
-    var popup = document.getElementById('sp-popup')
-    var bar = document.getElementById('sp-bar')
-
-    document.getElementById('sp-flag').textContent = flag
-    document.getElementById('sp-action').textContent = 'Nuevo miembro · ' + planName
-    document.getElementById('sp-detail').textContent = city + ', ' + country + ' · ' + planPrice + ' · ' + tiempo
-
-    bar.style.animation = 'none'
-    bar.offsetHeight
-    bar.style.animation = 'spProgress 8s linear forwards'
-
-    popup.style.display = 'flex'
-    popup.style.flexDirection = 'column'
-    popup.style.animation = 'none'
-    popup.offsetHeight
-    popup.style.animation = 'spSlideIn 0.4s ease'
-
-    setTimeout(function(){
-      popup.style.opacity = '0'
-      popup.style.transition = 'opacity 0.6s'
-      setTimeout(function(){
-        popup.style.display = 'none'
-        popup.style.opacity = '1'
-        popup.style.transition = ''
-      }, 600)
-    }, 8000)
-  }
-
-  function showNext(){
-    // Reales primero — siempre, sin límite
-    if(realQueue.length > 0){
-      var r = realQueue.shift()
-      showPopup(r.flag, r.city, r.country, r.plan, r.price, 'ahora mismo')
-      // Próximo real o simulado en 2-3 min
-      setTimeout(showNext, 120000 + Math.random()*60000)
-      return
-    }
-
-    // Simulados: máximo 2 por sesión, tiempos largos
-    if(simuladosMostrados < MAX_SIMULADOS_POR_SESION){
-      var loc = randFrom(countries)
-      var plan = weightedPlan()
-      var tiempo = randFrom(tiempos)
-      showPopup(loc.flag, loc.city, loc.country, plan.name, plan.price, tiempo)
-      simuladosMostrados++
-      // Próximo simulado entre 4 y 8 minutos
-      setTimeout(showNext, 240000 + Math.random()*240000)
-    }
-    // Si ya se mostraron 2 simulados — no más hasta que haya reales
-  }
-
-  // Primer popup tras 40 segundos (da tiempo a leer la página)
-  setTimeout(showNext, 40000)
-
-  // API para inyectar compras reales desde Whop
-  window.kfAddRealPurchase = function(city, country, flag, plan, price){
-    realQueue.push({city:city||'', country:country||'', flag:flag||'🌍', plan:plan, price:price})
-  }
-})()
-</script>
-
-
-<!-- KUROFLOW CHAT WIDGET -->
-<div id="kf-chat-btn" onclick="toggleChat()" style="position:fixed;bottom:24px;right:24px;z-index:1000;width:56px;height:56px;border-radius:50%;background:#c9a84c;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(201,168,76,0.4);transition:transform 0.2s" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="#0a0a0c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>
-</div>
-
-<div id="kf-chat-window" style="position:fixed;bottom:90px;right:24px;z-index:1000;width:360px;height:520px;background:#0f0f12;border:1px solid rgba(201,168,76,0.25);display:none;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,0.5);overflow:hidden">
-
-  <!-- Header -->
-  <div style="background:#0a0a0c;padding:16px 20px;border-bottom:1px solid rgba(201,168,76,0.15);display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
-    <div style="display:flex;align-items:center;gap:10px">
-      <div style="width:8px;height:8px;border-radius:50%;background:#6edd9e;animation:pulse 2s infinite"></div>
-      <div>
-        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:0.85rem;color:#f5f3ee">KuroFlow AI</div>
-        <div style="font-size:0.6rem;color:rgba(245,243,238,0.3);letter-spacing:0.06em">Pregúntame lo que quieras</div>
-      </div>
-    </div>
-    <button onclick="toggleChat()" style="background:none;border:none;color:rgba(245,243,238,0.3);cursor:pointer;font-size:1.2rem;padding:0;line-height:1">×</button>
-  </div>
-
-  <!-- Messages -->
-  <div id="kf-messages" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth">
-    <div class="kf-msg kf-msg-bot">
-      Hola 👋 Soy el asistente de KuroFlow.<br><br>
-      Puedo contarte todo sobre el sistema COMBO_TAC, los planes, las prop firms o cómo empezar.<br><br>
-      ¿Qué quieres saber?
-    </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="kf-chip" onclick="sendChip('¿Qué es COMBO_TAC?')">¿Qué es COMBO_TAC?</button>
-      <button class="kf-chip" onclick="sendChip('¿Cuánto cuesta?')">¿Cuánto cuesta?</button>
-      <button class="kf-chip" onclick="sendChip('¿Funciona en prop firms?')">¿Funciona en prop firms?</button>
-    </div>
-  </div>
-
-  <!-- Input -->
-  <div style="padding:12px 16px;border-top:1px solid rgba(255,255,255,0.06);display:flex;gap:8px;flex-shrink:0">
-    <input id="kf-input" type="text" placeholder="Escribe tu pregunta..." maxlength="300"
-      style="flex:1;background:#0a0a0c;border:1px solid rgba(255,255,255,0.08);color:#f5f3ee;font-family:'DM Mono',monospace;font-size:0.78rem;padding:10px 14px;outline:none;transition:border-color 0.2s"
-      onfocus="this.style.borderColor='#c9a84c'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'"
-      onkeydown="if(event.key==='Enter')sendMessage()">
-    <button onclick="sendMessage()" style="background:#c9a84c;border:none;color:#0a0a0c;padding:10px 14px;cursor:pointer;font-family:'DM Mono',monospace;font-size:0.78rem;font-weight:700;transition:opacity 0.2s" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">→</button>
-  </div>
-
-  <!-- Legal -->
-  <div style="padding:6px 16px 10px;font-size:0.58rem;color:rgba(245,243,238,0.15);text-align:center">
-    Contenido educativo · No es asesoramiento financiero
-  </div>
-</div>
-
-<style>
-.kf-msg{font-size:0.78rem;line-height:1.7;padding:12px 16px;max-width:85%}
-.kf-msg-bot{background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.12);color:rgba(245,243,238,0.85);align-self:flex-start;border-radius:0 12px 12px 12px}
-.kf-msg-user{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:rgba(245,243,238,0.7);align-self:flex-end;border-radius:12px 0 12px 12px}
-.kf-msg-typing{background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.12);color:rgba(201,168,76,0.6);align-self:flex-start;padding:12px 16px;font-size:0.75rem;border-radius:0 12px 12px 12px}
-.kf-chip{background:none;border:1px solid rgba(201,168,76,0.25);color:#c9a84c;font-family:'DM Mono',monospace;font-size:0.65rem;padding:5px 12px;cursor:pointer;transition:all 0.2s;letter-spacing:0.04em}
-.kf-chip:hover{background:rgba(201,168,76,0.08);border-color:rgba(201,168,76,0.5)}
-#kf-messages::-webkit-scrollbar{width:4px}
-#kf-messages::-webkit-scrollbar-track{background:transparent}
-#kf-messages::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.2)}
-</style>
-
-
-
-
-
-
-
-<!-- PROTECCIÓN DE CONTENIDO -->
-<script>
-// 1. Deshabilitar click derecho
-document.addEventListener('contextmenu', function(e){
-  e.preventDefault()
-  return false
-})
-
-// 2. Deshabilitar selección de texto con CSS dinámico
-document.addEventListener('DOMContentLoaded', function(){
-  var style = document.createElement('style')
-  style.innerHTML = [
-    '::selection{background:transparent}',
-    '::-moz-selection{background:transparent}',
-    'body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}'
-  ].join('')
-  document.head.appendChild(style)
-})
-
-// 3. Deshabilitar Ctrl+C, Ctrl+U, Ctrl+S, F12
-document.addEventListener('keydown', function(e){
-  // Ctrl+C, Ctrl+X, Ctrl+U, Ctrl+S, Ctrl+P
-  if(e.ctrlKey && [67,88,85,83,80].indexOf(e.keyCode) !== -1){
-    e.preventDefault()
-    return false
-  }
-  // F12
-  if(e.keyCode === 123){
-    e.preventDefault()
-    return false
-  }
-  // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C
-  if(e.ctrlKey && e.shiftKey && [73,74,67].indexOf(e.keyCode) !== -1){
-    e.preventDefault()
-    return false
-  }
-})
-
-// 4. Marca de agua invisible (fingerprinting Unicode)
-// Inserta caracteres de ancho cero entre palabras del contenido
-function addInvisibleWatermark(text, mark){
-  var zeroWidth = [
-    '\u200b', // Zero Width Space
-    '\u200c', // Zero Width Non-Joiner
-    '\u200d', // Zero Width Joiner
-    '\uFEFF'  // Zero Width No-Break Space
-  ]
-  var binary = mark.split('').map(function(c){
-    return c.charCodeAt(0).toString(2).padStart(8,'0')
-  }).join('')
-  var result = ''
-  var words = text.split(' ')
-  for(var i=0; i<words.length; i++){
-    result += words[i]
-    if(i < binary.length){
-      result += zeroWidth[binary[i] === '1' ? 1 : 0]
-    }
-    if(i < words.length-1) result += ' '
-  }
-  return result
-}
-
-// 5. Aviso si intentan copiar
-document.addEventListener('copy', function(e){
-  var selected = window.getSelection().toString()
-  if(selected.length > 30){
-    e.clipboardData.setData('text/plain',
-      selected + '\n\n© KuroFlow — kuro-flow.com\nContenido protegido. Todos los derechos reservados.'
-    )
-    e.preventDefault()
-  }
-})
-
-// 6. Detectar DevTools (dificulta inspección)
-var devtools = false
-var threshold = 160
-setInterval(function(){
-  if(window.outerWidth - window.innerWidth > threshold ||
-     window.outerHeight - window.innerHeight > threshold){
-    if(!devtools){
-      devtools = true
-      document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#0a0a0c;color:#c9a84c;font-family:monospace;text-align:center"><div><div style=\"font-size:2rem;margin-bottom:16px\">⚠️</div><div style=\"font-size:1rem\">Acceso restringido</div><div style=\"font-size:0.75rem;margin-top:8px;opacity:0.5\">kuro-flow.com</div></div></div>'
-    }
+document.getElementById('ls-currency').addEventListener('change', function() {
+  var grp = document.getElementById('ls-fx-group')
+  if (this.value !== 'USD') {
+    grp.style.display = 'flex'
+    var defaults = { EUR: 1.08, GBP: 1.27 }
+    document.getElementById('ls-fx').value = defaults[this.value] || 1
   } else {
-    devtools = false
+    grp.style.display = 'none'
   }
-}, 500)
-</script>
+})
 
+// ─── RISK/REWARD CALCULATOR ───────────────────────
+function calcRR() {
+  var entry = parseFloat(document.getElementById('rr-entry').value)
+  var sl = parseFloat(document.getElementById('rr-sl').value)
+  var tp = parseFloat(document.getElementById('rr-tp').value)
+  var dir = document.getElementById('rr-dir').value
 
-<script>
-var kfOpen = false
-var kfHistory = []
+  if (!entry || !sl || !tp) return
 
-function toggleChat(){
-  kfOpen = !kfOpen
-  var w = document.getElementById('kf-chat-window')
-  w.style.display = kfOpen ? 'flex' : 'none'
-  if(kfOpen) document.getElementById('kf-input').focus()
-}
-
-function linkify(text){
-  if(!text) return ''
-  // Match URLs with or without protocol
-  return text
-    .replace(/(https?:\/\/[^\s<]+)/g, function(url){
-      var clean = url.replace(/[.,;:!?]+$/, '')
-      return '<a href="' + clean + '" target="_blank" style="color:#c9a84c;text-decoration:underline;font-weight:700">' + clean + '</a>'
-    })
-    .replace(/(?<!["\/])((?:whop|kuro-flow|the5ers|ftmo|fortraders|app\.fortraders)\.(?:com|es)[^\s<,;:!?]*)/g, function(url){
-      var clean = url.replace(/[.,;:!?]+$/, '')
-      return '<a href="https://' + clean + '" target="_blank" style="color:#c9a84c;text-decoration:underline;font-weight:700">' + clean + '</a>'
-    })
-    .replace(/\n/g, '<br>')
-}
-
-function addMessage(text, type){
-  var msgs = document.getElementById('kf-messages')
-  if(!msgs) return null
-  var chips = msgs.querySelector('.kf-chips-wrap')
-  if(chips) chips.remove()
-  var div = document.createElement('div')
-  div.className = 'kf-msg kf-msg-' + type
-  if(type === 'bot'){
-    div.innerHTML = linkify(text || '')
+  var risk, reward
+  if (dir === 'long') {
+    risk = Math.abs(entry - sl)
+    reward = Math.abs(tp - entry)
   } else {
-    div.textContent = text || ''
+    risk = Math.abs(sl - entry)
+    reward = Math.abs(entry - tp)
   }
-  msgs.appendChild(div)
-  msgs.scrollTop = msgs.scrollHeight
-  return div
+
+  if (risk === 0) return
+
+  var rr = reward / risk
+  var minWR = Math.round((1 / (1 + rr)) * 100)
+
+  var rating, ratingColor
+  if (rr >= 2) { rating = '✓ Excelente'; ratingColor = '#6edd9e' }
+  else if (rr >= 1.5) { rating = '✓ Bueno'; ratingColor = '#6edd9e' }
+  else if (rr >= 1) { rating = '⚠ Aceptable'; ratingColor = '#c9a84c' }
+  else { rating = '✗ Bajo'; ratingColor = '#ed6e6e' }
+
+  var toFixed = entry < 100 ? 4 : entry < 1000 ? 2 : 1
+  var riskPips = (risk * (entry < 10 ? 100 : entry < 100 ? 10000 : 10)).toFixed(0)
+  var rewardPips = (reward * (entry < 10 ? 100 : entry < 100 ? 10000 : 10)).toFixed(0)
+
+  document.getElementById('rr-result-val').textContent = '1:' + rr.toFixed(2)
+  document.getElementById('rr-result-val').style.color = ratingColor
+  document.getElementById('rr-result-label').textContent = rating
+  document.getElementById('rr-risk-pips').textContent = riskPips + ' pips'
+  document.getElementById('rr-reward-pips').textContent = rewardPips + ' pips'
+  document.getElementById('rr-min-wr').textContent = minWR + '%'
+  document.getElementById('rr-rating').textContent = rating
+  document.getElementById('rr-rating').style.color = ratingColor
+  document.getElementById('rr-breakdown').style.display = 'flex'
 }
 
-function removeTyping(el){
-  try { if(el && el.parentNode) el.remove() } catch(e){}
-}
-
-function sendChip(text){
-  var input = document.getElementById('kf-input')
-  if(input){ input.value = text; sendMessage() }
-}
-
-async function sendMessage(){
-  var input = document.getElementById('kf-input')
-  if(!input) return
-  var text = input.value.trim()
-  if(!text) return
-  input.value = ''
-  addMessage(text, 'user')
-  kfHistory.push({"role":"user","content":text})
-  var typing = addMessage('Escribiendo...', 'typing')
-  try {
-    var res = await fetch('https://kuroflow-license-server.onrender.com/chat', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({messages: kfHistory.slice(-8)})
-    })
-    var data = await res.json()
-    removeTyping(typing)
-    if(data && data.ok && data.reply){
-      addMessage(data.reply, 'bot')
-      kfHistory.push({"role":"assistant","content":data.reply})
-    } else {
-      addMessage('Lo siento, hubo un error. Escribe a support@kuro-flow.com', 'bot')
+// Recalculate on enter
+document.querySelectorAll('#panel-lot input, #panel-rr input').forEach(function(inp) {
+  inp.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      if (this.id.startsWith('ls-')) calcLotSize()
+      else calcRR()
     }
-  } catch(e) {
-    removeTyping(typing)
-    addMessage('Error de conexion. Escribe a support@kuro-flow.com', 'bot')
-  }
-}
-
-document.addEventListener('DOMContentLoaded', function(){
-  var inp = document.getElementById('kf-input')
-  if(inp) inp.addEventListener('keydown', function(e){
-    if(e.key === 'Enter') sendMessage()
   })
 })
 
+// Auto-calc on load
+calcLotSize()
 </script>
 </body>
 </html>
