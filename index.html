@@ -248,6 +248,10 @@ footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--b
   .footer-top{grid-template-columns:1fr 1fr}
 }
 @media(max-width:768px){
+  .sistema-row-val{font-size:0.82rem}
+  .sistema-row-label{font-size:0.68rem}
+  [style*="grid-template-columns:1fr auto"]{grid-template-columns:1fr!important}
+  [style*="min-width:120px"]{max-width:100%!important;display:flex;gap:16px;justify-content:flex-start}
   nav{padding:16px 20px}
   .nav-links{display:none}
   #hero{padding:0 20px;min-height:auto;padding-top:100px;padding-bottom:60px;overflow-x:hidden}
@@ -617,11 +621,11 @@ footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--b
     <div style="background:#0a0a0c;border:1px solid rgba(201,168,76,0.35);padding:32px;margin-bottom:32px;position:relative;overflow:hidden">
       <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#c9a84c,rgba(201,168,76,0.2))"></div>
 
-      <div style="display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;flex-wrap:wrap">
+      <div style="display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start;flex-wrap:wrap">
         <div>
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
             <div style="width:8px;height:8px;border-radius:50%;background:#c9a84c;animation:pulse 2s infinite;flex-shrink:0"></div>
-            <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:#c9a84c;letter-spacing:-0.01em">KuroFlow está comenzando — y tú puedes ser de los primeros.</span>
+            <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:0.9rem;color:#c9a84c;letter-spacing:-0.02em">KuroFlow está comenzando — y tú puedes ser de los primeros.</span>
           </div>
           <p style="font-size:0.84rem;color:rgba(245,243,238,0.55);line-height:1.85;margin-bottom:16px">
             Estamos en la fase de lanzamiento. El Discord es nuevo, la comunidad se está formando y el track record en vivo está empezando a construirse ahora mismo.<br><br>
@@ -634,7 +638,7 @@ footer{background:var(--ink);padding:64px 48px 40px;border-top:1px solid var(--b
           </div>
         </div>
 
-        <div style="text-align:center;flex-shrink:0;min-width:140px">
+        <div style="text-align:center;flex-shrink:0;min-width:120px;max-width:140px">
           <div style="font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-bottom:8px">Precio fundador</div>
           <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:2.4rem;color:#c9a84c;line-height:1">€9</div>
           <div style="font-size:0.7rem;color:rgba(245,243,238,0.3);margin-top:4px">/mes · bloqueado</div>
